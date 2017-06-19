@@ -1,0 +1,99 @@
+<include file="public:top_menu" />
+
+<div class="control-bar">
+    <h3><?php echo $title;?></h3>
+</div>
+
+<div class="data-container">
+    <table>
+        <thead>
+        <tr>
+            <th>创建时间</th>
+            <th>约见明星</th>
+            <th>活动名称</th>
+            <th>目的城市</th>
+            <th>消费者</th>
+            <th>状态</th>
+            <th>约见总金额</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="pagination"></div>
+</div>
+
+<div data-remodal-id="addMeetModal" class="remodal addMeetModal">
+    <div class="remodal-head">
+        <div class="remodal-title">约见信息</div>
+        <div data-remodal-action="cancel" class="remodal-close"></div>
+    </div>
+    <div class="remodal-body">
+        <form class="modalForm" enctype="multipart/form-data">
+            <input type="text" name="id" style="display: none">
+            <div class="form-control">
+                <label>明星姓名</label>
+                <input type="text" name="starname" readonly>
+            </div>
+            <div class="form-control">
+                <label>明星编号</label>
+                <input type="text" name="starcode" value="">
+            </div>
+            <div class="form-control">
+                <label>粉丝昵称</label>
+                <input type="text" name="nickname">
+            </div>
+            <div class="form-control">
+                <label>创建时间</label>
+                <input type="text" name="addtime" value="">
+            </div>
+            <div class="form-control">
+                <label>约见类型</label>
+                <input type="text" name="meettype" value="">
+            </div>
+            <div class="form-control">
+                <label>目的城市</label>
+                <input type="text" name="place">
+            </div>
+            <div class="form-control">
+                <label>约见日期</label>
+                <input type="text" name="timer" value="">
+            </div>
+            <div class="form-control">
+                <label>约见状态</label>
+                <input type="text" name="status" value="">
+            </div>
+            <div class="form-control">
+                <label>约见总金额</label>
+                <input type="text" name="price" value="">
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="browse" class="browse">
+</div>
+
+<script src="__JS__/vendor/require.js" data-main="__JS__/common"></script>
+<script>
+    function status(obj) {
+        var _this = $(obj);
+        var id = _this.attr("data-id");
+        $.ajax({
+            type: "POST",
+            url: "__ROOTHOME__/Meet/status",
+            dataType: "json",
+            data: {id : id},
+            success: function(msg){
+                alert(msg.message);
+                window.location.reload(true);
+            }
+        });
+    }
+    require(['common'], function () {
+        require(['page/meet']);
+    });
+</script>
+
+<include file="public:footer" />

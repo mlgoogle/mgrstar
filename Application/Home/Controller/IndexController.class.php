@@ -1,0 +1,16 @@
+<?php
+namespace Home\Controller;
+use Think\Controller;
+class IndexController extends Controller {
+
+    public function index()
+    {
+      echo '123';exit;
+    }
+    public function login(){
+
+      echo '123';exit;
+    }
+
+
+}
