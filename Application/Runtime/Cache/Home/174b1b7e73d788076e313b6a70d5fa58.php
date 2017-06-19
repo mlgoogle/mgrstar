@@ -55,7 +55,7 @@
         <li class="pli">
             <a href="javascript:;" <?php if(in_array(CONTROLLER_NAME, $cusArr)){echo 'class="active"';} ?>><i class="icon-tags"></i><strong> 消费者管理</strong></a>
             <ul class="submenu">
-                <li><a href="/work/star/mgrstar/index.php/Home/Customer/listing" <?php if(CONTROLLER_NAME == 'Customer' && ACTION_NAME =='listing'){echo 'class="act"';} ?>>消费者列表</a></li>
+                <li><a href="/work/star/mgrstar/index.php/Home/Customer/customer" <?php if(CONTROLLER_NAME == 'Customer' && ACTION_NAME =='customer'){echo 'class="act"';} ?>>消费者列表</a></li>
                 <!--<li><a href="#">分享统计列表</a></li>-->
             </ul>
         </li>

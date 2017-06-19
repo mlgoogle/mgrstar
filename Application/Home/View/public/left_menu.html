@@ -31,7 +31,7 @@
         <li class="pli">
             <a href="javascript:;" <php>if(in_array(CONTROLLER_NAME, $cusArr)){echo 'class="active"';}</php>><i class="icon-tags"></i><strong> 消费者管理</strong></a>
             <ul class="submenu">
-                <li><a href="__ROOTHOME__/Customer/listing" <php>if(CONTROLLER_NAME == 'Customer' && ACTION_NAME =='listing'){echo 'class="act"';}</php>>消费者列表</a></li>
+                <li><a href="__ROOTHOME__/Customer/customer" <php>if(CONTROLLER_NAME == 'Customer' && ACTION_NAME =='customer'){echo 'class="act"';}</php>>消费者列表</a></li>
                 <!--<li><a href="#">分享统计列表</a></li>-->
             </ul>
         </li>
@@ -74,10 +74,15 @@
 
                 //只留一个选中样式的菜单
                 $(".pli a").removeClass('active');
-                $(this).children('a').addClass('active');
+                $(".pli ul").each(function () {
+                    $(this).hide();
+                    $(this).removeClass("open");
+                })
+                $(this).addClass('active');
 
                 //是否已是选中状态 | 取消选中
                 var isOpen   = (box).hasClass('open');
+                
                 if (box != undefined && isOpen == false) {
                     box.show();
                     box.addClass("open");
@@ -92,7 +97,6 @@
                 box.show();
                 box.addClass("open");
             }
-
         });
     });
 </script>
