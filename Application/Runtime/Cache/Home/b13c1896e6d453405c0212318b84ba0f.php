@@ -5,57 +5,58 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <title><?php echo (!empty($title)) ? $title : '星享后台' ?></title>
-    <link rel="stylesheet" href="/htdocs/Public/template/assets/css/index.min.css">
-    <!--<link rel="stylesheet" href="/htdocs/Public/template/assets/css/bootstrap/css/bootstrap.css">-->
+    <link rel="stylesheet" href="/work/star/mgrstar/Public/template/assets/css/index.min.css">
+    <!--<link rel="stylesheet" href="/work/star/mgrstar/Public/template/assets/css/bootstrap/css/bootstrap.css">-->
 
-    <script src="/htdocs/Public/template/assets/js/vendor/jquery.min.js" data-main="/htdocs/Public/template/assets/js/common"></script>
+    <script src="/work/star/mgrstar/Public/template/assets/js/vendor/jquery.min.js" data-main="/work/star/mgrstar/Public/template/assets/js/common"></script>
     <script>
-        var publicUrl = "/htdocs/Public";
-        var rootUrl = "/htdocs/index.php/Home";
+        var publicUrl = "/work/star/mgrstar/Public";
+        var rootUrl = "/work/star/mgrstar/index.php/Home";
     </script>
 </head>
 <body>
 <div class="wrap">
     <div class="header">
         <div class="clearfix layout">
-            <h1><a href="/htdocs/index.php/Home/AdminBacker/index">星享管理系统</a></h1>
+            <h1><a href="/work/star/mgrstar/index.php/Home/AdminBacker/index">星享管理系统</a></h1>
             <div>
-                <span class="spantext" >管理员：<?php echo ($user['uid']); ?>,<a style="color:#FF0000;" href="/htdocs/index.php/Home/login/doLoginout" onclick="return confirm('确定退出本系统?')" >系统退出</a></span>
+                <span class="spantext" >管理员：<?php echo ($user['uid']); ?>,<a style="color:#FF0000;" href="/work/star/mgrstar/index.php/Home/login/doLoginout" onclick="return confirm('确定退出本系统?')" >系统退出</a></span>
             </div>
         </div>
     </div>
     <div class="main">
         <style>
     .submenu{display: none;}
-    .submenu li{color: #CCCCCC;padding-left: 20px;width: 65%;}
+    .submenu li{color: #CCCCCC;}
+    .act{background-color: #FFB6C1}
     .select{border-bottom: 2px dashed red;}
     .icon-star-img {
         width: 120px;
     }
 </style>
 <?php
- $starArr = array('Star', 'Info', 'Lucida', 'Appoint', 'Timer', 'Meet'); $cusArr = array( 'Customer'); ?>
+ $starArr = array('Star', 'Info', 'Lucida', 'Meet', 'Appoint', 'Timer'); $cusArr = array( 'Customer'); $starCtr = array('carousel', 'listing', 'meet', 'appoint'); ?>
 <div class="sidebar">
     <ul class="nav-list">
         <li class="pli">
-            <a href="/htdocs/index.php/Home/AdminBacker/index" <?php if(CONTROLLER_NAME == 'AdminBacker'){echo 'class="active"';} ?>><i class="icon-home"></i><strong> 后台管理</strong></a>
+            <a href="/work/star/mgrstar/index.php/Home/AdminBacker/index" <?php if(CONTROLLER_NAME == 'AdminBacker'){echo 'class="active"';} ?>><i class="icon-home"></i><strong> 后台管理</strong></a>
         </li>
         <li class="pli">
             <a href="javascript:;" <?php if(in_array(CONTROLLER_NAME, $starArr)){echo 'class="active"';} ?>><i class="icon-star"></i><strong> 明星管理</strong></a>
             <ul class="submenu">
-                <li><a href="/htdocs/index.php/Home/Star/carousel">轮播列表</a></li>
-                <li><a href="/htdocs/index.php/Home/Info/listing">资讯列表</a></li>
-                <li><a href="/htdocs/index.php/Home/Lucida/listing">明星列表</a></li>
-                <li><a href="/htdocs/index.php/Home/Meet/meet">约见管理</a></li>
-                <li><a href="/htdocs/index.php/Home/Appoint/appoint">约见类型管理</a></li>
-                <li><a href="/htdocs/index.php/Home/Timer/listing">明星时间管理</a></li>
+                <li><a href="/work/star/mgrstar/index.php/Home/Star/carousel" <?php if(CONTROLLER_NAME == 'Star' && ACTION_NAME =='carousel'){echo 'class="act"';} ?>>轮播列表</a></li>
+                <li><a href="/work/star/mgrstar/index.php/Home/Info/listing" <?php if(CONTROLLER_NAME == 'Info' && ACTION_NAME =='listing'){echo 'class="act"';} ?>>资讯列表</a></li>
+                <li><a href="/work/star/mgrstar/index.php/Home/Lucida/listing" <?php if(CONTROLLER_NAME == 'Lucida' && ACTION_NAME =='listing'){echo 'class="act"';} ?>>明星列表</a></li>
+                <li><a href="/work/star/mgrstar/index.php/Home/Meet/meet" <?php if(CONTROLLER_NAME == 'Meet' && ACTION_NAME =='meet'){echo 'class="act"';} ?>>约见管理</a></li>
+                <li><a href="/work/star/mgrstar/index.php/Home/Appoint/appoint" <?php if(CONTROLLER_NAME == 'Appoint' && ACTION_NAME =='appoint'){echo 'class="act"';} ?>>约见类型管理</a></li>
+                <li><a href="/work/star/mgrstar/index.php/Home/Timer/listing" <?php if(CONTROLLER_NAME == 'Timer' && ACTION_NAME =='listing'){echo 'class="act"';} ?>>明星时间管理</a></li>
             </ul>
         </li>
         <li class="pli">
             <a href="javascript:;" <?php if(in_array(CONTROLLER_NAME, $cusArr)){echo 'class="active"';} ?>><i class="icon-tags"></i><strong> 消费者管理</strong></a>
             <ul class="submenu">
-                <li><a href="/htdocs/index.php/Home/Customer/listing">消费者列表</a></li>
-                <li><a href="#">分享统计列表</a></li>
+                <li><a href="/work/star/mgrstar/index.php/Home/Customer/customer" <?php if(CONTROLLER_NAME == 'Customer' && ACTION_NAME =='customer'){echo 'class="act"';} ?>>消费者列表</a></li>
+                <!--<li><a href="#">分享统计列表</a></li>-->
             </ul>
         </li>
         <li class="pli">
@@ -97,10 +98,15 @@
 
                 //只留一个选中样式的菜单
                 $(".pli a").removeClass('active');
-                $(this).children('a').addClass('active');
+                $(".pli ul").each(function () {
+                    $(this).hide();
+                    $(this).removeClass("open");
+                })
+                $(this).addClass('active');
 
                 //是否已是选中状态 | 取消选中
                 var isOpen   = (box).hasClass('open');
+                
                 if (box != undefined && isOpen == false) {
                     box.show();
                     box.addClass("open");
@@ -115,7 +121,6 @@
                 box.show();
                 box.addClass("open");
             }
-
         });
     });
 </script>
@@ -136,22 +141,22 @@
 </style>
 <ul class="thumbnails">
     <li class="span4">
-        <a href="/htdocs/index.php/Home/Star/carousel" class="thumbnail">
+        <a href="/work/star/mgrstar/index.php/Home/Star/carousel" class="thumbnail">
             明星管理
         </a>
     </li>
     <li class="span4">
-        <a href="/htdocs/index.php/Home/Customer/customerList" class="thumbnail">
+        <a href="/work/star/mgrstar/index.php/Home/Customer/customer" class="thumbnail">
             消费者管理
         </a>
     </li>
     <li class="span4">
-        <a href="/htdocs/index.php/Home/DataSearch/fund" class="thumbnail">
+        <a href="javascript:;" class="thumbnail">
             数据查询
         </a>
     </li>
     <li class="span4">
-        <a href="/htdocs/index.php/Home/SystemAccount/accontRights" class="thumbnail">
+        <a href="javascript:;" class="thumbnail">
             系统账户管理
         </a>
     </li>
