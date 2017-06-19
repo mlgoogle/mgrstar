@@ -1,0 +1,74 @@
+<include file="public:top_menu" />
+
+<div class="control-bar">
+    <a href="javascript:;" class="btn J_showAdd">新建</a>
+    <a href="javascript:;" class="btn J_onDel">删除</a>
+</div>
+
+<div class="data-container">
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>编号</th>
+            <th>创建时间</th>
+            <th>约见类型</th>
+            <th>消耗秒数</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="pagination"></div>
+</div>
+
+<div data-remodal-id="addAppointModal" class="remodal addAppointModal">
+    <div class="remodal-head">
+        <div class="remodal-title">约见类型</div>
+        <div data-remodal-action="cancel" class="remodal-close"></div>
+    </div>
+    <div class="remodal-body">
+        <form class="modalForm" enctype="multipart/form-data">
+            <input type="text" name="id" style="display: none">
+            <div class="form-control">
+                <label>约见类型</label>
+                <input type="text" name="appointname">
+            </div>
+            <div class="form-control">
+                <label>消耗秒数</label>
+                <input type="text" name="micro" value="">
+            </div>
+        </form>
+    </div>
+    <div class="remodal-footer">
+        <a href="javascript:;"  class="remodal-confirm">确认</a>
+    </div>
+</div>
+
+<div id="browse" class="browse">
+</div>
+
+<script src="__JS__/vendor/require.js" data-main="__JS__/common"></script>
+<script>
+    function status(obj) {
+        var _this = $(obj);
+        var id = _this.attr("data-id");
+        $.ajax({
+            type: "POST",
+            url: "__ROOTHOME__/Appoint/status",
+            dataType: "json",
+            data: {id : id},
+            success: function(msg){
+                alert(msg.message);
+                window.location.reload(true);
+            }
+        });
+    }
+    require(['common'], function () {
+        require(['page/appoint']);
+    });
+</script>
+
+<include file="public:footer" />
