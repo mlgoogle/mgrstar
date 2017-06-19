@@ -1,0 +1,36 @@
+
+<div data-remodal-id="addUserModal" class="remodal addUserModal">
+  <div class="remodal-head">
+    <div class="remodal-title">添加用户</div>
+    <div data-remodal-action="cancel" class="remodal-close"></div>
+  </div>
+  <div class="remodal-body">
+    <form class="modalForm">
+      <div class="form-control">
+        <label>所属机构</label>
+        <input type="text" name="orgName"/>
+      </div>
+      <div class="form-control">
+        <label>登录账号</label>
+        <input type="text" name="username" class="w200"/><a href="javascript:;" class="check-code J_checkUsername">检测可用</a>
+      </div>
+      <div class="form-control">
+        <label>登录密码</label>
+        <input type="text" name="password"/>
+      </div>
+      <div class="form-control">
+        <label>用户名称</label>
+        <input type="text" name="nickname"/>
+      </div>
+      <div class="form-control">
+        <label>所属角色</label>
+        <select name="orgType">
+          <option value="0">客服</option>
+          <option value="1">结算专员</option>
+          <option value="2">后台维护管理员</option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <div class="remodal-footer"><a href="javascript:;" class="remodal-confirm">确 定</a></div>
+</div>

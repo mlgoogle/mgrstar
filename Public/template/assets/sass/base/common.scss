@@ -1,0 +1,266 @@
+@import
+"_mixin",
+"_variables",
+"base",
+"../vendor/pagination",
+"../vendor/jquery.datetimepicker",
+//"../vendor/notie",
+"../vendor/layer",
+"../vendor/remodal";
+body{
+    min-width: 1030px;
+}
+select,
+input[type=text],
+input[type=password],
+input[type=email] {
+    border: 1px solid $borderColor;
+    height: 30px;
+    padding-left: 5px;
+}
+
+
+// 文字
+.text-red{
+    color: $red;
+}
+.text-blue{
+    color: $blue;
+}
+.text-yellow{
+    color: $yellow;
+}
+.error-tips{
+    color: $red;
+}
+
+
+
+.hide{
+    display: none;
+}
+.btn{
+    @include button($height:30px);
+    display: inline-block;
+}
+
+.wrap {
+    .header{
+        position: fixed;
+        width: 100%;
+        height: $navHeight;
+        background-color: #d5dde4;
+        line-height: $navHeight;
+        font-size: 18px;
+        color: #fff;
+        h1{
+            text-align: center;
+            float: left;
+            width: $sidebarWidth;
+            font-size: 18px;
+            background-color: #354656;
+            a{
+                color: #fff;
+            }
+        }
+        div{
+            a{
+                display: inline-block;
+                width: 150px;
+                text-align: center;
+                color: #fff;
+                &.active{
+                    background-color: $red;
+                }
+            }
+        }
+    }
+    .main {
+        .sidebar{
+            position: fixed;
+            top: $navHeight;
+            bottom: 0;
+            left: 0;
+            width: $sidebarWidth;
+            background-color: #4c5e70;
+            line-height: 50px;
+            a{
+                display: block;
+                padding-left:20px;
+                color: #fff;
+                &.active{
+                    background-color: #ff5144;
+                }
+            }
+        }
+        .content{
+            padding-top: $navHeight;
+            margin-left: $sidebarWidth;
+            .search-bar{
+                margin: 20px;
+                padding: 20px;
+                border: 1px solid $borderColor;
+                background-color: #fff;
+                select,
+                input[type=text]{
+                    width: 120px;
+                    margin-right: 15px;
+                    &#dateStart{
+                        margin-right: 0;
+                    }
+                }
+                input.picker{
+                    background: url(../../images/datepicker.png) right no-repeat #fff;
+                }
+                span{
+                    color: #999;
+                }
+                .btn{
+                    float: right;
+                    margin-left: 15px;
+                }
+            }
+            .control-bar{
+                margin: 20px;
+                padding: 20px;
+                border: 1px solid $borderColor;
+                background-color: #fff;
+                .btn{
+                    margin-right: 15px;
+                }
+            }
+
+            .data-container{
+                margin: 20px;
+                background-color: #fff;
+                .tab-btns{
+                    @extend .clearfix;
+                    border-bottom: 2px solid $blue;
+                    a{
+                        float: left;
+                        width: 120px;
+                        text-align: center;
+                        line-height: 34px;
+                        color: #666;
+                        &.active{
+                            background-color: $blue;
+                            color: #fff;
+                        }
+                    }
+                }
+                table{
+                    border-collapse: collapse;
+                    width: 100%;
+                    tr{
+                        td,th{
+                            border: 1px solid $borderColor;
+                            text-align: center;
+                            line-height: 30px;
+                        }
+                        th{
+                            line-height: 40px;
+                        }
+                    }
+                }
+                .count-table{
+                    min-width: 790px;
+                    overflow: auto;
+                    td{
+                        min-width: 80px;
+                    }
+                }
+            }
+            .pwd-form{
+                margin: 20px;
+                padding: 50px 20px;
+                border: 1px solid $borderColor;
+                background-color: #fff;
+                h5{
+                    font-size: 20px;
+                    margin-bottom: 30px;
+                }
+                .form-control{
+                    padding-bottom: 30px;
+                    label{
+                        display: inline-block;
+                        width: 100px;
+                        text-align: right;
+                    }
+                    input[type="text"],
+                    input[type="password"]{
+                        width: 300px;
+                        &.w200{
+                            width: 200px;
+                        }
+                    }
+                    a{
+                        padding: 0;
+                        @extend .btn;
+                        &.check-code{
+                            width: 100px;
+                        }
+                        &.submit{
+                            width: 300px;
+                        }
+                    }
+                }
+                .btn{
+                    width: 300px;
+                }
+
+            }
+        }
+    }
+}
+
+.remodal{
+    form{
+        padding: 50px 20px 0;
+        .form-control{
+            padding-bottom: 20px;
+            label{
+                display: inline-block;
+                width: 80px;
+                text-align: right;
+                margin-right: 10px;
+            }
+            select,
+            input[type="text"],
+            input[type="password"]{
+                width: 300px;
+                &.w200{
+                    width: 200px;
+                }
+            }
+            a{
+                padding: 0;
+                @extend .btn;
+                &.check-code{
+                    width: 100px;
+                }
+                &.submit{
+                    width: 300px;
+                }
+            }
+        }
+        .btn{
+            width: 300px;
+        }
+    }
+}
+
+.icon-loading{
+    margin: 0 !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    background-color: rgba(0,0,0, .2);
+    &:after{
+        display: block;
+        content: '';
+        @include loadIcon($color: #ffffff);
+    }
+}

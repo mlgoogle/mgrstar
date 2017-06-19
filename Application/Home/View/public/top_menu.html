@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <title><php>echo (!empty($title)) ? $title : '星享后台'</php></title>
+    <link rel="stylesheet" href="__CSS__/index.min.css">
+    <!--<link rel="stylesheet" href="__CSS__/bootstrap/css/bootstrap.css">-->
+
+    <script src="__JS__/vendor/jquery.min.js" data-main="__JS__/common"></script>
+</head>
+<body>
+<div class="wrap">
+    <div class="header">
+        <div class="clearfix layout">
+            <h1><a href="__ROOTHOME__/AdminBacker/index">星享管理系统</a></h1>
+            <div>
+                <span class="spantext" >管理员：{$user['uname']},<a style="color:#FF0000;" href="__ROOTHOME__/login/doLoginout" onclick="return confirm('确定退出本系统?')" >系统退出</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <include file="public:left_menu" />
+        <div class="content">
