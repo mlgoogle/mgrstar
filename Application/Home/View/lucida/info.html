@@ -1,0 +1,271 @@
+<include file="public:top_menu" />
+<link rel="stylesheet" href="__CSS__/modals/jquery.datetimepicker.min.css">
+<script src="__JS__/vendor/jquery.datetimepicker.js" data-main="__JS__/common"></script>
+
+<style>
+    .form-control label {
+        width: 110px;
+        display: inline-block;
+        text-align: right;
+        padding: 10px 10px;
+    }
+    .mybtn{
+        display: inline-block;
+        width: 40px;
+        border:1px solid #CCCCCC;
+        border-radius: 4px;
+        height: 30px;
+        line-height: 30px;
+        cursor: pointer;
+    }
+    .icon-star-img {
+        width: 120px;
+    }
+    .exp {
+        width: 60%;
+        margin:10px 14.6%;
+        line-height: 25px;
+    }
+    li{ list-style-type:none; }
+    .close_exp {
+        color: red;
+        font-weight: normal;
+        display: inline;
+        cursor:pointer;
+        font-size: 12px;
+        float: right;
+        width: 30px;
+    }
+    .lucida-div {
+
+    }
+    .lucida-div img {
+        height: 240px;
+        margin: 10px;
+    }
+</style>
+
+<div class="control-bar">
+    <h3><a href="__ROOTHOME__/Lucida/listing">返回</a>   明星信息</h3>
+</div>
+
+<div class="data-container">
+    <div style="margin:auto;width: 50%;padding: 25px;">
+        <div class="remodal-body">
+            <form class="modalForm" enctype="multipart/form-data">
+                <input type="hidden" name="uid" value="<?php echo $item['uid'];?>">
+                <div class="form-control">
+                    <label>明星名称</label>
+                    <input type="text" name="name" value="<?php echo $item['name'];?>">
+                </div>
+                <div class="form-control">
+                    <label>明星ID</label>
+                    <input type="text" name="code" value="<?php echo $item['code'];?>">
+                </div>
+                <div class="form-control control-label">
+                    <label>国 籍</label>
+                    <input type="text" name="nationality" value="<?php echo $item['nationality'];?>" />
+                </div>
+
+                <div class="form-control">
+                    <label>出生年月</label>
+                    <input type="text" name="birth" id="datepicker" value="<?php echo $item['birth'];?>">
+                </div>
+                <div class="form-control">
+                    <label>职 业</label>
+                    <input type="text" name="work" value="<?php echo $item['work'];?>">
+                </div>
+
+                <div class="form-control">
+                    <label>毕业院校</label>
+                    <input type="text" name="colleage" value="<?php echo $item['colleage'];?>">
+                </div>
+                <?php if (count($item) > 0) { ?>
+                        <div class="form-control">
+                            <label>主要经历</label>
+                            <input type="text" name="exp" /> <a href="javascript:;" onclick="addExp(this, 'exp')" class="btn">添加经历</a>
+                            <div class="exp addexp">
+                                <?php foreach($exp as $e) {
+                                    echo '<li>' . $e['star_experience'] . ' <b class="close_exp" data-id='.$e['id'].' onclick="close_exp(this)">X</b></li>';
+                                }?>
+                            </div>
+                        </div>
+
+                        <div class="form-control">
+                            <label>主要成就</label>
+                            <input type="text" name="ach" /> <a href="javascript:;" onclick="addExp(this, 'ach')" class="btn">添加成就</a>
+                            <div class="exp addach">
+                                <?php foreach($ach as $a) {
+                                    echo '<li>' . $a['star_experience'] . ' <b class="close_exp" data-id='.$e['id'].' onclick="close_exp(this)">X</b></li>';
+                                }?>
+                            </div>
+                        </div>
+                 <?php } ?>
+                <div class="form-control">
+                    <label>常驻地</label>
+                    <input type="text" name="resident" value="<?php echo $item['resident'];?>">
+                </div>
+                <div class="form-control">
+                    <label>时间使用范围</label>
+                    <select name="appoint_id">
+                        <option value="0">-请选择-</option>
+                        <?php foreach ($appoints as $val) {?>
+                        <option value="<?php echo $val['mid'];?>" <?php if ($val['mid'] == $item['appoint_id']){echo "selected=selected";}?>><?php echo $val['name'];?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+                <div class="form-control">
+                    <label>身价说明</label>
+                    <input type="text" name="worth" value="<?php echo $item['worth'];?>">
+                </div>
+                <div class="form-control">
+                    <label>微博指数</label>
+                    <input type="text" name="weibo" value="<?php echo $item['weibo'];?>">
+                </div>
+                <br>
+                <div class="form-control control-label form-group">
+                    <label class="control-label"></label>
+                    <input name='file' type="file" multiple id="file" size="4"/>
+                    <span onclick="UpladFile()" class="mybtn">上传</span>
+                </div>
+                <div class="lucida-div">
+                    <php>
+                        foreach ($pics as $key => $pic) {
+                            echo '<span><img src="__PUBLIC__/uploads/lucida/'.$pic.'" alt=""></span>';
+                        }
+                    </php>
+
+                </div>
+                <br>
+            </form>
+
+            <div class="form-control control-label form-group">
+                <label class="control-label"></label>
+                <a href="javascript:;"  class="remodal-confirm">确认</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    //添加经历、成就
+    function addExp(obj, key) {
+        var _this = $(obj);
+
+        var id = $.trim($("input[name='code']").val());
+        if (id.length == 0) return false;
+
+        var val = $.trim($('input[name="'+key+'"]').val());
+        if (val.length == 0) return false;
+
+        $(".add"+key).append(val +"<br>");
+        $('input[name="'+key+'"]').val("")
+
+        var url = "__ROOTHOME__/Lucida/addExp";
+        $.ajax({
+            type: "POST",
+            url: url,
+            dataType: "json",
+            data: {key : key, val : val, uid : id},
+            success: function(msg){
+                console.log(msg);
+            }
+        });
+    }
+
+    //删除经历、成就
+    function close_exp(obj) {
+        var _this = $(obj);
+        var id = _this.attr("data-id");
+
+        $.ajax({
+            type: "POST",
+            url: "__ROOTHOME__/Lucida/exp",
+            dataType: "json",
+            data: {id : id},
+            success: function(msg){
+                _this.parent().remove();
+            }
+        });
+    }
+
+    $(function () {
+        //日历插件
+        $("#datepicker").datetimepicker({ format: 'Y-m-d', timepicker: false });
+
+        //添加、修改明星信息
+        $(".remodal-confirm").click(function () {
+            var id = $.trim($("input[name='uid']").val());
+            var url = "__ROOTHOME__/Lucida/addLucida";
+
+            if (id.length > 0) {
+                var url = "__ROOTHOME__/Lucida/editLucida";
+            }
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                dataType: "json",
+                data: $(".modalForm").serialize(),
+                success: function(msg){
+                    alert(msg.message);
+                    if (msg.code != -2) {
+                        window.location.href = "__ROOTHOME__/Lucida/info/id/" + msg.id;
+                    }
+                }
+            });
+        });
+    });
+
+    var xhr;
+    function createXMLHttpRequest() {
+        if (window.ActiveXObject) {
+            xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        } else if (window.XMLHttpRequest) {
+            xhr = new XMLHttpRequest();
+        }
+    }
+
+    function UpladFile() {
+        var fileObj = document.getElementById("file").files;
+        var FileController = '__ROOTHOME__/Lucida/uploadFile';
+
+        var len = fileObj.length;
+        var form = new FormData();
+        for (var i = 0; i < len; i++) {
+            form.append("myfile[]", fileObj[i]);
+        }
+
+        createXMLHttpRequest();
+        xhr.onreadystatechange = handleStateChange;
+        xhr.open("post", FileController, true);
+        xhr.send(form);
+    }
+
+    function handleStateChange() {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200 || xhr.status == 0) {
+                var result = xhr.responseText;
+                var json = eval("(" + result + ")");
+                var len = json.length;
+                var existImgLen = parseInt($(".lucida-div img").length);
+
+                for (var i = 0; i < len; i++) {
+                    var i = parseInt(i);
+                    var num = i + existImgLen + 1;
+                    if (num > 5) {
+                        num = (i < 1) ? 1 : i;
+                    }
+                    var name = "pic" + num;
+                    var inp = "<input type='hidden' name='"+name+"' value='"+ json[i] +"' />";
+                    $(".modalForm").append(inp);
+
+                    var img = '<span><img src="__PUBLIC__/uploads/lucida/'+json[i]+'"></span>';
+                    $(".lucida-div").append(img);
+                }
+            }
+        }
+    }
+</script>
+
+<include file="public:footer" />
