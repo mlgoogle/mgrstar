@@ -62,7 +62,7 @@ class StarController extends Controller
 
         //唯一性判断
         $Model = M('star_bannerlist_new');
-        $isExist = (int)$Model->where("`starname` = '{$starname}'")->count('id');
+        $isExist = (int)$Model->where("`starname` = '{$starname}' AND `delete_flag` = ".self::DELETE_FALSE)->count('id');
         if ($isExist) {
             $return = array(
                 'code' => -2,
