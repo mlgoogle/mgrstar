@@ -43,7 +43,7 @@ define(["jquery","sysAPI","layer"], function ($,sysAPI) {
                     if(result.code === 0){
                         layer.alert("登录成功");
                         setTimeout(function () {
-                            window.location.href="../AdminBacker/index";
+                            window.location.href="../accountmanage/usermanage";
                         },2000);
                     }else{
 

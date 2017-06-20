@@ -54,7 +54,7 @@ define([
         },
         initOrgList: function () {
             var oSelect = $("select[name=org]");
-            var optionStr = "";
+            var optionStr = "<option value='0'>请选择</option>";
             var data = {
                 pageNum: '',
                 page: ''
@@ -77,16 +77,43 @@ define([
                 var $this = $(this);
                 brokerId = $this.parents('tr').attr('data-id');
                 var oTd = $this.parents('tr').find('td');
-                var orgName = oTd.eq(4).text();
-                var brokerName = oTd.eq(2).text();
+
+                var mark  =  oTd.eq(2).text();
+                //var orgName = oTd.eq(4).text();
+                var brokerName = oTd.eq(4).text();
                 var phone = oTd.eq(5).text();
+
+
+                var memberId = oTd.eq(8).text();
+
+
+
                 var oForm = $(".checkBrokerModal .modalForm");
-                oForm.find("input[name=orgName]").val(orgName);
-                oForm.find("input[name=id]").val(brokerId);
+
+                memberObj = oForm.find("select[name=org] option[value='" + memberId + "']");
+                console.log(memberObj);
+
+                oForm.find("select[name=org] option:selected").attr("selected", false);
+                memberObj.attr("selected", true);
+
+               // oForm.find("input[name=orgName]").val(orgName);
+                oForm.find("input[name=id]").val(mark);
                 oForm.find("input[name=name]").val(brokerName);
                 oForm.find("input[name=phone]").val(phone);
+
+                oForm.find("input[name=brokerId]").val(brokerId);
+
+                var b = oForm.find('select[name=org]').html();
+
                 checkBrokerModal.open();
+
+                if(b) {
+                    oForm.find('select[name=org]').html(b);
+                }
+
+
             });
+
             $(document).on('closed', '.remodal', function (e) {
                 $(this).find(".modalForm")[0].reset();
             });
@@ -112,50 +139,49 @@ define([
             var oForm = $(".addBrokerModal form");
             btn.on("click", function () {
                 var $this = $(this);
-                if ($this.hasClass("disabled")) return;
-                $this.addClass("disabled");
+                //if ($this.hasClass("disabled")) return;
+                //$this.addClass("disabled");
                 var data = {
                     memberid: oForm.find('select').val(),
-                    uid: oForm.find('[name=id]').val(),
+                    mark: oForm.find('[name=id]').val(),
                     nickname: oForm.find('[name=name]').val(),
                     phone: oForm.find('[name=phone]').val()
                 };
                 accountAPI.addBroker(data, function (result) {
+
                     if (result.code == 0) {
                         addBrokerModal.close();
                         layer.msg("新建成功");
                         _this.fnGetList({}, true);
-                    } else if(result.code == -2){
-                        layer.msg(result.message);
-                    }else {
+                    } else {
                         layer.msg("新建失败");
                     }
-                    $this.removeClass("disabled");
+                   // $this.removeClass("disabled");
                 });
             })
         },
         /**
-         * 审核经纪人
+         * 修改区域经纪人
          */
         onCheck: function () {
             var _this = this;
             var btn = $(".checkBrokerModal .J_check");
-            // var oForm = $(".checkBrokerModal form");
+            var oForm = $(".checkBrokerModal form");
+            //var oTd = $this.parents('tr').find('td');
             btn.on("click", function () {
                 var $this = $(this);
-                if ($this.hasClass("disabled")) return;
-                $this.addClass("disabled");
-                var verify;
-                if ($this.hasClass('remodal-confirm')) {
-                    verify = 1;
-                } else {
-                    verify = 2;
-                }
+
                 var data = {
-                    code: brokerId,
-                    verify: verify
+                    id:  oForm.find('input[name=brokerId]').val(),
+                    memberId: oForm.find('select[name=org]').val(),
+                    mark: oForm.find('input[name=id]').val(),
+                    nickname: oForm.find('input[name=name]').val(),
+                    phone: oForm.find('input[name=phone]').val(),
+                   // verify: verify
                 };
-                accountAPI.checkBroker(data, function (result) {
+
+
+                accountAPI.updateAgent(data, function (result) {
                     if (result.code == 0) {
                         checkBrokerModal.close();
                         _this.fnGetList({}, true);
@@ -235,20 +261,22 @@ define([
                 var oTr,
                     checkTd = '<td><input type="checkbox"></td>',
                     controlTd = "<td>" +
-                        "<a class='J_showCheckBroker text-blue' href='javascript:;'> 审核 </a>" +
+                        "<a class='J_showCheckBroker text-blue' href='javascript:;'> 修改 </a>" +
                         "</td>";
-                console.log(controlTd);
                 $.each(result.list, function (i, v) {
-                    var codeTd = '<td>' + v.code + '</td>';
+                    var codeTd = '<td>' + v.id + '</td>';
+                    var markTd = '<td>' + v.mark + '</td>';
+                    var memberNameTd = '<td>' + v.memberInfo.name + '</td>';
                     var nameTd = '<td>' + v.nickname + '</td>';
                     var typeTd = '<td>' + config.roleType[v.type] + '</td>'; // 角色类型
                     var orgTd = '<td>' + (v.memberInfo ? v.memberInfo.name : "" ) + '</td>';
                     var phoneTd = '<td>' + v.phone + '</td>';
                     var statusTd = '<td>' + config.brokerStatus[v.status] + '</td>';
-                   // var percentFee = '<td>' + v.percentFee + '</td>';
                     var checkStatusTd = '<td>' + config.brokerCheckStatus[v.verify] + '</td>';
-                    oTr += '<tr class="fadeIn animated" data-id="' + v.code + '">' + checkTd + codeTd + nameTd + typeTd
-                        + orgTd + phoneTd + statusTd + checkStatusTd + controlTd + '</tr>';
+                    var memberId = '<td style="display: none">'+ v.memberId+'</td>';
+
+                    oTr += '<tr class="fadeIn animated" data-id="' + v.id + '">' + checkTd + codeTd + markTd + memberNameTd
+                        + nameTd + phoneTd + statusTd  + controlTd + memberId + '</tr>';
                 });
                 table.find("tbody").empty().html(oTr);
                 if (initPage) {
