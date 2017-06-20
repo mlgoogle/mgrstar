@@ -11,7 +11,7 @@ return array(
     //'DB_PWD'    => 'RV963JoNnrD', // 密码
     //'DB_PWD'    => 'vKjYAMUZ6NNcQ', // 密码
     //'DB_PWD'    => 'pEQrhRrG', // 密码
-    'DB_PWD'    => '', // 密码
+    'DB_PWD'    => 'root', // 密码
     'DB_PORT'   => 3306, // 端口
     'DB_PARAMS' =>  array(), // 数据库连接参数
     'LOG_RECORD' => true, // 开启日志记录

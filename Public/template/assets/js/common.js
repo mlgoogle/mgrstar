@@ -14,6 +14,7 @@ requirejs.config({
         accountAPI      : 'api/accountAPI',
         clientAPI       : 'api/clientAPI',
         countAPI        : 'api/countAPI',
+        dataAPI         : 'api/dataAPI',
 
 
         // base64: 'libs/base64',

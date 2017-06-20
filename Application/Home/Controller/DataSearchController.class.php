@@ -30,6 +30,19 @@ class DataSearchController extends Controller
         $this->display('DataSearch/position');
     }
 
+    public function recharge(){
+        $this->assign('actionUrl','recharge');
+
+        $this->display('DataSearch/recharge');
+    }
+
+     //出入金
+    public function withdraw(){
+        $this->assign('actionUrl','withdraw');
+
+        $this->display('DataSearch/withdraw');
+    }
+
 
     public function getUserInfo(){
         $map = array();
@@ -119,8 +132,6 @@ class DataSearchController extends Controller
         }
 
 
-
-
         foreach ($freezePriceSum as $id=>$freeArr){
             $freePriceSum[$id]['order_sum_price'] = array_sum($freeArr['order_price']);
             unset($freePriceSum[$id]['order_price']);
@@ -158,13 +169,11 @@ class DataSearchController extends Controller
 
             $listAll[$key]['total_info'] = $totalSellArr[$l['uid']]; // 卖家时,没成功的为资产
 
-            $listAll[$key]['balance_info'] = $balaceArr[$l['uid']]; // 可用资金
+            $listAll[$key]['balance_info'] = $balaceArr[$l['uid']]; // 余额资金
 
             $listAll[$key]['freeze_info'] = $freePriceSum[$l['uid']]; // 可用资金
         }
 
-
-      //  dump($listAll);exit;
 
         $data['totalPages'] = $count;
         $data['pageNum'] =$pageNum;
@@ -226,8 +235,6 @@ class DataSearchController extends Controller
         $whereunfinishedUids['_string'] = 'sell_type <> 2 OR buy_type <> 2';
         $unfinishedBuyRows = $this->getBuyRows($whereunfinishedUids);
 
-        //dumP($finishedbuyRows);exit;
-
 
         foreach ($list as $l){
             $lists[$l['uid']] = $l;
@@ -236,18 +243,17 @@ class DataSearchController extends Controller
 
             $lists[$l['uid']]['agent_sub'] = $agentSubData[$l['agentId']];
 
-            //dump($l['uid']);dump( $finishedbuyRows[$l['uid']]);
-
             $lists[$l['uid']]['finished_buy_price'] = $finishedbuyRows[$l['uid']];
+            //$lists[$l['uid']]['finished_buy_price']['nums'] = count($finishedbuyRows[$l['uid']]);
             //$lists[$l['uid']]['starcode'] = $finishedbuyRows[$l['uid']]['starcode'];
 
+            foreach ($finishedbuyRows[$l['uid']] as $fd){
+                $lists[$l['uid']]['finished_buy_price'][$fd['starcode']]['un_order_num'] =  $unfinishedBuyRows[$l['uid']][$fd['starcode']]['order_num'];
+            }
 
-
-            $lists[$l['uid']]['unfinished_buy_price'] = $unfinishedBuyRows[$l['uid']];
+           // $lists[$l['uid']]['unfinished_buy_price']= $unfinishedBuyRows[$l['uid']];
+            //$lists[$l['uid']]['unfinished_buy_price']['nums'] = count($unfinishedBuyRows[$l['uid']]);
         }
-
-
-
 
         $data['totalPages'] = $count;
         $data['pageNum'] =$pageNum;
@@ -257,6 +263,80 @@ class DataSearchController extends Controller
 
         $this->ajaxReturn($data);
 
+    }
+
+    //充值
+    public function getRechargeInfo(){
+        $map = array();
+        $user_info = M('star_userinfo');
+
+        $pageNum = isset($_POST['pageNum'])?$_POST['pageNum']:5;
+        $page = isset($_POST['page'])?$_POST['page']:1;
+        $count = $user_info->where($map)->count();// 查询满足要求的总记录数
+
+        $list = $user_info->where($map)->page($page,$pageNum)->select();//获取分页数据
+
+        foreach ($list as $l){
+            $userUids[] = $l['uid'];
+            $memberIds[] = $l['memberId']; // 机构
+            $agentSubIds[] = $l['agentId']; // 经纪人
+        }
+
+
+        $memberIds = array_filter(array_unique($memberIds));
+        $agentSubIds = array_filter(array_unique($agentSubIds));
+
+        $whereMemberIds['memberid'] = array('in',$memberIds);
+        $whereAgentSubIds['id'] = array('in',$agentSubIds);
+
+        $memberRows = $this->getMemberNmae($whereMemberIds);
+        // $agentRows  = $this->getAgentName($whereAgentIds);
+        $agentSubRows  = $this->getAgentSubName($whereAgentSubIds);
+
+        foreach ($memberRows as $m){
+            $memberData[$m['memberid']]['name'] = $m['name'];
+        }
+
+
+        foreach ($agentSubRows as $a){
+            $agentSubData[$a['id']]['nickname'] = $a['nickname'];
+        }
+
+
+        $recharge_info = M('recharge_info');
+
+        $whereIds['uid'] = array('in',$userUids);
+
+        $whereIds['status'] = 1;
+
+        $rechargeRows = $recharge_info->field('sum(amount) as amount_sum,uid,depositType')->where($whereIds)->group('uid')->select();
+
+        //充值类型 1:微信 2:银行卡
+        $depositArr = array('未知','微信','银行卡');
+
+        foreach ($rechargeRows as $w){
+            $w['deposit_name'] = $depositArr[$w['depositType']];
+            $rechargeData[$w['uid']] = $w;
+
+        }
+
+        foreach ($list as $l) {
+            $lists[$l['uid']] = $l;
+
+            $lists[$l['uid']]['member'] = $memberData[$l['memberId']];
+
+            $lists[$l['uid']]['agent_sub'] = $agentSubData[$l['agentId']];
+            
+            $lists[$l['uid']]['recharge'] = $rechargeData[$w['uid']];
+        }
+
+        $data['totalPages'] = $count;
+        $data['pageNum'] =$pageNum;
+        $data['page'] = $page;
+        $data['totalPages'] = ceil($count/$pageNum);
+        $data['list'] = $lists;
+
+        $this->ajaxReturn($data);
     }
 
     private function getBuyRows($where){

@@ -83,7 +83,7 @@ define([
         fnGetList: function (data, initPage) {
             var _this = this;
             var table = $(".data-container table");
-            dataAPI.getUserOrderinfo(data, function (result) {
+            dataAPI.getRechargeInfo(data, function (result) {
                 console.log("获取客户管理列表 调用成功!");
                 if (result.list.length == "0") {
                     table.find("tbody").empty().html("<tr><td colspan='7'>暂无记录</td></tr>");
@@ -109,36 +109,15 @@ define([
                     var type_info = '<td>' +  type_member + ',' + type_agent_sub +'</td>';
 
 
-                    //console.log(v.finished_buy_price.nums);
+                    var deposit_nameTd = '<td>' + (v.recharge?v.recharge.deposit_name:'') + '</td>';
+                    var amount_sumTd = '<td>' + (v.recharge?v.recharge.amount_sum:0) + '</td>';
 
-                    // var finished_buy_price = '<td>' + (v.finished_buy_price?v.finished_buy_price:0) +'</td>';
-                    // var unfinished_buy_price = '<td>' +  (v.unfinished_buy_price?v.unfinished_buy_price:0) +'</td>';
 
-                    if(v.finished_buy_price) {
+                    oTr +=
+                        '<tr class="fadeIn animated" data-id="' + v.uid + '">'
+                        + checkTd + xuTd + phoneTd + nameTd + type_info + deposit_nameTd + amount_sumTd +
+                        '</tr>';
 
-                        $.each(v.finished_buy_price, function (i, t) {
-
-                            var starcodeTd = '<td>' + (t.starcode ? t.starcode : '') + '</td>';
-                            var finished_buy_price = '<td>' + (t.order_num ? t.order_num : 0) + '</td>';
-                            var unfinished_buy_price = '<td>' + (t.un_order_num ? t.un_order_num : 0) + '</td>';
-                           // alert(starcodeTd);
-                            oTr +=
-                                '<tr class="fadeIn animated" data-id="' + v.uid + '">'
-                                + checkTd + xuTd + starcodeTd + nameTd + phoneTd + finished_buy_price + unfinished_buy_price +
-                                type_info +
-                                '</tr>';
-                        });
-                    }else {
-
-                        var starcodeTd = '<td>' + '' + '</td>';
-                        var finished_buy_price = '<td>' + 0 + '</td>';
-                        var unfinished_buy_price = '<td>' +  0  + '</td>';
-
-                        oTr +=
-                            '<tr class="fadeIn animated" data-id="' + v.uid + '">'
-                            + checkTd + xuTd + starcodeTd + nameTd + phoneTd + finished_buy_price + unfinished_buy_price + type_info +
-                            '</tr>';
-                    }
                 });
 
                 table.find("tbody").empty().html(oTr);
