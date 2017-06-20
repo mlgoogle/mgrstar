@@ -5,44 +5,43 @@ class LoginController extends Controller {
   public function login(){
       $user = session("user");
       if($user){
-          $this ->redirect('AdminBacker/index',Null,0);
+          $this ->redirect('accountmanage/orgManage',Null,0);
       }else {
           $this->display('login/login');
       }
   }
   public function dologin(){
 
-        $where = array();
-        $where = array(
-            'uname' => I('post.uname'),
-            'pass'=> md5(I('post.pass')),
-            'status' => 0
-        );
+      $where = array(
+          'uname' => I('post.uname'),
+          'pass'=> $p = md5(I('post.pass')),
+          'status' => 0
+      );
+       // var_dump($p);
 
-        $res = M('admin_user')->where($where)->find();
+      $res = M('admin_user')->where($where)->find();
 
-        if($res){
-            session('user',$res);//store seession
-            $this->ajaxReturn(array(
-            'code'=>0,
-            'message'=>'success',
-            'data'=>'登陆成功',
+      if($res){
+          session('user',$res);//store seession
+          $this->ajaxReturn(array(
+              'code'=>0,
+              'message'=>'success',
+              'data'=>'登陆成功',
 
-            ));
-        }else{
-            $this->ajaxReturn(array(
-            'code'=>-1,
-            'message'=>'fail',
-            'data'=>'密码错误',
+          ));
+      }else{
+          $this->ajaxReturn(array(
+              'code'=>-1,
+              'message'=>'fail',
+              'data'=>'密码错误',
 
-            ));
-        }
-
+          ));
+      }
 
     }
 
     public function doRestPassword(){
-        $user =session("user");
+        $user = session("user");
         if($user){
              $oldPassword = $_POST['oldpassword'];
              $newPassword = $_POST['newpassword'];
@@ -80,8 +79,8 @@ class LoginController extends Controller {
     }
 
     public function doLoginout(){
-        session("user",0);
-        $this->display('login/login');
+        session('user',0);
+        $this->display('Login/login');
     }
 
 

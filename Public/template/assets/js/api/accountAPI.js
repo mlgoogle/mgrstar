@@ -15,16 +15,6 @@ define(["jquery"], function ($) {
                 cb(result);
             })
         },
-
-        /**
-         * 机构管理-选择机构获取经纪人列表 (添加用户时渲染所属机构 下拉列表)
-         */
-        getAgentList:function (data, cb){
-            $.post(this.baseRequestUrl + "/member/getAgentInfo", data, function (result) {
-                cb(result);
-            })
-        },
-
         /**
          * 机构管理-获取所有机构列表 (添加用户时渲染所属机构 下拉列表)
          */
@@ -33,6 +23,25 @@ define(["jquery"], function ($) {
                 cb(result);
             })
         },
+
+        /**
+         * 机构管理-选择机构获取区域经纪人列表 (添加用户时渲染所属机构 下拉列表)
+         */
+        getAgentList:function (data, cb){
+            $.post(this.baseRequestUrl + "/member/getAgentInfo", data, function (result) {
+                cb(result);
+            })
+        },
+
+        /**
+         * 机构管理-选择机构获取经纪人列表 (添加用户时渲染所属机构 下拉列表)
+         */
+        getAgentSubList:function (data, cb){
+            $.post(this.baseRequestUrl + "/member/getAgentSubInfo", data, function (result) {
+                cb(result);
+            })
+        },
+
         /**
          * 机构管理-新建机构
          */
@@ -110,14 +119,6 @@ define(["jquery"], function ($) {
             })
         },
         /**
-         * 用户管理-修改手续费
-         */
-        editFee: function (data, cb) {
-            $.post(this.baseRequestUrl + "/adminuser/editFee", data, function (result) {
-                cb(result);
-            })
-        },
-        /**
          * 用户管理-启用
          */
         updateUserStatus: function (data, cb) {
@@ -130,7 +131,6 @@ define(["jquery"], function ($) {
          */
         getUserList: function (data, cb) {
             data.pageNum = 10;
-           // console.log(data);
             $.post(this.baseRequestUrl + "/adminuser/getList", data, function (result) {
                 cb(result);
             })
@@ -178,7 +178,64 @@ define(["jquery"], function ($) {
             $.post(this.baseRequestUrl + "/agent/getList", data, function (result) {
                 cb(result);
             })
-        }
+        },
+
+        /**
+         * 第二级经纪人管理-查询
+         */
+        searchAgentSub: function (data, cb) {
+            data.pageNum = 10;
+            $.post(this.baseRequestUrl + "/agentSub/getList", data, function (result) {
+                cb(result);
+            })
+        },
+
+        /**
+         * 第二级经纪人管理-新建机构
+         */
+        addAgentSub: function (data, cb) {
+            $.post(this.baseRequestUrl + "/agentSub/add", data, function (result) {
+                cb(result);
+            })
+        },
+
+
+        /**
+         * 查询单个 区域经纪人
+         */
+        getAgentOne:function (data, cb){
+            $.post(this.baseRequestUrl + "/agent/getAgentFind", data, function (result) {
+                cb(result);
+            })
+        },
+
+
+        /**
+         * 查询单个 经纪人
+         */
+        getAgentSubOne:function (data, cb){
+            $.post(this.baseRequestUrl + "/agentSub/getAgentSubFind", data, function (result) {
+                cb(result);
+            })
+        },
+        
+       // 修改
+
+        updateAgent:function (data,cb) {;
+
+            $.post(this.baseRequestUrl + "/agent/updateAgent", data, function (result) {
+                cb(result);
+            })
+        },
+
+        // 修改
+
+        updateAgentSub:function (data,cb) {;
+
+            $.post(this.baseRequestUrl + "/agentSub/updateAgentSub", data, function (result) {
+                cb(result);
+            })
+        },
 
 
     };

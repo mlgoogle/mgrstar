@@ -8,7 +8,7 @@ define(["jquery"], function ($) {
         /**
          * 统计报表-获取统计列表
          */
-         baseRequestUrl:"..",
+         baseRequestUrl:"../",
         getReport: function (data,cb) {
             data.pageNum = 10;
             $.post(this.baseRequestUrl+"/trade/report",data,function (result) {

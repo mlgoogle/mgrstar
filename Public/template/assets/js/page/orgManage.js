@@ -43,18 +43,19 @@ define([
                 memberid = $this.parents('tr').attr('data-id');
                 var oTd = $this.parents('tr').find('td');
                 var id = oTd.eq(1).text();
-                var name = oTd.eq(2).text();
-                var type = oTd.eq(3).text();
-                var upLevel = oTd.eq(4).text();
-                var phone = oTd.eq(5).text();
+                var code = oTd.eq(2).text();
+                var name = oTd.eq(3).text();
+                //var type = oTd.eq(3).text();
+              //  var upLevel = oTd.eq(4).text();
+                var phone = oTd.eq(4).text();
                 var cellphone = oTd.eq(6).text();
                 var oForm = $(".changeOrgModal .modalForm");
-                oForm.find("input[name=orgCode]").val(id);
+                oForm.find("input[name=orgCode]").val(code);
                 oForm.find("input[name=orgName]").val(name);
-                oForm.find("input[name=orgLevel]").val(name);
-                oForm.find("input[name=orgType]").val(name);
+              //  oForm.find("input[name=orgLevel]").val(name);
+             //   oForm.find("input[name=orgType]").val(name);
                 oForm.find("input[name=phone]").val(phone);
-                oForm.find("input[name=cellphone]").val(cellphone);
+            //    oForm.find("input[name=cellphone]").val(cellphone);
                 changeOrgModal.open();
             });
 
@@ -98,6 +99,7 @@ define([
                     orgTop.show();
                 }
             });
+
             confirmBtn.on("click", function (e) {
                 e.preventDefault();
                 var $this = $(this);
@@ -106,8 +108,8 @@ define([
                 var data = {
                     name: oForm.find('[name=orgName]').val(),
                     mark: oForm.find('[name=orgCode]').val(),
-                    superMemberid: orgLevelSelect.val() == 0 ? 0 : oForm.find('[name=orgTopLevel]').val(),
-                    type: oForm.find('[name=orgType]').val(),
+                  //  superMemberid: orgLevelSelect.val() == 0 ? 0 : oForm.find('[name=orgTopLevel]').val(),
+                  //  type: oForm.find('[name=orgType]').val(),
                     tel: oForm.find('[name=phone]').val(),
                     phone: oForm.find('[name=cellphone]').val()
                 };
@@ -195,8 +197,8 @@ define([
 
             confirmBtn.on("click", function () {
                 var $this = $(this);
-                //if ($this.hasClass("disabled")) return;
-                //$this.addClass("disabled");
+               // if ($this.hasClass("disabled")) return;
+               // $this.addClass("disabled");
                 var data = {
                     memberid: memberid,
                     name: oForm.find('[name=orgName]').val(),
@@ -212,9 +214,7 @@ define([
                         changeOrgModal.close();
                         $this.removeClass("disabled");
                         _this.fnGetList({}, true);
-                    } else if(result.code == -2){
-                        layer.msg(result.message);
-                    }else {
+                    } else {
                         layer.msg("操作失败");
                     }
                 })
@@ -249,6 +249,9 @@ define([
                     checkTd = '<td><input type="checkbox"></td>',
                     controlTd = "<td><a class='J_showChangeOrg text-blue' href='javascript:;'>修改</a></td>";
                 $.each(result.list, function (i, v) {
+                    var iTd = '<td>' + i + '</td>';
+                    var xhTd = '<td>' + v.memberid + '</td>';
+
                     var codeTd = '<td>' + v.mark + '</td>';
                     var orgNameTd = '<td>' + v.name + '</td>';
                     var orgTypeTd = '<td>' + config.orgType[v.type] + '</td>';
@@ -256,7 +259,8 @@ define([
                     var phoneTd = '<td>' + v.tel + '</td>';
                     var cellphoneTd = '<td>' + v.phone + '</td>';
                     var statusTd = '<td>' + config.orgStatus[v.status] + '</td>';
-                    oTr += '<tr class="fadeIn animated" data-id="' + v.memberid + '">' + checkTd + codeTd + orgNameTd + orgTypeTd + upLevelTd + phoneTd + cellphoneTd + statusTd + controlTd + '</tr>';
+                    oTr += '<tr class="fadeIn animated" data-id="' + v.memberid + '">' + checkTd + xhTd + codeTd
+                        + orgNameTd + phoneTd  + statusTd + controlTd + '</tr>';
                 });
                 table.find("tbody").empty().html(oTr);
                 if (initPage) {
