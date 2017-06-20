@@ -11,7 +11,7 @@ use Think\Controller;
  * Class MeetController
  * @package Home\Controller
  */
-class MeetController extends Controller
+class MeetController extends CTController
 {
     //1已约见    2已拒绝 3已完成
     const TTYPE_MEET = 1;

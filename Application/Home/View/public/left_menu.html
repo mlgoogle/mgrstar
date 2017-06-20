@@ -13,7 +13,7 @@
     .submenu li:hover {
         color: #55abed;
     }
-
+*{font-size: 14px;}
 </style>
 <?php
     $starArr = array('Star', 'Info', 'Lucida', 'Meet', 'Appoint', 'Timer');
@@ -64,7 +64,7 @@
         </php>
             <li class="pli">
                 <a href="javascript:;"
-                    <php>if($action == 'accountManage'){echo 'class="active"';}</php>  >
+                    <php>if($action == 'accountManage'){echo 'class="main"';}</php>  >
                     <i class="icon-user"></i>
                     <strong>
                         系统账户管理
@@ -73,15 +73,22 @@
                 <ul class="submenu">
 
                     <li><a href="__ROOTHOME__/accountmanage/userManage"
-                        <php>if($actionUrl == 'userManage'){echo 'class="act"';}</php>
+                        <php>if($actionUrl == 'userManage'){echo 'class="active"';}</php>
                         >账户权限</a>
                     </li>
+
+                    <!--<li><a href="javascript:;"-->
+                        <!--<php>if($actionUrl == '#'){echo 'class="active"';}</php>-->
+                        <!--&gt;账户角色</a></li>-->
+                    <!--
+                    <li><a href="#">创建系统账户</a></li>
+                    -->
 
                     <php>
                         if($user['identity_id']<2){
                     </php>
                         <li><a href="__ROOTHOME__/accountmanage/orgManage"
-                            <php>if($actionUrl == 'orgManage'){echo 'class="act"';}</php>
+                            <php>if($actionUrl == 'orgManage'){echo 'class="active"';}</php>
                         >区域总经销列表</a>
                         </li>
                     <php>
@@ -92,7 +99,7 @@
                         if($user['identity_id']<3){
                     </php>
                         <li><a href="__ROOTHOME__/accountmanage/brokerManage"
-                            <php>if($actionUrl == 'brokerManage'){echo 'class="act"';}</php>
+                            <php>if($actionUrl == 'brokerManage'){echo 'class="active"';}</php>
                         >经销商列表</a>
                         </li>
                     <php>
@@ -100,7 +107,7 @@
                     </php>
 
                     <li><a href="__ROOTHOME__/accountmanage/brokerSubManage"
-                        <php>if($actionUrl == 'brokerSubManage'){echo 'class="act"';}</php>
+                        <php>if($actionUrl == 'brokerSubManage'){echo 'class="active"';}</php>
                         >零售商列表</a>
                     </li>
 
@@ -123,6 +130,9 @@
 
             //添加点击事件
             $(this).children("a").bind("click", function () {
+
+              //  alert(box);
+
 
                 //只留一个选中样式的菜单
                 $(".pli a").removeClass('active');
@@ -152,3 +162,9 @@
         });
     });
 </script>
+
+
+
+<!--<li><i class="fa fa-globe"></i>系统账户管理<i class="fa fa-chevron-down"></i></li>-->
+<!--<ul>-->
+<!--</ul>-->

@@ -11,7 +11,7 @@ use Think\Controller;
  * Class TimerController
  * @package Home\Controller
  */
-class TimerController extends Controller
+class TimerController extends CTController
 {
     //软删除    0上线 1下线 2软删除
     const DELETE_ONLINE = 0;
@@ -251,6 +251,10 @@ class TimerController extends Controller
      */
     public function info()
     {
+        if (!isset($_GET['id'])) {
+            return $this->display('timer/info');
+        }
+
         $id = (int)$_GET['id'];
         $model = M('star_timer');
         $item = $model->where("`id` = '{$id}'")->find();
@@ -314,40 +318,56 @@ class TimerController extends Controller
      */
     public function addTimer()
     {
+        $model = M('star_timer');
+
         //接收过滤提交数据
-        $name = I('post.timername', '', 'strip_tags');
-        $name = trim($name);
+        if (isset($_POST['starname'])) {
+            $name = I('post.starname', '', 'strip_tags');
+            $name = trim($name);
+
+            $isExist = (int)$model->where("`starname` = '{$name}' AND `status` !=".self::DELETE_TRUE)->count('id');
+            if ($isExist) {
+                $return = array(
+                    'code' => -2,
+                    'message' => '该明星已有值！'
+                );
+                return $this->ajaxReturn($return);
+            }
+
+            $starModel = M('star_starbrief');
+            $item = $starModel->where("`name` = '{$name}' OR `uid`='{$name}'")->find();
+            if (count($item) == 0) {
+                $return = array(
+                    'code' => -2,
+                    'message' => '未找到该明星信息！'
+                );
+                return $this->ajaxReturn($return);
+            }
+
+            $model->starname = $item['name'];
+            $model->starcode = $item['uid'];
+        }
+
         $micro = (int)$_POST['micro'];
 
         //非空提醒
-        if (empty($name) || empty($micro)) {
+        if (empty($micro) || $micro < 600) {
             $return = array(
                 'code' => -2,
-                'message' => '请填写正确的值！'
-            );
-            return $this->ajaxReturn($return);
-        }
-
-        //唯一性判断
-        $model = M('star_timer');
-        $isExist = (int)$model->where("`timername` = '{$name}'")->count('id');
-        if ($isExist) {
-            $return = array(
-                'code' => -2,
-                'message' => '该类型已存在！'
+                'message' => '消耗秒数最低为600！'
             );
             return $this->ajaxReturn($return);
         }
 
         //数据入库
-        $model->timername = $name;
         $model->micro = $micro;
         $model->add_time = date('Y-m-d H:i:s', time());
-        $bool = ($model->add()) ? 0 : 1;
+        $id = $model->add();
 
         //结果返回
         $return = array(
-            'code' => $bool,
+            'id' => $id,
+            'code' => ($id) ? 0 : 1,
             'message' => 'success',
         );
         return $this->ajaxReturn($return);
@@ -482,8 +502,8 @@ class TimerController extends Controller
         $pageNum = I('post.pageNum', 5, 'intval');
         $page = I('post.page', 1, 'intval');
 
-        $count = $timer->count();// 查询满足要求的总记录数
-        $list = $timer->page($page, $pageNum)->order('id desc')->select();//获取分页数据
+        $count = $timer->where('status !=' . self::DELETE_TRUE)->count();// 查询满足要求的总记录数
+        $list = $timer->where('status !=' . self::DELETE_TRUE)->page($page, $pageNum)->order('id desc')->select();//获取分页数据
 
         foreach ($list as $key => $item) {
             $list[$key]['status'] = self::getStatus($item['status']);
