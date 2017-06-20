@@ -5,7 +5,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <title></title>
-    <link rel="stylesheet" href="/xh/Public/template/assets/css/login.min.css">
+    <link rel="stylesheet" href="/Public/template/assets/css/login.min.css">
   </head>
   <body>
     <div class="wrap">
@@ -27,7 +27,7 @@
         </form><a href="javascript:;" class="submit">登录</a>
       </div>
     </div>
-    <script src="/xh/Public/template/assets/js/vendor/require.js" data-main="/xh/Public/template/assets/js/common"></script>
+    <script src="/Public/template/assets/js/vendor/require.js" data-main="/Public/template/assets/js/common"></script>
     <script>
       require(['common'], function () {
           require(['page/login']);

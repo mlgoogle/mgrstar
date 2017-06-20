@@ -74,7 +74,9 @@
                 <li><a
                     <?php if($actionUrl == 'position'){echo 'class="active"';} ?>
                         href="/index.php/Home/DataSearch/position">持仓汇总查询</a></li>
-                <li><a href="#">出入金查询</a></li>
+                <li><a
+                    <?php if($actionUrl == 'withdraw'){echo 'class="active"';} ?>
+                    href="/index.php/Home/DataSearch/withdraw">充值金额查询</a></li>
                 <li><a href="#">交易额明细查询</a></li>
                 <li><a href="#">成交明细查询</a></li>
             </ul>
@@ -175,75 +177,74 @@
 
         <div class="content">
 
-<style>
-    .btn-status{
-        width: 40px;
-        background-color:#80D640;
-        padding: 0;
-    }
-</style>
-<div class="data-container">
-    <table>
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>创建时间</th>
-            <th>手机号</th>
-            <th>姓名</th>
-            <th>昵称</th>
-            <th>所属机构/区域/经纪人</th>
-            <th>实名认证</th>
-            <th>推荐人</th>
-            <th>详情</th>
-        </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <div class="pagination"></div>
-</div>
+            <!--<div class="control-bar"><a href="javascript:;" class="btn">导出EXL</a></div>-->
+            <div class="search-bar">注册时间:
+                <input type="text" id="dateStart" placeholder="起始时间">-<input type="text" id="dateEnd" placeholder="结束时间">
+                <!--<input type="text" placeholder="关键字：机构名称">-->
+                <!--<input type="text" placeholder="上级机构">-->
+                <input type="text" name="nickname" placeholder="昵称">
+                <input type="text" name="phone" placeholder="手机号码">
+                <a href="javascript:;" class="btn J_search">查询</a>
+            </div>
+            <div class="data-container">
+                <table>
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>序号</th>
+                        <th>消费者手机号</th>
+                        <th>消费者姓名</th>
+                        <th>所属机构、所属区域、所属经纪人</th>
+                        <th>充值方式</th>
 
-<div data-remodal-id="addCustomerModal" class="remodal addCustomerModal">
-    <div class="remodal-head">
-        <div class="remodal-title">消费者</div>
-        <div data-remodal-action="cancel" class="remodal-close"></div>
+                        <th>充值金额</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <div class="pagination"></div>
+            </div>
+        </div>
     </div>
-    <div class="remodal-body">
-        <form class="modalForm" enctype="multipart/form-data">
-            <input type="text" name="id" style="display: none">
-            <div class="form-control">
-                <label>姓 名</label>
-                <span id="realname"></span>
-            </div>
-            <div class="form-control">
-                <label>手 机</label>
-                <span id="phoneNum"></span>
-            </div>
-            <div class="form-control">
-                <label>昵 称</label>
-                <span id="nickname"></span>
-            </div>
-            <div class="form-control">
-                <label>实名认证</label>
-                <span id="real"></span>
-            </div>
-            <div class="form-control">
-                <label>推荐人</label>
-                <span id="recommend"></span>
-            </div>
-        </form>
+    <div data-remodal-id="changeLineModal" class="remodal changeLineModal">
+        <div class="remodal-head">
+            <div class="remodal-title">修改额度</div>
+            <div data-remodal-action="cancel" class="remodal-close"></div>
+        </div>
+        <div class="remodal-body">
+            <form class="modalForm">
+                <div class="form-control">
+                    <label>所属机构</label>
+                    <input type="text" name="orgName" readonly>
+                </div>
+                <div class="form-control">
+                    <label>昵称</label>
+                    <input type="text" name="nickname" readonly>
+                </div>
+                <div class="form-control">
+                    <label>手机号码</label>
+                    <input type="text" name="phone" readonly>
+                </div>
+                <div class="form-control">
+                    <label>交易额度</label>
+                    <input type="text" name="line">
+                </div>
+            </form>
+        </div>
+        <div class="remodal-footer"><a href="javascript:;" data-remodal-action="confirm"
+                                       class="remodal-confirm">确认</a><a href="javascript:;" data-remodal-action="cancel"
+                                                                        class="remodal-cancel">取消</a></div>
     </div>
 </div>
-
-<div id="browse" class="browse">
-</div>
-
 <script src="/Public/template/assets/js/vendor/require.js" data-main="/Public/template/assets/js/common"></script>
 <script>
     require(['common'], function () {
-        require(['page/customer']);
+        require(['page/withdraw']);
     });
 </script>
+</body>
 
 
 

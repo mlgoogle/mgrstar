@@ -26,6 +26,16 @@ define(["jquery"], function ($) {
                 cb(result);
             })
 
+        },
+
+        //充值
+
+        getRechargeInfo:function (data,cb) {
+
+            $.post(this.baseRequestUrl + "/dataSearch/getRechargeInfo", data, function (result) {
+                cb(result);
+            })
+
         }
 
     };
