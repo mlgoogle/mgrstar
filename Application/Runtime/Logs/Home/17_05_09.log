@@ -1,0 +1,1869 @@
+[ 2017-05-09T11:12:37+08:00 ] ::1 /hkxt/index.php/Home/login/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.022001s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T11:12:52+08:00 ] ::1 /hkxt/index.php/Home//login/dologin
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `admin_user` [ RunTime:0.033002s ]
+SQL: SELECT * FROM `admin_user` WHERE `uid` = 'adminuser' AND `pass` = '25f9e794323b453885f5181f1b624d0b' AND `status` = 0 LIMIT 1   [ RunTime:0.033002s ]
+
+[ 2017-05-09T11:12:55+08:00 ] ::1 /hkxt/index.php/Home/accountmanage/usermanage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T11:12:56+08:00 ] ::1 /hkxt/index.php/Home//member/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.032001s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 23 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `member_info` LIMIT 1   [ RunTime:0.032001s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 24 行.
+NOTIC: [8] Undefined index: limit D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db.class.php 第 786 行.
+SQL: SELECT * FROM `member_info` LIMIT 0,20   [ RunTime:0.032001s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 5 LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [2] Division by zero D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 38 行.
+
+[ 2017-05-09T11:12:57+08:00 ] ::1 /hkxt/index.php/Home//adminuser/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001001s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `admin_user` [ RunTime:0.032002s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 24 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 25 行.
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 36 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `admin_user` LIMIT 1   [ RunTime:0.032002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 37 行.
+SQL: SELECT * FROM `admin_user` LIMIT 0,10   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.033002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.032002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.033002s ]
+
+[ 2017-05-09T11:12:59+08:00 ] ::1 /hkxt/index.php/Home/accountmanage/orgManage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001001s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T11:13:00+08:00 ] ::1 /hkxt/index.php/Home//member/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 23 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `member_info` LIMIT 1   [ RunTime:0.031001s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 24 行.
+SQL: SELECT * FROM `member_info` LIMIT 0,10   [ RunTime:0.032002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 5 LIMIT 1   [ RunTime:0.032002s ]
+
+[ 2017-05-09T11:13:01+08:00 ] ::1 /hkxt/index.php/Home//member/getRootList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001001s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.034002s ]
+SQL: SELECT * FROM `member_info` WHERE ( superMemberid = 0  )  [ RunTime:0.034002s ]
+
+[ 2017-05-09T11:13:04+08:00 ] ::1 /hkxt/index.php/Home/accountmanage/userManage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T11:13:05+08:00 ] ::1 /hkxt/index.php/Home//member/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.038002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 23 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `member_info` LIMIT 1   [ RunTime:0.038002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 24 行.
+NOTIC: [8] Undefined index: limit D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db.class.php 第 786 行.
+SQL: SELECT * FROM `member_info` LIMIT 0,20   [ RunTime:0.037003s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 5 LIMIT 1   [ RunTime:0.037002s ]
+NOTIC: [2] Division by zero D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 38 行.
+
+[ 2017-05-09T11:13:06+08:00 ] ::1 /hkxt/index.php/Home//adminuser/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `admin_user` [ RunTime:0.031001s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 24 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 25 行.
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 36 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `admin_user` LIMIT 1   [ RunTime:0.030001s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 37 行.
+SQL: SELECT * FROM `admin_user` LIMIT 0,10   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.031002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.030002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.030002s ]
+
+[ 2017-05-09T11:13:07+08:00 ] ::1 /hkxt/index.php/Home/accountmanage/orgManage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T11:13:07+08:00 ] ::1 /hkxt/index.php/Home//member/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.032001s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 23 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `member_info` LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 24 行.
+SQL: SELECT * FROM `member_info` LIMIT 0,10   [ RunTime:0.033002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 5 LIMIT 1   [ RunTime:0.031002s ]
+
+[ 2017-05-09T11:13:08+08:00 ] ::1 /hkxt/index.php/Home//member/getRootList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.032001s ]
+SQL: SELECT * FROM `member_info` WHERE ( superMemberid = 0  )  [ RunTime:0.032001s ]
+
+[ 2017-05-09T11:13:59+08:00 ] ::1 /hkxt/index.php/Home/clientmanage/clientList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T11:13:59+08:00 ] ::1 /hkxt/index.php/Home/user/getlist
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `user_info` [ RunTime:0.034002s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 24 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 25 行.
+NOTIC: [8] Undefined index: nickname D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 34 行.
+NOTIC: [8] Undefined index: phoneNum D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 37 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `user_info` WHERE user_info.nickname LIKE '%' AND `phoneNum` LIKE '%' LIMIT 1   [ RunTime:0.031002s ]
+SQL: SELECT * FROM `user_info` WHERE user_info.nickname LIKE '%' AND `phoneNum` LIKE '%' LIMIT 0,10   [ RunTime:0.033002s ]
+
+[ 2017-05-09T11:14:03+08:00 ] ::1 /hkxt/index.php/Home/countmanage/countTable
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.001000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T11:14:05+08:00 ] ::1 /hkxt/index.php/Home//trade/report
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: page D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 313 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `his_trades_record` [ RunTime:0.034002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 315 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `his_trades_record` LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 316 行.
+SQL: SELECT * FROM `his_trades_record` ORDER BY open_position_time desc LIMIT 0,10   [ RunTime:0.036002s ]
+SQL: SHOW COLUMNS FROM `actuals_goods` [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.034002s ]
+SQL: SHOW COLUMNS FROM `user_info` [ RunTime:0.035002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.033002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.036002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.034002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.034002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.034002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.034002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.034002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.033002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.034002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '50' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.033002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '42' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.033002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.035002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.039002s ]
+
+[ 2017-05-09T11:14:08+08:00 ] ::1 /hkxt/index.php/Home//trade/report
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `his_trades_record` [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 315 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `his_trades_record` LIMIT 1   [ RunTime:0.034002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 316 行.
+SQL: SELECT * FROM `his_trades_record` ORDER BY open_position_time desc LIMIT 10,10   [ RunTime:0.046003s ]
+SQL: SHOW COLUMNS FROM `actuals_goods` [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.033002s ]
+SQL: SHOW COLUMNS FROM `user_info` [ RunTime:0.033002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.032001s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.033001s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.032002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.032002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.032002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.032002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.032002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.033002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.032002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.033002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.032002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.032002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.033002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.032002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.034002s ]
+
+[ 2017-05-09T11:14:10+08:00 ] ::1 /hkxt/index.php/Home//trade/report
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `his_trades_record` [ RunTime:0.034002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 315 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `his_trades_record` LIMIT 1   [ RunTime:0.032002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 316 行.
+SQL: SELECT * FROM `his_trades_record` ORDER BY open_position_time desc LIMIT 20,10   [ RunTime:0.036002s ]
+SQL: SHOW COLUMNS FROM `actuals_goods` [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.033002s ]
+SQL: SHOW COLUMNS FROM `user_info` [ RunTime:0.033002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.033002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.037002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.033002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.034002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.033002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.034002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.033002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.033002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.034002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.034002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.033002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.034002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.036002s ]
+
+[ 2017-05-09T11:14:12+08:00 ] ::1 /hkxt/index.php/Home//trade/report
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002001s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `his_trades_record` [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 315 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `his_trades_record` LIMIT 1   [ RunTime:0.032002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 316 行.
+SQL: SELECT * FROM `his_trades_record` ORDER BY open_position_time desc LIMIT 40,10   [ RunTime:0.034002s ]
+SQL: SHOW COLUMNS FROM `actuals_goods` [ RunTime:0.032002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.031002s ]
+SQL: SHOW COLUMNS FROM `user_info` [ RunTime:0.032002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.032001s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.033002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.031002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.032002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.032002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.032001s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.031001s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.032002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.032002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.032002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.042002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.078005s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.037002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.032002s ]
+
+[ 2017-05-09T11:14:13+08:00 ] ::1 /hkxt/index.php/Home//trade/report
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `his_trades_record` [ RunTime:0.038002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 315 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `his_trades_record` LIMIT 1   [ RunTime:0.043002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 316 行.
+SQL: SELECT * FROM `his_trades_record` ORDER BY open_position_time desc LIMIT 30,10   [ RunTime:0.038002s ]
+SQL: SHOW COLUMNS FROM `actuals_goods` [ RunTime:0.036002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.036002s ]
+SQL: SHOW COLUMNS FROM `user_info` [ RunTime:0.036002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.037003s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.036002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.036002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.036002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.037002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.036002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.036002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.036002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.037002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.036002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.036002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.036003s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.036002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.039002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.038002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.037003s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.048002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.042003s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.036002s ]
+
+[ 2017-05-09T11:15:41+08:00 ] ::1 /hkxt/index.php/Home/accountmanage/userManage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T11:15:42+08:00 ] ::1 /hkxt/index.php/Home//adminuser/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `admin_user` [ RunTime:0.033002s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 24 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 25 行.
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 36 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `admin_user` LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 37 行.
+SQL: SELECT * FROM `admin_user` LIMIT 0,10   [ RunTime:0.032002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.031002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.032002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.031002s ]
+
+[ 2017-05-09T11:15:43+08:00 ] ::1 /hkxt/index.php/Home//member/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 23 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `member_info` LIMIT 1   [ RunTime:0.029002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 24 行.
+NOTIC: [8] Undefined index: limit D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db.class.php 第 786 行.
+SQL: SELECT * FROM `member_info` LIMIT 0,20   [ RunTime:0.031002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 5 LIMIT 1   [ RunTime:0.030002s ]
+NOTIC: [2] Division by zero D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 38 行.
+
+[ 2017-05-09T16:27:57+08:00 ] ::1 /hkxt/index.php/Home/login/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.026002s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:28:10+08:00 ] ::1 /hkxt/index.php/Home//login/dologin
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `admin_user` [ RunTime:0.031001s ]
+SQL: SELECT * FROM `admin_user` WHERE `uid` = 'adminuser' AND `pass` = '25f9e794323b453885f5181f1b624d0b' AND `status` = 0 LIMIT 1   [ RunTime:0.030002s ]
+
+[ 2017-05-09T16:28:12+08:00 ] ::1 /hkxt/index.php/Home/accountmanage/usermanage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:28:13+08:00 ] ::1 /hkxt/index.php/Home//member/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.036002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 23 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `member_info` LIMIT 1   [ RunTime:0.035002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 24 行.
+NOTIC: [8] Undefined index: limit D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db.class.php 第 786 行.
+SQL: SELECT * FROM `member_info` LIMIT 0,20   [ RunTime:0.037002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 5 LIMIT 1   [ RunTime:0.035002s ]
+NOTIC: [2] Division by zero D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 38 行.
+
+[ 2017-05-09T16:28:14+08:00 ] ::1 /hkxt/index.php/Home//adminuser/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001001s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `admin_user` [ RunTime:0.035002s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 24 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 25 行.
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 36 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `admin_user` LIMIT 1   [ RunTime:0.034002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 37 行.
+SQL: SELECT * FROM `admin_user` LIMIT 0,10   [ RunTime:0.036002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.035002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.035002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.035002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.034002s ]
+
+[ 2017-05-09T16:29:00+08:00 ] ::1 /hkxt/index.php/Home/accountmanage/usermanage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001001s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:29:01+08:00 ] ::1 /hkxt/index.php/Home//member/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 23 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `member_info` LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 24 行.
+NOTIC: [8] Undefined index: limit D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db.class.php 第 786 行.
+SQL: SELECT * FROM `member_info` LIMIT 0,20   [ RunTime:0.031002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 5 LIMIT 1   [ RunTime:0.031001s ]
+NOTIC: [2] Division by zero D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 38 行.
+
+[ 2017-05-09T16:29:02+08:00 ] ::1 /hkxt/index.php/Home//adminuser/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `admin_user` [ RunTime:0.031002s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 24 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 25 行.
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 36 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `admin_user` LIMIT 1   [ RunTime:0.030002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 37 行.
+SQL: SELECT * FROM `admin_user` LIMIT 0,10   [ RunTime:0.030002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.031001s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.031001s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.030002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.030002s ]
+
+[ 2017-05-09T16:29:03+08:00 ] ::1 /hkxt/index.php/Home/sysmanage/pwdManage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:29:04+08:00 ] ::1 /hkxt/index.php/Home//member/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 23 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `member_info` LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 24 行.
+SQL: SELECT * FROM `member_info` LIMIT 0,10   [ RunTime:0.033002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 5 LIMIT 1   [ RunTime:0.033002s ]
+
+[ 2017-05-09T16:29:05+08:00 ] ::1 /hkxt/index.php/Home//member/getRootList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.030001s ]
+SQL: SELECT * FROM `member_info` WHERE ( superMemberid = 0  )  [ RunTime:0.030002s ]
+
+[ 2017-05-09T16:33:33+08:00 ] ::1 /hkxt/index.php/Home/sysmanage/pwdManage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:33:34+08:00 ] ::1 /hkxt/index.php/Home//member/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.001000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 23 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `member_info` LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 24 行.
+SQL: SELECT * FROM `member_info` LIMIT 0,10   [ RunTime:0.030001s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 5 LIMIT 1   [ RunTime:0.034002s ]
+
+[ 2017-05-09T16:33:35+08:00 ] ::1 /hkxt/index.php/Home//member/getRootList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.032002s ]
+SQL: SELECT * FROM `member_info` WHERE ( superMemberid = 0  )  [ RunTime:0.031002s ]
+
+[ 2017-05-09T16:33:41+08:00 ] ::1 /hkxt/index.php/Home/sysmanage/pwdManage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:33:42+08:00 ] ::1 /hkxt/index.php/Home//member/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 23 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `member_info` LIMIT 1   [ RunTime:0.031001s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 24 行.
+SQL: SELECT * FROM `member_info` LIMIT 0,10   [ RunTime:0.032002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 5 LIMIT 1   [ RunTime:0.033002s ]
+
+[ 2017-05-09T16:33:43+08:00 ] ::1 /hkxt/index.php/Home//member/getRootList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.030002s ]
+SQL: SELECT * FROM `member_info` WHERE ( superMemberid = 0  )  [ RunTime:0.030002s ]
+
+[ 2017-05-09T16:33:44+08:00 ] ::1 /hkxt/index.php/Home/accountmanage/userManage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:33:45+08:00 ] ::1 /hkxt/index.php/Home//member/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.034001s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 23 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `member_info` LIMIT 1   [ RunTime:0.034001s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 24 行.
+NOTIC: [8] Undefined index: limit D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db.class.php 第 786 行.
+SQL: SELECT * FROM `member_info` LIMIT 0,20   [ RunTime:0.035002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 5 LIMIT 1   [ RunTime:0.034002s ]
+NOTIC: [2] Division by zero D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 38 行.
+
+[ 2017-05-09T16:33:46+08:00 ] ::1 /hkxt/index.php/Home//adminuser/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `admin_user` [ RunTime:0.032002s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 24 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 25 行.
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 36 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `admin_user` LIMIT 1   [ RunTime:0.030002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 37 行.
+SQL: SELECT * FROM `admin_user` LIMIT 0,10   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.032001s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.030002s ]
+
+[ 2017-05-09T16:33:46+08:00 ] ::1 /hkxt/index.php/Home/clientmanage/clientList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:33:47+08:00 ] ::1 /hkxt/index.php/Home/user/getlist
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `user_info` [ RunTime:0.037002s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 24 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 25 行.
+NOTIC: [8] Undefined index: nickname D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 34 行.
+NOTIC: [8] Undefined index: phoneNum D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 37 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `user_info` WHERE user_info.nickname LIKE '%' AND `phoneNum` LIKE '%' LIMIT 1   [ RunTime:0.037003s ]
+SQL: SELECT * FROM `user_info` WHERE user_info.nickname LIKE '%' AND `phoneNum` LIKE '%' LIMIT 0,10   [ RunTime:0.037002s ]
+
+[ 2017-05-09T16:33:48+08:00 ] ::1 /hkxt/index.php/Home/countmanage/countTable
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:34:00+08:00 ] ::1 /hkxt/index.php/Home//trade/report
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: page D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 313 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `his_trades_record` [ RunTime:0.034002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 315 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `his_trades_record` LIMIT 1   [ RunTime:0.032002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 316 行.
+SQL: SELECT * FROM `his_trades_record` ORDER BY open_position_time desc LIMIT 0,10   [ RunTime:0.039002s ]
+SQL: SHOW COLUMNS FROM `actuals_goods` [ RunTime:0.037002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.065004s ]
+SQL: SHOW COLUMNS FROM `user_info` [ RunTime:0.069004s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '15' LIMIT 1   [ RunTime:0.145009s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.431024s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '15' LIMIT 1   [ RunTime:0.133008s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.134008s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '15' LIMIT 1   [ RunTime:0.133007s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:1.124065s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '15' LIMIT 1   [ RunTime:2.442140s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.133007s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '15' LIMIT 1   [ RunTime:0.133008s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.134008s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:3.759215s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.134007s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.133007s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.133008s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.628036s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.133007s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.133008s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.135008s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.133007s ]
+
+[ 2017-05-09T16:34:00+08:00 ] ::1 /hkxt/index.php/Home/clientmanage/clientList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:34:19+08:00 ] ::1 /hkxt/index.php/Home/user/getlist
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `user_info` [ RunTime:1.237071s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 24 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 25 行.
+NOTIC: [8] Undefined index: nickname D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 34 行.
+NOTIC: [8] Undefined index: phoneNum D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 37 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `user_info` WHERE user_info.nickname LIKE '%' AND `phoneNum` LIKE '%' LIMIT 1   [ RunTime:0.138008s ]
+SQL: SELECT * FROM `user_info` WHERE user_info.nickname LIKE '%' AND `phoneNum` LIKE '%' LIMIT 0,10   [ RunTime:1.381079s ]
+
+[ 2017-05-09T16:34:19+08:00 ] ::1 /hkxt/index.php/Home/clientmanage/clientList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:34:21+08:00 ] ::1 /hkxt/index.php/Home/user/getlist
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `user_info` [ RunTime:0.038002s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 24 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 25 行.
+NOTIC: [8] Undefined index: nickname D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 34 行.
+NOTIC: [8] Undefined index: phoneNum D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 37 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `user_info` WHERE user_info.nickname LIKE '%' AND `phoneNum` LIKE '%' LIMIT 1   [ RunTime:0.037002s ]
+SQL: SELECT * FROM `user_info` WHERE user_info.nickname LIKE '%' AND `phoneNum` LIKE '%' LIMIT 0,10   [ RunTime:0.037003s ]
+
+[ 2017-05-09T16:34:24+08:00 ] ::1 /hkxt/index.php/Home/accountmanage/usermanage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:34:24+08:00 ] ::1 /hkxt/index.php/Home/accountmanage/userManage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:34:35+08:00 ] ::1 /hkxt/index.php/Home//member/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:2.144123s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 23 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `member_info` LIMIT 1   [ RunTime:6.343363s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 24 行.
+NOTIC: [8] Undefined index: limit D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db.class.php 第 786 行.
+SQL: SELECT * FROM `member_info` LIMIT 0,20   [ RunTime:0.041002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 5 LIMIT 1   [ RunTime:0.040003s ]
+NOTIC: [2] Division by zero D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 38 行.
+
+[ 2017-05-09T16:34:37+08:00 ] ::1 /hkxt/index.php/Home//adminuser/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `admin_user` [ RunTime:0.134008s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 24 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 25 行.
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 36 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `admin_user` LIMIT 1   [ RunTime:0.133007s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 37 行.
+SQL: SELECT * FROM `admin_user` LIMIT 0,10   [ RunTime:0.132007s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.132008s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.133007s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.132008s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.132008s ]
+
+[ 2017-05-09T16:34:37+08:00 ] ::1 /hkxt/index.php/Home/clientmanage/clientList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:34:39+08:00 ] ::1 /hkxt/index.php/Home/user/getlist
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `user_info` [ RunTime:0.169009s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 24 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 25 行.
+NOTIC: [8] Undefined index: nickname D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 34 行.
+NOTIC: [8] Undefined index: phoneNum D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 37 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `user_info` WHERE user_info.nickname LIKE '%' AND `phoneNum` LIKE '%' LIMIT 1   [ RunTime:0.099006s ]
+SQL: SELECT * FROM `user_info` WHERE user_info.nickname LIKE '%' AND `phoneNum` LIKE '%' LIMIT 0,10   [ RunTime:0.100006s ]
+
+[ 2017-05-09T16:34:43+08:00 ] ::1 /hkxt/index.php/Home/clientmanage/wpclog?uid=11
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:34:45+08:00 ] ::1 /hkxt/index.php/Home/trade/closePosition
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 23 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 24 行.
+NOTIC: [8] Undefined index: userId D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 25 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `his_trades_record` [ RunTime:0.037002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `his_trades_record` WHERE `uid` = '11' LIMIT 1   [ RunTime:0.037002s ]
+SQL: SELECT * FROM `his_trades_record` WHERE `uid` = '11' ORDER BY open_position_time desc LIMIT 0,5   [ RunTime:0.040002s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 41 行.
+
+[ 2017-05-09T16:34:47+08:00 ] ::1 /hkxt/index.php/Home/clientmanage/ypcLog?uid=11
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:34:48+08:00 ] ::1 /hkxt/index.php/Home/trade/closePosition
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 23 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 24 行.
+NOTIC: [8] Undefined index: userId D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 25 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `his_trades_record` [ RunTime:0.031001s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `his_trades_record` WHERE `uid` = '11' LIMIT 1   [ RunTime:0.031002s ]
+SQL: SELECT * FROM `his_trades_record` WHERE `uid` = '11' ORDER BY open_position_time desc LIMIT 0,5   [ RunTime:0.034002s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 41 行.
+
+[ 2017-05-09T16:34:50+08:00 ] ::1 /hkxt/index.php/Home/clientmanage/outLog?uid=11
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:34:51+08:00 ] ::1 /hkxt/index.php/Home/trade/out
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001001s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 87 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 88 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `user_withdraw` [ RunTime:0.032002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `user_withdraw` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.040002s ]
+SQL: SELECT * FROM `user_withdraw` WHERE `uid` = 1 ORDER BY handleTime  LIMIT 0,5   [ RunTime:0.045003s ]
+
+[ 2017-05-09T16:34:52+08:00 ] ::1 /hkxt/index.php/Home/clientmanage/inLog?uid=11
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:34:53+08:00 ] ::1 /hkxt/index.php/Home/trade/keep
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 61 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 62 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `recharge_info` [ RunTime:0.034002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `recharge_info` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.032002s ]
+SQL: SELECT * FROM `recharge_info` WHERE `uid` = 1 ORDER BY depositTime desc LIMIT 0,5   [ RunTime:0.035002s ]
+
+[ 2017-05-09T16:34:58+08:00 ] ::1 /hkxt/index.php/Home/clientmanage/outLog?uid=11
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:34:59+08:00 ] ::1 /hkxt/index.php/Home/trade/out
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 87 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 88 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `user_withdraw` [ RunTime:0.033002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `user_withdraw` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.037002s ]
+SQL: SELECT * FROM `user_withdraw` WHERE `uid` = 1 ORDER BY handleTime  LIMIT 0,5   [ RunTime:0.049003s ]
+
+[ 2017-05-09T16:35:00+08:00 ] ::1 /hkxt/index.php/Home/trade/out
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 87 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 88 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `user_withdraw` [ RunTime:0.038003s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `user_withdraw` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.041002s ]
+SQL: SELECT * FROM `user_withdraw` WHERE `uid` = 1 ORDER BY handleTime  LIMIT 5,5   [ RunTime:0.048003s ]
+
+[ 2017-05-09T16:35:03+08:00 ] ::1 /hkxt/index.php/Home/trade/out
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 87 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 88 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `user_withdraw` [ RunTime:0.033002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `user_withdraw` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.040002s ]
+SQL: SELECT * FROM `user_withdraw` WHERE `uid` = 1 ORDER BY handleTime  LIMIT 10,5   [ RunTime:0.045003s ]
+
+[ 2017-05-09T16:35:04+08:00 ] ::1 /hkxt/index.php/Home/trade/out
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 87 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 88 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `user_withdraw` [ RunTime:0.033001s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `user_withdraw` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.047002s ]
+SQL: SELECT * FROM `user_withdraw` WHERE `uid` = 1 ORDER BY handleTime  LIMIT 15,5   [ RunTime:0.047003s ]
+
+[ 2017-05-09T16:35:05+08:00 ] ::1 /hkxt/index.php/Home/trade/out
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 87 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 88 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `user_withdraw` [ RunTime:0.034002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `user_withdraw` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.040002s ]
+SQL: SELECT * FROM `user_withdraw` WHERE `uid` = 1 ORDER BY handleTime  LIMIT 20,5   [ RunTime:0.047003s ]
+
+[ 2017-05-09T16:35:06+08:00 ] ::1 /hkxt/index.php/Home/trade/out
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 87 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 88 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `user_withdraw` [ RunTime:0.034002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `user_withdraw` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.038002s ]
+SQL: SELECT * FROM `user_withdraw` WHERE `uid` = 1 ORDER BY handleTime  LIMIT 25,5   [ RunTime:0.045003s ]
+
+[ 2017-05-09T16:35:07+08:00 ] ::1 /hkxt/index.php/Home/trade/out
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 87 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 88 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `user_withdraw` [ RunTime:0.032002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `user_withdraw` WHERE `uid` = 1 LIMIT 1   [ RunTime:0.037002s ]
+SQL: SELECT * FROM `user_withdraw` WHERE `uid` = 1 ORDER BY handleTime  LIMIT 30,5   [ RunTime:0.044002s ]
+
+[ 2017-05-09T16:35:08+08:00 ] ::1 /hkxt/index.php/Home/accountmanage/userManage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:35:10+08:00 ] ::1 /hkxt/index.php/Home//member/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.037002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 23 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `member_info` LIMIT 1   [ RunTime:0.036002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 24 行.
+NOTIC: [8] Undefined index: limit D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db.class.php 第 786 行.
+SQL: SELECT * FROM `member_info` LIMIT 0,20   [ RunTime:0.036002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 5 LIMIT 1   [ RunTime:0.037002s ]
+NOTIC: [2] Division by zero D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 38 行.
+
+[ 2017-05-09T16:35:10+08:00 ] ::1 /hkxt/index.php/Home//adminuser/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `admin_user` [ RunTime:0.031002s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 24 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 25 行.
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 36 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `admin_user` LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 37 行.
+SQL: SELECT * FROM `admin_user` LIMIT 0,10   [ RunTime:0.031001s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.031002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.030002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.031002s ]
+
+[ 2017-05-09T16:35:11+08:00 ] ::1 /hkxt/index.php/Home/countmanage/countTable
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:35:13+08:00 ] ::1 /hkxt/index.php/Home//trade/report
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: page D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 313 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `his_trades_record` [ RunTime:0.036002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 315 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `his_trades_record` LIMIT 1   [ RunTime:0.035002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 316 行.
+SQL: SELECT * FROM `his_trades_record` ORDER BY open_position_time desc LIMIT 0,10   [ RunTime:0.036002s ]
+SQL: SHOW COLUMNS FROM `actuals_goods` [ RunTime:0.034002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.034002s ]
+SQL: SHOW COLUMNS FROM `user_info` [ RunTime:0.034002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '15' LIMIT 1   [ RunTime:0.034002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.035002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '15' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.034002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '15' LIMIT 1   [ RunTime:0.034002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.039002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '15' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.034002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '15' LIMIT 1   [ RunTime:0.034002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.034002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.034002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.034002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.034002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.035002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.034002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.035002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.034002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.034002s ]
+
+[ 2017-05-09T16:35:16+08:00 ] ::1 /hkxt/index.php/Home//trade/report
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `his_trades_record` [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 315 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `his_trades_record` LIMIT 1   [ RunTime:0.030002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 316 行.
+SQL: SELECT * FROM `his_trades_record` ORDER BY open_position_time desc LIMIT 10,10   [ RunTime:0.035002s ]
+SQL: SHOW COLUMNS FROM `actuals_goods` [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.031002s ]
+SQL: SHOW COLUMNS FROM `user_info` [ RunTime:0.031001s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.030002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.030002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '50' LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.031002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '42' LIMIT 1   [ RunTime:0.031001s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.030002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.036002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.030002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.030002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.030002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.034002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.031001s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.031001s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.031002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.031002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.033002s ]
+
+[ 2017-05-09T16:35:19+08:00 ] ::1 /hkxt/index.php/Home//trade/report
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `his_trades_record` [ RunTime:0.039002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 315 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `his_trades_record` LIMIT 1   [ RunTime:0.038003s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 316 行.
+SQL: SELECT * FROM `his_trades_record` ORDER BY open_position_time desc LIMIT 20,10   [ RunTime:0.042002s ]
+SQL: SHOW COLUMNS FROM `actuals_goods` [ RunTime:0.038002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.037002s ]
+SQL: SHOW COLUMNS FROM `user_info` [ RunTime:0.038002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.038002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.037002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.038002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.037003s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.037002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.037002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.037002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.037002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.037002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.037002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.037002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.037002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.037002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.037003s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.038002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.037002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.037002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.038002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.037002s ]
+
+[ 2017-05-09T16:35:21+08:00 ] ::1 /hkxt/index.php/Home//trade/report
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `his_trades_record` [ RunTime:0.032002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 315 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `his_trades_record` LIMIT 1   [ RunTime:0.030002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 316 行.
+SQL: SELECT * FROM `his_trades_record` ORDER BY open_position_time desc LIMIT 30,10   [ RunTime:0.033002s ]
+SQL: SHOW COLUMNS FROM `actuals_goods` [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.031002s ]
+SQL: SHOW COLUMNS FROM `user_info` [ RunTime:0.032002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.030001s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.038003s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.034002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.030001s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.031002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.031002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.030002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.031002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.031001s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.032002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.030002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.030002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.030001s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: actaulMap D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 320 行.
+SQL: SELECT * FROM `actuals_goods` LIMIT 1   [ RunTime:0.031002s ]
+SQL: SELECT * FROM `user_info` WHERE `uid` = '5' LIMIT 1   [ RunTime:0.031002s ]
+
+[ 2017-05-09T16:55:44+08:00 ] ::1 /hkxt/index.php/Home/clientmanage/clientList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:55:45+08:00 ] ::1 /hkxt/index.php/Home/user/getlist
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `user_info` [ RunTime:0.041002s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 24 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 25 行.
+NOTIC: [8] Undefined index: nickname D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 34 行.
+NOTIC: [8] Undefined index: phoneNum D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 37 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `user_info` WHERE user_info.nickname LIKE '%' AND `phoneNum` LIKE '%' LIMIT 1   [ RunTime:0.032001s ]
+SQL: SELECT * FROM `user_info` WHERE user_info.nickname LIKE '%' AND `phoneNum` LIKE '%' LIMIT 0,10   [ RunTime:0.035002s ]
+
+[ 2017-05-09T16:55:46+08:00 ] ::1 /hkxt/index.php/Home/clientmanage/wpclog?uid=4
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:55:47+08:00 ] ::1 /hkxt/index.php/Home/trade/closePosition
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001001s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 23 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 24 行.
+NOTIC: [8] Undefined index: userId D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 25 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `his_trades_record` [ RunTime:0.032001s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `his_trades_record` WHERE `uid` = '4' LIMIT 1   [ RunTime:0.034002s ]
+SQL: SELECT * FROM `his_trades_record` WHERE `uid` = '4' ORDER BY open_position_time desc LIMIT 0,5   [ RunTime:0.032002s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 41 行.
+
+[ 2017-05-09T16:55:49+08:00 ] ::1 /hkxt/index.php/Home/clientmanage/ypcLog?uid=4
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:55:50+08:00 ] ::1 /hkxt/index.php/Home/trade/closePosition
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 23 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 24 行.
+NOTIC: [8] Undefined index: userId D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 25 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `his_trades_record` [ RunTime:0.032002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `his_trades_record` WHERE `uid` = '4' LIMIT 1   [ RunTime:0.030002s ]
+SQL: SELECT * FROM `his_trades_record` WHERE `uid` = '4' ORDER BY open_position_time desc LIMIT 0,5   [ RunTime:0.033002s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 41 行.
+
+[ 2017-05-09T16:55:53+08:00 ] ::1 /hkxt/index.php/Home/trade/closePosition
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 23 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 24 行.
+NOTIC: [8] Undefined index: userId D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 25 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `his_trades_record` [ RunTime:0.032001s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `his_trades_record` WHERE `uid` = '4' LIMIT 1   [ RunTime:0.031001s ]
+SQL: SELECT * FROM `his_trades_record` WHERE `uid` = '4' ORDER BY open_position_time desc LIMIT 0,5   [ RunTime:0.032002s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 41 行.
+
+[ 2017-05-09T16:56:36+08:00 ] ::1 /hkxt/index.php/Home/clientmanage/wpclog?uid=4
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:56:37+08:00 ] ::1 /hkxt/index.php/Home/trade/closePosition
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 23 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 24 行.
+NOTIC: [8] Undefined index: userId D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 25 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `his_trades_record` [ RunTime:0.038002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `his_trades_record` WHERE `uid` = '4' LIMIT 1   [ RunTime:0.037002s ]
+SQL: SELECT * FROM `his_trades_record` WHERE `uid` = '4' ORDER BY open_position_time desc LIMIT 0,5   [ RunTime:0.039002s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 41 行.
+
+[ 2017-05-09T16:56:40+08:00 ] ::1 /hkxt/index.php/Home/user/getlist
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `user_info` [ RunTime:0.031002s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 24 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 25 行.
+NOTIC: [8] Undefined index: nickname D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 34 行.
+NOTIC: [8] Undefined index: phoneNum D:\phpStudy\WWW\hkxt\Application\Home\Controller\UserController.class.php 第 37 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `user_info` WHERE user_info.nickname LIKE '%' AND `phoneNum` LIKE '%' LIMIT 1   [ RunTime:0.030002s ]
+SQL: SELECT * FROM `user_info` WHERE user_info.nickname LIKE '%' AND `phoneNum` LIKE '%' LIMIT 0,10   [ RunTime:0.034002s ]
+
+[ 2017-05-09T16:56:42+08:00 ] ::1 /hkxt/index.php/Home/clientmanage/wpclog?uid=4
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:56:43+08:00 ] ::1 /hkxt/index.php/Home/trade/closePosition
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 23 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 24 行.
+NOTIC: [8] Undefined index: userId D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 25 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `his_trades_record` [ RunTime:0.033002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `his_trades_record` WHERE `uid` = '4' LIMIT 1   [ RunTime:0.032001s ]
+SQL: SELECT * FROM `his_trades_record` WHERE `uid` = '4' ORDER BY open_position_time desc LIMIT 0,5   [ RunTime:0.036003s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 41 行.
+
+[ 2017-05-09T16:56:44+08:00 ] ::1 /hkxt/index.php/Home/clientmanage/ypcLog?uid=4
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T16:56:45+08:00 ] ::1 /hkxt/index.php/Home/trade/closePosition
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.001000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 23 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 24 行.
+NOTIC: [8] Undefined index: userId D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 25 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `his_trades_record` [ RunTime:0.031002s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `his_trades_record` WHERE `uid` = '4' LIMIT 1   [ RunTime:0.033002s ]
+SQL: SELECT * FROM `his_trades_record` WHERE `uid` = '4' ORDER BY open_position_time desc LIMIT 0,5   [ RunTime:0.033002s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\phpStudy\WWW\hkxt\Application\Home\Controller\TradeController.class.php 第 41 行.
+
+[ 2017-05-09T17:02:06+08:00 ] ::1 /hkxt/index.php/Home/login/restpassword
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+ERR: 非法操作:restpassword
+
+[ 2017-05-09T17:02:13+08:00 ] ::1 /hkxt/index.php/Home/login/dorestpassword
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T17:02:41+08:00 ] ::1 /hkxt/index.php/Home/login/login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T17:02:48+08:00 ] ::1 /hkxt/index.php/Home//login/dologin
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `admin_user` [ RunTime:0.033002s ]
+SQL: SELECT * FROM `admin_user` WHERE `uid` = 'adminuser' AND `pass` = '25f9e794323b453885f5181f1b624d0b' AND `status` = 0 LIMIT 1   [ RunTime:0.054003s ]
+
+[ 2017-05-09T17:02:51+08:00 ] ::1 /hkxt/index.php/Home/accountmanage/usermanage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T17:02:52+08:00 ] ::1 /hkxt/index.php/Home//member/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.035002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 23 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `member_info` LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 24 行.
+NOTIC: [8] Undefined index: limit D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db.class.php 第 786 行.
+SQL: SELECT * FROM `member_info` LIMIT 0,20   [ RunTime:0.034002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 5 LIMIT 1   [ RunTime:0.032002s ]
+NOTIC: [2] Division by zero D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 38 行.
+
+[ 2017-05-09T17:02:53+08:00 ] ::1 /hkxt/index.php/Home//adminuser/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `admin_user` [ RunTime:0.032002s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 24 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 25 行.
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 36 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `admin_user` LIMIT 1   [ RunTime:0.032002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 37 行.
+SQL: SELECT * FROM `admin_user` LIMIT 0,10   [ RunTime:0.033001s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.031001s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.032002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.032002s ]
+NOTIC: [8] Undefined index: memberid D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+SQL: SELECT * FROM `member_info` WHERE `memberid` = null LIMIT 1   [ RunTime:0.031002s ]
+
+[ 2017-05-09T17:03:09+08:00 ] ::1 /hkxt/index.php/Home/login/dorestpassword
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T17:04:05+08:00 ] ::1 /hkxt/index.php/Home/login/dorestpassword
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T17:24:25+08:00 ] ::1 /hkxt/index.php/Home/accountmanage/usermanage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T17:24:26+08:00 ] ::1 /hkxt/index.php/Home//member/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001001s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.058003s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 23 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `member_info` LIMIT 1   [ RunTime:0.058003s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 24 行.
+NOTIC: [8] Undefined index: limit D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db.class.php 第 786 行.
+SQL: SELECT * FROM `member_info` LIMIT 0,20   [ RunTime:0.059003s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 5 LIMIT 1   [ RunTime:0.059003s ]
+NOTIC: [2] Division by zero D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 38 行.
+
+[ 2017-05-09T17:24:27+08:00 ] ::1 /hkxt/index.php/Home//adminuser/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `admin_user` [ RunTime:0.063003s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 24 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 25 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `admin_user` WHERE `nickname` LIKE '111%' LIMIT 1   [ RunTime:0.062004s ]
+SQL: SELECT * FROM `admin_user` WHERE `nickname` LIKE '111%' LIMIT 0,10   [ RunTime:0.063004s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 40 行.
+
+[ 2017-05-09T17:25:03+08:00 ] ::1 /hkxt/index.php/Home/accountmanage/usermanage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T17:25:04+08:00 ] ::1 /hkxt/index.php/Home//member/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.032002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 23 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `member_info` LIMIT 1   [ RunTime:0.029002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 24 行.
+NOTIC: [8] Undefined index: limit D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db.class.php 第 786 行.
+SQL: SELECT * FROM `member_info` LIMIT 0,20   [ RunTime:0.030002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 5 LIMIT 1   [ RunTime:0.030001s ]
+NOTIC: [2] Division by zero D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 38 行.
+
+[ 2017-05-09T17:25:05+08:00 ] ::1 /hkxt/index.php/Home//adminuser/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001001s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001001s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `admin_user` [ RunTime:0.033002s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 24 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 25 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `admin_user` WHERE `nickname` LIKE '111%' LIMIT 1   [ RunTime:0.039003s ]
+SQL: SELECT * FROM `admin_user` WHERE `nickname` LIKE '111%' LIMIT 0,10   [ RunTime:0.034002s ]
+
+[ 2017-05-09T17:25:18+08:00 ] ::1 /hkxt/index.php/Home/accountmanage/usermanage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T17:25:19+08:00 ] ::1 /hkxt/index.php/Home//member/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.001000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.032002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 23 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `member_info` LIMIT 1   [ RunTime:0.032002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 24 行.
+NOTIC: [8] Undefined index: limit D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db.class.php 第 786 行.
+SQL: SELECT * FROM `member_info` LIMIT 0,20   [ RunTime:0.032002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 5 LIMIT 1   [ RunTime:0.033002s ]
+NOTIC: [2] Division by zero D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 38 行.
+
+[ 2017-05-09T17:25:20+08:00 ] ::1 /hkxt/index.php/Home//adminuser/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `admin_user` [ RunTime:0.031002s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 24 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 25 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `admin_user` WHERE `nickname` LIKE '111%' LIMIT 1   [ RunTime:0.031001s ]
+SQL: SELECT * FROM `admin_user` WHERE `nickname` LIKE '111%' LIMIT 0,10   [ RunTime:0.030002s ]
+
+[ 2017-05-09T17:27:20+08:00 ] ::1 /hkxt/index.php/Home/accountmanage/usermanage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T17:27:21+08:00 ] ::1 /hkxt/index.php/Home//member/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.031001s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 23 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `member_info` LIMIT 1   [ RunTime:0.031001s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 24 行.
+NOTIC: [8] Undefined index: limit D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db.class.php 第 786 行.
+SQL: SELECT * FROM `member_info` LIMIT 0,20   [ RunTime:0.032002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 5 LIMIT 1   [ RunTime:0.031002s ]
+NOTIC: [2] Division by zero D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 38 行.
+
+[ 2017-05-09T17:27:22+08:00 ] ::1 /hkxt/index.php/Home//adminuser/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001001s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `admin_user` [ RunTime:0.030001s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 24 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\AdminuserController.class.php 第 25 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `admin_user` WHERE `nickname` LIKE '超%' LIMIT 1   [ RunTime:0.029002s ]
+SQL: SELECT * FROM `admin_user` WHERE `nickname` LIKE '超%' LIMIT 0,10   [ RunTime:0.030002s ]
+
+[ 2017-05-09T18:03:23+08:00 ] ::1 /hkxt/index.php/Home/accountmanage/brokerManage
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.028002s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+
+[ 2017-05-09T18:03:26+08:00 ] ::1 /hkxt/index.php/Home//member/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.032002s ]
+NOTIC: [8] Undefined index: starTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 22 行.
+NOTIC: [8] Undefined index: endTime D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 23 行.
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 34 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `member_info` LIMIT 1   [ RunTime:0.035002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 35 行.
+NOTIC: [8] Undefined index: limit D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db.class.php 第 786 行.
+SQL: SELECT * FROM `member_info` LIMIT 0,20   [ RunTime:0.043002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 5 LIMIT 1   [ RunTime:0.032002s ]
+NOTIC: [2] Division by zero D:\phpStudy\WWW\hkxt\Application\Home\Controller\MemberController.class.php 第 49 行.
+
+[ 2017-05-09T18:03:27+08:00 ] ::1 /hkxt/index.php/Home//agent/getList
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Constant APP_DEBUG already defined D:\phpStudy\WWW\hkxt\Application\Home\Conf\config.php 第 16 行.
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead D:\phpStudy\WWW\hkxt\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SHOW COLUMNS FROM `agent_info` [ RunTime:0.031001s ]
+SQL: SHOW COLUMNS FROM `member_info` [ RunTime:0.031002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\AgentController.class.php 第 24 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `agent_info` LIMIT 1   [ RunTime:0.030002s ]
+NOTIC: [8] Undefined variable: map D:\phpStudy\WWW\hkxt\Application\Home\Controller\AgentController.class.php 第 25 行.
+SQL: SELECT * FROM `agent_info` LIMIT 0,10   [ RunTime:0.030002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 1 LIMIT 1   [ RunTime:0.030002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 4 LIMIT 1   [ RunTime:0.030001s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 4 LIMIT 1   [ RunTime:0.029001s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 4 LIMIT 1   [ RunTime:0.030002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 1 LIMIT 1   [ RunTime:0.030002s ]
+SQL: SELECT * FROM `member_info` WHERE `memberid` = 4 LIMIT 1   [ RunTime:0.029001s ]
+

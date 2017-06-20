@@ -1,0 +1,76 @@
+@import "./base/common";
+body{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("../images/login-bg.jpg");
+    background-size: cover;
+}
+.wrap{
+
+}
+.main{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -200px;
+    margin-left: -300px;
+    width: 600px;
+    padding: 50px;
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.3);
+    color: #fff;
+    h5{
+        font-size: 26px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    form{
+        .form-control{
+            padding-bottom: 30px;
+            label{
+                display: inline-block;
+                width: 100px;
+                margin-right: 10px;
+                text-align: right;
+            }
+            input[type="text"],
+            input[type="password"]{
+                width: 300px;
+                border-radius: 4px;
+                    height: 40px;
+                border: 1px solid $borderColor;
+
+                &.w200{
+                    width: 200px;
+                }
+            }
+            a{
+                padding: 0;
+                @extend .btn;
+                &.check-code{
+                    width: 100px;
+                }
+                &.submit{
+                    width: 300px;
+                }
+            }
+        }
+        //input{
+        //    text-indent: 1em;
+        //    display: block;
+        //    width: 300px;
+        //    margin: 0 auto 10px;
+        //}
+    }
+
+}
+.submit{
+    @include button($height: 44px);
+    width: 300px;
+    margin-top: 30px;
+    margin-left: 110px;
+}
+
