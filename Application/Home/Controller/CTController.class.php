@@ -15,7 +15,7 @@ class CTController extends Controller
 {
     public function _initialize()
     {
-        if (count(session('user')) > 0) {
+        if (count(session('user')) < 0) {
             $this->redirect('login/login');
         }
     }
