@@ -1,0 +1,67 @@
+<include file="public:top_menu" />
+
+<div class="control-bar">
+    <a href="javascript:;" class="btn J_showAdd">新建</a>
+    <a href="javascript:;" class="btn J_onDel">删除</a>
+</div>
+
+<style>
+    .btn-status{
+        width: 40px;
+        background-color:#80D640;
+        padding: 0;
+    }
+</style>
+<div class="data-container">
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>创建时间</th>
+            <th>约见明星</th>
+            <th>目的城市</th>
+            <th>约见粉丝</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="pagination"></div>
+</div>
+
+<div data-remodal-id="addAppointModal" class="remodal addAppointModal">
+    <div class="remodal-head">
+        <div class="remodal-title">约见信息</div>
+        <div data-remodal-action="cancel" class="remodal-close"></div>
+    </div>
+    <div class="remodal-body">
+        <form class="modalForm" enctype="multipart/form-data">
+            <input type="text" name="id" style="display: none">
+            <div class="form-control">
+                <label>约见明星姓名</label>
+                <apan></apan>
+            </div>
+            <div class="form-control">
+                <label>约见明星编号</label>
+                <apan></apan>
+            </div>
+        </form>
+    </div>
+    <div class="remodal-footer">
+        <a href="javascript:;"  class="remodal-confirm">确认</a>
+    </div>
+</div>
+
+<div id="browse" class="browse">
+</div>
+
+<script src="__JS__/vendor/require.js" data-main="__JS__/common"></script>
+<script>
+    require(['common'], function () {
+        require(['page/appoint']);
+    });
+</script>
+
+<include file="public:footer" />

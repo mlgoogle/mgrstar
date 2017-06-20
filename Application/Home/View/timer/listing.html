@@ -1,0 +1,57 @@
+<include file="public:top_menu" />
+
+<div class="control-bar">
+    <h3>明星时间管理</h3>
+    <!--<a href="__ROOTHOME__/Timer/info" class="btn J_showAdd">新建</a>-->
+    <!--<a href="javascript:;" class="btn J_onDel">删除</a>-->
+</div>
+
+<style>
+    .btn-status{
+        width: 40px;
+        background-color:#80D640;
+        padding: 0;
+    }
+</style>
+<div class="data-container">
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>序号</th>
+            <th>创建时间</th>
+            <th>明星名称</th>
+            <th>总发行时间秒</th>
+            <th>状态</th>
+            <th>详情</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="pagination"></div>
+</div>
+
+<script src="__JS__/vendor/require.js" data-main="__JS__/common"></script>
+<script>
+    function status(obj) {
+        var _this = $(obj);
+        var id = _this.attr("data-id");
+        $.ajax({
+            type: "POST",
+            url: "__ROOTHOME__/Timer/status",
+            dataType: "json",
+            data: {id : id},
+            success: function(msg){
+                alert(msg.message);
+                window.location.reload(true);
+            }
+        });
+    }
+
+    require(['common'], function () {
+        require(['page/timer']);
+    });
+</script>
+
+<include file="public:footer" />

@@ -1,0 +1,13 @@
+<div class="sidebar">
+    <a href="__ROOTHOME__/accountmanage/userManage" <php>  if($actionUrl=='userManage'){
+       echo 'class="active"';
+    }</php> >用户管理</a>
+    <php>
+        if($user['identity_id'] != 2){
+    </php>
+    <a href="__ROOTHOME__/accountmanage/orgManage" <php>  if($actionUrl=='orgManage'){ echo 'class="active"';}</php> >机构管理</a>
+    <php> } </php>
+
+    <a href="__ROOTHOME__/accountmanage/brokerManage"  <php>  if($actionUrl=='brokerManage'){ echo 'class="active"';}</php>  >经纪人管理</a>
+    <!--a(class="#{ level[1] == 4 ? 'active' : '' }" href="__ROOTHOME__/wqManage") 微圈管理-->
+</div>
