@@ -7,8 +7,8 @@
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
-// +----------------------------------------------------------------------
-// echo phpinfo();exit;
+// +----------------------------------------------------------------
+//echo phpinfo();exit;
 // 应用入口文件
 
 // 检测PHP环境
@@ -27,3 +27,4 @@ define('APP_PATH','./Application/');
 // 引入ThinkPHP入口文件
 require './ThinkPHP/ThinkPHP.php';
 // 亲^_^ 后面不需要任何代码了 就是如此简单
+
