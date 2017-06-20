@@ -10,7 +10,7 @@ use Think\Controller;
  * Class CustomerController
  * @package Home\Controller
  */
-class CustomerController extends Controller
+class CustomerController extends CTController
 {
     //软删除    0上线 1下线 2软删除
     const DELETE_ONLINE = 0;

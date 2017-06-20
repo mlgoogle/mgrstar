@@ -10,7 +10,7 @@ use Think\Controller;
  * Class LucidaController
  * @package Home\Controller
  */
-class LucidaController extends Controller
+class LucidaController extends CTController
 {
     //软删除    0上线 1下线 2软删除
     const DELETE_ONLINE = 0;

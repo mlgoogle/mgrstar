@@ -71,12 +71,16 @@
                 <input type="hidden" name="id" value="<?php echo $item['id'];?>">
                 <div class="form-control">
                     <label>明星名称</label>
-                    <?php echo $item['starname'];?>
+                    <?php if (!isset($item['id'])) {?>
+                        <input type="text" name="starname" value="<?php echo $item['micro'];?>">
+                    <?php } else { echo $item['starname']; }?>
                 </div>
+                <?php if (isset($item['id'])) {?>
                 <div class="form-control control-label">
                     <label>明星状态</label>
                     <?php echo $item['status'];?>
                 </div>
+                <?php } ?>
                 <div class="form-control">
                     <label>总发行时间</label>
                     <input type="text" name="micro" value="<?php echo $item['micro'];?>">
@@ -220,23 +224,32 @@
         //添加、修改明星信息
         $(".remodal-confirm").click(function () {
             var id = $.trim($("input[name='id']").val());
+            var starname = $.trim($("input[name='starname']").val());
+            if ($("input[name='starname']").val() != undefined && starname.length == 0) {
+                alert("请填写明星名称");
+                return false;
+            }
+
             var micro = $.trim($("input[name='micro']").val());
             micro = parseInt(micro);
 
             if (parseInt(micro) < 1) {
                 return false;
             }
-            var url = "__ROOTHOME__/Timer/addTimer";
 
             if (id.length > 0) {
                 var url = "__ROOTHOME__/Timer/editTimer";
+                var data = {  id : id, micro : micro }
+            } else {
+                var url = "__ROOTHOME__/Timer/addTimer";
+                var data = {  micro : micro, starname : starname }
             }
 
             $.ajax({
                 type: "POST",
                 url: url,
                 dataType: "json",
-                data: {id : id, micro : micro},
+                data: data,
                 success: function(msg){
                     alert(msg.message);
                     if (msg.code != -2) {

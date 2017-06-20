@@ -1,7 +1,6 @@
 <?php
 
 namespace Home\Controller;
-use Think\Controller;
 
 /**
  * 轮播列表
@@ -10,7 +9,7 @@ use Think\Controller;
  * Class StarController
  * @package Home\Controller
  */
-class StarController extends Controller
+class StarController extends CTController
 {
     //软删除
     const DELETE_TRUE = 1;

@@ -13,7 +13,7 @@
     .submenu li:hover {
         color: #55abed;
     }
-
+*{    font-size: 14px;}
 </style>
 <?php
     $starArr = array('Star', 'Info', 'Lucida', 'Meet', 'Appoint', 'Timer');
@@ -45,14 +45,14 @@
         </li>
         <li class="pli">
             <a href="javascript:;"
-            <php>if($action == 'dataSearch'){echo 'class="main"';}</php>
+            <php>if($action == 'dataSearch'){echo 'class="active"';}</php>
             <i class="icon-align-right"></i><strong> 数据查询</strong></a>
             <ul class="submenu">
                 <li><a
-                    <php>if($actionUrl == 'fundList'){echo 'class="active"';}</php>
+                    <php>if($actionUrl == 'fundList'){echo 'class="act"';}</php>
                     href="__ROOTHOME__/DataSearch/fundList">资金查询</a></li>
                 <li><a
-                    <php>if($actionUrl == 'position'){echo 'class="active"';}</php>
+                    <php>if($actionUrl == 'position'){echo 'class="act"';}</php>
                         href="__ROOTHOME__/DataSearch/position">持仓汇总查询</a></li>
                 <li><a href="#">出入金查询</a></li>
                 <li><a href="#">交易额明细查询</a></li>
@@ -148,7 +148,6 @@
                 box.show();
                 box.addClass("open");
             }
-
         });
     });
 </script>
