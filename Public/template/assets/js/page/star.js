@@ -174,7 +174,6 @@ define([
                 if (initPage) {
                     var pageCount = result.totalPages;
                     if (pageCount > 0) {
-                        console.log("页数：" + pageCount);
                         $(".pagination").show().html("").createPage({
                             pageCount: pageCount,
                             current: 1,
