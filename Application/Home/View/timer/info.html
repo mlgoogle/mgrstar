@@ -100,12 +100,12 @@
                                     <span class="info-secs secs-free" style="margin-right: 34%;">可用值 : <?php echo $free;?></span>
                                 </li>
                                 <?php if ($free > 0) { ?>
-                                    <textarea name="free-timer" style="width: 450px;height: 100px;" placeholder="请用英文,逗号分隔"/></textarea>
+                                    <textarea name="free-timer" style="width: 450px;height: 100px;" placeholder="多个用户ID 请用英文,逗号分隔"/></textarea>
                                 <?php } ?>
                                 <br>
                                 <?php foreach($timer as $t) {
-                                 $userMark = (!empty($t['nickname'])) ? $t['nickname'] : $t['fansid'];
-                                 echo '<li> ' . $userMark . '<b class="close_exp" data-id='.$t['id'].' onclick="close_exp(this)">X</b><span class="info-secs">' .$t['secs'] .'</span> </li>';
+                                 $userMark = (!empty($t['nickname'])) ? $t['nickname'] : $t['belong_id'];
+                                 echo '<li> ' . $userMark . '<b class="close_exp" data-id='.$t['id'].' onclick="close_exp(this)">X</b><span class="info-secs">' .$t['star_time'] .'</span> </li>';
                                 }?>
                             </div>
                         </div>

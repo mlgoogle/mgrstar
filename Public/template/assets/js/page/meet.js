@@ -110,7 +110,7 @@ define([
                 }
                 var oTr,
                     //checkTd = '<td><input type="checkbox"></td>',
-                    controlTd = "<td><a class='J_showEdit text-blue' href='javascript:;'>修改</a></td>";
+                    controlTd = "<td><a class='J_showEdit text-blue' href='javascript:;'>查看</a></td>";
                 $.each(result.list, function (i, v) {
                     var add_time = '<td>' + v.order_time + '</td>';
                     var starname = '<td>' + v.starname + '</td>';

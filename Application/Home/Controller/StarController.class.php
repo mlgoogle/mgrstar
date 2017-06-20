@@ -29,8 +29,8 @@ class StarController extends Controller
     public function carousel()
     {
 
-        $model = M('star_bannerlist_new');
-        $count = $model->where("`delete_flag` = ".self::DELETE_FALSE."")->count('id');
+        $model = M('star_bannerlist');
+        $count = $model->where("`delete_flag` = ".self::DELETE_FALSE)->count('id');
 
         $this->assign('count', $count);
         $this->display('star/carousel');
@@ -51,6 +51,17 @@ class StarController extends Controller
         $starcode = (int)$_POST['starcode'];
         $sort = (int)$_POST['sort'];
 
+        //唯一性判断
+        $model = M('star_bannerlist');
+        $count = $model->where("`delete_flag` = ".self::DELETE_FALSE)->count('id');
+        if ($count > 4) {
+            $return = array(
+                'code' => -2,
+                'message' => '已有固定Banner，请先删除其他！'
+            );
+            return $this->ajaxReturn($return);
+        }
+
         //非空提醒
         if (empty($starname) || empty($starcode)) {
             $return = array(
@@ -60,9 +71,7 @@ class StarController extends Controller
             return $this->ajaxReturn($return);
         }
 
-        //唯一性判断
-        $Model = M('star_bannerlist_new');
-        $isExist = (int)$Model->where("`starname` = '{$starname}'")->count('id');
+        $isExist = (int)$model->where("`starname` = '{$starname}' AND `delete_flag` = ".self::DELETE_FALSE)->count('id');
         if ($isExist) {
             $return = array(
                 'code' => -2,
@@ -72,12 +81,12 @@ class StarController extends Controller
         }
 
         //数据入库
-        $Model->starname = $starname;
-        $Model->starcode = $starcode;
-        $Model->pic_url = $pic_url;
-        $Model->sort = $sort;
-        $Model->add_time = time();
-        $bool = ($Model->add()) ? 0 : 1;
+        $model->starname = $starname;
+        $model->starcode = $starcode;
+        $model->pic_url = $pic_url;
+        $model->sort = $sort;
+        $model->add_time = time();
+        $bool = ($model->add()) ? 0 : 1;
 
         //结果返回
         $return = array(
@@ -143,7 +152,7 @@ class StarController extends Controller
         }
 
         $bool = 1;
-        $model = M('star_bannerlist_new');
+        $model = M('star_bannerlist');
         $item = $model->where("`id` = '{$id}'")->find();
 
         $pic_url = I('post.pic_url', '', 'strip_tags');
@@ -181,7 +190,7 @@ class StarController extends Controller
     {
         //获取提交过来的ID值并进行分割 in 查询
         $ids = implode(',', $_POST['ids']);
-        $model = M('star_bannerlist_new');
+        $model = M('star_bannerlist');
         $list = $model->where(array('id'=>array('in', $ids)))->select();
 
         //已查到的存在的数据
@@ -212,13 +221,13 @@ class StarController extends Controller
      */
     public function searchCarousel()
     {
-        $carousel = M('star_bannerlist_new');
+        $carousel = M('star_bannerlist');
         $pageNum = I('post.pageNum', 5, 'intval');
         $page = I('post.page', 1, 'intval');
         $map = array('delete_flag' => self::DELETE_FALSE);
 
         $count = $carousel->where($map)->count();// 查询满足要求的总记录数
-        $list = $carousel->where($map)->page($page, $pageNum)->order('id desc')->select();//获取分页数据
+        $list = $carousel->where($map)->page($page, $pageNum)->order('sort desc')->select();//获取分页数据
 
         new \Think\Page($count, $pageNum);// 实例化分页类 传入总记录数和每页显示的记录数(25)
         $data['totalPages'] = $count;

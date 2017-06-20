@@ -1,9 +1,12 @@
 <style>
     .submenu{display: none;}
-    .submenu li{color: #CCCCCC;padding-left: 20px;width: 70%;}
+    .submenu li{color: #CCCCCC;}
+    .act{background-color: #FFB6C1}
     .select{border-bottom: 2px dashed red;}
-
-    .pli a.main {
+    .icon-star-img {
+        width: 120px;
+    }
+ .pli a.main {
         background-color: #55abed;
     }
 
@@ -12,6 +15,11 @@
     }
 
 </style>
+<?php
+    $starArr = array('Star', 'Info', 'Lucida', 'Meet', 'Appoint', 'Timer');
+    $cusArr = array( 'Customer');
+    $starCtr = array('carousel', 'listing', 'meet', 'appoint');
+?>
 <div class="sidebar">
     <ul class="nav-list">
         <li class="pli">
@@ -56,7 +64,7 @@
         </php>
             <li class="pli">
                 <a href="javascript:;"
-                    <php>if($action == 'accountManage'){echo 'class="main"';}</php>  >
+                    <php>if($action == 'accountManage'){echo 'class="active"';}</php>  >
                     <i class="icon-user"></i>
                     <strong>
                         系统账户管理
@@ -65,22 +73,15 @@
                 <ul class="submenu">
 
                     <li><a href="__ROOTHOME__/accountmanage/userManage"
-                        <php>if($actionUrl == 'userManage'){echo 'class="active"';}</php>
+                        <php>if($actionUrl == 'userManage'){echo 'class="act"';}</php>
                         >账户权限</a>
                     </li>
-
-                    <!--<li><a href="javascript:;"-->
-                        <!--<php>if($actionUrl == '#'){echo 'class="active"';}</php>-->
-                        <!--&gt;账户角色</a></li>-->
-                    <!--
-                    <li><a href="#">创建系统账户</a></li>
-                    -->
 
                     <php>
                         if($user['identity_id']<2){
                     </php>
                         <li><a href="__ROOTHOME__/accountmanage/orgManage"
-                            <php>if($actionUrl == 'orgManage'){echo 'class="active"';}</php>
+                            <php>if($actionUrl == 'orgManage'){echo 'class="act"';}</php>
                         >区域总经销列表</a>
                         </li>
                     <php>
@@ -91,7 +92,7 @@
                         if($user['identity_id']<3){
                     </php>
                         <li><a href="__ROOTHOME__/accountmanage/brokerManage"
-                            <php>if($actionUrl == 'brokerManage'){echo 'class="active"';}</php>
+                            <php>if($actionUrl == 'brokerManage'){echo 'class="act"';}</php>
                         >经销商列表</a>
                         </li>
                     <php>
@@ -99,7 +100,7 @@
                     </php>
 
                     <li><a href="__ROOTHOME__/accountmanage/brokerSubManage"
-                        <php>if($actionUrl == 'brokerSubManage'){echo 'class="active"';}</php>
+                        <php>if($actionUrl == 'brokerSubManage'){echo 'class="act"';}</php>
                         >零售商列表</a>
                     </li>
 
@@ -121,14 +122,15 @@
             var box = $(this).children("ul");
 
             //添加点击事件
-            $(this).children('a').on("click", function () {
-
-              //  alert(box);
-
+            $(this).children("a").bind("click", function () {
 
                 //只留一个选中样式的菜单
                 $(".pli a").removeClass('active');
-                $(this).children('a').addClass('active');
+                $(".pli ul").each(function () {
+                    $(this).hide();
+                    $(this).removeClass("open");
+                })
+                $(this).addClass('active');
 
                 //是否已是选中状态 | 取消选中
                 var isOpen   = (box).hasClass('open');
@@ -142,7 +144,7 @@
             });
 
             //默认选中并展开子菜单
-            if (isMain) {
+            if (isActive || isMain) {
                 box.show();
                 box.addClass("open");
             }
@@ -150,9 +152,3 @@
         });
     });
 </script>
-
-
-
-<!--<li><i class="fa fa-globe"></i>系统账户管理<i class="fa fa-chevron-down"></i></li>-->
-<!--<ul>-->
-<!--</ul>-->

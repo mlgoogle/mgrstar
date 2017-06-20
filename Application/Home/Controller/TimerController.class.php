@@ -68,15 +68,15 @@ class TimerController extends Controller
         }
 
         //已拥有改明星的用户时间值
-        $own = M('fans_own_timer');
+        $own = M('star_belongtime');
         $userTimeList = $own->where("`timerid` = '{$timer['id']}' AND `status` = 0")->select();
         $ownTimer = 0;
 
         //已分配过时间的用户
         $fansUidArr = array();
         foreach ($userTimeList as $user) {
-            $fansUidArr[] = $user['fansid'];
-            $ownTimer += ((int)$user['secs']);
+            $fansUidArr[] = $user['belong_id'];
+            $ownTimer += ((int)$user['star_time']);
         }
 
         //可用时间、可分配用户
@@ -104,10 +104,10 @@ class TimerController extends Controller
         } else if ($fTime > 1){
             foreach ($avgUids as $u) {
                 $own->timerid = $timer['id'];
-                $own->fansid = $u;
-                $own->nickname = $userNick[$u]['nickname'];
-                $own->secs = $fTime;
-                $own->add_time = date('Y-m-d H:i:s', time());
+                $own->belong_id = $u;
+                //$own->nickname = $userNick[$u]['nickname'];
+                $own->star_time = $fTime;
+                //$own->add_time = date('Y-m-d H:i:s', time());
                 $bool = $own->add();
             }
         } else {
@@ -133,8 +133,8 @@ class TimerController extends Controller
             return $this->ajaxReturn($return);
         }
 
-        $secs = (int)$_POST['secs'];
-        if($secs < 1) {
+        $star_time = (int)$_POST['secs'];
+        if($star_time < 1) {
             $return['message'] = '最低分配时间为1';
             return $this->ajaxReturn($return);
         }
@@ -161,20 +161,20 @@ class TimerController extends Controller
 
         //输入过大的值
         $totalTime = (int)$timer['micro'];
-        if ($secs > $totalTime) {
+        if ($star_time > $totalTime) {
             $return['message'] = '分配的时间过多';
             return $this->ajaxReturn($return);
         }
 
         //已拥有改明星的用户时间值
-        $own = M('fans_own_timer');
+        $own = M('star_belongtime');
         $userTimeList = $own->where("`timerid` = '{$timer['id']}' AND `status` = 0")->select();
         $ownTimer = 0;
         foreach ($userTimeList as $user) {
-            $ownTimer += ($user['secs']);
+            $ownTimer += ($user['star_time']);
         }
 
-        $isExist = $own->where("`timerid` = '{$timer['id']}' AND `fansid` = '{$userInfo['uid']}' AND `status` = 0")->count('id');
+        $isExist = $own->where("`timerid` = '{$timer['id']}' AND `belong_id` = '{$userInfo['uid']}' AND `status` = 0")->count('id');
         if ($isExist) {
             $return['message'] = '粉丝已分配过时间';
             return $this->ajaxReturn($return);
@@ -183,24 +183,24 @@ class TimerController extends Controller
         //可用时间
         $free = (($totalTime - $ownTimer) <= 0) ? 0 : ($totalTime - $ownTimer);
         $free = (int)$free;
-        if ($free == 0 || $secs > $free) {
+        if ($free == 0 || $star_time > $free) {
             $return['message'] = '可分配时间为 :' . $free;
             return $this->ajaxReturn($return);
         }
 
         $bool = false;
-        if ($free > $secs) {
+        if ($free > $star_time) {
             $own->timerid = $timer['id'];
-            $own->fansid = $userInfo['uid'];
-            $own->nickname = $userInfo['nickname'];
-            $own->secs = $secs;
-            $own->add_time = date('Y-m-d H:i:s', time());
+            $own->belong_id = $userInfo['uid'];
+            //$own->nickname = $userInfo['nickname'];
+            $own->star_time = $star_time;
+            //$own->add_time = date('Y-m-d H:i:s', time());
 
             $return['fans'] = (!empty($userInfo['nickname'])) ? $userInfo['nickname'] : $userInfo['uid'];
-            $return['secs'] = $secs;
+            $return['secs'] = $star_time;
 
             $return['total'] = count($userTimeList) + 1;
-            $return['free'] = $free - $secs;
+            $return['free'] = $free - $star_time;
 
             $bool = $own->add();
         }
@@ -219,7 +219,7 @@ class TimerController extends Controller
         $return['code'] = -2;
         $return['message'] = 'Error';
         $return['nickname'] = '';
-        $return['fansid'] = 0;
+        $return['belong_id'] = 0;
 
         $fans = I('post.fans', '', 'strip_tags');
         $fans = trim($fans);
@@ -240,7 +240,7 @@ class TimerController extends Controller
         if ($item) {
             $return['code'] = 0;
             $return['nickname'] = $item['nickname'];
-            $return['fansid'] = $item['uid'];
+            $return['belong_id'] = $item['uid'];
             $return['message'] = 'Success';
             return $this->ajaxReturn($return);
         }
@@ -258,14 +258,15 @@ class TimerController extends Controller
 
         $item['status'] = self::getStatus($item['status']);
 
-        $timer = M('fans_own_timer')->where("`timerid` = '{$item['id']}' AND `status` = " . self::DELETE_ONLINE)->order('secs desc')->select();
+        $timer = M('star_belongtime')->where("`timerid` = '{$item['id']}' AND `status` = " . self::DELETE_ONLINE)->order('star_time desc')->select();
 
-        $secs = 0;
-        foreach ($timer as $t) {
-            $secs += (int)$t['secs'];
+        $star_time = 0;
+        foreach ($timer as $key => $t) {
+            $star_time += (int)$t['star_time'];
+            $timer[$key]['nickname'] = M('star_userinfo')->where('uid = ' . (int)$t['belong_id'])->getField('nickname');;
         }
         $micro = (int)$item['micro'];
-        $free = (($micro - $secs < 0)) ? 0 : $micro - $secs;
+        $free = (($micro - $star_time < 0)) ? 0 : $micro - $star_time;
 
         $this->assign('free', $free);
         $this->assign('timer', $timer);
@@ -280,7 +281,7 @@ class TimerController extends Controller
     {
         //获取提交过来的ID值并进行分割 in 查询
         $id = (int)$_POST['id'];
-        $model = M('fans_own_timer');
+        $model = M('star_belongtime');
         $item = $model->where("`id` = '{$id}'")->find();
 
         if (count($item) == 0) {
@@ -294,13 +295,13 @@ class TimerController extends Controller
         //数据更新
         $data = array(
             'status' => !$item['status'],
-            'modify_time' => date('Y-m-d H:i:s', time())
+            //'modify_time' => date('Y-m-d H:i:s', time())
         );
         $bool = ($model->where('id =' . $item['id'])->save($data)) ? 0 : 1;
 
         //结果返回
         $return = array(
-            'free' => (int)$_POST['free'] + $item['secs'],
+            'free' => (int)$_POST['free'] + $item['star_time'],
             'total' => (int)$_POST['total'] + 1,
             'code' => $bool,
             'message' => (!$bool) ? 'Success' : 'Error',
@@ -379,12 +380,12 @@ class TimerController extends Controller
             $return['message'] = '未找到要更新的数据';
             return $this->ajaxReturn($return);
         }
-        $timer = M('fans_own_timer')->where("`timerid` = '{$item['id']}' AND `status` = " . self::DELETE_ONLINE)->select();
-        $secs = 0;
+        $timer = M('star_belongtime')->where("`timerid` = '{$item['id']}' AND `status` = " . self::DELETE_ONLINE)->select();
+        $star_time = 0;
         foreach ($timer as $t) {
-            $secs += (int)$t['secs'];
+            $star_time += (int)$t['star_time'];
         }
-        if ($micro < $secs) {
+        if ($micro < $star_time) {
             $return['message'] = '';
             return $this->ajaxReturn($return);
         }
