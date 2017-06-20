@@ -1,3 +1,4 @@
+
 define([
     "jquery",
     "utils",
@@ -48,11 +49,24 @@ define([
                 }
                 var oTr;
                 $.each(result.list, function (i, v) {
+
+                    if(v.status==1){
+                        var statusMeg = '处理中';
+                    }else if(v.status==2){
+                        var statusMeg = '成功';
+                    }else if(v.status==3){
+                        var statusMeg = '失败';
+                    }else if(v.status==4){
+                        var statusMeg = '退款';
+                    }else{
+                        var statusMeg = '未知';
+                    }
+
                     var timeTd = '<td>' + v.handleTime + '</td>';
-                    var codeTd = '<td>' + v.uid + '</td>';
-                    var tradeTypeTd = '<td>' + (v.buy_sell == 1 ? '买入':'卖出') + '</td>';
+                    var codeTd = '<td>' + v.wid + '</td>';
+                    var tradeTypeTd = '<td>' + statusMeg + '</td>';
                     var amountTd = '<td>' + v.money + '</td>';
-                    var clientNameTd = '<td>' + (v.userInfo ? v.userInfo.nickname : "") + '</td>';
+                    var clientNameTd = '<td>' + (v.userInfo ? v.userInfo.phoneNum : "") + '</td>';
                     oTr += '<tr class="fadeIn animated">' + timeTd + codeTd + tradeTypeTd + amountTd + clientNameTd + '</tr>';
                 });
                 table.find("tbody").empty().html(oTr);

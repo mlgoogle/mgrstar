@@ -64,7 +64,7 @@ define([
                     var phoneTd = '<td>' + (v.userInfo ? v.userInfo.phoneNum : "") + '</td>';
                     var goodsNameTd = '<td>' + (v.actaulInfo ? v.actaulInfo.name : "") + '</td>';
                     var dirTd = '<td>' + (v.buy_sell == -1 ? "卖出" : "买入") + '</td>';
-                    var incomeTd = '<td>' + (v.result * v.gross_profit).toFixed(2) + '</td>';
+                    var incomeTd = '<td>' + (v.result * (v.gross_profit?v.gross_profit:0)).toFixed(2) + '</td>';
                     oTr +=
                         '<tr class="fadeIn animated">'
                         + timeTd + usernameTd + phoneTd + goodsNameTd + dirTd + incomeTd +

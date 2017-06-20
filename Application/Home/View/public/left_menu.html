@@ -18,21 +18,21 @@
             <a href="__ROOTHOME__/AdminBacker/index" <php>if(CONTROLLER_NAME == 'AdminBacker'){echo 'class="active"';}</php>><i class="icon-home"></i><strong> 后台管理</strong></a>
         </li>
         <li class="pli">
-            <a href="javascript:;" <php>if(CONTROLLER_NAME == 'Star'){echo 'class="active"';}</php>><i class="icon-star"></i><strong> 明星管理</strong></a>
+            <a href="javascript:;" <php>if(in_array(CONTROLLER_NAME, $starArr)){echo 'class="active"';}</php>><i class="icon-star"></i><strong> 明星管理</strong></a>
             <ul class="submenu">
-                <li><a href="__ROOTHOME__/Star/carousel">轮播列表</a></li>
-                <li><a href="#">资讯列表</a></li>
-                <li><a href="#">明星列表</a></li>
-                <li><a href="#">约见管理</a></li>
-                <li><a href="#">约见类型管理</a></li>
-                <li><a href="#">明星时间管理</a></li>
+                <li><a href="__ROOTHOME__/Star/carousel" <php>if(CONTROLLER_NAME == 'Star' && ACTION_NAME =='carousel'){echo 'class="act"';}</php>>轮播列表</a></li>
+                <li><a href="__ROOTHOME__/Info/listing" <php>if(CONTROLLER_NAME == 'Info' && ACTION_NAME =='listing'){echo 'class="act"';}</php>>资讯列表</a></li>
+                <li><a href="__ROOTHOME__/Lucida/listing" <php>if(CONTROLLER_NAME == 'Lucida' && ACTION_NAME =='listing'){echo 'class="act"';}</php>>明星列表</a></li>
+                <li><a href="__ROOTHOME__/Meet/meet" <php>if(CONTROLLER_NAME == 'Meet' && ACTION_NAME =='meet'){echo 'class="act"';}</php>>约见管理</a></li>
+                <li><a href="__ROOTHOME__/Appoint/appoint" <php>if(CONTROLLER_NAME == 'Appoint' && ACTION_NAME =='appoint'){echo 'class="act"';}</php>>约见类型管理</a></li>
+                <li><a href="__ROOTHOME__/Timer/listing" <php>if(CONTROLLER_NAME == 'Timer' && ACTION_NAME =='listing'){echo 'class="act"';}</php>>明星时间管理</a></li>
             </ul>
         </li>
         <li class="pli">
-            <a href="javascript:;" <php>if(CONTROLLER_NAME == 'Customer'){echo 'class="active"';}</php>><i class="icon-tags"></i><strong> 消费者管理</strong></a>
+            <a href="javascript:;" <php>if(in_array(CONTROLLER_NAME, $cusArr)){echo 'class="active"';}</php>><i class="icon-tags"></i><strong> 消费者管理</strong></a>
             <ul class="submenu">
-                <li><a href="#">消费者列表</a></li>
-                <li><a href="#">分享统计列表</a></li>
+                <li><a href="__ROOTHOME__/Customer/customer" <php>if(CONTROLLER_NAME == 'Customer' && ACTION_NAME =='customer'){echo 'class="act"';}</php>>消费者列表</a></li>
+                <!--<li><a href="#">分享统计列表</a></li>-->
             </ul>
         </li>
         <li class="pli">

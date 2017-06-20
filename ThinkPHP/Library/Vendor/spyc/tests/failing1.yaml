@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 MyObject:
+=======
+MyObject:
+>>>>>>> star/master
   Prop1: {key1:val1}

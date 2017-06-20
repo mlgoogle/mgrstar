@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 foo: 'bar' #Comment
 arr: ['x', 'y', 'z'] # Comment here
+=======
+foo: 'bar' #Comment
+arr: ['x', 'y', 'z'] # Comment here
+>>>>>>> star/master
 bar: kittens

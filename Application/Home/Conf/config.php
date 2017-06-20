@@ -2,23 +2,21 @@
 return array(
 	//'配置项'=>'配置值'
   //数据库配置信息
-    'DB_TYPE'   => 'mysql', // 数据库类型
-//    'DB_HOST'   => '122.144.169.217', // 服务器地址
-//    'DB_NAME'   => 'actuals', // 数据库名
-//    'DB_NAME'   => 'actuals', // 数据库名
-//    'DB_USER'   => 'actuals', // 用户名
-//    'DB_PWD'    => 'RV963JoNnrD', // 密码
+    'DB_TYPE'   => 'mysqli', // 数据库类型
+    //'DB_HOST'   => '122.144.169.217', // 服务器地址
+    //'DB_HOST'   => '139.224.34.22', // 服务器地址
     'DB_HOST'   => 'localhost', // 服务器地址
     'DB_NAME'   => 'star', // 数据库名
     'DB_USER'   => 'root', // 用户名
-    'DB_PWD'    => 'root', // 密码
+    //'DB_PWD'    => 'RV963JoNnrD', // 密码
+    //'DB_PWD'    => 'vKjYAMUZ6NNcQ', // 密码
+    //'DB_PWD'    => 'pEQrhRrG', // 密码
+    'DB_PWD'    => '', // 密码
     'DB_PORT'   => 3306, // 端口
     'DB_PARAMS' =>  array(), // 数据库连接参数
-
+    'LOG_RECORD' => true, // 开启日志记录
     'DB_CHARSET'=> 'utf8', // 字符集
     'DB_DEBUG'  =>  TRUE, // 数据库调试模式 开启后可以记录SQL日志
-
-    //'DB_PREFIX'=>'tp_',  //设置表前缀
 
     'TMPL_PARSE_STRING'=>array(
       '__CSS__' => __ROOT__.'/Public/template/assets/css',

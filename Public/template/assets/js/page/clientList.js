@@ -83,7 +83,8 @@ define([
             var table = $(".data-container table");
             clientAPI.getClientList(data, function (result) {
                 console.log("获取客户管理列表 调用成功!");
-                if (result.list.length == "0") {
+                //if (result.list.length == "0") {
+                if (!result.list) {
                     table.find("tbody").empty().html("<tr><td colspan='7'>暂无记录</td></tr>");
                     $(".pagination").hide();
                     return false;
