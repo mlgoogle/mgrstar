@@ -244,6 +244,7 @@ class LucidaController extends Controller
 
     /**
      * 图片上传
+     * @todo 只能上传5张
      */
     public function uploadFile()
     {
@@ -264,7 +265,8 @@ class LucidaController extends Controller
 
     /**
      * 编辑信息
-     * todo 设置图片的大小
+     * @todo 设置图片的大小
+     * @todo 已有4张每上传一张将第一张替换，而非填充第五章
      */
     public function editLucida()
     {
@@ -341,10 +343,7 @@ class LucidaController extends Controller
                 if (isset($_POST['pic'.$i])) {
                     $key = 'pic' . $i;
                     $pic = I("post.$key", '', 'strip_tags');
-                    $pic = trim($pic);
-                    if (isset($model->$key)) {
-                        $model->$key = $pic;
-                    }
+                    $model->$key = trim($pic);
                     if (!empty($pic) && $item[$key] != $pic) {
                         @unlink(self::UPLOADSDIR . self::STARDIR . $item[$key]);
                     }

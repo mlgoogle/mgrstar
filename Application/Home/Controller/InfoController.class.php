@@ -52,7 +52,7 @@ class InfoController extends Controller
 
         $remarks = I('post.remarks', '', 'strip_tags');
         $remarks = trim($remarks);
-        if (mb_strlen($subject_name) > 25) {
+        if (mb_strlen($subject_name) > 24) {
             $return = array(
                 'code' => -2,
                 'message' => '标题过长'
