@@ -20,7 +20,8 @@
         <div class="clearfix layout">
             <h1><a href="/work/star/mgrstar/index.php/Home/AdminBacker/index">星享管理系统</a></h1>
             <div>
-                <span class="spantext" >管理员：<?php echo ($user['uid']); ?>,<a style="color:#FF0000;" href="/work/star/mgrstar/index.php/Home/login/doLoginout" onclick="return confirm('确定退出本系统?')" >系统退出</a></span>
+            <span class="spantext" >管理员：<?php echo ($user['uname']); ?>,<a style="color:#FF0000;" href="/work/star/mgrstar/index.php/Home/login/doLoginout" onclick="return confirm('确定退出本系统?')" >系统退出</a></span>
+
             </div>
         </div>
     </div>
@@ -33,6 +34,14 @@
     .icon-star-img {
         width: 120px;
     }
+ .pli a.main {
+        background-color: #55abed;
+    }
+
+    .submenu li:hover {
+        color: #55abed;
+    }
+
 </style>
 <?php
  $starArr = array('Star', 'Info', 'Lucida', 'Meet', 'Appoint', 'Timer'); $cusArr = array( 'Customer'); $starCtr = array('carousel', 'listing', 'meet', 'appoint'); ?>
@@ -60,29 +69,67 @@
             </ul>
         </li>
         <li class="pli">
-            <a href="javascript:;"><i class="icon-align-right"></i><strong> 数据查询</strong></a>
+            <a href="javascript:;"
+            <?php if($action == 'dataSearch'){echo 'class="main"';} ?>
+            <i class="icon-align-right"></i><strong> 数据查询</strong></a>
             <ul class="submenu">
-                <li><a href="#">资金查询</a></li>
-                <li><a href="#">持仓汇总查询</a></li>
+                <li><a
+                    <?php if($actionUrl == 'fundList'){echo 'class="active"';} ?>
+                    href="/work/star/mgrstar/index.php/Home/DataSearch/fundList">资金查询</a></li>
+                <li><a
+                    <?php if($actionUrl == 'position'){echo 'class="active"';} ?>
+                        href="/work/star/mgrstar/index.php/Home/DataSearch/position">持仓汇总查询</a></li>
                 <li><a href="#">出入金查询</a></li>
                 <li><a href="#">交易额明细查询</a></li>
                 <li><a href="#">成交明细查询</a></li>
             </ul>
         </li>
-        <li class="pli">
-            <a href="javascript:;"><i class="icon-user"></i><strong> 系统账户管理</strong></a>
-            <ul class="submenu">
-                <li><a href="#">账户权限</a></li>
-                <li><a href="#">账户角色</a></li>
-                <li><a href="#">创建系统账户</a></li>
-                <li><i class="fa fa-globe"></i>系统账户管理<i class="fa fa-chevron-down"></i></li>
-                <ul>
-                    <li><a href="#">区域总经销列表</a></li>
-                    <li><a href="#">经销商列表</a></li>
-                    <li><a href="#">零售商列表</a></li>
+        <?php if($user['identity_id']<4){ ?>
+            <li class="pli">
+                <a href="javascript:;"
+                    <?php if($action == 'accountManage'){echo 'class="active"';} ?>  >
+                    <i class="icon-user"></i>
+                    <strong>
+                        系统账户管理
+                    </strong>
+                </a>
+                <ul class="submenu">
+
+                    <li><a href="/work/star/mgrstar/index.php/Home/accountmanage/userManage"
+                        <?php if($actionUrl == 'userManage'){echo 'class="act"';} ?>
+                        >账户权限</a>
+                    </li>
+
+                    <!--<li><a href="javascript:;"-->
+                        <!--<?php if($actionUrl == '#'){echo 'class="active"';} ?>-->
+                        <!--&gt;账户角色</a></li>-->
+                    <!--
+                    <li><a href="#">创建系统账户</a></li>
+                    -->
+
+                    <?php if($user['identity_id']<2){ ?>
+                        <li><a href="/work/star/mgrstar/index.php/Home/accountmanage/orgManage"
+                            <?php if($actionUrl == 'orgManage'){echo 'class="act"';} ?>
+                        >区域总经销列表</a>
+                        </li>
+                    <?php } ?>
+
+                    <?php if($user['identity_id']<3){ ?>
+                        <li><a href="/work/star/mgrstar/index.php/Home/accountmanage/brokerManage"
+                            <?php if($actionUrl == 'brokerManage'){echo 'class="act"';} ?>
+                        >经销商列表</a>
+                        </li>
+                    <?php } ?>
+
+                    <li><a href="/work/star/mgrstar/index.php/Home/accountmanage/brokerSubManage"
+                        <?php if($actionUrl == 'brokerSubManage'){echo 'class="act"';} ?>
+                        >零售商列表</a>
+                    </li>
+
                 </ul>
-            </ul>
-        </li>
+            </li>
+        <?php } ?>
+
     </ul>
 </div>
 <script>
@@ -91,10 +138,14 @@
 
             //是否已有选中的菜单
             var isActive   = $(this).children('a').hasClass('active');
+            var isMain   = $(this).children('a').hasClass('main');
             var box = $(this).children("ul");
 
             //添加点击事件
             $(this).children("a").bind("click", function () {
+
+              //  alert(box);
+
 
                 //只留一个选中样式的菜单
                 $(".pli a").removeClass('active');
@@ -106,7 +157,6 @@
 
                 //是否已是选中状态 | 取消选中
                 var isOpen   = (box).hasClass('open');
-                
                 if (box != undefined && isOpen == false) {
                     box.show();
                     box.addClass("open");
@@ -117,13 +167,21 @@
             });
 
             //默认选中并展开子菜单
-            if (isActive) {
+            if (isActive || isMain) {
                 box.show();
                 box.addClass("open");
             }
+
         });
     });
 </script>
+
+
+
+<!--<li><i class="fa fa-globe"></i>系统账户管理<i class="fa fa-chevron-down"></i></li>-->
+<!--<ul>-->
+<!--</ul>-->
+
         <div class="content">
 
 <style>
@@ -195,6 +253,7 @@
         require(['page/customer']);
     });
 </script>
+
 
 
                 </div>

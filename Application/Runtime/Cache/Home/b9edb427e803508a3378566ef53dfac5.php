@@ -5,57 +5,67 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <title><?php echo (!empty($title)) ? $title : '星享后台' ?></title>
-    <link rel="stylesheet" href="/xh/Public/template/assets/css/index.min.css">
-    <!--<link rel="stylesheet" href="/xh/Public/template/assets/css/bootstrap/css/bootstrap.css">-->
+    <link rel="stylesheet" href="/work/star/mgrstar/Public/template/assets/css/index.min.css">
+    <!--<link rel="stylesheet" href="/work/star/mgrstar/Public/template/assets/css/bootstrap/css/bootstrap.css">-->
 
-    <script src="/xh/Public/template/assets/js/vendor/jquery.min.js" data-main="/xh/Public/template/assets/js/common"></script>
+    <script src="/work/star/mgrstar/Public/template/assets/js/vendor/jquery.min.js" data-main="/work/star/mgrstar/Public/template/assets/js/common"></script>
+    <script>
+        var publicUrl = "/work/star/mgrstar/Public";
+        var rootUrl = "/work/star/mgrstar/index.php/Home";
+    </script>
 </head>
 <body>
 <div class="wrap">
     <div class="header">
         <div class="clearfix layout">
-            <h1><a href="/xh/index.php/Home/AdminBacker/index">星享管理系统</a></h1>
+            <h1><a href="/work/star/mgrstar/index.php/Home/AdminBacker/index">星享管理系统</a></h1>
             <div>
-                <span class="spantext" >管理员：<?php echo ($user['uname']); ?>,<a style="color:#FF0000;" href="/xh/index.php/Home/login/doLoginout" onclick="return confirm('确定退出本系统?')" >系统退出</a></span>
+            <span class="spantext" >管理员：<?php echo session('user')['uname'];?>,<a style="color:#FF0000;" href="/work/star/mgrstar/index.php/Home/login/doLoginout" onclick="return confirm('确定退出本系统?')" >系统退出</a></span>
+
             </div>
         </div>
     </div>
     <div class="main">
         <style>
     .submenu{display: none;}
-    .submenu li{color: #CCCCCC;padding-left: 20px;width: 70%;}
+    .submenu li{color: #CCCCCC;}
+    .act{background-color: #FFB6C1}
     .select{border-bottom: 2px dashed red;}
-
-    .pli a.main {
+    .icon-star-img {
+        width: 120px;
+    }
+ .pli a.main {
         background-color: #55abed;
     }
 
     .submenu li:hover {
         color: #55abed;
     }
-
+*{font-size: 14px;}
 </style>
+<?php
+ $starArr = array('Star', 'Info', 'Lucida', 'Meet', 'Appoint', 'Timer'); $cusArr = array( 'Customer'); $starCtr = array('carousel', 'listing', 'meet', 'appoint'); ?>
 <div class="sidebar">
     <ul class="nav-list">
         <li class="pli">
-            <a href="/xh/index.php/Home/AdminBacker/index" <?php if(CONTROLLER_NAME == 'AdminBacker'){echo 'class="active"';} ?>><i class="icon-home"></i><strong> 后台管理</strong></a>
+            <a href="/work/star/mgrstar/index.php/Home/AdminBacker/index" <?php if(CONTROLLER_NAME == 'AdminBacker'){echo 'class="active"';} ?>><i class="icon-home"></i><strong> 后台管理</strong></a>
         </li>
         <li class="pli">
-            <a href="javascript:;" <?php if(CONTROLLER_NAME == 'Star'){echo 'class="active"';} ?>><i class="icon-star"></i><strong> 明星管理</strong></a>
+            <a href="javascript:;" <?php if(in_array(CONTROLLER_NAME, $starArr)){echo 'class="active"';} ?>><i class="icon-star"></i><strong> 明星管理</strong></a>
             <ul class="submenu">
-                <li><a href="/xh/index.php/Home/Star/carousel">轮播列表</a></li>
-                <li><a href="#">资讯列表</a></li>
-                <li><a href="#">明星列表</a></li>
-                <li><a href="#">约见管理</a></li>
-                <li><a href="#">约见类型管理</a></li>
-                <li><a href="#">明星时间管理</a></li>
+                <li><a href="/work/star/mgrstar/index.php/Home/Star/carousel" <?php if(CONTROLLER_NAME == 'Star' && ACTION_NAME =='carousel'){echo 'class="act"';} ?>>轮播列表</a></li>
+                <li><a href="/work/star/mgrstar/index.php/Home/Info/listing" <?php if(CONTROLLER_NAME == 'Info' && ACTION_NAME =='listing'){echo 'class="act"';} ?>>资讯列表</a></li>
+                <li><a href="/work/star/mgrstar/index.php/Home/Lucida/listing" <?php if(CONTROLLER_NAME == 'Lucida' && ACTION_NAME =='listing'){echo 'class="act"';} ?>>明星列表</a></li>
+                <li><a href="/work/star/mgrstar/index.php/Home/Meet/meet" <?php if(CONTROLLER_NAME == 'Meet' && ACTION_NAME =='meet'){echo 'class="act"';} ?>>约见管理</a></li>
+                <li><a href="/work/star/mgrstar/index.php/Home/Appoint/appoint" <?php if(CONTROLLER_NAME == 'Appoint' && ACTION_NAME =='appoint'){echo 'class="act"';} ?>>约见类型管理</a></li>
+                <li><a href="/work/star/mgrstar/index.php/Home/Timer/listing" <?php if(CONTROLLER_NAME == 'Timer' && ACTION_NAME =='listing'){echo 'class="act"';} ?>>明星时间管理</a></li>
             </ul>
         </li>
         <li class="pli">
-            <a href="javascript:;" <?php if(CONTROLLER_NAME == 'Customer'){echo 'class="active"';} ?>><i class="icon-tags"></i><strong> 消费者管理</strong></a>
+            <a href="javascript:;" <?php if(in_array(CONTROLLER_NAME, $cusArr)){echo 'class="active"';} ?>><i class="icon-tags"></i><strong> 消费者管理</strong></a>
             <ul class="submenu">
-                <li><a href="#">消费者列表</a></li>
-                <li><a href="#">分享统计列表</a></li>
+                <li><a href="/work/star/mgrstar/index.php/Home/Customer/customer" <?php if(CONTROLLER_NAME == 'Customer' && ACTION_NAME =='customer'){echo 'class="act"';} ?>>消费者列表</a></li>
+                <!--<li><a href="#">分享统计列表</a></li>-->
             </ul>
         </li>
         <li class="pli">
@@ -65,10 +75,10 @@
             <ul class="submenu">
                 <li><a
                     <?php if($actionUrl == 'fundList'){echo 'class="active"';} ?>
-                    href="/xh/index.php/Home/DataSearch/fundList">资金查询</a></li>
+                    href="/work/star/mgrstar/index.php/Home/DataSearch/fundList">资金查询</a></li>
                 <li><a
                     <?php if($actionUrl == 'position'){echo 'class="active"';} ?>
-                        href="/xh/index.php/Home/DataSearch/position">持仓汇总查询</a></li>
+                        href="/work/star/mgrstar/index.php/Home/DataSearch/position">持仓汇总查询</a></li>
                 <li><a href="#">出入金查询</a></li>
                 <li><a href="#">交易额明细查询</a></li>
                 <li><a href="#">成交明细查询</a></li>
@@ -85,7 +95,7 @@
                 </a>
                 <ul class="submenu">
 
-                    <li><a href="/xh/index.php/Home/accountmanage/userManage"
+                    <li><a href="/work/star/mgrstar/index.php/Home/accountmanage/userManage"
                         <?php if($actionUrl == 'userManage'){echo 'class="active"';} ?>
                         >账户权限</a>
                     </li>
@@ -98,20 +108,20 @@
                     -->
 
                     <?php if($user['identity_id']<2){ ?>
-                        <li><a href="/xh/index.php/Home/accountmanage/orgManage"
+                        <li><a href="/work/star/mgrstar/index.php/Home/accountmanage/orgManage"
                             <?php if($actionUrl == 'orgManage'){echo 'class="active"';} ?>
                         >区域总经销列表</a>
                         </li>
                     <?php } ?>
 
                     <?php if($user['identity_id']<3){ ?>
-                        <li><a href="/xh/index.php/Home/accountmanage/brokerManage"
+                        <li><a href="/work/star/mgrstar/index.php/Home/accountmanage/brokerManage"
                             <?php if($actionUrl == 'brokerManage'){echo 'class="active"';} ?>
                         >经销商列表</a>
                         </li>
                     <?php } ?>
 
-                    <li><a href="/xh/index.php/Home/accountmanage/brokerSubManage"
+                    <li><a href="/work/star/mgrstar/index.php/Home/accountmanage/brokerSubManage"
                         <?php if($actionUrl == 'brokerSubManage'){echo 'class="active"';} ?>
                         >零售商列表</a>
                     </li>
@@ -132,14 +142,18 @@
             var box = $(this).children("ul");
 
             //添加点击事件
-            $(this).children('a').on("click", function () {
+            $(this).children("a").bind("click", function () {
 
               //  alert(box);
 
 
                 //只留一个选中样式的菜单
                 $(".pli a").removeClass('active');
-                $(this).children('a').addClass('active');
+                $(".pli ul").each(function () {
+                    $(this).hide();
+                    $(this).removeClass("open");
+                })
+                $(this).addClass('active');
 
                 //是否已是选中状态 | 取消选中
                 var isOpen   = (box).hasClass('open');
@@ -153,7 +167,7 @@
             });
 
             //默认选中并展开子菜单
-            if (isMain) {
+            if (isActive || isMain) {
                 box.show();
                 box.addClass("open");
             }
@@ -167,6 +181,7 @@
 <!--<li><i class="fa fa-globe"></i>系统账户管理<i class="fa fa-chevron-down"></i></li>-->
 <!--<ul>-->
 <!--</ul>-->
+
         <div class="content">
 
             <div class="search-bar">
@@ -273,7 +288,7 @@
         </div>
     </div>
 </div>
-<script src="/xh/Public/template/assets/js/vendor/require.js" data-main="/xh/Public/template/assets/js/common"></script>
+<script src="/work/star/mgrstar/Public/template/assets/js/vendor/require.js" data-main="/work/star/mgrstar/Public/template/assets/js/common"></script>
 <script>
     require(['common'], function () {
         require(['page/brokerSubManage']);

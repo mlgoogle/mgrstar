@@ -17,11 +17,9 @@ class StarController extends CTController
 
 //const UPLOADSDIR = '\.' .DIRECTORY_SEPARATOR. 'Public'. DIRECTORY_SEPARATOR;             // ./Public/uploads/carousel/
 //const STARDIR = 'uploads' . DIRECTORY_SEPARATOR . 'carousel' . DIRECTORY_SEPARATOR;     //  uploads/carousel/
-
-	const UPLOADSDIR = "./Public/uploads/";
-	const STARDIR = "carousel/";
-    
-	public function __construct()
+const UPLOADSDIR = "./Public/uploads/carousel/";
+const STARDIR = "uploads/carousel/";
+    public function __construct()
     {
         parent::__construct();
         $this->assign('title', '轮播列表');
@@ -130,8 +128,7 @@ class StarController extends CTController
         file_exists($dir) || (mkdir($dir, 0777, true) && chmod($dir, 0777));
 
         if (!is_array($_FILES['myfile']['name'])) {
-            $path = pathinfo($_FILES['myfile']['name']);
-			$fileName = date('ymdhis') . '.' . $path['extension'];
+            $fileName = date('ymdhis') . '.' . pathinfo($_FILES['myfile']['name'])['extension'];
             move_uploaded_file($_FILES['myfile']['tmp_name'], $dir . $fileName);
             $ret['file'] = $fileName;
         }

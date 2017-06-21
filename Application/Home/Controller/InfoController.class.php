@@ -16,9 +16,11 @@ class InfoController extends Controller
     const DELETE_TRUE = 1;
     const DELETE_FALSE = 0;
 
-    const UPLOADSDIR = '.' .DIRECTORY_SEPARATOR. 'Public'. DIRECTORY_SEPARATOR;             // ./Public/uploads/info/
-    const STARDIR = 'uploads' . DIRECTORY_SEPARATOR . 'info' . DIRECTORY_SEPARATOR;         //  uploads/info/
+    //const UPLOADSDIR = '.' .DIRECTORY_SEPARATOR. 'Public'. DIRECTORY_SEPARATOR;             // ./Public/uploads/info/
+    //const STARDIR = 'uploads' . DIRECTORY_SEPARATOR . 'info' . DIRECTORY_SEPARATOR;         //  uploads/info/
 
+	const UPLOADSDIR = "./Public/uploads/";
+    const STARDIR = "info/";
     public function __construct()
     {
         parent::__construct();
@@ -131,7 +133,8 @@ class InfoController extends Controller
         file_exists($dir) || (mkdir($dir, 0777, true) && chmod($dir, 0777));
 
         if (!is_array($_FILES['myfile']['name'])) {
-            $fileName = date('ymdhis') . '.' . pathinfo($_FILES['myfile']['name'])['extension'];
+			$path = pathinfo($_FILES['myfile']['name']);
+			$fileName = date('ymdhis') . '.' . $path['extension'];
             move_uploaded_file($_FILES['myfile']['tmp_name'], $dir . $fileName);
             $ret['file'] = $fileName;
         }
