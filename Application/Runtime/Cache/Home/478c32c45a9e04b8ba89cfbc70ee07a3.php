@@ -20,7 +20,7 @@
         <div class="clearfix layout">
             <h1><a href="/index.php/Home/AdminBacker/index">星享管理系统</a></h1>
             <div>
-            <span class="spantext" >管理员：<?php echo ($user['uname']); ?>,<a style="color:#FF0000;" href="/index.php/Home/login/doLoginout" onclick="return confirm('确定退出本系统?')" >系统退出</a></span>
+            <span class="spantext" >管理员：<?php echo isset(session('user')['uname'])?session('user')['uname']:''; ?>,<a style="color:#FF0000;" href="/index.php/Home/login/doLoginout" onclick="return confirm('确定退出本系统?')" >系统退出</a></span>
 
             </div>
         </div>
@@ -28,18 +28,23 @@
     <div class="main">
         <style>
     .submenu{display: none;}
-    .submenu li{color: #CCCCCC;padding-left: 20px;width: 70%;}
+    .submenu li{color: #CCCCCC;}
+    .act{background-color: #FFB6C1}
     .select{border-bottom: 2px dashed red;}
-
-    .pli a.main {
+    .icon-star-img {
+        width: 120px;
+    }
+ .pli a.main {
         background-color: #55abed;
     }
 
     .submenu li:hover {
         color: #55abed;
     }
-
+*{font-size: 14px;}
 </style>
+<?php
+ $starArr = array('Star', 'Info', 'Lucida', 'Meet', 'Appoint', 'Timer'); $cusArr = array( 'Customer'); $starCtr = array('carousel', 'listing', 'meet', 'appoint'); ?>
 <div class="sidebar">
     <ul class="nav-list">
         <li class="pli">
@@ -74,8 +79,12 @@
                 <li><a
                     <?php if($actionUrl == 'position'){echo 'class="active"';} ?>
                         href="/index.php/Home/DataSearch/position">持仓汇总查询</a></li>
-                <li><a href="#">出入金查询</a></li>
-                <li><a href="#">交易额明细查询</a></li>
+                <li><a
+                    <?php if($actionUrl == 'recharge'){echo 'class="active"';} ?>
+                    href="/index.php/Home/DataSearch/recharge">充值金额查询</a></li>
+                <li><a
+                    <?php if($actionUrl == 'transaction'){echo 'class="active"';} ?>
+                    href="/index.php/Home/DataSearch/transaction" >交易额明细查询</a></li>
                 <li><a href="#">成交明细查询</a></li>
             </ul>
         </li>
@@ -137,14 +146,18 @@
             var box = $(this).children("ul");
 
             //添加点击事件
-            $(this).children('a').on("click", function () {
+            $(this).children("a").bind("click", function () {
 
               //  alert(box);
 
 
                 //只留一个选中样式的菜单
                 $(".pli a").removeClass('active');
-                $(this).children('a').addClass('active');
+                $(".pli ul").each(function () {
+                    $(this).hide();
+                    $(this).removeClass("open");
+                })
+                $(this).addClass('active');
 
                 //是否已是选中状态 | 取消选中
                 var isOpen   = (box).hasClass('open');
@@ -158,7 +171,7 @@
             });
 
             //默认选中并展开子菜单
-            if (isMain) {
+            if (isActive || isMain) {
                 box.show();
                 box.addClass("open");
             }
@@ -181,6 +194,8 @@
     <?php } ?>
     <a href="javascript:;" class="btn J_onDel">删除</a>
 </div>
+
+rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 
 <div class="data-container">
     <table>
