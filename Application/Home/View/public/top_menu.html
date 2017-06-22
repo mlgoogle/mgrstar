@@ -20,8 +20,7 @@
         <div class="clearfix layout">
             <h1><a href="__ROOTHOME__/AdminBacker/index">星享管理系统</a></h1>
             <div>
-            <span class="spantext" >管理员：<php> echo $user = session('user')?$user['uname']:''; </php>,<a style="color:#FF0000;" href="__ROOTHOME__/login/doLoginout" onclick="return confirm('确定退出本系统?')" >系统退出</a></span>
-
+            <span class="spantext" >管理员：<?php $user = session('user'); echo $user['uname'];?>,<a style="color:#FF0000;" href="__ROOTHOME__/login/doLoginout" onclick="return confirm('确定退出本系统?')" >系统退出</a></span>
             </div>
         </div>
     </div>

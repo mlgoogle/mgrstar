@@ -39,7 +39,7 @@ class AccountmanageController extends Controller {
         $this->display('accountManage/orgManage');
     }
 
-    public function userManage(){
+    public function userManage(){ 
         $this->assign('actionUrl','userManage');
 
         $this->display('accountManage/userManage');
