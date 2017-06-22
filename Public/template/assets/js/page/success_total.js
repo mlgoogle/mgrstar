@@ -83,7 +83,7 @@ define([
         fnGetList: function (data, initPage) {
             var _this = this;
             var table = $(".data-container table");
-            dataAPI.getSuccessInfo(data, function (result) {
+            dataAPI.getSuccessTotalInfo(data, function (result) {
                 console.log("获取客户管理列表 调用成功!");
                 if (result.list.length == "0") {
                     table.find("tbody").empty().html("<tr><td colspan='7'>暂无记录</td></tr>");
@@ -97,37 +97,16 @@ define([
 
                     var xuTd   = '<td>' + v.id + '</td>';
 
-                    var close_timeTd = '<td>' + v.close_time + '</td>';//close_time
-                    var order_idTd   =  '<td>' + v.order_id + '</td>';
-
-                    var buyNameTd = '<td>' + v.buy_name + '</td>';
-                    var buyPhoneTd = '<td>' + v.buy_phone + '</td>';
-                    var buyStatus  = '<td>' + '买入' + '</td>';
-
-                    var sellNameTd = '<td>' + v.sell_name + '</td>';
-                    var sellPhoneTd = '<td>' + v.sell_phone + '</td>';
-                    var sellStatus  = '<td>' + '买出' + '</td>';
-
-                    var type_member = v.member?v.member.name:'';
-                    var type_agent_sub = v.agent_sub?v.agent_sub.nickname:'';
-
-                    var type_info = '<td>' +  type_member + ',' + type_agent_sub +'</td>';
-
                     var starcodeTd = '<td>' + (v.starcode?v.starcode:0) + '</td>';
 
-                    //var type_status = '<td>' + '' + '</td>';
+                    var timeTd = '<td>' + v.days + '</td>';
 
-                    var order_numTd = '<td>' + v.order_num + '</td>';
-                    var order_priceTd = '<td>' + v.order_price+ '</td>';
-
-                    var order_total = '<td>' + v.order_total + '</td>';
+                    var count_numTd = '<td>' + v.count_num + '</td>';
 
 
                     oTr +=
                         '<tr class="fadeIn animated" data-id="' + v.uid + '">'
-                        + checkTd + xuTd + close_timeTd + order_idTd + sellPhoneTd + sellNameTd + buyStatus +
-                        buyPhoneTd + buyNameTd + sellStatus +  starcodeTd  + order_numTd
-                        + order_priceTd + order_total +
+                        + checkTd + timeTd + starcodeTd + count_numTd +
                         '</tr>';
 
                 });

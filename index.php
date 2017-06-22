@@ -20,7 +20,6 @@ define('APP_DEBUG',True);
 define('DB_FIELD_CACHE',false);
 define('HTML_CACHE_ON',false);//
 
-
 // 定义应用目录
 define('APP_PATH','./Application/');
 

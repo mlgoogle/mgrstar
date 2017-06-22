@@ -448,7 +448,11 @@ class TradeController extends Controller
         $data['page'] = $page;
         $data['totalPages'] = ceil($count / $pageNum);
         if (!$list) {
+<<<<<<< HEAD
+            $list = array();
+=======
             $list = [array();
+>>>>>>> star/master
         }
         $data['list'] = $list;
         //s$data['from'] ='$Page->';

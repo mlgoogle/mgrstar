@@ -438,7 +438,7 @@ define([
                 console.log("获取用户管理列表 调用成功!");
 
                 //
-
+                var optionStr = '<option value="0" >请选择机构</option>';
                 if(result.info = result.member_info){
                     var oSelect = $("select[name=org]");
                     var optionStr = '<option value="0" >请选择机构</option>';

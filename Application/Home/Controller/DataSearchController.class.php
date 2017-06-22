@@ -443,6 +443,8 @@ class DataSearchController extends Controller
 
     }
 
+    //交易成功
+
     public function getSuccessInfo(){
         $star_orderlist = M('star_orderlist');
 
@@ -511,6 +513,10 @@ class DataSearchController extends Controller
             $lists[$l['id']]['buy_name'] = isset($userInfo[$buyUid]['nickname'])?$userInfo[$buyUid]['nickname']:'';
             $lists[$l['id']]['buy_phone'] = isset($userInfo[$buyUid]['phoneNum'])?$userInfo[$buyUid]['phoneNum']:'';
 
+
+            $lists[$l['id']]['order_total'] = $l['order_num']*$l['order_price'];
+
+
             $lMemberId = $userInfo[$buyUid]['memberId'];
             $lagentId = $userInfo[$buyUid]['agentId'];
 
@@ -535,9 +541,43 @@ class DataSearchController extends Controller
 
     }
 
+    //交易成功 汇总
+    public function getSuccessTotalInfo(){  //1498103354
+        $star_orderlist = M('star_orderlist');
+
+        $startTime = I('post.startTime');
+        $startTime = I('post.endTime');
+        dump($_POST);
+
+        $whereOreder['order_type'] = 2;
+
+        $pageNum = isset($_POST['pageNum'])?$_POST['pageNum']:5;
+        $page = isset($_POST['page'])?$_POST['page']:1;
+
+        $obj = $selectObj = $star_orderlist->field('id,FROM_UNIXTIME(close_time,\'%Y-%m-%d\') as days,count(id) as count_num,starcode,order_num,order_price')->where($whereOreder)->group('starcode,days');
+
+
+       // $lister = $obj->order('days desc')->page($page,$pageNum)->select();
+
+
+        $groupSql = $obj->buildSql();
+        $count = D()->table("{$groupSql} as t")->count();
+
+        $list = D()->table("{$groupSql} as t")->order('days desc')->page($page,$pageNum)->select();
+
+
+        $data['totalPages'] = $count;
+        $data['pageNum'] =$pageNum;
+        $data['page'] = $page;
+        $data['totalPages'] = ceil($count/$pageNum);
+        $data['list'] = $list;
+
+        $this->ajaxReturn($data);
+    }
+
     private function getBuyRows($where){
 
-        $orederRows = M('star_orderlist')->field(' sum(order_num) as nums ,starcode,buy_uid ')->where($where)->group('starcode')->select(); //买方
+        $orederRows = M('star_orderlist')->field(' sum(order_num) as nums , starcode,buy_uid ')->where($where)->group('starcode')->select(); //买方
 
         // dump($orederRows);
 
