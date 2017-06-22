@@ -80,7 +80,7 @@ class LoginController extends Controller {
 
     public function doLoginout(){
         session('user',0);
-        $this->display('Login/login');
+        $this->display('login/login');
     }
 
 

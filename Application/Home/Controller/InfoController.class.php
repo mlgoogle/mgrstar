@@ -16,9 +16,11 @@ class InfoController extends Controller
     const DELETE_TRUE = 1;
     const DELETE_FALSE = 0;
 
-    const UPLOADSDIR = '.' .DIRECTORY_SEPARATOR. 'Public'. DIRECTORY_SEPARATOR;             // ./Public/uploads/info/
-    const STARDIR = 'uploads' . DIRECTORY_SEPARATOR . 'info' . DIRECTORY_SEPARATOR;         //  uploads/info/
+    //const UPLOADSDIR = '.' .DIRECTORY_SEPARATOR. 'Public'. DIRECTORY_SEPARATOR;             // ./Public/uploads/info/
+    //const STARDIR = 'uploads' . DIRECTORY_SEPARATOR . 'info' . DIRECTORY_SEPARATOR;         //  uploads/info/
 
+	const UPLOADSDIR = "./Public/uploads/";
+    const STARDIR = "info/";
     public function __construct()
     {
         parent::__construct();
@@ -46,6 +48,9 @@ class InfoController extends Controller
             );
             return $this->ajaxReturn($return);
         }
+
+        $local_pic = I('post.local_pic', '', 'strip_tags');
+        $local_pic = trim($local_pic);
 
         $showpic_url = I('post.showpic_url', '', 'strip_tags');
         $showpic_url = trim($showpic_url);
@@ -86,6 +91,7 @@ class InfoController extends Controller
         //数据入库
         $model->subject_name = $subject_name;
         $model->showpic_url = $showpic_url;
+        $model->local_pic = $local_pic;
         $model->link_url = $link_url;
         $model->remarks = $remarks;
         $model->news_time = date('Y-m-d H:i:s', time());
@@ -126,14 +132,17 @@ class InfoController extends Controller
     public function uploadFile()
     {
         $ret['file'] = '';
-        $dir = self::UPLOADSDIR . self::STARDIR;
+        $dir = './' . self::UPLOADSDIR . self::STARDIR;
 
         file_exists($dir) || (mkdir($dir, 0777, true) && chmod($dir, 0777));
 
         if (!is_array($_FILES['myfile']['name'])) {
-            $fileName = date('ymdhis') . '.' . pathinfo($_FILES['myfile']['name'])['extension'];
+			$path = pathinfo($_FILES['myfile']['name']);
+			$fileName = date('ymdhis') . '.' . $path['extension'];
             move_uploaded_file($_FILES['myfile']['tmp_name'], $dir . $fileName);
-            $ret['file'] = $fileName;
+
+            $ret['file'] = $_SERVER['SERVER_NAME'] . '/' . self::UPLOADSDIR . self::STARDIR . $fileName;
+            $ret['local'] = $fileName;
         }
 
         echo json_encode($ret);
@@ -182,6 +191,13 @@ class InfoController extends Controller
 
         if (!empty($showpic_url)) {
             $model->showpic_url = $showpic_url;
+        }
+
+        $local_pic = I('post.local_pic', '', 'strip_tags');
+        $local_pic = trim($local_pic);
+
+        if (!empty($local_pic)) {
+            $model->local_pic = $local_pic;
         }
 
         if (count($item) > 0) {

@@ -17,8 +17,11 @@ class LucidaController extends CTController
     const DELETE_OFF = 1;
     const DELETE_TRUE = 2;
 
-    const UPLOADSDIR = '.' .DIRECTORY_SEPARATOR. 'Public'. DIRECTORY_SEPARATOR;             // ./Public/uploads/carousel/
-    const STARDIR = 'uploads' . DIRECTORY_SEPARATOR . 'lucida' . DIRECTORY_SEPARATOR;     //  uploads/carousel/
+    //const UPLOADSDIR = '.' .DIRECTORY_SEPARATOR. 'Public'. DIRECTORY_SEPARATOR;             // ./Public/uploads/carousel/
+    //const STARDIR = 'uploads' . DIRECTORY_SEPARATOR . 'lucida' . DIRECTORY_SEPARATOR;     //  uploads/carousel/
+
+    const UPLOADSDIR = "./Public/uploads/";
+    const STARDIR = "lucida/";
 
     //明星经历
     const EXP_STATUS = 0;   //经历
@@ -254,7 +257,8 @@ class LucidaController extends CTController
 
         $files = $_FILES['myfile']['name'];
         for ($i = 0; $i < count($files); $i++) {
-            $fileName = date('ymdhis') . '-' . pathinfo($files[$i])['filename'] . '.' . pathinfo($files[$i])['extension'];
+            $path = pathinfo($_FILES['myfile']['name']);
+			$fileName = date('ymdhis') . '.' . $path['extension'];
 
             move_uploaded_file($_FILES['myfile']['tmp_name'][$i], $dir . $fileName);
             $ret[] = $fileName;
