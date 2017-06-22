@@ -18,9 +18,9 @@ class StarController extends CTController
 //const UPLOADSDIR = '\.' .DIRECTORY_SEPARATOR. 'Public'. DIRECTORY_SEPARATOR;             // ./Public/uploads/carousel/
 //const STARDIR = 'uploads' . DIRECTORY_SEPARATOR . 'carousel' . DIRECTORY_SEPARATOR;     //  uploads/carousel/
 
-	const UPLOADSDIR = "./Public/uploads/";
+	const UPLOADSDIR = "Public/uploads/";
 	const STARDIR = "carousel/";
-    
+
 	public function __construct()
     {
         parent::__construct();
@@ -49,6 +49,9 @@ class StarController extends CTController
 
         $pic_url = I('post.pic_url', '', 'strip_tags');
         $pic_url = trim($pic_url);
+
+        $local_pic = I('post.local_pic', '', 'strip_tags');
+        $local_pic = trim($local_pic);
 
         $starcode = (int)$_POST['starcode'];
         $sort = (int)$_POST['sort'];
@@ -86,6 +89,7 @@ class StarController extends CTController
         $model->starname = $starname;
         $model->starcode = $starcode;
         $model->pic_url = $pic_url;
+        $model->local_pic = $local_pic;
         $model->sort = $sort;
         $model->add_time = time();
         $bool = ($model->add()) ? 0 : 1;
@@ -125,7 +129,7 @@ class StarController extends CTController
     public function uploadFile()
     {
         $ret['file'] = '';
-        $dir = self::UPLOADSDIR . self::STARDIR;
+        $dir = './' . self::UPLOADSDIR . self::STARDIR;
 
         file_exists($dir) || (mkdir($dir, 0777, true) && chmod($dir, 0777));
 
@@ -133,7 +137,8 @@ class StarController extends CTController
             $path = pathinfo($_FILES['myfile']['name']);
 			$fileName = date('ymdhis') . '.' . $path['extension'];
             move_uploaded_file($_FILES['myfile']['tmp_name'], $dir . $fileName);
-            $ret['file'] = $fileName;
+            $ret['file'] = $_SERVER['SERVER_NAME'] . '/' . self::UPLOADSDIR . self::STARDIR . $fileName;
+            $ret['local'] = $fileName;
         }
 
         echo json_encode($ret);
@@ -164,6 +169,13 @@ class StarController extends CTController
             $model->pic_url = $pic_url;
         }
 
+        $local_pic = I('post.local_pic', '', 'strip_tags');
+        $local_pic = trim($local_pic);
+
+        if (!empty($local_pic)) {
+            $model->local_pic = $local_pic;
+        }
+
         if (count($item) > 0) {
             $sort = (int)$_POST['sort'];
 
@@ -174,7 +186,7 @@ class StarController extends CTController
             if ($model->save()) {
                 $bool = 0;
 
-                (!empty($pic_url) && $item['pic_url'] != $pic_url) ? @unlink(self::UPLOADSDIR . self::STARDIR . $item['pic_url']) : '';
+                (!empty($pic_url) && $item['pic_url'] != $pic_url) ? @unlink('./' . self::UPLOADSDIR . self::STARDIR . $item['local_pic']) : '';
             }
         }
 

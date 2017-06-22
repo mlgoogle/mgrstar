@@ -43,11 +43,13 @@ define([
                 var starname = oTd.eq(2).text();
                 var sort = oTd.eq(3).text();
                 var pic_url = $this.parents("tr").attr("data-src");
+                var local_pic = $this.parents("tr").attr("data-local");
 
                 var oForm = $(".addCarouselModal .modalForm");
                 oForm.find("input[name=id]").val(id);
                 oForm.find("input[name=starname]").val(starname);
                 oForm.find("input[name=pic_url]").val(pic_url);
+                oForm.find("input[name=local_pic]").val(local_pic);
                 oForm.find("input[name=starcode]").val(starcode);
                 oForm.find("input[name=sort]").val(sort);
                 addCarouselModal.open();
@@ -80,6 +82,7 @@ define([
                     starname: oForm.find('[name=starname]').val(),
                     starcode: oForm.find('[name=starcode]').val(),
                     pic_url: oForm.find('[name=pic_url]').val(),
+                    local_pic: oForm.find('[name=local_pic]').val(),
                     sort: oForm.find('[name=sort]').val()
                 };
 
@@ -164,11 +167,11 @@ define([
                     var code = '<td>' + v.starcode + '</td>';
                     var starname = '<td>' + v.starname + '</td>';
                     var sort = '<td>' + v.sort + '</td>';
-                    var src = publicUrl + '/uploads/carousel/'+ v.pic_url;
+                    var src = publicUrl + '/uploads/carousel/'+ v.local_pic;
                     var url = v.pic_url;
                     var pic_url = '<td><img src="'+src +'" class="icon-star-img"></td>';
                     //var opt = '<td>'+controlTd+'</td>';
-                    oTr += '<tr class="fadeIn animated" data-id="' + v.id + '" data-src="'+ url +'">' + checkTd + code + starname + sort + pic_url + controlTd + '</tr>';
+                    oTr += '<tr class="fadeIn animated" data-id="' + v.id + '" data-src="'+ url +'" data-local="'+ v.local_pic +'">' + checkTd + code + starname + sort + pic_url + controlTd + '</tr>';
                 });
                 table.find("tbody").empty().html(oTr);
                 if (initPage) {
