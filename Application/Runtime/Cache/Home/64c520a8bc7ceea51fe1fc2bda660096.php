@@ -20,7 +20,7 @@
         <div class="clearfix layout">
             <h1><a href="/work/star/mgrstar/index.php/Home/AdminBacker/index">星享管理系统</a></h1>
             <div>
-            <span class="spantext" >管理员：<?php echo session('user')['uname'];?>,<a style="color:#FF0000;" href="/work/star/mgrstar/index.php/Home/login/doLoginout" onclick="return confirm('确定退出本系统?')" >系统退出</a></span>
+            <span class="spantext" >管理员：<?php echo''; ?>,<a style="color:#FF0000;" href="/work/star/mgrstar/index.php/Home/login/doLoginout" onclick="return confirm('确定退出本系统?')" >系统退出</a></span>
 
             </div>
         </div>
@@ -58,7 +58,7 @@
                 <li><a href="/work/star/mgrstar/index.php/Home/Lucida/listing" <?php if(CONTROLLER_NAME == 'Lucida' && ACTION_NAME =='listing'){echo 'class="act"';} ?>>明星列表</a></li>
                 <li><a href="/work/star/mgrstar/index.php/Home/Meet/meet" <?php if(CONTROLLER_NAME == 'Meet' && ACTION_NAME =='meet'){echo 'class="act"';} ?>>约见管理</a></li>
                 <li><a href="/work/star/mgrstar/index.php/Home/Appoint/appoint" <?php if(CONTROLLER_NAME == 'Appoint' && ACTION_NAME =='appoint'){echo 'class="act"';} ?>>约见类型管理</a></li>
-                <li><a href="/work/star/mgrstar/index.php/Home/Timer/listing" <?php if(CONTROLLER_NAME == 'Timer' && ACTION_NAME =='listing'){echo 'class="act"';} ?>>明星时间管理</a></li>
+                <li><a href="/work/star/mgrstar/index.php/Home/Timer/timer" <?php if(CONTROLLER_NAME == 'Timer' && ACTION_NAME =='timer'){echo 'class="act"';} ?>>明星时间管理</a></li>
             </ul>
         </li>
         <li class="pli">
@@ -79,7 +79,9 @@
                 <li><a
                     <?php if($actionUrl == 'position'){echo 'class="active"';} ?>
                         href="/work/star/mgrstar/index.php/Home/DataSearch/position">持仓汇总查询</a></li>
-                <li><a href="#">出入金查询</a></li>
+                <li><a
+                    <?php if($actionUrl == 'recharge'){echo 'class="active"';} ?>
+                    href="/work/star/mgrstar/index.php/Home/DataSearch/recharge">充值金额查询</a></li>
                 <li><a href="#">交易额明细查询</a></li>
                 <li><a href="#">成交明细查询</a></li>
             </ul>
@@ -183,6 +185,7 @@
 <!--</ul>-->
 
         <div class="content">
+
 <div class="control-bar">
     <a href="/work/star/mgrstar/index.php/Home/Lucida/info" class="btn J_showAdd">新建</a>
     <a href="javascript:;" class="btn J_onDel">删除</a>
