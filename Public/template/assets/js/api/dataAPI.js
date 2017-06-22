@@ -48,9 +48,18 @@ define(["jquery"], function ($) {
             
         },
 
+        // 交易成功
         getSuccessInfo:function (data,cb) {
 
             $.post(this.baseRequestUrl + "/dataSearch/getSuccessInfo", data, function (result) {
+                cb(result);
+            })
+        },
+
+        // 交易成功的汇总
+        getSuccessTotalInfo:function (data,cb) {
+
+            $.post(this.baseRequestUrl + "/dataSearch/getSuccessTotalInfo", data, function (result) {
                 cb(result);
             })
         },

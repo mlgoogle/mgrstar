@@ -20,7 +20,7 @@
         <div class="clearfix layout">
             <h1><a href="/index.php/Home/AdminBacker/index">星享管理系统</a></h1>
             <div>
-            <span class="spantext" >管理员：<?php echo session('user')['uname'];?>,<a style="color:#FF0000;" href="/index.php/Home/login/doLoginout" onclick="return confirm('确定退出本系统?')" >系统退出</a></span>
+            <span class="spantext" >管理员：<?php echo $user = session('user')?$user['uname']:''; ?>,<a style="color:#FF0000;" href="/index.php/Home/login/doLoginout" onclick="return confirm('确定退出本系统?')" >系统退出</a></span>
 
             </div>
         </div>
@@ -85,7 +85,12 @@
                 <li><a
                     <?php if($actionUrl == 'transaction'){echo 'class="active"';} ?>
                     href="/index.php/Home/DataSearch/transaction" >交易额明细查询</a></li>
-                <li><a href="#">成交明细查询</a></li>
+                <li><a
+                    <?php if($actionUrl == 'success'){echo 'class="active"';} ?>
+                    href="/index.php/Home/DataSearch/success" >成交明细查询</a></li>
+                <li><a
+                    <?php if($actionUrl == 'success_total'){echo 'class="active"';} ?>
+                    href="/index.php/Home/DataSearch/success_total" >成交量汇总</a></li> <!--/index.php/Home/DataSearch/success-->
             </ul>
         </li>
         <?php if($user['identity_id']<4){ ?>

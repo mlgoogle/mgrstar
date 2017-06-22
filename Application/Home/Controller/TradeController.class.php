@@ -448,7 +448,7 @@ class TradeController extends Controller
         $data['page'] = $page;
         $data['totalPages'] = ceil($count / $pageNum);
         if (!$list) {
-            $list = [];
+            $list = array();
         }
         $data['list'] = $list;
         //s$data['from'] ='$Page->';

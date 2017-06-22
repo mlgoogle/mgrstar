@@ -1,0 +1,45 @@
+<include file="public:top_menu" />
+
+<!--<div class="control-bar"><a href="javascript:;" class="btn">导出EXL</a></div>-->
+<div class="search-bar">注册时间:
+    <input type="text" id="dateStart" placeholder="起始时间">-<input type="text" id="dateEnd" placeholder="结束时间">
+    <!--<input type="text" placeholder="关键字：机构名称">-->
+    <!--<input type="text" placeholder="上级机构">-->
+    <input type="text" name="nickname" placeholder="昵称">
+    <input type="text" name="phone" placeholder="手机号码">
+    <a href="javascript:;" class="btn J_search">查询</a>
+</div>
+<div class="data-container">
+    <table>
+        <thead>
+        <tr>
+            <th></th>
+            <th>统计时间</th>
+            <th>明星名称</th>
+            <th>平台总成交量</th>
+            <!--
+            <th>零售商（经纪人）成交量</th>
+            <th>经销商（区域经纪人）成交量</th>
+            <th>区域总经销（会员机构）成交量</th>
+            -->
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <div class="pagination"></div>
+</div>
+</div>
+</div>
+
+</div>
+<script src="__JS__/vendor/require.js" data-main="__JS__/common"></script>
+<script>
+    require(['common'], function () {
+        require(['page/success_total']);
+    });
+</script>
+</body>
+
+<include file="public:footer"/>

@@ -39,5 +39,5 @@ inc/
 /uploads/*
 /Runtime/*
 
-/Application/Runtime/*
-/Public/uploads/*
+/Application/Runtime/
+/Public/uploads

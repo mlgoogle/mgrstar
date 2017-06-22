@@ -90,7 +90,7 @@
                     href="/index.php/Home/DataSearch/success" >成交明细查询</a></li>
                 <li><a
                     <?php if($actionUrl == 'success_total'){echo 'class="active"';} ?>
-                    href="#" >成交量汇总</a></li> <!--/index.php/Home/DataSearch/success-->
+                    href="/index.php/Home/DataSearch/success_total" >成交量汇总</a></li> <!--/index.php/Home/DataSearch/success-->
             </ul>
         </li>
         <?php if($user['identity_id']<4){ ?>

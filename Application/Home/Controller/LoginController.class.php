@@ -5,7 +5,7 @@ class LoginController extends Controller {
   public function login(){
       $user = session("user");
       if($user){
-          $this ->redirect('accountmanage/orgManage',Null,0);
+          $this ->redirect('adminBacker/index',Null,0);
       }else {
           $this->display('login/login');
       }
