@@ -36,8 +36,28 @@ define(["jquery"], function ($) {
                 cb(result);
             })
 
-        }
+        },
 
-    };
+        //交易失败
+
+        getTransactionInfo:function (data,cb) {
+
+            $.post(this.baseRequestUrl + "/dataSearch/getTransactionInfo", data, function (result) {
+                cb(result);
+            })
+            
+        },
+
+        getSuccessInfo:function (data,cb) {
+
+            $.post(this.baseRequestUrl + "/dataSearch/getSuccessInfo", data, function (result) {
+                cb(result);
+            })
+        },
+
+
+
+
+        };
     return dataAPI;
 });
