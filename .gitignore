@@ -37,5 +37,7 @@ inc/
 #
 /ThinkPHP/*
 /uploads/*
+/Runtime/*
+
 /Application/Runtime/
 /Public/uploads

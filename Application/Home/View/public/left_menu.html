@@ -57,8 +57,15 @@
                 <li><a
                     <php>if($actionUrl == 'recharge'){echo 'class="active"';}</php>
                     href="__ROOTHOME__/DataSearch/recharge">充值金额查询</a></li>
-                <li><a href="#">交易额明细查询</a></li>
-                <li><a href="#">成交明细查询</a></li>
+                <li><a
+                    <php>if($actionUrl == 'transaction'){echo 'class="active"';}</php>
+                    href="__ROOTHOME__/DataSearch/transaction" >交易额明细查询</a></li>
+                <li><a
+                    <php>if($actionUrl == 'success'){echo 'class="active"';}</php>
+                    href="__ROOTHOME__/DataSearch/success" >成交明细查询</a></li>
+                <li><a
+                    <php>if($actionUrl == 'success_total'){echo 'class="active"';}</php>
+                    href="#" >成交量汇总</a></li> <!--__ROOTHOME__/DataSearch/success-->
             </ul>
         </li>
         <php>
