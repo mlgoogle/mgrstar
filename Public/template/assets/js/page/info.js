@@ -43,12 +43,14 @@ define([
                 var subject_name= oTd.eq(2).text();
                 var remarks = oTd.eq(3).text();
                 var pic_url = $this.parents("tr").attr("data-src");
+                var local_pic = $this.parents("tr").attr("data-local");
                 var link = $this.parents("tr").attr("data-link");
 
                 var oForm = $(".addInfoModal .modalForm");
                 oForm.find("input[name=id]").val(id);
                 oForm.find("input[name=subject_name]").val(subject_name);
                 oForm.find("input[name=showpic_url]").val(pic_url);
+                oForm.find("input[name=local_pic]").val(local_pic);
                 oForm.find("input[name=link_url]").val(link);
                 oForm.find("input[name=remarks]").val(remarks);
                 addInfoModal.open();
@@ -80,6 +82,7 @@ define([
                     id : id,
                     subject_name: oForm.find('[name=subject_name]').val(),
                     showpic_url: oForm.find('[name=showpic_url]').val(),
+                    local_pic: oForm.find('[name=local_pic]').val(),
                     remarks: oForm.find('[name=remarks]').val(),
                     link_url: oForm.find('[name=link_url]').val()
                 };
@@ -165,11 +168,11 @@ define([
                     var news_time = '<td>' + v.news_time + '</td>';
                     var subject_name = '<td>' + v.subject_name + '</td>';
                     var remarks = '<td>' + v.remarks + '</td>';
-                    var src = publicUrl + '/uploads/info/'+ v.showpic_url;
+                    var src = publicUrl + '/uploads/info/'+ v.local_pic;
                     var url = v.showpic_url;
                     var pic_url = '<td><img src="'+src +'" class="icon-star-img"></td>';
                     //var opt = '<td>'+controlTd+'</td>';
-                    oTr += '<tr class="fadeIn animated" data-id="' + v.id + '" data-src="'+ url +'" data-link="' +v.link_url+ '">' + checkTd + news_time + subject_name + remarks + pic_url + controlTd + '</tr>';
+                    oTr += '<tr class="fadeIn animated" data-id="' + v.id + '" data-src="'+ url +'" data-link="' +v.link_url+ '" data-local="'+ v.local_pic +'">' + checkTd + news_time + subject_name + remarks + pic_url + controlTd + '</tr>';
                 });
                 table.find("tbody").empty().html(oTr);
                 if (initPage) {

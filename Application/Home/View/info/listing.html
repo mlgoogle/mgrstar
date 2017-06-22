@@ -38,6 +38,7 @@
             <div class="form-control control-label">
                 <label>资讯配图</label>
                 <input type="text" name="showpic_url" id="pic_url" class="txt" readonly />
+                <input type="text" name="local_pic" id="local_pic" class="txt" readonly />
             </div>
                 <style>
                     .mybtn{
@@ -105,6 +106,7 @@
                 console.log(json.file);
 
                 $("#pic_url").val(json.file);
+                $("#local_pic").val(json.local);
             }
         }
     }

@@ -7,8 +7,6 @@
     <a href="javascript:;" class="btn J_onDel">删除</a>
 </div>
 
-rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-
 <div class="data-container">
     <table>
         <thead>
@@ -41,7 +39,8 @@ rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.r
             </div>
             <div class="form-control control-label">
                 <label>轮播图片</label>
-                <input type="text" name="pic_url" id="pic_url" class="txt" readonly />
+                <input type="hidden" name="pic_url" id="pic_url" class="txt" />
+                <input type="text" name="local_pic" id="local_pic" class="txt" readonly />
             </div>
                 <style>
                     .mybtn{
@@ -112,6 +111,7 @@ rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.r
                 console.log(json.file);
 
                 $("#pic_url").val(json.file);
+                $("#local_pic").val(json.local);
             }
         }
     }
