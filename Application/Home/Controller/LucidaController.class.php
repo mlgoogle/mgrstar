@@ -102,14 +102,24 @@ class LucidaController extends CTController
         $model->work = $work;
         $model->code = $code;
 
+        $pic_flag = 0;
         for ($i = 1; $i < 5; $i++) {
             $i = ($i > 5) ? 1 : $i;
             if (isset($_POST['pic'.$i])) {
+                $pic_flag++;
                 $key = 'pic' . $i;
                 $pic = I("post.$key", '', 'strip_tags');
                 $pic = trim($pic);
-                $model->$key = $pic;
+                $model->$key = $_SERVER['HTTP_HOST'] . "/Public/uploads/" . self::STARDIR . $pic;
             }
+        }
+
+        if ($pic_flag == 0) {
+            $return = array(
+                'code' => -2,
+                'message' => '请上传图片！'
+            );
+            return $this->ajaxReturn($return);
         }
 
         $model->colleage = $colleage;
@@ -121,7 +131,7 @@ class LucidaController extends CTController
         $model->add_time = date('Y-m-d H:i:s', time());
         $id = 0;
 
-        if ($flag) {
+        if ($flag && $pic_flag) {
             $id = $model->add();
 
             //明星时间管理 对应插入
@@ -256,9 +266,10 @@ class LucidaController extends CTController
         file_exists($dir) || (mkdir($dir, 0777, true) && chmod($dir, 0777));
 
         $files = $_FILES['myfile']['name'];
+
         for ($i = 0; $i < count($files); $i++) {
-            $path = pathinfo($_FILES['myfile']['name']);
-			$fileName = date('ymdhis') . '.' . $path['extension'];
+            $path = pathinfo($_FILES['myfile']['name'][$i]);
+			$fileName = date('ymdhis') . uniqid() .'.' . $path['extension'];
 
             move_uploaded_file($_FILES['myfile']['tmp_name'][$i], $dir . $fileName);
             $ret[] = $fileName;
@@ -343,16 +354,28 @@ class LucidaController extends CTController
             $model->work = $work;
             $model->code = $code;
 
+            $pic_flag = 0;
             for ($i = 1; $i <= 5; $i++) {
                 if (isset($_POST['pic'.$i])) {
+                    $pic_flag++;
                     $key = 'pic' . $i;
                     $pic = I("post.$key", '', 'strip_tags');
-                    $model->$key = trim($pic);
+                    $pic = trim($pic);
+                    $model->$key = $_SERVER['HTTP_HOST'] . "/Public/uploads/" . self::STARDIR . $pic;
                     if (!empty($pic) && $item[$key] != $pic) {
                         @unlink(self::UPLOADSDIR . self::STARDIR . $item[$key]);
                     }
                 }
             }
+
+            if ($pic_flag == 0) {
+                $return = array(
+                    'code' => -2,
+                    'message' => '请上传图片！'
+                );
+                return $this->ajaxReturn($return);
+            }
+
             $model->colleage = $colleage;
             $model->resident = $resident;
             $model->worth = $worth;
@@ -454,7 +477,13 @@ class LucidaController extends CTController
         $count = $carousel->where('status !=' . self::DELETE_TRUE)->count();// 查询满足要求的总记录数
         $list = $carousel->where('status !=' . self::DELETE_TRUE)->page($page, $pageNum)->order('uid desc')->select();//获取分页数据
 
+        $i = 1;
         foreach ($list as $key => $item) {
+            $i = ($i > 5) ? 1 : $i;
+            $path = pathinfo($item['pic'.$i]);
+            $list[$key]['pic'.$i] = $path['basename'];
+            $i++;
+
             $list[$key]['status'] = self::getStatus($item['status']);
         }
 
@@ -480,8 +509,13 @@ class LucidaController extends CTController
         $uid = (int)$_GET['id'];
         $model = M('star_starbrief');
         $item = $model->where("`uid` = '{$uid}'")->find();
+
         if (count($item) == 0) {
             exit('非法操作');
+        }
+        for ($i = 0; $i < 5; $i++) {
+            $path = pathinfo($item['pic'.$i]);
+            $item['pic'.$i] = $path['basename'];
         }
         $expList = M('star_experience')->where('star_code =' . $item['code'])->select();
 
@@ -505,6 +539,36 @@ class LucidaController extends CTController
         $this->assign('exp', $experiences);
         $this->assign('ach', $achieve);
         $this->display('lucida/info');
+    }
+
+    public function rvpic()
+    {
+        $uid = (int)$_POST['uid'];
+        $key = I('post.key', '', 'strip_tags');
+        $key = trim($key);
+
+        $model = M('star_starbrief');
+        $item = $model->where("`uid` = '{$uid}'")->find();
+        if (count($item) == 0) {
+            exit('非法操作');
+        }
+
+        $bool = false;
+        if (isset($item[$key])) {
+            $data = array(
+                'uid' => $item['uid'],
+                $key => ''
+            );
+            $bool = $model->save($data);
+        }
+
+        //结果返回
+        $return = array(
+            'id' => $item['uid'],
+            'code' => $bool,
+            'message' => ($bool) ? 1 : -2,
+        );
+        return $this->ajaxReturn($return);
     }
 
     /**

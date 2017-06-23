@@ -41,10 +41,10 @@ class InfoController extends Controller
         //接收过滤提交数据
         $subject_name = I('post.subject_name', '', 'strip_tags');
         $subject_name = trim($subject_name);
-        if (mb_strlen($subject_name) > 40) {
+        if (mb_strlen($subject_name) > 12) {
             $return = array(
                 'code' => -2,
-                'message' => '资讯简介过长'
+                'message' => '标题过长'
             );
             return $this->ajaxReturn($return);
         }
@@ -57,10 +57,10 @@ class InfoController extends Controller
 
         $remarks = I('post.remarks', '', 'strip_tags');
         $remarks = trim($remarks);
-        if (mb_strlen($subject_name) > 24) {
+        if (mb_strlen($remarks) > 40) {
             $return = array(
                 'code' => -2,
-                'message' => '标题过长'
+                'message' => '资讯简介过长'
             );
             return $this->ajaxReturn($return);
         }
@@ -138,10 +138,10 @@ class InfoController extends Controller
 
         if (!is_array($_FILES['myfile']['name'])) {
 			$path = pathinfo($_FILES['myfile']['name']);
-			$fileName = date('ymdhis') . '.' . $path['extension'];
+			$fileName = date('ymdhis') . uniqid() . '.' . $path['extension'];
             move_uploaded_file($_FILES['myfile']['tmp_name'], $dir . $fileName);
 
-            $ret['file'] = $_SERVER['SERVER_NAME'] . '/' . self::UPLOADSDIR . self::STARDIR . $fileName;
+            $ret['file'] = $_SERVER['HTTP_HOST'] . '/' . self::UPLOADSDIR . self::STARDIR . $fileName;
             $ret['local'] = $fileName;
         }
 
@@ -184,7 +184,20 @@ class InfoController extends Controller
             );
             return $this->ajaxReturn($return);
         }
-
+        if (mb_strlen($subject_name) > 12) {
+            $return = array(
+                'code' => -2,
+                'message' => '标题过长'
+            );
+            return $this->ajaxReturn($return);
+        }
+        if (mb_strlen($subject_name) > 40) {
+            $return = array(
+                'code' => -2,
+                'message' => '标题过长'
+            );
+            return $this->ajaxReturn($return);
+        }
         $bool = 1;
         $model = M('star_newsinfomation');
         $item = $model->where("`id` = '{$id}'")->find();
