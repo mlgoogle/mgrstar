@@ -42,6 +42,7 @@
     .lucida-div img {
         height: 240px;
         margin: 10px;
+        cursor:pointer;
     }
 </style>
 
@@ -131,7 +132,7 @@
                 <div class="lucida-div">
                     <php>
                         foreach ($pics as $key => $pic) {
-                            echo '<span><img src="__PUBLIC__/uploads/lucida/'.$pic.'" alt=""></span>';
+                            echo '<span><img src="__PUBLIC__/uploads/lucida/'.$pic.'" title="点击删除" onclick="rv_pic(this)" data-key="'.$key.'"></span>';
                         }
                     </php>
 
@@ -147,6 +148,25 @@
     </div>
 </div>
 <script type="text/javascript">
+
+    function rv_pic(obj) {
+        var _this = $(obj);
+        var id = parseInt($("input[name='uid']").val());
+        var key = $.trim(_this.attr("data-key"));
+
+        if (confirm("确定要删除吗")) {
+            var url = "__ROOTHOME__/Lucida/rvpic";
+            $.ajax({
+                type: "POST",
+                url: url,
+                dataType: "json",
+                data: {key : key, uid : id},
+                success: function(msg){
+                    window.location.href = "__ROOTHOME__/Lucida/info/id/" + msg.id;
+                }
+            });
+        }
+    }
 
     //添加经历、成就
     function addExp(obj, key) {

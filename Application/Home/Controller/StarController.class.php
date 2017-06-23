@@ -135,7 +135,7 @@ class StarController extends CTController
 
         if (!is_array($_FILES['myfile']['name'])) {
             $path = pathinfo($_FILES['myfile']['name']);
-			$fileName = date('ymdhis') . '.' . $path['extension'];
+			$fileName = date('ymdhis') . uniqid() . '.' . $path['extension'];
             move_uploaded_file($_FILES['myfile']['tmp_name'], $dir . $fileName);
             $ret['file'] = $_SERVER['HTTP_HOST'] . '/' . self::UPLOADSDIR . self::STARDIR . $fileName;
             $ret['local'] = $fileName;
