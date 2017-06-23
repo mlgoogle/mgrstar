@@ -33,6 +33,8 @@ define([
 
         initModal: function () {
             $(".J_showAdd").on("click", function () {
+                var oForm = $(".addCarouselModal .modalForm");
+                oForm.find("input[name=starname]").removeAttr("readonly");
                 addCarouselModal.open();
             });
             body.on("click", ".J_showEdit", function () {
@@ -48,6 +50,7 @@ define([
                 var oForm = $(".addCarouselModal .modalForm");
                 oForm.find("input[name=id]").val(id);
                 oForm.find("input[name=starname]").val(starname);
+                oForm.find("input[name=starname]").attr("readonly", "readonly");
                 oForm.find("input[name=pic_url]").val(pic_url);
                 oForm.find("input[name=local_pic]").val(local_pic);
                 oForm.find("input[name=starcode]").val(starcode);
