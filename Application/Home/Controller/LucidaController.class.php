@@ -102,7 +102,9 @@ class LucidaController extends CTController
         $model->work = $work;
         $model->code = $code;
 
+        $pic_flag = 0;
         for ($i = 1; $i < 5; $i++) {
+            $pic_flag++;
             $i = ($i > 5) ? 1 : $i;
             if (isset($_POST['pic'.$i])) {
                 $key = 'pic' . $i;
@@ -110,6 +112,14 @@ class LucidaController extends CTController
                 $pic = trim($pic);
                 $model->$key = $pic;
             }
+        }
+
+        if ($pic_flag == 0) {
+            $return = array(
+                'code' => -2,
+                'message' => '请上传图片！'
+            );
+            return $this->ajaxReturn($return);
         }
 
         $model->colleage = $colleage;

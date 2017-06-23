@@ -137,7 +137,7 @@ class StarController extends CTController
             $path = pathinfo($_FILES['myfile']['name']);
 			$fileName = date('ymdhis') . '.' . $path['extension'];
             move_uploaded_file($_FILES['myfile']['tmp_name'], $dir . $fileName);
-            $ret['file'] = $_SERVER['SERVER_NAME'] . '/' . self::UPLOADSDIR . self::STARDIR . $fileName;
+            $ret['file'] = $_SERVER['HTTP_HOST'] . '/' . self::UPLOADSDIR . self::STARDIR . $fileName;
             $ret['local'] = $fileName;
         }
 
