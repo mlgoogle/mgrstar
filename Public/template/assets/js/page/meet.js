@@ -38,6 +38,7 @@ define([
                 var id = $this.parents('tr').attr('data-id');
                 var starcode = $this.parents('tr').attr('data-code');
                 var timer = $this.parents('tr').attr('data-timer');
+                var type = $this.parents('tr').attr('data-tp');
                 var oTd = $this.parents('tr').find('td');
                 var addtime = oTd.eq(0).text();
                 var starname = oTd.eq(1).text();
@@ -48,6 +49,12 @@ define([
                 var price = oTd.eq(6).text();
 
                 var oForm = $(".addMeetModal .modalForm");
+
+                $("select[name='status'] option").each(function(){
+                    if ($(this).val() == type) {
+                        $(this).attr("selected", "selected");
+                    }
+                });
                 oForm.find("input[name=id]").val(id);
                 oForm.find("input[name=addtime]").val(addtime);
                 oForm.find("input[name=starname]").val(starname);
@@ -120,7 +127,7 @@ define([
                     var micro = '<td>' + v.status + '</td>';
                     var status = '<td>' + v.price + '</td>';
 
-                    oTr += '<tr class="fadeIn animated" data-id="' + v.mid + '" data-code="' + v.starcode + '" data-timer="'+ v.appoint_time +'">' + add_time + starname + active + city + nickname + micro + status + controlTd + '</tr>';
+                    oTr += '<tr class="fadeIn animated" data-id="' + v.uid + '" data-code="' + v.starcode + '" data-timer="'+ v.appoint_time +'" data-tp="'+v.meet_type+'">' + add_time + starname + active + city + nickname + micro + status + controlTd + '</tr>';
                 });
                 table.find("tbody").empty().html(oTr);
                 if (initPage) {
