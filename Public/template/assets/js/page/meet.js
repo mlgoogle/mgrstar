@@ -127,7 +127,7 @@ define([
                     var micro = '<td>' + v.status + '</td>';
                     var status = '<td>' + v.price + '</td>';
 
-                    oTr += '<tr class="fadeIn animated" data-id="' + v.uid + '" data-code="' + v.starcode + '" data-timer="'+ v.appoint_time +'" data-tp="'+v.meet_type+'">' + add_time + starname + active + city + nickname + micro + status + controlTd + '</tr>';
+                    oTr += '<tr class="fadeIn animated" data-id="' + v.id + '" data-code="' + v.starcode + '" data-timer="'+ v.appoint_time +'" data-tp="'+v.meet_type+'">' + add_time + starname + active + city + nickname + micro + status + controlTd + '</tr>';
                 });
                 table.find("tbody").empty().html(oTr);
                 if (initPage) {
