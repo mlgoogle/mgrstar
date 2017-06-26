@@ -171,6 +171,15 @@ define(["jquery"], function ($) {
         },
 
         /**
+         * 经纪人管理-启用/禁用
+         */
+        updateBrokerSubStatus: function (data, cb) {
+            $.post(this.baseRequestUrl + "/agentSub/updateStatus", data, function (result) {
+                cb(result);
+            })
+        },
+
+        /**
          * 经纪人管理-查询
          */
         searchBroker: function (data, cb) {

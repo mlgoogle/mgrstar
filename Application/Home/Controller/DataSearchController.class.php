@@ -544,10 +544,15 @@ class DataSearchController extends Controller
     //交易成功 汇总
     public function getSuccessTotalInfo(){  //1498103354
         $star_orderlist = M('star_orderlist');
+        $whereOreder = array();
 
         $startTime = I('post.startTime');
-        $startTime = I('post.endTime');
-        dump($_POST);
+        $endTime = I('post.endTime');
+        if($startTime && $endTime) {
+            $startTime = strtotime($startTime);
+            $endTime = strtotime($endTime)+(24*3600);
+            $whereOreder['close_time'] = array('between', $startTime . ',' . $endTime);
+        }
 
         $whereOreder['order_type'] = 2;
 
@@ -565,6 +570,7 @@ class DataSearchController extends Controller
 
         $list = D()->table("{$groupSql} as t")->order('days desc')->page($page,$pageNum)->select();
 
+        //dump(D()->table("{$groupSql} as t")->_sql());
 
         $data['totalPages'] = $count;
         $data['pageNum'] =$pageNum;

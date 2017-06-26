@@ -138,12 +138,17 @@ class AgentController extends Controller
     {
         $id = $_POST['id'];
         $data['status'] = $_POST['status'];
+        $ids = array();
         foreach ($id as $key => $value) {
-            # code...
-            $map['code'] = $value;
-            $res = M('agent_info')->where($map)->save($data);
-
+            $ids[] = $value;
         }
+        if($ids) {
+            $map['id'] = array('in', $ids);
+            $res = M('agent_info')->where($map)->save($data);
+        }else{
+            $res = false;
+        }
+
         if ($res) {
             $return = array(
                 'code' => 0,
