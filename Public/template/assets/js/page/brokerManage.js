@@ -247,6 +247,7 @@ define([
             })
 
         },
+
         fnGetList: function (data, initPage) {
             var _this = this;
             var table = $(".data-container table");

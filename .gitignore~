@@ -6,6 +6,7 @@
 *.o
 *.pm.tdy
 *.bs
+.*
 
 # Devel::Cover
 cover_db/
@@ -39,5 +40,6 @@ inc/
 /uploads/*
 /Runtime/*
 
-/Application/Runtime/
-/Public/uploads
+/Application/Runtime/*
+/Public/uploads/*
+/Application/Home/Conf/*
