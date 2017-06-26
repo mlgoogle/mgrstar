@@ -38,37 +38,45 @@
             </div>
             <div class="form-control">
                 <label>明星编号</label>
-                <input type="text" name="starcode" value="">
+                <input type="text" name="starcode" readonly>
             </div>
             <div class="form-control">
                 <label>粉丝昵称</label>
-                <input type="text" name="nickname">
+                <input type="text" name="nickname" readonly>
             </div>
             <div class="form-control">
                 <label>创建时间</label>
-                <input type="text" name="addtime" value="">
+                <input type="text" name="addtime" readonly>
             </div>
             <div class="form-control">
                 <label>约见类型</label>
-                <input type="text" name="meettype" value="">
+                <input type="text" name="meettype" readonly>
             </div>
             <div class="form-control">
                 <label>目的城市</label>
-                <input type="text" name="place">
+                <input type="text" name="place" readonly>
             </div>
             <div class="form-control">
                 <label>约见日期</label>
-                <input type="text" name="timer" value="">
+                <input type="text" name="timer" readonly>
             </div>
             <div class="form-control">
                 <label>约见状态</label>
-                <input type="text" name="status" value="">
+                <select name="status">
+                    <option value="0">-请选择-</option>
+                    <option value="1">已约见</option>
+                    <option value="2">已拒绝</option>
+                    <option value="3">已完成</option>
+                </select>
             </div>
             <div class="form-control">
                 <label>约见总金额</label>
-                <input type="text" name="price" value="">
+                <input type="text" name="price" readonly>
             </div>
         </form>
+    </div>
+    <div class="remodal-footer">
+        <a href="javascript:;"  class="remodal-confirm">确认</a>
     </div>
 </div>
 
@@ -77,6 +85,24 @@
 
 <script src="__JS__/vendor/require.js" data-main="__JS__/common"></script>
 <script>
+    $(function () {
+       $(".remodal-confirm").on("click", function(){
+           var _id = parseInt($("input[name='id']").val());
+           var status = $("select[name='status'] option:selected").val();
+
+           if (_id < 1 || status < 1) {return false;}
+           $.ajax({
+               type: "POST",
+               url: "__ROOTHOME__/Meet/mtype",
+               dataType: "json",
+               data: {id : _id, status : status},
+               success: function(msg){
+                   alert(msg.message);
+               }
+           });
+       });
+    });
+
     function status(obj) {
         var _this = $(obj);
         var id = _this.attr("data-id");
