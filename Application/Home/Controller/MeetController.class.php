@@ -187,7 +187,7 @@ class MeetController extends CTController
         $status = (int)$_POST['status'];
 
         $model = M('user_star_meetrel');
-        $item = $model->where("`uid` = '{$id}'")->find();
+        $item = $model->where("`id` = '{$id}'")->find();
 
         if (count($item) == 0) {
             $return = array(
@@ -199,7 +199,7 @@ class MeetController extends CTController
 
         //数据更新
         $data = array(
-            'uid' => $item['uid'],
+            'id' => $item['id'],
             'meet_type' => $status
         );
         $bool = $model->save($data);

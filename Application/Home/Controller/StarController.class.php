@@ -56,6 +56,24 @@ class StarController extends CTController
         $starcode = (int)$_POST['starcode'];
         $sort = (int)$_POST['sort'];
 
+        if ($sort >= 5) {
+            $return = array(
+                'code' => -2,
+                'message' => '排序不能大于5'
+            );
+            return $this->ajaxReturn($return);
+        }
+        //唯一性判断
+        $model = M('star_bannerlist');
+        $count = $model->where("`sort` = ".$sort)->count('id');
+        if ($count) {
+            $return = array(
+                'code' => -2,
+                'message' => '已有该排序'
+            );
+            return $this->ajaxReturn($return);
+        }
+
         //唯一性判断
         $model = M('star_bannerlist');
         $count = $model->where("`delete_flag` = ".self::DELETE_FALSE)->count('id');
@@ -159,8 +177,26 @@ class StarController extends CTController
             return $this->ajaxReturn($return);
         }
 
-        $bool = 1;
+        $sort = (int)$_POST['sort'];
+        if ($sort >= 5) {
+            $return = array(
+                'code' => -2,
+                'message' => '排序不能大于5'
+            );
+            return $this->ajaxReturn($return);
+        }
+        //唯一性判断
         $model = M('star_bannerlist');
+        $count = $model->where("`sort` = ".$sort)->count('id');
+        if ($count) {
+            $return = array(
+                'code' => -2,
+                'message' => '已有该排序'
+            );
+            return $this->ajaxReturn($return);
+        }
+
+        $bool = 1;
         $item = $model->where("`id` = '{$id}'")->find();
 
         $pic_url = I('post.pic_url', '', 'strip_tags');
@@ -177,7 +213,6 @@ class StarController extends CTController
         }
 
         if (count($item) > 0) {
-            $sort = (int)$_POST['sort'];
 
             $model->id = $id;
             $model->sort = $sort;
