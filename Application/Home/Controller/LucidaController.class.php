@@ -102,6 +102,7 @@ class LucidaController extends CTController
         $model->code = $code;
 
         $pic_flag = 0;
+        $hostUrl = 'http://'.$_SERVER['HTTP_HOST'];
         for ($i = 1; $i < 5; $i++) {
             $i = ($i > 5) ? 1 : $i;
             if (isset($_POST['pic'.$i])) {
@@ -109,7 +110,7 @@ class LucidaController extends CTController
                 $key = 'pic' . $i;
                 $pic = I("post.$key", '', 'strip_tags');
                 $pic = trim($pic);
-                $model->$key = $_SERVER['HTTP_HOST'] . "/Public/uploads/" . self::STARDIR . $pic;
+                $model->$key = $hostUrl . "/Public/uploads/" . self::STARDIR . $pic;
             }
         }
 
@@ -354,13 +355,14 @@ class LucidaController extends CTController
             $model->code = $code;
 
             $pic_flag = 0;
+            $hostUrl = 'http://'.$_SERVER['HTTP_HOST'];
             for ($i = 1; $i <= 5; $i++) {
                 if (isset($_POST['pic'.$i])) {
                     $pic_flag++;
                     $key = 'pic' . $i;
                     $pic = I("post.$key", '', 'strip_tags');
                     $pic = trim($pic);
-                    $model->$key = $_SERVER['HTTP_HOST'] . "/Public/uploads/" . self::STARDIR . $pic;
+                    $model->$key = $hostUrl. "/Public/uploads/" . self::STARDIR . $pic;
                     if (!empty($pic) && $item[$key] != $pic) {
                         @unlink(self::UPLOADSDIR . self::STARDIR . $item[$key]);
                     }
