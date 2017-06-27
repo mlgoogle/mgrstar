@@ -43,8 +43,7 @@ class LucidaController extends CTController
     /**
      * 添加
      */
-    public function addLucida()
-    {
+    public function addLucida(){
         //接收过滤提交数据
         $name = I('post.name', '', 'strip_tags');
         $name = trim($name);
@@ -103,6 +102,7 @@ class LucidaController extends CTController
         $model->code = $code;
 
         $pic_flag = 0;
+        $hostUrl = 'http://'.$_SERVER['HTTP_HOST'];
         for ($i = 1; $i < 5; $i++) {
             $i = ($i > 5) ? 1 : $i;
             if (isset($_POST['pic'.$i])) {
@@ -110,7 +110,7 @@ class LucidaController extends CTController
                 $key = 'pic' . $i;
                 $pic = I("post.$key", '', 'strip_tags');
                 $pic = trim($pic);
-                $model->$key = $_SERVER['HTTP_HOST'] . "/Public/uploads/" . self::STARDIR . $pic;
+                $model->$key = $hostUrl . "/Public/uploads/" . self::STARDIR . $pic;
             }
         }
 
@@ -146,7 +146,7 @@ class LucidaController extends CTController
         $return = array(
             'id' => $id,
             'code' => ($id) ? 1 : -2,
-            'message' => ($id) ? 'success' : 'error',
+            'message' => ($id) ? '添加成功！' : '添加失败！',
         );
         return $this->ajaxReturn($return);
     }
@@ -355,13 +355,14 @@ class LucidaController extends CTController
             $model->code = $code;
 
             $pic_flag = 0;
+            $hostUrl = 'http://'.$_SERVER['HTTP_HOST'];
             for ($i = 1; $i <= 5; $i++) {
                 if (isset($_POST['pic'.$i])) {
                     $pic_flag++;
                     $key = 'pic' . $i;
                     $pic = I("post.$key", '', 'strip_tags');
                     $pic = trim($pic);
-                    $model->$key = $_SERVER['HTTP_HOST'] . "/Public/uploads/" . self::STARDIR . $pic;
+                    $model->$key = $hostUrl. "/Public/uploads/" . self::STARDIR . $pic;
                     if (!empty($pic) && $item[$key] != $pic) {
                         @unlink(self::UPLOADSDIR . self::STARDIR . $item[$key]);
                     }
@@ -378,6 +379,7 @@ class LucidaController extends CTController
                 );
                 return $this->ajaxReturn($return);
             }
+
 
             $model->colleage = $colleage;
             $model->resident = $resident;
@@ -482,10 +484,11 @@ class LucidaController extends CTController
 
         $i = 1;
         foreach ($list as $key => $item) {
-            $i = ($i > 5) ? 1 : $i;
+           // $i = ($i > 5) ? 1 : $i;
             $path = pathinfo($item['pic'.$i]);
+            //$path = $item['pic'.$i];
             $list[$key]['pic'.$i] = $path['basename'];
-            $i++;
+           // $i++;
 
             $list[$key]['status'] = self::getStatus($item['status']);
         }

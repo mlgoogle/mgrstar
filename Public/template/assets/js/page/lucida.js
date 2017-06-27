@@ -117,6 +117,7 @@ define([
                     var code = '<td>' + v.code + '</td>';
                     var name = '<td>' + v.name + '</td>';
                     var src = publicUrl + '/uploads/lucida/'+ v.pic1;
+                    //var src = v.pic1;
                     var url = v.pic1;
                     var pic_url = '<td><img src="'+ src +'" class="icon-star-img"></td>';
                     var status = '<td><a href="javascript:;" class="btn btn-status" onclick="status(this)" data-id="'+ v.uid +'">' + v.status + '</a></td>';
