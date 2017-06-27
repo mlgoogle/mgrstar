@@ -1,7 +1,7 @@
 <?php
 namespace Home\Model;
 use Think\Model\RelationModel;
-class   userInfoModel extends RelationModel{
+class  userInfoModel extends RelationModel{
     protected $tableName = 'user_info';
     protected $_link = array(
         'agent'=>array(

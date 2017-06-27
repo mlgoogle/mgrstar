@@ -151,11 +151,12 @@ class StarController extends CTController
 
         file_exists($dir) || (mkdir($dir, 0777, true) && chmod($dir, 0777));
 
+        $hostUrl = 'http://'.$_SERVER['HTTP_HOST'];
         if (!is_array($_FILES['myfile']['name'])) {
             $path = pathinfo($_FILES['myfile']['name']);
 			$fileName = date('ymdhis') . uniqid() . '.' . $path['extension'];
             move_uploaded_file($_FILES['myfile']['tmp_name'], $dir . $fileName);
-            $ret['file'] = $_SERVER['HTTP_HOST'] . '/' . self::UPLOADSDIR . self::STARDIR . $fileName;
+            $ret['file'] =  $hostUrl . '/' . self::UPLOADSDIR . self::STARDIR . $fileName;
             $ret['local'] = $fileName;
         }
 
@@ -228,7 +229,7 @@ class StarController extends CTController
         //结果返回
         $return = array(
             'code' => $bool,
-            'message' => 'success',
+            'message' => '修改成功！',
         );
         return $this->ajaxReturn($return);
     }

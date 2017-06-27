@@ -19,7 +19,7 @@ class InfoController extends Controller
     //const UPLOADSDIR = '.' .DIRECTORY_SEPARATOR. 'Public'. DIRECTORY_SEPARATOR;             // ./Public/uploads/info/
     //const STARDIR = 'uploads' . DIRECTORY_SEPARATOR . 'info' . DIRECTORY_SEPARATOR;         //  uploads/info/
 
-	const UPLOADSDIR = "./Public/uploads/";
+	const UPLOADSDIR = "/Public/uploads/";
     const STARDIR = "info/";
     public function __construct()
     {
@@ -55,6 +55,7 @@ class InfoController extends Controller
         $showpic_url = I('post.showpic_url', '', 'strip_tags');
         $showpic_url = trim($showpic_url);
 
+
         $remarks = I('post.remarks', '', 'strip_tags');
         $remarks = trim($remarks);
         if (mb_strlen($remarks) > 40) {
@@ -87,6 +88,8 @@ class InfoController extends Controller
             );
             return $this->ajaxReturn($return);
         }
+
+
 
         //数据入库
         $model->subject_name = $subject_name;
@@ -136,12 +139,14 @@ class InfoController extends Controller
 
         file_exists($dir) || (mkdir($dir, 0777, true) && chmod($dir, 0777));
 
+        $hostUrl = 'http://'.$_SERVER['HTTP_HOST'];
+
         if (!is_array($_FILES['myfile']['name'])) {
 			$path = pathinfo($_FILES['myfile']['name']);
 			$fileName = date('ymdhis') . uniqid() . '.' . $path['extension'];
             move_uploaded_file($_FILES['myfile']['tmp_name'], $dir . $fileName);
 
-            $ret['file'] = $_SERVER['HTTP_HOST'] . '/' . self::UPLOADSDIR . self::STARDIR . $fileName;
+            $ret['file'] =  $hostUrl . '/' . self::UPLOADSDIR . self::STARDIR . $fileName;
             $ret['local'] = $fileName;
         }
 
