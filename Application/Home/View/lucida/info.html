@@ -1,6 +1,7 @@
 <include file="public:top_menu" />
-<link rel="stylesheet" href="__CSS__/modals/jquery.datetimepicker.min.css">
-<script src="__JS__/vendor/jquery.datetimepicker.js" data-main="__JS__/common"></script>
+            <link rel="stylesheet" href="__CSS__/modals/jquery.datetimepicker.min.css">
+            <script src="__JS__/vendor/jquery.datetimepicker.js" data-main="__JS__/common"></script>
+            <script src="__JS__/vendor/layer.js?version=1498546138669" data-main="__JS__/common"></script>
 
 <style>
     .form-control label {
@@ -82,26 +83,26 @@
                     <input type="text" name="colleage" value="<?php echo $item['colleage'];?>">
                 </div>
                 <?php if (count($item) > 0) { ?>
-                        <div class="form-control">
-                            <label>主要经历</label>
-                            <input type="text" name="exp" /> <a href="javascript:;" onclick="addExp(this, 'exp')" class="btn">添加经历</a>
-                            <div class="exp addexp">
-                                <?php foreach($exp as $e) {
+                <div class="form-control">
+                    <label>主要经历</label>
+                    <input type="text" name="exp" /> <a href="javascript:;" onclick="addExp(this, 'exp')" class="btn">添加经历</a>
+                    <div class="exp addexp">
+                        <?php foreach($exp as $e) {
                                     echo '<li>' . $e['star_experience'] . ' <b class="close_exp" data-id='.$e['id'].' onclick="close_exp(this)">X</b></li>';
-                                }?>
-                            </div>
-                        </div>
+                        }?>
+                    </div>
+                </div>
 
-                        <div class="form-control">
-                            <label>主要成就</label>
-                            <input type="text" name="ach" /> <a href="javascript:;" onclick="addExp(this, 'ach')" class="btn">添加成就</a>
-                            <div class="exp addach">
-                                <?php foreach($ach as $a) {
+                <div class="form-control">
+                    <label>主要成就</label>
+                    <input type="text" name="ach" /> <a href="javascript:;" onclick="addExp(this, 'ach')" class="btn">添加成就</a>
+                    <div class="exp addach">
+                        <?php foreach($ach as $a) {
                                     echo '<li>' . $a['star_experience'] . ' <b class="close_exp" data-id='.$e['id'].' onclick="close_exp(this)">X</b></li>';
-                                }?>
-                            </div>
-                        </div>
-                 <?php } ?>
+                        }?>
+                    </div>
+                </div>
+                <?php } ?>
                 <div class="form-control">
                     <label>常驻地</label>
                     <input type="text" name="resident" value="<?php echo $item['resident'];?>">
@@ -132,7 +133,7 @@
                 <div class="lucida-div">
                     <php>
                         foreach ($pics as $key => $pic) {
-                            echo '<span><img src="__PUBLIC__/uploads/lucida/'.$pic.'" title="点击删除" onclick="rv_pic(this)" data-key="'.$key.'"></span>';
+                        echo '<span><img src="__PUBLIC__/uploads/lucida/'.$pic.'" title="点击删除" onclick="rv_pic(this)" data-key="'.$key.'"></span>';
                         }
                     </php>
 
@@ -228,14 +229,24 @@
                 dataType: "json",
                 data: $(".modalForm").serialize(),
                 success: function(msg){
-                    alert(msg.message);
-                    if (msg.code != -2) {
-                        window.location.href = "__ROOTHOME__/Lucida/info/id/" + msg.id;
+                    if(msg.code == 1) {
+                        //alert(msg.message);
+                        layer.msg(msg.message,{time:2000});
+                        window.setTimeout(
+                               'window.location = "__ROOTHOME__/Lucida/listing"',
+                                2000
+                            );
+                       //func = window.clearTimeout(id);
+                    }else if (msg.code = -2) {
+                        layer.msg(msg.message);
+                    }else{
+                        layer.msg('非法操作！');
                     }
                 }
             });
         });
     });
+
 
     var xhr;
     function createXMLHttpRequest() {

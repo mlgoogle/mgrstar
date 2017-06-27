@@ -43,8 +43,7 @@ class LucidaController extends CTController
     /**
      * 添加
      */
-    public function addLucida()
-    {
+    public function addLucida(){
         //接收过滤提交数据
         $name = I('post.name', '', 'strip_tags');
         $name = trim($name);
@@ -146,7 +145,7 @@ class LucidaController extends CTController
         $return = array(
             'id' => $id,
             'code' => ($id) ? 1 : -2,
-            'message' => ($id) ? 'success' : 'error',
+            'message' => ($id) ? '添加成功！' : '添加失败！',
         );
         return $this->ajaxReturn($return);
     }
@@ -376,6 +375,7 @@ class LucidaController extends CTController
                 return $this->ajaxReturn($return);
             }
 
+
             $model->colleage = $colleage;
             $model->resident = $resident;
             $model->worth = $worth;
@@ -479,10 +479,11 @@ class LucidaController extends CTController
 
         $i = 1;
         foreach ($list as $key => $item) {
-            $i = ($i > 5) ? 1 : $i;
+           // $i = ($i > 5) ? 1 : $i;
             $path = pathinfo($item['pic'.$i]);
+            //$path = $item['pic'.$i];
             $list[$key]['pic'.$i] = $path['basename'];
-            $i++;
+           // $i++;
 
             $list[$key]['status'] = self::getStatus($item['status']);
         }
