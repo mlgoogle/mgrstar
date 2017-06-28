@@ -34,8 +34,14 @@
             dataType: "json",
             data: {id : id},
             success: function(msg){
-                alert(msg.message);
-                window.location.reload(true);
+                //alert(msg.message);
+                layer.msg(msg.message);
+
+                window.setTimeout(
+                    'window.location.reload(true)',
+                    2000
+                );
+               // window.location.reload(true);
             }
         });
     }

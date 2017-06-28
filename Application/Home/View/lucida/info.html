@@ -98,7 +98,7 @@
                     <input type="text" name="ach" /> <a href="javascript:;" onclick="addExp(this, 'ach')" class="btn">添加成就</a>
                     <div class="exp addach">
                         <?php foreach($ach as $a) {
-                                    echo '<li>' . $a['star_experience'] . ' <b class="close_exp" data-id='.$e['id'].' onclick="close_exp(this)">X</b></li>';
+                                    echo '<li>' . $a['star_experience'] . ' <b class="close_exp" data-id='.$a['id'].' onclick="close_exp(this)">X</b></li>';
                         }?>
                     </div>
                 </div>
@@ -189,7 +189,12 @@
             dataType: "json",
             data: {key : key, val : val, uid : id},
             success: function(msg){
-                console.log(msg);
+                if(msg.code==0){
+                    layer.msg(msg.message);
+                }else{
+                    layer.msg(msg.message);
+                }
+                //console.log(msg);
             }
         });
     }
@@ -205,7 +210,15 @@
             dataType: "json",
             data: {id : id},
             success: function(msg){
-                _this.parent().remove();
+
+                if(msg.code==0){
+                    layer.msg(msg.message);
+                    _this.parent().remove();
+                }else if(msg.code==-2){
+                    layer.msg(msg.message);
+                }else{
+                    layer.msg(msg.message);
+                }
             }
         });
     }
