@@ -189,7 +189,6 @@ class MeetController extends CTController
         $model = M('user_star_meetrel');
         $item = $model->where("`id` = '{$id}'")->find();
 
-
         if (count($item) == 0) {
             $return = array(
                 'code' => -2,

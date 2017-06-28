@@ -4,7 +4,7 @@ namespace Home\Controller;
 use Think\Controller;
 
 /**
- * 轮播列表
+ * 明星列表
  * @date finished at 2017-6-13
  *
  * Class LucidaController
@@ -366,6 +366,9 @@ class LucidaController extends CTController
                     if (!empty($pic) && $item[$key] != $pic) {
                         @unlink(self::UPLOADSDIR . self::STARDIR . $item[$key]);
                     }
+                }
+                if (!empty($item['pic1']) || !empty($item['pic2']) || !empty($item['pic3']) || !empty($item['pic4']) || !empty($item['pic5'])) {
+                    $pic_flag = 1;
                 }
             }
 
