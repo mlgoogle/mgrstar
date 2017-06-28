@@ -387,7 +387,14 @@ class LucidaController extends CTController
             $model->modify_time = date('Y-m-d H:i:s', time());
 
             if ($model->save()) {
-                $bool = 0;
+                $bool = 1;
+            }else{
+                $return = array(
+                    //'id' => $item['uid'],
+                    'code' => -2,
+                    'message' => '修改失败！',
+                );
+                return $this->ajaxReturn($return);
             }
         }
 
@@ -395,7 +402,7 @@ class LucidaController extends CTController
         $return = array(
             'id' => $item['uid'],
             'code' => $bool,
-            'message' => 'success',
+            'message' => '修改成功！',
         );
         return $this->ajaxReturn($return);
     }

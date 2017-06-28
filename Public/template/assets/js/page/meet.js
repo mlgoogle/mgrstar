@@ -59,6 +59,7 @@ define([
                 oForm.find("input[name=status]").val(status);
                 oForm.find("input[name=price]").val(price);
                 addMeetModal.open();
+                //addMeetModal.close();
             });
 
             $(document).on('closed', '.remodal', function (e) {

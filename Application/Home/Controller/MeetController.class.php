@@ -180,6 +180,41 @@ class MeetController extends CTController
         return $this->ajaxReturn($return);
     }
 
+    public function mtype()
+    {
+        //获取提交过来的ID值并进行分割 in 查询
+        $id = (int)$_POST['id'];
+        $status = (int)$_POST['status'];
+
+        $model = M('user_star_meetrel');
+        $item = $model->where("`id` = '{$id}'")->find();
+
+
+        if (count($item) == 0) {
+            $return = array(
+                'code' => -2,
+                'message' => '未找到数据',
+            );
+            return $this->ajaxReturn($return);
+        }
+
+        //数据更新
+        $data = array(
+            'id' => $item['id'],
+            'meet_type' => $status
+        );
+
+        $bool = $model->save($data);
+
+        //结果返回
+        $return = array(
+            'code' => ($bool) ? 1: -2,
+            'message' => ($bool) ? '修改成功！' : '修改失败！',
+        );
+
+        return $this->ajaxReturn($return);
+    }
+
     /**
      * 列表
      * @todo 搜索
@@ -193,6 +228,7 @@ class MeetController extends CTController
         $severModel = M('meet_service_def');
         $serverList = $severModel->where("`status` != 2")->select();
         $sArr = array();
+
         foreach ($serverList as $sev) {
             $sArr[$sev['mid']] = $sev;
         }

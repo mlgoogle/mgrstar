@@ -123,8 +123,7 @@ class TimerController extends CTController
     /**
      * 分配时间
      */
-    public function add()
-    {
+    public function add(){
         $fans = I('post.fans', '', 'strip_tags');
         $fans = trim($fans);
 
@@ -206,7 +205,7 @@ class TimerController extends CTController
         }
 
         $return['code'] = ($bool) ? 1 : -2;
-        $return['message'] = ($bool) ? 'Success' : 'Error';
+        $return['message'] = ($bool) ? '成功' : '失败';
         return $this->ajaxReturn($return);
 
     }
@@ -364,11 +363,12 @@ class TimerController extends CTController
         $model->add_time = date('Y-m-d H:i:s', time());
         $id = $model->add();
 
+
         //结果返回
         $return = array(
             'id' => $id,
             'code' => ($id) ? 0 : 1,
-            'message' => 'success',
+            'message' => ($id) ? '成功！':'失败',
         );
         return $this->ajaxReturn($return);
     }
