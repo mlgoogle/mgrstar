@@ -202,13 +202,15 @@ class MeetController extends CTController
             'id' => $item['id'],
             'meet_type' => $status
         );
+
         $bool = $model->save($data);
 
         //结果返回
         $return = array(
-            'code' => $bool,
-            'message' => ($bool) ? 'success' : 'error',
+            'code' => ($bool) ? 1: -2,
+            'message' => ($bool) ? '修改成功！' : '修改失败！',
         );
+
         return $this->ajaxReturn($return);
     }
 
@@ -225,6 +227,7 @@ class MeetController extends CTController
         $severModel = M('meet_service_def');
         $serverList = $severModel->where("`status` != 2")->select();
         $sArr = array();
+
         foreach ($serverList as $sev) {
             $sArr[$sev['mid']] = $sev;
         }

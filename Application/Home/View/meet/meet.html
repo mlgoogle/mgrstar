@@ -97,7 +97,14 @@
                dataType: "json",
                data: {id : _id, status : status},
                success: function(msg){
-                   alert(msg.message);
+                   if(msg.code == 1) {
+                       layer.msg(msg.message);
+
+                       var addMeetModal = $('[data-remodal-id=addMeetModal]').remodal();
+                       addMeetModal.close();
+                   }else{
+                       layer.msg(msg.message);
+                   }
                }
            });
        });
@@ -113,7 +120,18 @@
             data: {id : id},
             success: function(msg){
                 alert(msg.message);
-                window.location.reload(true);
+
+                // var addMeetModal = $('.addMeetModal');
+
+
+                // alert(addMeetModal.html()); //remodal-is-initialized remodal-is-closed
+
+                 //addMeetModal.addClass('remodal-is-closed');
+
+                //addMeetModal.hide();
+               // $(this).find(".modalForm")[0].reset();
+               // window.location.reload(true);
+               // window.location = window.location.href;
             }
         });
     }

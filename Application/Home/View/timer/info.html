@@ -1,5 +1,7 @@
 <include file="public:top_menu" />
 
+<script src="__JS__/vendor/layer.js?version=1498546138669" data-main="__JS__/common"></script>
+
 <style>
     .form-control label {
         width: 110px;
@@ -251,10 +253,23 @@
                 dataType: "json",
                 data: data,
                 success: function(msg){
-                    alert(msg.message);
-                    if (msg.code != -2) {
-                        window.location.href = "__ROOTHOME__/Timer/info/id/" + msg.id;
+
+                    if(msg.code == 0) {
+                        layer.msg(msg.message, {time: 2000});
+                        window.setTimeout(
+                            'window.location = "__ROOTHOME__/Timer/timer"',
+                            2000
+                        );
+                    }else if(msg.code == -2){
+                        layer.msg(msg.message);
+                    }else{
+                        layer.msg('非法操作！');
                     }
+//
+//                    alert(msg.message);
+//                    if (msg.code != -2) {
+//                        window.location.href = "__ROOTHOME__/Timer/info/id/" + msg.id;
+//                    }
                 }
             });
         });
