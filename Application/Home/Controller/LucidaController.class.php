@@ -176,6 +176,9 @@ class LucidaController extends CTController
         $val = I('post.val', '', 'strip_tags');
         $val = trim($val);
 
+        $val = I('post.val', '', 'strip_tags');
+        $val = trim($val);
+
         if (empty($key) || empty($val)) {
             $return = array(
                 'code' => -2,
@@ -188,15 +191,17 @@ class LucidaController extends CTController
         $status = ($key == 'exp') ? 0 : 1;
 
         $expModel->star_code = $item['code'];
+
         $expModel->star_experience = $val;
+
         $expModel->status = $status;
 
-        $bool = ($expModel->add()) ? 1 : 0;
+        $bool = ($expModel->add()) ? 0 : 1;
 
         //结果返回
         $return = array(
             'code' => $bool,
-            'message' => ($bool) ? 'success' : 'error',
+            'message' => !($bool) ? '成功' : '失败',
         );
         return $this->ajaxReturn($return);
     }
@@ -224,12 +229,12 @@ class LucidaController extends CTController
             'id' => $item['id'],
             'status' => 2
         );
-        $bool = ($model->save($data)) ? 1 : 0;
+        $bool = ($model->save($data)) ? 0 : 1;
 
         //结果返回
         $return = array(
             'code' => $bool,
-            'message' => ($bool) ? 'success' : 'error',
+            'message' => !($bool) ? '成功' : '失败',
         );
         return $this->ajaxReturn($return);
     }
@@ -534,6 +539,7 @@ class LucidaController extends CTController
 
         $experiences = array();
         $achieve = array();
+
         foreach ($expList as $val) {
             if ($val['status'] == self::EXP_STATUS) {
                 $experiences[] = $val;
@@ -547,6 +553,7 @@ class LucidaController extends CTController
                 $pics['pic'.$i] = $item['pic'.$i];
             }
         }
+
         $this->assign('pics', $pics);
         $this->assign('item', $item);
         $this->assign('exp', $experiences);
