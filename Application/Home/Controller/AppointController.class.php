@@ -33,12 +33,12 @@ class AppointController extends CTController
     /**
      * 添加
      */
-    public function addAppoint()
-    {
+    public function addAppoint(){
         //接收过滤提交数据
+
         $name = I('post.appointname', '', 'strip_tags');
         $name = trim($name);
-        if (mb_strlen($name) > 6) {
+        if (mb_strlen($name,'utf8') > 6) {
             $return = array(
                 'code' => -2,
                 'message' => '约见类型过长'
@@ -75,9 +75,23 @@ class AppointController extends CTController
             return $this->ajaxReturn($return);
         }
 
+        $showpic_url = I('post.showpic_url', '', 'strip_tags');
+        $local_pic = I('post.local_pic', '', 'strip_tags');
+
+        if(empty($showpic_url)){
+            $return = array(
+                'code' => -2,
+                'message' => '请上传图片！'
+            );
+            return $this->ajaxReturn($return);
+        }
+
+
         //数据入库
         $model->name = $name;
         $model->price = $micro;
+        $model->showpic_url = $showpic_url;
+        $model->local_pic = $local_pic;
         $model->add_time = date('Y-m-d H:i:s', time());
         $bool = ($model->add()) ? 0 : 1;
 
@@ -109,7 +123,7 @@ class AppointController extends CTController
 
         $name = I('post.appointname', '', 'strip_tags');
         $name = trim($name);
-        if (mb_strlen($name) > 6) {
+        if (mb_strlen($name,'utf8') > 6) {
             $return = array(
                 'code' => -2,
                 'message' => '约见类型过长'
@@ -224,6 +238,7 @@ class AppointController extends CTController
         $list = $appoint->where('status !=' . self::DELETE_TRUE)->page($page, $pageNum)->order('mid desc')->select();//获取分页数据
 
         foreach ($list as $key => $item) {
+            $list[$key]['status_type'] = $item['status'];
             $list[$key]['status'] = self::getStatus($item['status']);
         }
 

@@ -66,7 +66,10 @@ class LucidaController extends CTController
         $worth = I('post.worth', '', 'strip_tags');
         $worth = trim($worth);
 
-        $appoint_id = (int)$_POST['appoint_id'];
+        //$appoint_id = (int)$_POST['appoint_id'];
+        $appointIds = is_array($_POST['appointIds'])?$_POST['appointIds']:0;
+
+
         $weibo = (int)$_POST['weibo'];
         $code = (int)$_POST['code'];
 
@@ -122,14 +125,24 @@ class LucidaController extends CTController
             return $this->ajaxReturn($return);
         }
 
+        if(!$appointIds){
+            $return = array(
+                'code' => -2,
+                'message' => '至少选择一个时间使用范围！'
+            );
+            return $this->ajaxReturn($return);
+        }
+
+
         $model->colleage = $colleage;
         $model->resident = $resident;
         $model->worth = $worth;
-        $model->appoint_id = $appoint_id;
+       // $model->appoint_id = $appoint_id;
         $model->weibo = $weibo;
 
         $model->add_time = date('Y-m-d H:i:s', time());
         $id = 0;
+
 
         if ($flag && $pic_flag) {
             $id = $model->add();
@@ -137,9 +150,20 @@ class LucidaController extends CTController
             //明星时间管理 对应插入
             $star_timer = M('star_timer');
             $star_timer->starname = $name;
-            $star_timer->starcode = $id;
+            $star_timer->starcode = $code;
             $star_timer->add_time = date('Y-m-d H:i:s', time());
             $star_timer->add();
+
+            if($id){
+                //  时间使用范围 明星关联的约见类型添加
+                $star_meet_servicerel = M('star_meet_servicerel');
+                foreach ($appointIds as $mid) {
+                    $meetDataList[] = array('starcode'=>$code,'mid'=>$mid);
+                }
+
+                $star_meet_servicerel->addAll($meetDataList);
+
+            }
         }
 
         //结果返回
@@ -326,7 +350,9 @@ class LucidaController extends CTController
         $worth = I('post.worth', '', 'strip_tags');
         $worth = trim($worth);
 
-        $appoint_id = (int)$_POST['appoint_id'];
+        //$appoint_id = (int)$_POST['appoint_id'];
+        $appointIds = is_array($_POST['appointIds'])?$_POST['appointIds']:0;
+
         $weibo = (int)$_POST['weibo'];
         $code = (int)$_POST['code'];
 
@@ -350,6 +376,15 @@ class LucidaController extends CTController
             );
             return $this->ajaxReturn($return);
         }
+
+        if(!$appointIds){
+            $return = array(
+                'code' => -2,
+                'message' => '至少选择一个时间使用范围！'
+            );
+            return $this->ajaxReturn($return);
+        }
+
 
         if (count($item) > 0) {
             $model->uid = $item['uid'];
@@ -389,13 +424,29 @@ class LucidaController extends CTController
             $model->colleage = $colleage;
             $model->resident = $resident;
             $model->worth = $worth;
-            $model->appoint_id = $appoint_id;
+           // $model->appoint_id = $appoint_id;
             $model->weibo = $weibo;
+
 
             $model->modify_time = date('Y-m-d H:i:s', time());
 
             if ($model->save()) {
                 $bool = 1;
+
+                if($id){
+
+                    $star_meet_servicerel = M('star_meet_servicerel');
+                    //修改先删除以前的
+                    $star_meet_servicerel ->where(array('starcode'=>$code))->delete();
+                    //  时间使用范围 明星关联的约见类型添加
+                    foreach ($appointIds as $mid) {
+                        $meetDataList[] = array('starcode'=>$code,'mid'=>$mid);
+                    }
+
+                    $star_meet_servicerel->addAll($meetDataList);
+
+                }
+
             }else{
                 $return = array(
                     //'id' => $item['uid'],
@@ -501,7 +552,7 @@ class LucidaController extends CTController
             //$path = $item['pic'.$i];
             $list[$key]['pic'.$i] = $path['basename'];
            // $i++;
-
+            $list[$key]['status_type'] = $item['status'];
             $list[$key]['status'] = self::getStatus($item['status']);
         }
 
@@ -518,7 +569,6 @@ class LucidaController extends CTController
     public function info()
     {
         $appoints = M('meet_service_def')->where('status =' . self::DELETE_ONLINE)->select();
-        $this->assign('appoints', $appoints);
 
         if (!isset($_GET['id'])) {
             return $this->display('lucida/info');
@@ -537,6 +587,21 @@ class LucidaController extends CTController
         }
         $expList = M('star_experience')->where('star_code =' . $item['code'])->select();
 
+        $meetList = M('star_meet_servicerel')->field('mid')->where('starcode =' . $item['code'])->select();
+
+        $meetData = array();
+        foreach ($meetList as $k=>$m){
+            $meetData[] = isset($m['mid'])?intval($m['mid']):0;
+        }
+
+        foreach ($appoints as $k=>$a){
+            if(in_array($a['mid'],$meetData)){
+                $appoints[$k]['checked'] = 1;
+            }else{
+                $appoints[$k]['checked'] = 0;
+            }
+        }
+
         $experiences = array();
         $achieve = array();
 
@@ -554,9 +619,11 @@ class LucidaController extends CTController
             }
         }
 
+        $this->assign('appoints', $appoints);
         $this->assign('pics', $pics);
         $this->assign('item', $item);
         $this->assign('exp', $experiences);
+        //$this->assign('meet', $meetList);
         $this->assign('ach', $achieve);
         $this->display('lucida/info');
     }

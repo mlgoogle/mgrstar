@@ -45,6 +45,14 @@
         margin: 10px;
         cursor:pointer;
     }
+
+    .appoint_div {
+    }
+
+    .appoint_div input {
+        margin-left: 10px;
+    }
+
 </style>
 
 <div class="control-bar">
@@ -109,12 +117,24 @@
                 </div>
                 <div class="form-control">
                     <label>时间使用范围</label>
+                    <span class="appoint_div">
+                        <?php foreach ($appoints as $val) { $checked = empty($val['checked'])?'':'checked'; ?>
+                            <input name="appointIds[]" type="checkbox" {$checked} value="<?php echo $val['mid'];?>">
+                                <b> <?php echo $val['name'];?> </b>
+
+                        <?php } ?>
+
+
+
+                    </span>
+                    <!--
                     <select name="appoint_id">
                         <option value="0">-请选择-</option>
                         <?php foreach ($appoints as $val) {?>
                         <option value="<?php echo $val['mid'];?>" <?php if ($val['mid'] == $item['appoint_id']){echo "selected=selected";}?>><?php echo $val['name'];?></option>
                         <?php } ?>
                     </select>
+                    -->
                 </div>
                 <div class="form-control">
                     <label>身价说明</label>
