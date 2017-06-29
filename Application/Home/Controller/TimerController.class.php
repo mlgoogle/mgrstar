@@ -506,6 +506,7 @@ class TimerController extends CTController
         $list = $timer->where('status !=' . self::DELETE_TRUE)->page($page, $pageNum)->order('id desc')->select();//获取分页数据
 
         foreach ($list as $key => $item) {
+            $list[$key]['status_type'] = $item['status'];
             $list[$key]['status'] = self::getStatus($item['status']);
         }
 

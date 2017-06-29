@@ -65,7 +65,9 @@ define([
                     id : id,
                     appointname: oForm.find('[name=appointname]').val(),
                     oForm: oForm.find("input[name=status]").val(),
-                    micro: oForm.find('[name=micro]').val()
+                    micro: oForm.find('[name=micro]').val(),
+                    showpic_url: oForm.find('[name=showpic_url]').val(),
+                    local_pic: oForm.find('[name=local_pic]').val()
                 };
 
                 if (id > 0) {
@@ -149,7 +151,14 @@ define([
                     var appointname = '<td>' + v.name + '</td>';
                     var add_time = '<td>' + v.add_time + '</td>';
                     var micro = '<td>' + v.price + '</td>';
-                    var status = '<td><a href="javascript:;" class="btn btn-status" onclick="status(this)" data-id="'+ v.mid +'">' + v.status + '</a></td>';
+
+                    if(v.status_type == 0){
+                        var status_style = 'class="btn btn-up-status"';
+                    }else{
+                        var status_style = 'class="btn btn-status"';
+                    }
+
+                    var status = '<td><a href="javascript:;" ' + status_style + ' onclick="status(this)" data-id="'+ v.mid +'">' + v.status + '</a></td>';
 
                     oTr += '<tr class="fadeIn animated" data-id="' + v.mid + '">' + checkTd + id + add_time + appointname + micro + status + controlTd + '</tr>';
                 });

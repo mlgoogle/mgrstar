@@ -120,7 +120,14 @@ define([
                     //var src = v.pic1;
                     var url = v.pic1;
                     var pic_url = '<td><img src="'+ src +'" class="icon-star-img"></td>';
-                    var status = '<td><a href="javascript:;" class="btn btn-status" onclick="status(this)" data-id="'+ v.uid +'">' + v.status + '</a></td>';
+
+                    if(v.status_type == 0){
+                        var status_style = 'class="btn btn-up-status"';
+                    }else {
+                        var status_style = 'class="btn btn-status"';
+                    }
+
+                    var status = '<td><a href="javascript:;" ' + status_style + ' onclick="status(this)" data-id="'+ v.uid +'">' + v.status + '</a></td>';
 
                     oTr += '<tr class="fadeIn animated" data-id="' + v.uid + '" data-src="'+ url +'">' + checkTd + add_time + name + code + pic_url + status + controlTd + '</tr>';
                 });

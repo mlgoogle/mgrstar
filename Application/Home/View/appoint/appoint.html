@@ -5,6 +5,20 @@
     <a href="javascript:;" class="btn J_onDel">删除</a>
 </div>
 
+<style>
+    .btn-status{
+       /* width: 40px;*/
+        background-color:#80D640;
+       /* padding: 0; */
+    }
+
+    .btn-up-status{
+        /* width: 40px;*/
+        background-color:#009f95;
+       /* padding: 0;*/
+    }
+</style>
+
 <div class="data-container">
     <table>
         <thead>
@@ -40,6 +54,29 @@
                 <label>消耗秒数</label>
                 <input type="text" name="micro" value="">
             </div>
+
+            <div class="form-control control-label">
+                <label>约见配图</label>
+                <input type="hidden" name="showpic_url" id="pic_url" class="txt" readonly />
+                <input type="text" name="local_pic" id="local_pic" class="txt" readonly />
+            </div>
+            <style>
+                .mybtn{
+                    display: inline-block;
+                    width: 40px;
+                    border:1px solid #CCCCCC;
+                    border-radius: 4px;
+                    height: 30px;
+                    line-height: 30px;
+                    cursor: pointer;
+                }
+            </style>
+            <div class="form-control control-label form-group">
+                <label class="control-label"></label>
+                <input type="file" name="file" class="file" id="file"/>
+                <span onclick="UpladFile()" class="mybtn">上传</span>
+            </div>
+
         </form>
     </div>
     <div class="remodal-footer">
@@ -52,6 +89,41 @@
 
 <script src="__JS__/vendor/require.js" data-main="__JS__/common"></script>
 <script>
+
+    var xhr;
+    function createXMLHttpRequest() {
+        if (window.ActiveXObject) {
+            xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        } else if (window.XMLHttpRequest) {
+            xhr = new XMLHttpRequest();
+        }
+    }
+
+    function UpladFile() {
+        var fileObj = document.getElementById("file").files[0];
+        var FileController = '__ROOTHOME__/info/uploadFile';
+        var form = new FormData();
+        form.append("myfile", fileObj);
+        createXMLHttpRequest();
+        xhr.onreadystatechange = handleStateChange;
+        xhr.open("post", FileController, true);
+        xhr.send(form);
+    }
+
+    function handleStateChange() {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200 || xhr.status == 0) {
+                var result = xhr.responseText;
+                var json = eval("(" + result + ")");
+                console.log(json.file);
+
+                $("#pic_url").val(json.file);
+                $("#local_pic").val(json.local);
+            }
+        }
+    }
+
+
     function status(obj) {
         var _this = $(obj);
         var id = _this.attr("data-id");
@@ -71,6 +143,7 @@
             }
         });
     }
+
     require(['common'], function () {
         require(['page/appoint']);
     });

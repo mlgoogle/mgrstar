@@ -104,7 +104,13 @@ define([
                     var starname = '<td>' + v.starname + '</td>';
                     var add_time = '<td>' + v.add_time + '</td>';
                     var ownseconds = '<td>' + v.micro + '</td>';
-                    var status = '<td><a href="javascript:;" class="btn btn-status" onclick="status(this)" data-id="'+ v.id +'">' + v.status + '</a></td>';
+                    if(v.status_type==0) { //上线
+                        var status_style = 'class="btn btn-up-status"';
+                    }else {
+                        var status_style = 'class="btn btn-status"';
+                    }
+
+                    var status = '<td><a href="javascript:;" ' + status_style + 'onclick="status(this)" data-id="'+ v.id +'">' + v.status + '</a></td>';
 
                     oTr += '<tr class="fadeIn animated" data-id="' + v.id + '">' + checkTd + id + add_time + starname + ownseconds + status + controlTd + '</tr>';
                 });

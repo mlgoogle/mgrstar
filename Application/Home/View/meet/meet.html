@@ -102,6 +102,12 @@
 
                        var addMeetModal = $('[data-remodal-id=addMeetModal]').remodal();
                        addMeetModal.close();
+
+                       window.setTimeout(
+                           'window.location.reload(true)',
+                           2000
+                       );
+
                    }else{
                        layer.msg(msg.message);
                    }
