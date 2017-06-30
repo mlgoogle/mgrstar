@@ -249,6 +249,19 @@
             }
         });
     }
+    
+    
+    function ajaxPost(url,data) {
+        $.ajax({
+            type: "POST",
+            url: url,
+            dataType: "json",
+            data: data,
+            success: function(msg){
+
+            }
+        });
+    }
 
     $(function () {
         //日历插件
@@ -272,6 +285,20 @@
                     if(msg.code == 1) {
                         //alert(msg.message);
                         layer.msg(msg.message,{time:2000});
+                        
+                        if (id.length <= 0) {
+                            var addurl = "http://139.224.34.22/cgi-bin/flight/imcloud/v1/getcloudtoken.fcgi";
+                            data = {
+                                user_type: 1,
+                                uid : msg.id,
+                                name_value:$('input[name=name]').val(),
+                                phone:$('input[name=code]').val()
+                            };
+                            console.log(data);
+                            ajaxPost(addurl,data);
+                            //
+                        }
+
                         window.setTimeout(
                                'window.location = "__ROOTHOME__/Lucida/listing"',
                                 2000
