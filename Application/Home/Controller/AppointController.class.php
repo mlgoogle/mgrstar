@@ -140,11 +140,26 @@ class AppointController extends CTController
             return $this->ajaxReturn($return);
         }
 
+        $showpic_url = I('post.showpic_url', '', 'strip_tags');
+        $local_pic = I('post.local_pic', '', 'strip_tags');
+
+        if(empty($showpic_url)) {
+            $return = array(
+                'code' => -2,
+                'message' => '请上传图片！'
+            );
+            return $this->ajaxReturn($return);
+        }
+
         if (count($item) > 0) {
             $model->name = $name;
 
             $model->mid = $id;
             $model->price = $micro;
+
+            $model->showpic_url = $showpic_url;
+            $model->local_pic = $local_pic;
+
             $model->modify_time = date('Y-m-d H:i:s', time());
 
             $bool = ($model->save()) ? 0 : 1;

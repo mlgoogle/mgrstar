@@ -54,7 +54,9 @@ define([
                 oForm.find("input[name=pic_url]").val(pic_url);
                 oForm.find("input[name=local_pic]").val(local_pic);
                 oForm.find("input[name=starcode]").val(starcode);
+                oForm.find("input[name=starcode]").attr("readonly", "readonly");
                 oForm.find("input[name=sort]").val(sort);
+                oForm.find("input[name=sort]").attr("readonly", "readonly");
                 addCarouselModal.open();
             });
 
@@ -66,8 +68,13 @@ define([
             var _this = $(".addCarouselModal input[name='starname']");
             _this.on("blur", function () {
                 starAPI.getStarInfo({starname: _this.val()}, function (result) {
-                    $(".addCarouselModal input[name='starname']").attr("value", result.star_name);
-                    $(".addCarouselModal input[name='starcode']").attr("value", result.star_code);
+                    if(result.code==-2){
+                        layer.msg(result.message);
+                        $(".addCarouselModal input[name='starcode']").attr("value", '');
+                    }else {
+                        $(".addCarouselModal input[name='starname']").attr("value", result.star_name);
+                        $(".addCarouselModal input[name='starcode']").attr("value", result.star_code);
+                    }
                 })
             })
         },

@@ -65,7 +65,12 @@ class StarController extends CTController
         }
         //唯一性判断
         $model = M('star_bannerlist');
-        $count = $model->where("`sort` = ".$sort)->count('id');
+        $map = array();
+
+        $map['sort'] =  $sort;
+        $map['delete_flag'] = self::DELETE_FALSE;
+
+        $count = $model->where($map)->count('id');
         if ($count) {
             $return = array(
                 'code' => -2,
@@ -125,17 +130,23 @@ class StarController extends CTController
      */
     public function getStarInfo()
     {
-        $model = M('star_starinfolist');
+        $model = M('star_starbrief');
         $starname = I('post.starname', '', 'strip_tags');
         $starname = trim($starname);
 
-        $item = $model->where("`star_name` = '{$starname}'")->find();
+        $item = $model->where("`name` = '{$starname}' AND status = 0 ")->find();// 默认 明星上线的才添加
 
-        $arr['star_code'] = '';
-        $arr['star_name'] = "未找到 -{$starname}";
+        //$arr['star_code'] = '';
+       // $arr['star_name'] = "未找到明星 -{$starname}";
         if (count($item) > 0) {
-            $arr['star_code'] = $item['star_code'];
-            $arr['star_name'] = $item['star_name'];
+            $arr['star_code'] = $item['code'];
+            $arr['star_name'] = $item['name'];
+        }else{
+            $return = array(
+                'code' => -2,
+                'message' => "未找到明星 -{$starname}"
+            );
+            return $this->ajaxReturn($return); exit();
         }
 
         return $this->ajaxReturn($arr);
@@ -188,14 +199,19 @@ class StarController extends CTController
         }
         //唯一性判断
         $model = M('star_bannerlist');
-        $count = $model->where("`sort` = ".$sort)->count('id');
-        if ($count) {
-            $return = array(
-                'code' => -2,
-                'message' => '已有该排序'
-            );
-            return $this->ajaxReturn($return);
-        }
+
+//        $map = array();
+//        $map['delete_flag'] = self::DELETE_FALSE;
+//        $map['sort'] = $sort;
+//
+//        $count = $model->where($map)->count('id');
+//        if ($count) {
+//            $return = array(
+//                'code' => -2,
+//                'message' => '已有该排序'
+//            );
+//            return $this->ajaxReturn($return);
+//        }
 
         $bool = 1;
         $item = $model->where("`id` = '{$id}'")->find();
@@ -216,7 +232,7 @@ class StarController extends CTController
         if (count($item) > 0) {
 
             $model->id = $id;
-            $model->sort = $sort;
+           // $model->sort = $sort;
             $model->modify_time = time();
 
             if ($model->save()) {
