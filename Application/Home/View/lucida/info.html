@@ -153,7 +153,14 @@
                 <div class="lucida-div">
                     <php>
                         foreach ($pics as $key => $pic) {
-                        echo '<span><img src="__PUBLIC__/uploads/lucida/'.$pic.'" title="点击删除" onclick="rv_pic(this)" data-key="'.$key.'"></span>';
+                        echo '
+                        <span>
+                            <div  style="margin-top: 30px;margin-left: 430px;margin-bottom: -40px;" onclick="rv_pic(this)" data-key="'.$key.'" >
+                                <label style="cursor: pointer;color: #ff0000">X</label>
+                            </div>
+                            <div style="margin:10px;"><img src="'.$pic.'" title="点击删除"  data-key="'.$key.'"></div>
+                            <input type="hidden" name="pic[]" value="'.$pic.'">
+                        </span>';
                         }
                     </php>
 
@@ -161,9 +168,9 @@
                 <br>
             </form>
 
-            <div class="form-control control-label form-group">
+            <div class="form-control control-label form-group" >
                 <label class="control-label"></label>
-                <a href="javascript:;"  class="remodal-confirm">确认</a>
+                <a href="javascript:;"  class="remodal-confirm"  >确认</a>
             </div>
         </div>
     </div>
@@ -242,6 +249,19 @@
             }
         });
     }
+    
+    
+    function ajaxPost(url,data) {
+        $.ajax({
+            type: "POST",
+            url: url,
+            dataType: "json",
+            data: data,
+            success: function(msg){
+
+            }
+        });
+    }
 
     $(function () {
         //日历插件
@@ -265,6 +285,20 @@
                     if(msg.code == 1) {
                         //alert(msg.message);
                         layer.msg(msg.message,{time:2000});
+                        
+                        if (id.length <= 0) {
+                            var addurl = "http://139.224.34.22/cgi-bin/flight/imcloud/v1/getcloudtoken.fcgi";
+                            data = {
+                                user_type: 1,
+                                uid : msg.id,
+                                name_value:$('input[name=name]').val(),
+                                phone:$('input[name=code]').val()
+                            };
+                            console.log(data);
+                            ajaxPost(addurl,data);
+                            //
+                        }
+
                         window.setTimeout(
                                'window.location = "__ROOTHOME__/Lucida/listing"',
                                 2000
@@ -326,6 +360,7 @@
 
                     var img = '<span><img src="__PUBLIC__/uploads/lucida/'+json[i]+'"></span>';
                     $(".lucida-div").append(img);
+                    //$(".lucida-div").html(img);
                 }
             }
         }

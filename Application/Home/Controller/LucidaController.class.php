@@ -164,6 +164,9 @@ class LucidaController extends CTController
                 $star_meet_servicerel->addAll($meetDataList);
 
             }
+
+
+
         }
 
         //结果返回
@@ -396,6 +399,9 @@ class LucidaController extends CTController
 
             $pic_flag = 0;
             $hostUrl = 'http://'.$_SERVER['HTTP_HOST'];
+           // dump($_POST['pic'.$i]);exit;
+
+            $picArr = $_POST['pic'];
             for ($i = 1; $i <= 5; $i++) {
                 if (isset($_POST['pic'.$i])) {
                     $pic_flag++;
@@ -407,6 +413,13 @@ class LucidaController extends CTController
                         @unlink(self::UPLOADSDIR . self::STARDIR . $item[$key]);
                     }
                 }
+
+                if($picArr){ //修改
+                    $pic = trim($picArr[$i-1]);
+                    $key = 'pic' . $i;
+                    $model->$key = $hostUrl. "/Public/uploads/" . self::STARDIR . $pic;
+                }
+
                 if (!empty($item['pic1']) || !empty($item['pic2']) || !empty($item['pic3']) || !empty($item['pic4']) || !empty($item['pic5'])) {
                     $pic_flag = 1;
                 }
@@ -571,6 +584,7 @@ class LucidaController extends CTController
         $appoints = M('meet_service_def')->where('status =' . self::DELETE_ONLINE)->select();
 
         if (!isset($_GET['id'])) {
+            $this->assign('appoints', $appoints);
             return $this->display('lucida/info');
         }
 
@@ -582,8 +596,8 @@ class LucidaController extends CTController
             exit('非法操作');
         }
         for ($i = 0; $i < 5; $i++) {
-            $path = pathinfo($item['pic'.$i]);
-            $item['pic'.$i] = $path['basename'];
+           // $path = pathinfo($item['pic'.$i]);
+            $item['pic'.$i] = $item['pic'.$i];//$path['basename'];
         }
         $expList = M('star_experience')->where('star_code =' . $item['code'])->select();
 
@@ -613,6 +627,7 @@ class LucidaController extends CTController
             }
         }
         $pics = array();
+
         for ($i = 1; $i < 6; $i++) {
             if (!empty($item['pic'.$i])) {
                 $pics['pic'.$i] = $item['pic'.$i];
