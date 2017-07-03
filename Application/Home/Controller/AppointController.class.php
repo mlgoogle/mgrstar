@@ -38,7 +38,7 @@ class AppointController extends CTController
 
         $name = I('post.appointname', '', 'strip_tags');
         $name = trim($name);
-        if (mb_strlen($name,'utf8') > 6) {
+        if (mb_strlen($name,'utf8') > 16) {
             $return = array(
                 'code' => -2,
                 'message' => '约见类型过长'
@@ -75,10 +75,10 @@ class AppointController extends CTController
             return $this->ajaxReturn($return);
         }
 
-        $showpic_url = I('post.showpic_url', '', 'strip_tags');
+        $url1 = $url2 = I('post.showpic_url', '', 'strip_tags');
         $local_pic = I('post.local_pic', '', 'strip_tags');
 
-        if(empty($showpic_url)){
+        if(empty($url1)){
             $return = array(
                 'code' => -2,
                 'message' => '请上传图片！'
@@ -90,7 +90,8 @@ class AppointController extends CTController
         //数据入库
         $model->name = $name;
         $model->price = $micro;
-        $model->showpic_url = $showpic_url;
+        $model->url1 = $url1;
+        $model->url2 = $url2;
         $model->local_pic = $local_pic;
         $model->add_time = date('Y-m-d H:i:s', time());
         $bool = ($model->add()) ? 0 : 1;
@@ -123,7 +124,7 @@ class AppointController extends CTController
 
         $name = I('post.appointname', '', 'strip_tags');
         $name = trim($name);
-        if (mb_strlen($name,'utf8') > 6) {
+        if (mb_strlen($name,'utf8') > 16) {
             $return = array(
                 'code' => -2,
                 'message' => '约见类型过长'
@@ -140,10 +141,10 @@ class AppointController extends CTController
             return $this->ajaxReturn($return);
         }
 
-        $showpic_url = I('post.showpic_url', '', 'strip_tags');
+        $url1 = $url2 = I('post.showpic_url', '', 'strip_tags');
         $local_pic = I('post.local_pic', '', 'strip_tags');
 
-        if(empty($showpic_url)) {
+        if(empty($url1)) {
             $return = array(
                 'code' => -2,
                 'message' => '请上传图片！'
@@ -157,7 +158,8 @@ class AppointController extends CTController
             $model->mid = $id;
             $model->price = $micro;
 
-            $model->showpic_url = $showpic_url;
+            $model->url1 = $url1;
+            $model->url2 = $url2;
             $model->local_pic = $local_pic;
 
             $model->modify_time = date('Y-m-d H:i:s', time());

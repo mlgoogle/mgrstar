@@ -66,11 +66,13 @@
                 <input type="hidden" name="uid" value="<?php echo $item['uid'];?>">
                 <div class="form-control">
                     <label>明星名称</label>
-                    <input type="text" name="name" value="<?php echo $item['name'];?>">
+                        <?php $readonly = ''; if(!empty($item['name'])){ $readonly = 'readonly'; } ?>
+                    <input type="text" name="name"  {$readonly} value="<?php echo $item['name'];?>">
                 </div>
                 <div class="form-control">
                     <label>明星ID</label>
-                    <input type="text" name="code" value="<?php echo $item['code'];?>">
+                        <?php $readonly = ''; if(!empty($item['code'])){ $readonly = 'readonly'; } ?>
+                    <input type="text" name="code" {$readonly} value="<?php echo $item['code'];?>">
                 </div>
                 <div class="form-control control-label">
                     <label>国 籍</label>
@@ -152,14 +154,14 @@
                 </div>
                 <div class="lucida-div">
                     <php>
-                        foreach ($pics as $key => $pic) {
+                        foreach ($pics as $key => $pic) {  $pathPic = isset($pathPics[$key])?$pathPics[$key]:'';
                         echo '
                         <span>
                             <div  style="margin-top: 30px;margin-left: 430px;margin-bottom: -40px;" onclick="rv_pic(this)" data-key="'.$key.'" >
                                 <label style="cursor: pointer;color: #ff0000">X</label>
                             </div>
                             <div style="margin:10px;"><img src="'.$pic.'" title="点击删除"  data-key="'.$key.'"></div>
-                            <input type="hidden" name="pic[]" value="'.$pic.'">
+                            <input type="hidden" name="'.$key .'" value="'.$pathPic.'">
                         </span>';
                         }
                     </php>
@@ -285,7 +287,7 @@
                     if(msg.code == 1) {
                         //alert(msg.message);
                         layer.msg(msg.message,{time:2000});
-                        
+
                         if (id.length <= 0) {
                             var addurl = "http://139.224.34.22/cgi-bin/flight/imcloud/v1/getcloudtoken.fcgi";
                             data = {
@@ -358,7 +360,8 @@
                     var inp = "<input type='hidden' name='"+name+"' value='"+ json[i] +"' />";
                     $(".modalForm").append(inp);
 
-                    var img = '<span><img src="__PUBLIC__/uploads/lucida/'+json[i]+'"></span>';
+                   var img = '<span><img src="__PUBLIC__/uploads/lucida/'+json[i]+'"></span>';
+                    //var img = '<span><img src="'+json[i]+'"></span>';
                     $(".lucida-div").append(img);
                     //$(".lucida-div").html(img);
                 }

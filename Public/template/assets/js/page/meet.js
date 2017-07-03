@@ -47,6 +47,7 @@ define([
                 var nickname = oTd.eq(4).text();
                 var status = oTd.eq(5).text();
                 var price = oTd.eq(6).text();
+                var comment = oTd.eq(7).text();
 
                 var oForm = $(".addMeetModal .modalForm");
 
@@ -65,6 +66,7 @@ define([
                 oForm.find("input[name=nickname]").val(nickname);
                 oForm.find("input[name=status]").val(status);
                 oForm.find("input[name=price]").val(price);
+                oForm.find("textarea[name=comment]").text(comment);
                 addMeetModal.open();
                 //addMeetModal.close();
             });
@@ -127,8 +129,12 @@ define([
                     var nickname = '<td>' + v.username + '</td>';
                     var micro = '<td>' + v.status + '</td>';
                     var status = '<td>' + v.price + '</td>';
+                    var commentIntroTd = '<td>' + v.comment_intro + '</td>';
 
-                    oTr += '<tr class="fadeIn animated" data-id="' + v.id + '" data-code="' + v.starcode + '" data-timer="'+ v.appoint_time +'" data-tp="'+v.meet_type+'">' + add_time + starname + active + city + nickname + micro + status + controlTd + '</tr>';
+                    var commentTd = '<td style="display: none">' + v.comment + '</td>';
+
+                    oTr += '<tr class="fadeIn animated" data-id="' + v.id + '" data-code="' + v.starcode + '" data-timer="'+ v.appoint_time +'" data-tp="'+v.meet_type+'">'
+                        + add_time + starname + active + city + nickname + micro + status + commentTd + commentIntroTd +  controlTd + '</tr>';
                 });
                 table.find("tbody").empty().html(oTr);
                 if (initPage) {

@@ -106,6 +106,8 @@ class LucidaController extends CTController
 
         $pic_flag = 0;
         $hostUrl = 'http://'.$_SERVER['HTTP_HOST'];
+
+        $picArr = array();
         for ($i = 1; $i < 5; $i++) {
             $i = ($i > 5) ? 1 : $i;
             if (isset($_POST['pic'.$i])) {
@@ -113,7 +115,7 @@ class LucidaController extends CTController
                 $key = 'pic' . $i;
                 $pic = I("post.$key", '', 'strip_tags');
                 $pic = trim($pic);
-                $model->$key = $hostUrl . "/Public/uploads/" . self::STARDIR . $pic;
+                $picArr[$key] = $model->$key = $hostUrl . "/Public/uploads/" . self::STARDIR . $pic;
             }
         }
 
@@ -140,6 +142,7 @@ class LucidaController extends CTController
        // $model->appoint_id = $appoint_id;
         $model->weibo = $weibo;
 
+
         $model->add_time = date('Y-m-d H:i:s', time());
         $id = 0;
 
@@ -153,6 +156,17 @@ class LucidaController extends CTController
             $star_timer->starcode = $code;
             $star_timer->add_time = date('Y-m-d H:i:s', time());
             $star_timer->add();
+
+            // star_starinfolist 后期加这个表
+
+            $startInfoList  = M('star_starinfolist');
+
+            $startInfoList->star_code = $code;
+            $startInfoList->star_name = $name;
+            $startInfoList->star_phone = $code; // 暂时是明星的 code
+            $startInfoList->star_pic = isset($picArr['pic1'])?$picArr['pic1']:'';
+            $startInfoList->add();
+            //
 
             if($id){
                 //  时间使用范围 明星关联的约见类型添加
@@ -332,8 +346,8 @@ class LucidaController extends CTController
         }
 
         //接收过滤提交数据
-        $name = I('post.name', '', 'strip_tags');
-        $name = trim($name);
+      //  $name = I('post.name', '', 'strip_tags');
+      //  $name = trim($name);
 
         $nationality = I('post.nationality', '', 'strip_tags');
         $nationality = trim($nationality);
@@ -357,28 +371,28 @@ class LucidaController extends CTController
         $appointIds = is_array($_POST['appointIds'])?$_POST['appointIds']:0;
 
         $weibo = (int)$_POST['weibo'];
-        $code = (int)$_POST['code'];
+       // $code = (int)$_POST['code'];
 
         //非空提醒
-        if (empty($name) || empty($code)) {
-            $return = array(
-                'code' => -2,
-                'message' => '请输入正确的明星名称和明星ID！'
-            );
-            return $this->ajaxReturn($return);
-        }
+//        if (empty($name) || empty($code)) {
+//            $return = array(
+//                'code' => -2,
+//                'message' => '请输入正确的明星名称和明星ID！'
+//            );
+//            return $this->ajaxReturn($return);
+//        }
 
         //唯一性判断
-        $isExist = false;(int)$model->where("`name` = '{$name}' AND `uid` !={$item['uid']}")->count('uid');
-        $isCode = (int)$model->where("`code` = '{$code}' AND `uid` !={$item['uid']}")->count('uid');
-
-        if ($isExist || $isCode) {
-            $return = array(
-                'code' => -2,
-                'message' => '该明星信息已存在！'
-            );
-            return $this->ajaxReturn($return);
-        }
+//        $isExist = false;(int)$model->where("`name` = '{$name}' AND `uid` !={$item['uid']}")->count('uid');
+//        $isCode = (int)$model->where("`code` = '{$code}' AND `uid` !={$item['uid']}")->count('uid');
+//
+//        if ($isExist || $isCode) {
+//            $return = array(
+//                'code' => -2,
+//                'message' => '该明星信息已存在！'
+//            );
+//            return $this->ajaxReturn($return);
+//        }
 
         if(!$appointIds){
             $return = array(
@@ -391,11 +405,11 @@ class LucidaController extends CTController
 
         if (count($item) > 0) {
             $model->uid = $item['uid'];
-            $model->name = $name;
+           // $model->name = $name;
             $model->nationality = $nationality;
             $model->birth = $birth;
             $model->work = $work;
-            $model->code = $code;
+          //  $model->code = $code;
 
             $pic_flag = 0;
             $hostUrl = 'http://'.$_SERVER['HTTP_HOST'];
@@ -414,16 +428,21 @@ class LucidaController extends CTController
                     }
                 }
 
-                if($picArr){ //修改
-                    $pic = trim($picArr[$i-1]);
-                    $key = 'pic' . $i;
-                    $model->$key = $hostUrl. "/Public/uploads/" . self::STARDIR . $pic;
-                }
+//                if($picArr){ //修改
+//                    $pic = trim($picArr[$i-1]);
+//                    $key = 'pic' . $i;
+//                    $model->$key = $hostUrl. "/Public/uploads/" . self::STARDIR . $pic;
+//                }
+//
+//                dump($picArr);
+//                dump($key);
+//                dump($model->$key);
 
                 if (!empty($item['pic1']) || !empty($item['pic2']) || !empty($item['pic3']) || !empty($item['pic4']) || !empty($item['pic5'])) {
                     $pic_flag = 1;
                 }
             }
+
 
             if ($pic_flag == 0) {
                 $return = array(
@@ -599,6 +618,7 @@ class LucidaController extends CTController
            // $path = pathinfo($item['pic'.$i]);
             $item['pic'.$i] = $item['pic'.$i];//$path['basename'];
         }
+
         $expList = M('star_experience')->where('star_code =' . $item['code'])->select();
 
         $meetList = M('star_meet_servicerel')->field('mid')->where('starcode =' . $item['code'])->select();
@@ -631,11 +651,14 @@ class LucidaController extends CTController
         for ($i = 1; $i < 6; $i++) {
             if (!empty($item['pic'.$i])) {
                 $pics['pic'.$i] = $item['pic'.$i];
+                $path = pathinfo($item['pic'.$i]);
+                $pathPics['pic'.$i] = $path['basename'];
             }
         }
 
         $this->assign('appoints', $appoints);
         $this->assign('pics', $pics);
+        $this->assign('pathPics', $pathPics);
         $this->assign('item', $item);
         $this->assign('exp', $experiences);
         //$this->assign('meet', $meetList);

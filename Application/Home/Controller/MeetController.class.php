@@ -242,7 +242,9 @@ class MeetController extends CTController
             $list[$key]['status'] = self::getStatus($item['meet_type']);
             $list[$key]['active'] = (isset($sArr[$item['mid']]['name'])) ? $sArr[$item['mid']]['name'] : '';
             $list[$key]['price'] = (isset($sArr[$item['mid']]['price'])) ? $sArr[$item['mid']]['price'] : '';
+            $list[$key]['comment_intro'] = mb_strlen($item['comment'],'utf8')>10?mb_substr($item['comment'],0,10,'utf-8').'...':$item['comment'];
         }
+
 
         new \Think\Page($count, $pageNum);// 实例化分页类 传入总记录数和每页显示的记录数(25)
         $data['totalPages'] = $count;
