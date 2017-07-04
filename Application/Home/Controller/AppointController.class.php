@@ -38,7 +38,7 @@ class AppointController extends CTController
 
         $name = I('post.appointname', '', 'strip_tags');
         $name = trim($name);
-        if (mb_strlen($name,'utf8') > 16) {
+        if (mb_strlen($name,'utf8') > 6) {
             $return = array(
                 'code' => -2,
                 'message' => '约见类型过长'
@@ -124,7 +124,7 @@ class AppointController extends CTController
 
         $name = I('post.appointname', '', 'strip_tags');
         $name = trim($name);
-        if (mb_strlen($name,'utf8') > 16) {
+        if (mb_strlen($name,'utf8') > 6) {
             $return = array(
                 'code' => -2,
                 'message' => '约见类型过长'
