@@ -41,7 +41,7 @@ class InfoController extends Controller
         //接收过滤提交数据
         $subject_name = I('post.subject_name', '', 'strip_tags');
         $subject_name = trim($subject_name);
-        if (mb_strlen($subject_name) > 12) {
+        if (mb_strlen($subject_name,'utf8') > 16) {
             $return = array(
                 'code' => -2,
                 'message' => '标题过长'
@@ -58,7 +58,7 @@ class InfoController extends Controller
 
         $remarks = I('post.remarks', '', 'strip_tags');
         $remarks = trim($remarks);
-        if (mb_strlen($remarks) > 40) {
+        if (mb_strlen($remarks,'utf8') > 40) {
             $return = array(
                 'code' => -2,
                 'message' => '资讯简介过长'
@@ -189,20 +189,22 @@ class InfoController extends Controller
             );
             return $this->ajaxReturn($return);
         }
-        if (mb_strlen($subject_name) > 12) {
+        if (mb_strlen($subject_name,'utf8') > 16) {
             $return = array(
                 'code' => -2,
                 'message' => '标题过长'
             );
             return $this->ajaxReturn($return);
         }
-        if (mb_strlen($subject_name) > 40) {
+
+        if (mb_strlen($remarks,'utf8') > 40) {
             $return = array(
                 'code' => -2,
-                'message' => '标题过长'
+                'message' => '资讯简介过长'
             );
             return $this->ajaxReturn($return);
         }
+
         $bool = 1;
         $model = M('star_newsinfomation');
         $item = $model->where("`id` = '{$id}'")->find();
