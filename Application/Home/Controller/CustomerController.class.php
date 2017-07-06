@@ -188,8 +188,6 @@ class CustomerController extends CTController
      */
     public function searchCustomer(){
 
-        dump($this->user);exit;
-
         $customer = M('star_userinfo');
         $identity = M('identity_info');
         $pageNum = I('post.pageNum', 5, 'intval');
