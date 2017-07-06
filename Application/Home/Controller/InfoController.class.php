@@ -10,7 +10,7 @@ use Think\Controller;
  * Class InfoController
  * @package Home\Controller
  */
-class InfoController extends Controller
+class InfoController extends CTController
 {
     //软删除
     const DELETE_TRUE = 1;
@@ -289,7 +289,7 @@ class InfoController extends Controller
         $count = $model->where($map)->count();// 查询满足要求的总记录数
         $list = $model->where($map)->page($page, $pageNum)->order('id desc')->select();//获取分页数据
         foreach ($list as $key => $item) {
-            $list[$key]['subject_name'] = mb_substr($item['subject_name'],0,6,'utf-8');
+           // $list[$key]['subject_name'] = mb_substr($item['subject_name'],0,6,'utf-8');
             $list[$key]['remarks'] = mb_substr($item['remarks'],0,8,'utf-8');
         }
 

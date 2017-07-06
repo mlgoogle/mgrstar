@@ -85,8 +85,9 @@ define([
             var table = $(".data-container table");
             dataAPI.getUserinfo(data, function (result) {
                 console.log("获取客户管理列表 调用成功!");
-                if (result.list.length == "0") {
-                    table.find("tbody").empty().html("<tr><td colspan='7'>暂无记录</td></tr>");
+
+                if (!result.list || result.list.length == "0") {
+                    table.find("tbody").empty().html("<tr><td colspan='13'>暂无记录</td></tr>");
                     $(".pagination").hide();
                     return false;
                 }

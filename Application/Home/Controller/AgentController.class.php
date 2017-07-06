@@ -79,7 +79,7 @@ class AgentController extends Controller
 
     public function add()
     {
-        $member_info = M('agent_info');
+        $agent_info = M('agent_info');
         $data['memberId'] = $memberId = $_POST['memberid'];
         $data['mark'] = $mark = $_POST['mark'];
         $data['nickname'] = $name = $_POST['nickname'];
@@ -116,7 +116,18 @@ class AgentController extends Controller
             return false;
         }
 
-        $res = $member_info->add($data);
+
+        if($agent_info->where(array('mark'=>$mark ))->find()){
+            $return = array(
+                'code' => -2,
+                'message' => '编码不能重名！'
+            );
+            $this->ajaxReturn($return);
+
+            return false;
+        }
+
+        $res = $agent_info->add($data);
 
         if ($res) {
             $return = array(
@@ -189,13 +200,21 @@ class AgentController extends Controller
     {
 
 
-        $id = $_POST['id'];
+        $id = (int)$_POST['id'];
         $data['memberId'] = $_POST['memberId'];
-        $data['mark'] = $_POST['mark'];
+        $data['mark'] = $mark = $_POST['mark'];
         $data['nickname'] = $_POST['nickname'];
         $data['phone'] = $_POST['phone'];
 
+        if(M('agent_info')->where(array('mark'=>$mark ))->find()){
+            $return = array(
+                'code' => -2,
+                'message' => '编码不能重名！'
+            );
+            $this->ajaxReturn($return);
 
+            return false;
+        }
 
         $map['id']= $id;
         $res = M('agent_info')->where($map)->save($data);

@@ -25,6 +25,7 @@
         <li class="pli">
             <a href="__ROOTHOME__/AdminBacker/index" <php>if(CONTROLLER_NAME == 'AdminBacker'){echo 'class="active"';}</php>><i class="icon-home"></i><strong> 后台管理</strong></a>
         </li>
+        <php> if(isset($identity_status)){ </php>
         <li class="pli">
             <a href="javascript:;" <php>if(in_array(CONTROLLER_NAME, $starArr)){echo 'class="active"';}</php>><i class="icon-star"></i><strong> 明星管理</strong></a>
             <ul class="submenu">
@@ -36,6 +37,9 @@
                 <li><a href="__ROOTHOME__/Timer/timer" <php>if((CONTROLLER_NAME == 'Timer' && ACTION_NAME =='timer') || (CONTROLLER_NAME == 'Timer' && ACTION_NAME =='info')){echo 'class="act"';}</php>>明星时间管理</a></li>
             </ul>
         </li>
+        <php>  } </php>
+
+        <php>  if(isset($identity_status)){ </php>
         <li class="pli">
             <a href="javascript:;" <php>if(in_array(CONTROLLER_NAME, $cusArr)){echo 'class="active"';}</php>><i class="icon-tags"></i><strong> 消费者管理</strong></a>
             <ul class="submenu">
@@ -43,6 +47,8 @@
                 <!--<li><a href="#">分享统计列表</a></li>-->
             </ul>
         </li>
+        <php>  } </php>
+
         <li class="pli">
             <a href="javascript:;"
             <php>if($action == 'dataSearch'){echo 'class="main"';}</php>

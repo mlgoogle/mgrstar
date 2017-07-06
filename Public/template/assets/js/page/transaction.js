@@ -54,6 +54,20 @@ define([
                 var oForm = $(".search-bar");
                 var data = {
                     page: 1,
+                    status: oForm.find("[name=status]").val(),
+                    startTime: oForm.find("#dateStart").val(),
+                    endTime: oForm.find("#dateEnd").val(),
+                    nickname: oForm.find("[name=nickname]").val(),
+                    phoneNum: oForm.find("input[name=phone]").val()
+                };
+                _this.fnGetList(data, true);
+            });
+
+            $(".J_search_status").on("change", function () {
+                var oForm = $(".search-bar");
+                var data = {
+                    page: 1,
+                    status: oForm.find("[name=status]").val(),
                     startTime: oForm.find("#dateStart").val(),
                     endTime: oForm.find("#dateEnd").val(),
                     nickname: oForm.find("[name=nickname]").val(),
@@ -83,10 +97,12 @@ define([
         fnGetList: function (data, initPage) {
             var _this = this;
             var table = $(".data-container table");
+            var status = $(".search-bar").find("[name=status]").val();
+            data.status = status;
             dataAPI.getTransactionInfo(data, function (result) {
                 console.log("获取客户管理列表 调用成功!");
-                if (result.list.length == "0") {
-                    table.find("tbody").empty().html("<tr><td colspan='7'>暂无记录</td></tr>");
+                if (!result.list || result.list.length == "0") {
+                    table.find("tbody").empty().html("<tr><td colspan='9'>暂无记录</td></tr>");
                     $(".pagination").hide();
                     return false;
                 }
@@ -99,16 +115,20 @@ define([
 
                    // var starcodeTd = '<td>' + (v.starcode?v.starcode:0) + '</td>';
 
-                    var buyNameTd = '<td>' + v.buy_name + '</td>';
-                    var buyPhoneTd = '<td>' + v.buy_phone + '</td>';
+                    // var buyNameTd = '<td>' + v.buy_name + '</td>';
+                    // var buyPhoneTd = '<td>' + v.buy_phone + '</td>';
+                    //
+                    // var sellNameTd = '<td>' + v.sell_name + '</td>';
+                    // var sellPhoneTd = '<td>' + v.sell_phone + '</td>';
 
-                    var sellNameTd = '<td>' + v.sell_name + '</td>';
-                    var sellPhoneTd = '<td>' + v.sell_phone + '</td>';
+                    var nameTd = '<td>' + v.name + '</td>';
+                    var phoneTd = '<td>' + v.phone + '</td>';
 
                     var type_member = v.member?v.member.name:'';
+                    var type_agent = v.agent?v.agent.nickname:'';
                     var type_agent_sub = v.agent_sub?v.agent_sub.nickname:'';
 
-                    var type_info = '<td>' +  type_member + ',' + type_agent_sub +'</td>';
+                    var type_info = '<td>' +  type_member + ',' + type_agent + ',' + type_agent_sub +'</td>';
 
 
                     var order_numTd = '<td>' + v.order_num + '</td>';
@@ -117,11 +137,24 @@ define([
 
                     oTr +=
                         '<tr class="fadeIn animated" data-id="' + v.uid + '">'
-                        + checkTd + xuTd + buyPhoneTd + buyNameTd + sellPhoneTd + sellNameTd + type_info + order_numTd
+                        + checkTd + xuTd + phoneTd + nameTd  + type_info + order_numTd
                         + order_priceTd +
                         '</tr>';
 
                 });
+
+                if(result.status == 1){  //买家
+                    $('#name_id').html('买家手机号');
+                    $('#phone_id').html('买家姓名');
+
+                }else if(result.status == 2){ //卖家
+                    $('#name_id').html('卖家手机号');
+                    $('#phone_id').html('卖家姓名');
+                }else{
+                    $('#name_id').html('未知手机号');
+                    $('#phone_id').html('未知姓名');
+                }
+
 
                 table.find("tbody").empty().html(oTr);
                 if (initPage) {

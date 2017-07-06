@@ -25,6 +25,7 @@ class StarController extends CTController
     {
         parent::__construct();
         $this->assign('title', '轮播列表');
+
     }
 
     //模板显示
@@ -200,18 +201,6 @@ class StarController extends CTController
         //唯一性判断
         $model = M('star_bannerlist');
 
-//        $map = array();
-//        $map['delete_flag'] = self::DELETE_FALSE;
-//        $map['sort'] = $sort;
-//
-//        $count = $model->where($map)->count('id');
-//        if ($count) {
-//            $return = array(
-//                'code' => -2,
-//                'message' => '已有该排序'
-//            );
-//            return $this->ajaxReturn($return);
-//        }
 
         $bool = 1;
         $item = $model->where("`id` = '{$id}'")->find();
