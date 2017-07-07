@@ -61,6 +61,20 @@ define([
                 };
                 _this.fnGetList(data, true);
             });
+
+            $(".J_search_status").on("change", function () {
+                var oForm = $(".search-bar");
+                var data = {
+                    page: 1,
+                    pageNum:10,
+                    status: oForm.find("[name=status]").val(),
+                    startTime: oForm.find("#dateStart").val(),
+                    endTime: oForm.find("#dateEnd").val(),
+                    nickname: oForm.find("[name=nickname]").val(),
+                    phoneNum: oForm.find("input[name=phone]").val()
+                };
+                _this.fnGetList(data, true);
+            });
         },
 
         onStopTrade: function () {
@@ -83,10 +97,28 @@ define([
         fnGetList: function (data, initPage) {
             var _this = this;
             var table = $(".data-container table");
+            var status = $(".search-bar").find("[name=status]").val();
+            data.status = status;
             dataAPI.getSuccessInfo(data, function (result) {
                 console.log("获取客户管理列表 调用成功!");
-                if (result.list.length == "0") {
-                    table.find("tbody").empty().html("<tr><td colspan='7'>暂无记录</td></tr>");
+
+                if(result.status == 1){  //买家
+                    $('#name_id').html('买家手机号');
+                    $('#phone_id').html('买家姓名');
+                    var statusValue = '买入';
+
+                }else if(result.status == 2){ //卖家
+                    $('#name_id').html('卖家手机号');
+                    $('#phone_id').html('卖家姓名');
+                    var statusValue = '买出';
+                }else{
+                    $('#name_id').html('未知手机号');
+                    $('#phone_id').html('未知姓名');
+                    var statusValue = '未知';
+                }
+
+                if (!result.list || result.list.length == "0") {
+                    table.find("tbody").empty().html("<tr><td colspan='11'>暂无记录</td></tr>");
                     $(".pagination").hide();
                     return false;
                 }
@@ -100,18 +132,9 @@ define([
                     var close_timeTd = '<td>' + v.close_time + '</td>';//close_time
                     var order_idTd   =  '<td>' + v.order_id + '</td>';
 
-                    var buyNameTd = '<td>' + v.buy_name + '</td>';
-                    var buyPhoneTd = '<td>' + v.buy_phone + '</td>';
-                    var buyStatus  = '<td>' + '买入' + '</td>';
-
-                    var sellNameTd = '<td>' + v.sell_name + '</td>';
-                    var sellPhoneTd = '<td>' + v.sell_phone + '</td>';
-                    var sellStatus  = '<td>' + '买出' + '</td>';
-
-                    var type_member = v.member?v.member.name:'';
-                    var type_agent_sub = v.agent_sub?v.agent_sub.nickname:'';
-
-                    var type_info = '<td>' +  type_member + ',' + type_agent_sub +'</td>';
+                    var nameTd = '<td>' + v.name + '</td>';
+                    var phoneTd = '<td>' + v.phone + '</td>';
+                    var statusValueTd  = '<td>' + statusValue + '</td>';
 
                     var starcodeTd = '<td>' + (v.starcode?v.starcode:0) + '</td>';
 
@@ -125,12 +148,13 @@ define([
 
                     oTr +=
                         '<tr class="fadeIn animated" data-id="' + v.uid + '">'
-                        + checkTd + xuTd + close_timeTd + order_idTd + sellPhoneTd + sellNameTd + buyStatus +
-                        buyPhoneTd + buyNameTd + sellStatus +  starcodeTd  + order_numTd
+                        + checkTd + xuTd + close_timeTd + order_idTd + nameTd + phoneTd + statusValueTd +
+                        starcodeTd  + order_numTd
                         + order_priceTd + order_total +
                         '</tr>';
 
                 });
+
 
                 table.find("tbody").empty().html(oTr);
                 if (initPage) {

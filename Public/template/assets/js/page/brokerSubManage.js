@@ -238,7 +238,9 @@ define([
                     if (result.code == 0) {
                         checkBrokerModal.close();
                         _this.fnGetList({}, true);
-                    } else {
+                    } else if(result.code == -2){
+                        layer.msg(result.message);
+                    }else {
                         layer.msg("操作失败");
                     }
                     $this.removeClass("disabled");

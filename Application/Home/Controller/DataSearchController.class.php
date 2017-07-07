@@ -1,19 +1,31 @@
 <?php
 
+//namespace Home\Controller;
 namespace Home\Controller;
 use Think\Controller;
+//use .\..\Home\Model ;
 
 class DataSearchController extends Controller
 {
 
     private $user;
+    private $homeModel;
 
     public function __construct(){
         parent::__construct();
-        $this->user = session('user');
+        $user = $this->user = session('user');
         if(!$this->user){
             $this->display('Login/login');
         }
+
+        $this->homeModel =  $article = D('Home/home');
+
+        $identity_id = $user['identity_id'];
+
+        if($identity_id<2){
+            $this->assign('identity_status', 1);
+        }
+
         $this->assign('user',$this->user);
         $this->assign('action','dataSearch');
     }
@@ -60,16 +72,31 @@ class DataSearchController extends Controller
 
     public function getUserInfo(){
         $map = array();
+
+        $map = $this->getIdentity();
+
         $user_info = M('star_userinfo');
 
         $pageNum = isset($_POST['pageNum'])?$_POST['pageNum']:5;
         $page = isset($_POST['page'])?$_POST['page']:1;
         $count = $user_info->where($map)->count();// 查询满足要求的总记录数
 
+        $nickname = $_POST['nickname'];
+        $phoneNum = $_POST['phoneNum'];
+
+        if($nickname){
+            $map['nickname'] = $nickname;
+        }
+
+        if($phoneNum){
+            $map['phoneNum'] = $phoneNum;
+        }
+
         $list = $user_info->where($map)->page($page,$pageNum)->select();//获取分页数据
         foreach($list as $l){
             $userIds[] = $l['uid'];
         }
+
 
         $whereSellUids['sell_uid']  =  array('in',$userIds); // sell_type   buy_type
         $whereBuyUids['sell_type'] = $whereSellUids['sell_type'] =  2 ;// 卖方完成
@@ -202,8 +229,22 @@ class DataSearchController extends Controller
         $map = array();
         $user_info = M('star_userinfo');
 
+        $map = $this->getIdentity();
+
         $pageNum = isset($_POST['pageNum'])?$_POST['pageNum']:5;
         $page = isset($_POST['page'])?$_POST['page']:1;
+
+        $nickname = $_POST['nickname'];
+        $phoneNum = $_POST['phoneNum'];
+
+        if($nickname){
+            $map['nickname'] = $nickname;
+        }
+
+        if($phoneNum){
+            $map['phoneNum'] = $phoneNum;
+        }
+
         $count = $user_info->where($map)->count();// 查询满足要求的总记录数
 
         $list = $user_info->where($map)->page($page,$pageNum)->select();//获取分页数据
@@ -212,29 +253,36 @@ class DataSearchController extends Controller
 
         foreach($list as $l){
             $userIds[]   = $l['uid'];
-            $memberIds[] = $l['memberId']; // 机构
-            $agentSubIds[] = $l['agentId']; // 经纪人
+            $memberIds[] = $l['memberId']; // 机构 mark
+            $agentSubIds[] = $l['agentId']; // 经纪人 mark
 
-            //$agentIds[] = $l['agentIdSub']; 区域经纪人
+            $agentIds[] = $l['agentIdSub']; //区域经纪人 mark
         }
+
 
         $memberIds = array_filter(array_unique($memberIds));
+        $agentIds = array_filter(array_unique($agentIds));
         $agentSubIds = array_filter(array_unique($agentSubIds));
 
-        $whereMemberIds['memberid'] = array('in',$memberIds);
-        $whereAgentSubIds['id'] = array('in',$agentSubIds);
+        $whereMemberIds['mark'] = array('in',$memberIds);
+        $whereAgentIds['mark'] = array('in',$agentIds);
+        $whereAgentSubIds['mark'] = array('in',$agentSubIds);
 
         $memberRows = $this->getMemberNmae($whereMemberIds);
-        // $agentRows  = $this->getAgentName($whereAgentIds);
+        $agentRows  = $this->getAgentName($whereAgentIds);
         $agentSubRows  = $this->getAgentSubName($whereAgentSubIds);
 
+
         foreach ($memberRows as $m){
-            $memberData[$m['memberid']]['name'] = $m['name'];
+            $memberData[$m['mark']]['name'] = $m['name'];
         }
 
+        foreach ($agentRows as $ag){
+            $agentData[$ag['mark']]['nickname'] = $ag['nickname'];
+        }
 
         foreach ($agentSubRows as $a){
-            $agentSubData[$a['id']]['nickname'] = $a['nickname'];
+            $agentSubData[$a['mark']]['nickname'] = $a['nickname'];
         }
 
 
@@ -253,9 +301,16 @@ class DataSearchController extends Controller
         foreach ($list as $l){
             $lists[$l['uid']] = $l;
 
-            $lists[$l['uid']]['member'] = $memberData[$l['memberId']];
 
-            $lists[$l['uid']]['agent_sub'] = $agentSubData[$l['agentId']];
+            $lMemberId = $l['memberId'];  //mark
+            $lagentId = $l['agentId'];    // mark
+            $lagentSubId = $l['subagentId'];    // mark
+
+            $lists[$l['uid']]['member'] = $memberData[$lMemberId];
+            $lists[$l['uid']]['agent'] = $agentSubData[$lagentId];
+
+            $lists[$l['uid']]['agent_sub'] = $agentSubData[$lagentSubId];
+
 
             $lists[$l['uid']]['finished_buy_price'] = $finishedbuyRows[$l['uid']];
             //$lists[$l['uid']]['finished_buy_price']['nums'] = count($finishedbuyRows[$l['uid']]);
@@ -284,8 +339,22 @@ class DataSearchController extends Controller
         $map = array();
         $user_info = M('star_userinfo');
 
+        $map = $this->getIdentity();
+
         $pageNum = isset($_POST['pageNum'])?$_POST['pageNum']:5;
         $page = isset($_POST['page'])?$_POST['page']:1;
+
+        $nickname = $_POST['nickname'];
+        $phoneNum = $_POST['phoneNum'];
+
+        if($nickname){
+            $map['nickname'] = $nickname;
+        }
+
+        if($phoneNum){
+            $map['phoneNum'] = $phoneNum;
+        }
+
         $count = $user_info->where($map)->count();// 查询满足要求的总记录数
 
         $list = $user_info->where($map)->page($page,$pageNum)->select();//获取分页数据
@@ -294,26 +363,33 @@ class DataSearchController extends Controller
             $userUids[] = $l['uid'];
             $memberIds[] = $l['memberId']; // 机构
             $agentSubIds[] = $l['agentId']; // 经纪人
+            $agentIds[] = $l['agentIdSub']; //区域经纪人 mark
         }
 
 
         $memberIds = array_filter(array_unique($memberIds));
+        $agentIds = array_filter(array_unique($agentIds));
         $agentSubIds = array_filter(array_unique($agentSubIds));
 
-        $whereMemberIds['memberid'] = array('in',$memberIds);
-        $whereAgentSubIds['id'] = array('in',$agentSubIds);
+        $whereMemberIds['mark'] = array('in',$memberIds);
+        $whereAgentIds['mark'] = array('in',$agentIds);
+        $whereAgentSubIds['mark'] = array('in',$agentSubIds);
 
         $memberRows = $this->getMemberNmae($whereMemberIds);
-        // $agentRows  = $this->getAgentName($whereAgentIds);
+        $agentRows  = $this->getAgentName($whereAgentIds);
         $agentSubRows  = $this->getAgentSubName($whereAgentSubIds);
 
+
         foreach ($memberRows as $m){
-            $memberData[$m['memberid']]['name'] = $m['name'];
+            $memberData[$m['mark']]['name'] = $m['name'];
         }
 
+        foreach ($agentRows as $ag){
+            $agentData[$ag['mark']]['nickname'] = $ag['nickname'];
+        }
 
         foreach ($agentSubRows as $a){
-            $agentSubData[$a['id']]['nickname'] = $a['nickname'];
+            $agentSubData[$a['mark']]['nickname'] = $a['nickname'];
         }
 
 
@@ -337,9 +413,14 @@ class DataSearchController extends Controller
         foreach ($list as $l) {
             $lists[$l['uid']] = $l;
 
-            $lists[$l['uid']]['member'] = $memberData[$l['memberId']];
+            $lMemberId = $l['memberId'];  //mark
+            $lagentId = $l['agentId'];    // mark
+            $lagentSubId = $l['subagentId'];    // mark
 
-            $lists[$l['uid']]['agent_sub'] = $agentSubData[$l['agentId']];
+            $lists[$l['uid']]['member'] = $memberData[$lMemberId];
+            $lists[$l['uid']]['agent'] = $agentSubData[$lagentId];
+
+            $lists[$l['uid']]['agent_sub'] = $agentSubData[$lagentSubId];
 
             $lists[$l['uid']]['recharge'] = $rechargeData[$w['uid']];
         }
@@ -357,12 +438,24 @@ class DataSearchController extends Controller
 
     public function getTransactionInfo(){
 
+        //$this->getIdentity();
+
         $star_orderlist = M('star_orderlist');
+
+        $status = (int)$_POST['status'];
 
         $whereOreder['order_type'] = -1;
 
         $pageNum = isset($_POST['pageNum'])?$_POST['pageNum']:5;
         $page = isset($_POST['page'])?$_POST['page']:1;
+
+        $startTime = I('post.startTime');
+        $endTime = I('post.endTime');
+        if($startTime && $endTime) {
+            $startTime = strtotime($startTime);
+            $endTime = strtotime($endTime)+(24*3600);
+            $whereOreder['close_time'] = array('between', $startTime . ',' . $endTime);
+        }
 
         $count = $star_orderlist->where($whereOreder)->count();// 查询满足要求的总记录数
 
@@ -375,61 +468,99 @@ class DataSearchController extends Controller
         }
 
 
-        $uids = array_merge($sellUid,$buyUid);
-        $uids = array_filter(array_unique($uids));
+//        $uids = array_merge($sellUid,$buyUid);
+//        $uids = array_filter(array_unique($uids));
 
         $map = array();
+
         $user_info = M('star_userinfo');
 
+        if($status == 1){  //买方
+            $uids = array_merge($buyUid);
+            $uids = array_filter(array_unique($uids));
+        }else if($status == 2){ // 卖方
+            $uids = array_merge($sellUid);
+            $uids = array_filter(array_unique($uids));
+        }else{
+            return false;
+        }
+
+        $map = $this->getIdentity();
+
+        //dump($map);exit;
         $map['uid'] = array('in',$uids);
+
 
         $userRows = $user_info->where($map)->select();//获取分页数据
 
         foreach ($userRows as $u){
             $userUids[] = $u['uid'];
-            $memberIds[] = $u['memberId']; // 机构
-            $agentSubIds[] = $u['agentId']; // 经纪人
+            $memberIds[] = $u['memberId']; // 机构 mark
+            $agentIds[] = $u['agentId']; // 区域经纪人 mark
+            $agentSubIds[] = $u['subagentId']; // 经纪人 mark
 
             $userInfo[$u['uid']] = $u;
         }
 
 
+
+
+
         $memberIds = array_filter(array_unique($memberIds));
+        $agentIds = array_filter(array_unique($agentIds));
         $agentSubIds = array_filter(array_unique($agentSubIds));
 
-        $whereMemberIds['memberid'] = array('in',$memberIds);
-        $whereAgentSubIds['id'] = array('in',$agentSubIds);
+        $whereMemberIds['mark'] = array('in',$memberIds);
+        $whereAgentIds['mark'] = array('in',$agentIds);
+        $whereAgentSubIds['mark'] = array('in',$agentSubIds);
 
         $memberRows = $this->getMemberNmae($whereMemberIds);
-        // $agentRows  = $this->getAgentName($whereAgentIds);
+        $agentRows  = $this->getAgentName($whereAgentIds);
         $agentSubRows  = $this->getAgentSubName($whereAgentSubIds);
 
+
         foreach ($memberRows as $m){
-            $memberData[$m['memberid']]['name'] = $m['name'];
+            $memberData[$m['mark']]['name'] = $m['name'];
+        }
+
+        foreach ($agentRows as $ag){
+            $agentData[$ag['mark']]['nickname'] = $ag['nickname'];
         }
 
         foreach ($agentSubRows as $a){
-            $agentSubData[$a['id']]['nickname'] = $a['nickname'];
+            $agentSubData[$a['mark']]['nickname'] = $a['nickname'];
         }
 
 
         foreach ($list as $l){
-                $lists[$l['id']] = $l;
-                $sellUid = $l['sell_uid'];
-                $buyUid  = $l['sell_uid'];
+            $lists[$l['id']] = $l;
 
-                $lists[$l['id']]['sell_name'] = isset($userInfo[$sellUid]['nickname'])?$userInfo[$sellUid]['nickname']:'';
-                $lists[$l['id']]['sell_phone'] = isset($userInfo[$sellUid]['phoneNum'])?$userInfo[$sellUid]['phoneNum']:'';
 
-                $lists[$l['id']]['buy_name'] = isset($userInfo[$buyUid]['nickname'])?$userInfo[$buyUid]['nickname']:'';
-                $lists[$l['id']]['buy_phone'] = isset($userInfo[$buyUid]['phoneNum'])?$userInfo[$buyUid]['phoneNum']:'';
+            $sellUid = $l['sell_uid'];
+            $buyUid  = $l['buy_uid'];
 
-                $lMemberId = $userInfo[$buyUid]['memberId'];
-                $lagentId = $userInfo[$buyUid]['agentId'];
+            if($status == 1){  //买方
+                $listUid = $buyUid;
+            }else if($status == 2){ // 卖方
+                $listUid = $sellUid;
+            }else{
+                return false;
+            }
 
-                $lists[$l['id']]['member'] = $memberData[$lMemberId];
+            $lists[$l['id']]['name'] = isset($userInfo[$listUid]['nickname'])?$userInfo[$listUid]['nickname']:'';
+            $lists[$l['id']]['phone'] = isset($userInfo[$listUid]['phoneNum'])?$userInfo[$listUid]['phoneNum']:'';
 
-                $lists[$l['id']]['agent_sub'] = $agentSubData[$lagentId];
+            //$lists[$l['id']]['buy_name'] = isset($userInfo[$buyUid]['nickname'])?$userInfo[$buyUid]['nickname']:'';
+           // $lists[$l['id']]['buy_phone'] = isset($userInfo[$buyUid]['phoneNum'])?$userInfo[$buyUid]['phoneNum']:'';
+
+            $lMemberId = $userInfo[$listUid]['memberId'];  //mark
+            $lagentId = $userInfo[$listUid]['agentId'];    // mark
+            $lagentSubId = $userInfo[$listUid]['subagentId'];    // mark
+
+            $lists[$l['id']]['member'] = $memberData[$lMemberId];
+            $lists[$l['id']]['agent'] = $agentSubData[$lagentId];
+
+            $lists[$l['id']]['agent_sub'] = $agentSubData[$lagentSubId];
         }
 
 
@@ -438,6 +569,8 @@ class DataSearchController extends Controller
         $data['page'] = $page;
         $data['totalPages'] = ceil($count/$pageNum);
         $data['list'] = $lists;
+
+        $data['status'] = $status;
 
         $this->ajaxReturn($data);
 
@@ -446,6 +579,8 @@ class DataSearchController extends Controller
     //交易成功
 
     public function getSuccessInfo(){
+
+        $status = (int)$_POST['status'];
         $star_orderlist = M('star_orderlist');
 
         $whereOreder['order_type'] = 2;
@@ -453,8 +588,16 @@ class DataSearchController extends Controller
         $pageNum = isset($_POST['pageNum'])?$_POST['pageNum']:5;
         $page = isset($_POST['page'])?$_POST['page']:1;
 
-        $count = $star_orderlist->where($whereOreder)->count();// 查询满足要求的总记录数
+        $startTime = I('post.startTime');
+        $endTime = I('post.endTime');
+        if($startTime && $endTime) {
+            $startTime = strtotime($startTime);
+            $endTime = strtotime($endTime)+(24*3600);
+            $whereOreder['close_time'] = array('between', $startTime . ',' . $endTime);
+        }
 
+
+        $count = $star_orderlist->where($whereOreder)->count();// 查询满足要求的总记录数
 
         $list = $star_orderlist->where($whereOreder)->page($page,$pageNum)->select();
 
@@ -464,11 +607,22 @@ class DataSearchController extends Controller
         }
 
 
-        $uids = array_merge($sellUid,$buyUid);
-        $uids = array_filter(array_unique($uids));
+
+        if($status == 1){  //买方
+            $uids = array_merge($buyUid);
+            $uids = array_filter(array_unique($uids));
+        }else if($status == 2){ // 卖方
+            $uids = array_merge($sellUid);
+            $uids = array_filter(array_unique($uids));
+        }else{
+            return false;
+        }
+
 
         $map = array();
         $user_info = M('star_userinfo');
+
+        $map = $this->getIdentity();
 
         $map['uid'] = array('in',$uids);
 
@@ -476,58 +630,41 @@ class DataSearchController extends Controller
 
         foreach ($userRows as $u){
             $userUids[] = $u['uid'];
-            $memberIds[] = $u['memberId']; // 机构
-            $agentSubIds[] = $u['agentId']; // 经纪人
+            $memberIds[] = $u['memberId']; // 机构 mark
+            $agentIds[] = $u['agentId']; // 区域经纪人 mark
+            $agentSubIds[] = $u['subagentId']; // 经纪人 mark
 
             $userInfo[$u['uid']] = $u;
-        }
-
-
-        $memberIds = array_filter(array_unique($memberIds));
-        $agentSubIds = array_filter(array_unique($agentSubIds));
-
-        $whereMemberIds['memberid'] = array('in',$memberIds);
-        $whereAgentSubIds['id'] = array('in',$agentSubIds);
-
-        $memberRows = $this->getMemberNmae($whereMemberIds);
-        // $agentRows  = $this->getAgentName($whereAgentIds);
-        $agentSubRows  = $this->getAgentSubName($whereAgentSubIds);
-
-        foreach ($memberRows as $m){
-            $memberData[$m['memberid']]['name'] = $m['name'];
-        }
-
-        foreach ($agentSubRows as $a){
-            $agentSubData[$a['id']]['nickname'] = $a['nickname'];
         }
 
 
         foreach ($list as $l){
             $lists[$l['id']] = $l;
             $sellUid = $l['sell_uid'];
-            $buyUid  = $l['sell_uid'];
+            $buyUid  = $l['buy_uid'];
 
-            $lists[$l['id']]['sell_name'] = isset($userInfo[$sellUid]['nickname'])?$userInfo[$sellUid]['nickname']:'';
-            $lists[$l['id']]['sell_phone'] = isset($userInfo[$sellUid]['phoneNum'])?$userInfo[$sellUid]['phoneNum']:'';
+            if($status == 1){  //买方
+                $listUid = $buyUid;
+            }else if($status == 2){ // 卖方
+                $listUid = $sellUid;
+            }else{
+                return false;
+            }
 
-            $lists[$l['id']]['buy_name'] = isset($userInfo[$buyUid]['nickname'])?$userInfo[$buyUid]['nickname']:'';
-            $lists[$l['id']]['buy_phone'] = isset($userInfo[$buyUid]['phoneNum'])?$userInfo[$buyUid]['phoneNum']:'';
+            $lists[$l['id']]['name'] = isset($userInfo[$listUid]['nickname'])?$userInfo[$listUid]['nickname']:'';
+            $lists[$l['id']]['phone'] = isset($userInfo[$listUid]['phoneNum'])?$userInfo[$listUid]['phoneNum']:'';
+
+            //dump($lists[$l['id']]['name']);dump($listUid);dump($lists);exit;
+
+           // $lists[$l['id']]['buy_name'] = isset($userInfo[$buyUid]['nickname'])?$userInfo[$buyUid]['nickname']:'';
+           // $lists[$l['id']]['buy_phone'] = isset($userInfo[$buyUid]['phoneNum'])?$userInfo[$buyUid]['phoneNum']:'';
 
 
             $lists[$l['id']]['order_total'] = $l['order_num']*$l['order_price'];
 
-
-            $lMemberId = $userInfo[$buyUid]['memberId'];
-            $lagentId = $userInfo[$buyUid]['agentId'];
-
-
-
-            $lists[$l['id']]['member'] = $memberData[$lMemberId];
-
-            $lists[$l['id']]['agent_sub'] = $agentSubData[$lagentId];
-
             $lists[$l['id']]['close_time'] = date('Y-m-d H:i:s',$l['close_time']);
         }
+
 
 
         $data['totalPages'] = $count;
@@ -535,6 +672,7 @@ class DataSearchController extends Controller
         $data['page'] = $page;
         $data['totalPages'] = ceil($count/$pageNum);
         $data['list'] = $lists;
+        $data['status'] = $status;
 
         $this->ajaxReturn($data);
 
@@ -633,6 +771,10 @@ class DataSearchController extends Controller
         }
 
         return $userIds;
+    }
+
+    private function getIdentity($T = false){
+        return $this->homeModel->getUserInfoIdentity($T);
     }
 
 }

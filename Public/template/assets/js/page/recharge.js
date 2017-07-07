@@ -85,7 +85,7 @@ define([
             var table = $(".data-container table");
             dataAPI.getRechargeInfo(data, function (result) {
                 console.log("获取客户管理列表 调用成功!");
-                if (result.list.length == "0") {
+                if (!result.list || result.list.length == "0") {
                     table.find("tbody").empty().html("<tr><td colspan='7'>暂无记录</td></tr>");
                     $(".pagination").hide();
                     return false;
@@ -104,9 +104,10 @@ define([
 
 
                     var type_member = v.member?v.member.name:'';
+                    var type_agent = v.agent?v.agent.nickname:'';
                     var type_agent_sub = v.agent_sub?v.agent_sub.nickname:'';
 
-                    var type_info = '<td>' +  type_member + ',' + type_agent_sub +'</td>';
+                    var type_info = '<td>' +  type_member + ',' + ',' + type_agent + type_agent_sub +'</td>';
 
 
                     var deposit_nameTd = '<td>' + (v.recharge?v.recharge.deposit_name:'') + '</td>';

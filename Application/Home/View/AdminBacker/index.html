@@ -14,16 +14,19 @@
     }
 </style>
 <ul class="thumbnails">
+    <php> if(isset($identity_status)){ </php>
     <li class="span4">
         <a href="__ROOTHOME__/Star/carousel" class="thumbnail">
             明星管理
         </a>
     </li>
+
     <li class="span4">
         <a href="__ROOTHOME__/Customer/customer" class="thumbnail">
             消费者管理
         </a>
     </li>
+    <php> } </php>
     <li class="span4">
         <a href="__ROOTHOME__/DataSearch/fundList" class="thumbnail">
             数据查询

@@ -142,6 +142,16 @@ class AgentSubController extends Controller
             return false;
         }
 
+        if($memberSub_info->where(array('mark'=>$mark ))->find()){
+            $return = array(
+                'code' => -2,
+                'message' => '编码不能重名！'
+            );
+            $this->ajaxReturn($return);
+
+            return false;
+        }
+
 
 
         $res = $memberSub_info->add($data);
@@ -247,11 +257,19 @@ class AgentSubController extends Controller
         $id = $_POST['id'];
         $data['memberId'] = $_POST['memberId'];
         $data['agentId'] = $_POST['agentId'];
-        $data['mark'] = $_POST['mark'];
+        $data['mark'] = $mark = $_POST['mark'];
         $data['nickname'] = $_POST['nickname'];
         $data['phone'] = $_POST['phone'];
 
+        if(M('agentsub_info')->where(array('mark'=>$mark ))->find()){
+            $return = array(
+                'code' => -2,
+                'message' => '编码不能重名！'
+            );
+            $this->ajaxReturn($return);
 
+            return false;
+        }
 
         $map['id']= $id;
         $res = M('agentsub_info')->where($map)->save($data);

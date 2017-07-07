@@ -74,6 +74,14 @@
                         <?php $readonly = ''; if(!empty($item['code'])){ $readonly = 'readonly'; } ?>
                     <input type="text" name="code" {$readonly} value="<?php echo $item['code'];?>">
                 </div>
+
+                <div class="form-control">
+                    <label>明星头像</label>
+                    <input type="file"  id='filePic' readonly value=""  > <!-- accept="image/png,image/jpg" -->
+                    <span onclick="UploadPic()" class="mybtn">上传</span>
+                    <input type="hidden" name="star_pic"  value="<?php echo $item['tar_pic'];?>">
+                </div>
+
                 <div class="form-control control-label">
                     <label>国 籍</label>
                     <input type="text" name="nationality" value="<?php echo $item['nationality'];?>" />
@@ -98,7 +106,7 @@
                     <input type="text" name="exp" /> <a href="javascript:;" onclick="addExp(this, 'exp')" class="btn">添加经历</a>
                     <div class="exp addexp">
                         <?php foreach($exp as $e) {
-                                    echo '<li>' . $e['star_experience'] . ' <b class="close_exp" data-id='.$e['id'].' onclick="close_exp(this)">X</b></li>';
+                            echo '<li>' . $e['star_experience'] . ' <b class="close_exp" data-id='.$e['id'].' onclick="close_exp(this)">X</b></li>';
                         }?>
                     </div>
                 </div>
@@ -119,24 +127,15 @@
                 </div>
                 <div class="form-control">
                     <label>时间使用范围</label>
+
                     <span class="appoint_div">
                         <?php foreach ($appoints as $val) { $checked = empty($val['checked'])?'':'checked'; ?>
                             <input name="appointIds[]" type="checkbox" {$checked} value="<?php echo $val['mid'];?>">
                                 <b> <?php echo $val['name'];?> </b>
 
                         <?php } ?>
-
-
-
                     </span>
-                    <!--
-                    <select name="appoint_id">
-                        <option value="0">-请选择-</option>
-                        <?php foreach ($appoints as $val) {?>
-                        <option value="<?php echo $val['mid'];?>" <?php if ($val['mid'] == $item['appoint_id']){echo "selected=selected";}?>><?php echo $val['name'];?></option>
-                        <?php } ?>
-                    </select>
-                    -->
+
                 </div>
                 <div class="form-control">
                     <label>身价说明</label>
@@ -149,7 +148,7 @@
                 <br>
                 <div class="form-control control-label form-group">
                     <label class="control-label"></label>
-                    <input name='file' type="file" multiple id="file" size="4"/>
+                    <input name='file' type="file" multiple id="file" size="4"  />
                     <span onclick="UpladFile()" class="mybtn">上传</span>
                 </div>
                 <div class="lucida-div">
@@ -366,6 +365,54 @@
                     //$(".lucida-div").html(img);
                 }
             }
+        }
+    }
+    
+    function UploadPic() {
+        var fileObj = document.getElementById("filePic").files;
+        var form = new FormData();
+
+        var len = fileObj.length;
+        var form = new FormData();
+        for (var i = 0; i < len; i++) {
+            var size  = fileObj[i].type/1024;
+            var type  = fileObj[i].type;
+
+            if(size>1000){
+                layer.msg('附件不能大于1M');
+                return false;
+            }
+
+            if(!type.match('/jpeg|jpg|png/')){
+                layer.msg('图片类型只支持jpg,png');
+                return false;
+            }
+
+            form.append("myfile", fileObj[i]);
+        }
+
+        createXMLHttpRequest();
+        xhr.onreadystatechange = handPic;
+        var FileController = '__ROOTHOME__/Lucida/UploadPic';
+        xhr.open("post", FileController, true);
+        xhr.send(form);
+        
+    }
+    
+    function handPic() {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200 || xhr.status == 0) {
+                var result = xhr.responseText;
+                var json = eval("(" + result + ")");
+
+                if(json.code == -2){
+                    layer.msg(json.message);
+                }else {
+                    $('input[name=star_pic]').val(json);
+                }
+            }
+           // console.log(xhr);
+           // console.log(json);
         }
     }
 </script>

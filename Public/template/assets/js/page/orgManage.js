@@ -154,7 +154,7 @@ define([
                         // oInput.each(function () {
                         //     $(this).parents("tr").find("td").eq(7).text(config.orgStatus[data.status])
                         // })
-                    } else {
+                    }else {
                         layer.msg("操作失败");
                     }
                 })
@@ -214,7 +214,9 @@ define([
                         changeOrgModal.close();
                         $this.removeClass("disabled");
                         _this.fnGetList({}, true);
-                    } else {
+                    } else if(result.code == -2){
+                        layer.msg(result.message);
+                    }else {
                         layer.msg("操作失败");
                     }
                 })

@@ -13,10 +13,19 @@ use Think\Controller;
  */
 class CTController extends Controller
 {
+    protected $user;
     public function _initialize()
     {
         if (!count(session('user'))) {
             $this->redirect('login/login');
+        }
+
+        $user = $this->user = session('user');
+
+        $identity_id = $user['identity_id'];
+
+        if($identity_id<2){
+            $this->assign('identity_status', 1);
         }
     }
 }

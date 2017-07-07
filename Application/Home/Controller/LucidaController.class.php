@@ -22,6 +22,7 @@ class LucidaController extends CTController
 
     const UPLOADSDIR = "./Public/uploads/";
     const STARDIR = "lucida/";
+    const STARPIC = "pic/";
 
     //明星经历
     const EXP_STATUS = 0;   //经历
@@ -65,6 +66,10 @@ class LucidaController extends CTController
 
         $worth = I('post.worth', '', 'strip_tags');
         $worth = trim($worth);
+
+        $starPic = I('post.star_pic', '', 'strip_tags');
+        $starPic = trim($starPic);
+
 
         //$appoint_id = (int)$_POST['appoint_id'];
         $appointIds = is_array($_POST['appointIds'])?$_POST['appointIds']:0;
@@ -135,6 +140,14 @@ class LucidaController extends CTController
             return $this->ajaxReturn($return);
         }
 
+        if(!$starPic){
+            $return = array(
+                'code' => -2,
+                'message' => '请上传头像！'
+            );
+            return $this->ajaxReturn($return);
+        }
+
 
         $model->colleage = $colleage;
         $model->resident = $resident;
@@ -165,6 +178,7 @@ class LucidaController extends CTController
             $startInfoList->star_name = $name;
             $startInfoList->star_phone = $code; // 暂时是明星的 code
             $startInfoList->star_pic = isset($picArr['pic1'])?$picArr['pic1']:'';
+            $startInfoList->star_pic = $hostUrl . "/Public/uploads/" . self::STARPIC . $starPic;
             $startInfoList->add();
             //
 
@@ -325,6 +339,51 @@ class LucidaController extends CTController
     }
 
     /**
+     * 头像上传
+     * @todo 只能上传1张
+     */
+    public function UploadPic()
+    {
+        //$ret = array();
+        $dir = self::UPLOADSDIR . self::STARPIC;
+        file_exists($dir) || (mkdir($dir, 0777, true) && chmod($dir, 0777));
+
+        //$files = $_FILES['myfile']['name'];
+
+        $size  = $_FILES['myfile']['size']/1024;
+
+        $type = $_FILES['myfile']['type'];
+
+
+        if(!preg_match('/jpeg|jpg|png/',$type)){
+            $return = array(
+                'code'=> -2,
+                'message' => '图片类型只支持jpg,png'
+            );
+            $this->ajaxReturn($return);
+            return false;
+        }
+
+        if($size>1000){
+            $return = array(
+                'code'=> -2,
+                'message' => '附件不能大于1M'
+            );
+            $this->ajaxReturn($return);
+            return false;
+        }
+
+
+        $path = pathinfo($_FILES['myfile']['name']);
+        $fileName = date('ymdhis') . uniqid() .'.' . $path['extension'];
+        move_uploaded_file($_FILES['myfile']['tmp_name'], $dir . $fileName);
+        $ret = $fileName;
+
+        $this->ajaxReturn($ret);
+        //echo json_encode($ret);
+    }
+
+    /**
      * 编辑信息
      * @todo 设置图片的大小
      * @todo 已有4张每上传一张将第一张替换，而非填充第五章
@@ -374,13 +433,13 @@ class LucidaController extends CTController
        // $code = (int)$_POST['code'];
 
         //非空提醒
-//        if (empty($name) || empty($code)) {
-//            $return = array(
-//                'code' => -2,
-//                'message' => '请输入正确的明星名称和明星ID！'
-//            );
-//            return $this->ajaxReturn($return);
-//        }
+        if (empty($name) || empty($code)) {
+            $return = array(
+                'code' => -2,
+                'message' => '请输入正确的明星名称和明星ID！'
+            );
+            return $this->ajaxReturn($return);
+        }
 
         //唯一性判断
 //        $isExist = false;(int)$model->where("`name` = '{$name}' AND `uid` !={$item['uid']}")->count('uid');
@@ -428,15 +487,6 @@ class LucidaController extends CTController
                     }
                 }
 
-//                if($picArr){ //修改
-//                    $pic = trim($picArr[$i-1]);
-//                    $key = 'pic' . $i;
-//                    $model->$key = $hostUrl. "/Public/uploads/" . self::STARDIR . $pic;
-//                }
-//
-//                dump($picArr);
-//                dump($key);
-//                dump($model->$key);
 
                 if (!empty($item['pic1']) || !empty($item['pic2']) || !empty($item['pic3']) || !empty($item['pic4']) || !empty($item['pic5'])) {
                     $pic_flag = 1;

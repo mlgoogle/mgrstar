@@ -20,6 +20,9 @@ class CustomerController extends CTController
     public function __construct()
     {
         parent::__construct();
+
+        //$this->user = session('user');
+
         $this->assign('title', '消费者列表');
     }
 
@@ -183,8 +186,8 @@ class CustomerController extends CTController
      * 列表
      * @todo 搜索
      */
-    public function searchCustomer()
-    {
+    public function searchCustomer(){
+
         $customer = M('star_userinfo');
         $identity = M('identity_info');
         $pageNum = I('post.pageNum', 5, 'intval');

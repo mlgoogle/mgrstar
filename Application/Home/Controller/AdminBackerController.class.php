@@ -5,8 +5,8 @@ use Think\Controller;
 
 class AdminBackerController extends CTController
 {
-    public function index()
-    {
+    public function index(){
         $this->display('AdminBacker/index');
     }
+
 }

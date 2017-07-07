@@ -85,8 +85,9 @@ define([
             var table = $(".data-container table");
             dataAPI.getUserOrderinfo(data, function (result) {
                 console.log("获取客户管理列表 调用成功!");
-                if (result.list.length == "0") {
-                    table.find("tbody").empty().html("<tr><td colspan='7'>暂无记录</td></tr>");
+
+                if (!result.list || result.list.length == "0") {
+                    table.find("tbody").empty().html("<tr><td colspan='8'>暂无记录</td></tr>");
                     $(".pagination").hide();
                     return false;
                 }
@@ -102,17 +103,17 @@ define([
                     var nameTd = '<td>' + v.nickname + '</td>';
                     var phoneTd = '<td>' + v.phoneNum + '</td>';
 
+                    console.log(v);
 
                     var type_member = v.member?v.member.name:'';
+                    var type_agent = v.agent?v.agent.nickname:'';
                     var type_agent_sub = v.agent_sub?v.agent_sub.nickname:'';
 
-                    var type_info = '<td>' +  type_member + ',' + type_agent_sub +'</td>';
+                    var type_info = '<td>' +  type_member + ',' + type_agent + ',' + type_agent_sub +'</td>';
 
 
                     //console.log(v.finished_buy_price.nums);
 
-                    // var finished_buy_price = '<td>' + (v.finished_buy_price?v.finished_buy_price:0) +'</td>';
-                    // var unfinished_buy_price = '<td>' +  (v.unfinished_buy_price?v.unfinished_buy_price:0) +'</td>';
 
                     if(v.finished_buy_price) {
 

@@ -100,6 +100,16 @@ class MemberController extends Controller
             return false;
         }
 
+        if($member_info->where(array('mark'=>$mark ))->find()){
+            $return = array(
+                'code' => -2,
+                'message' => '编码不能重名！'
+            );
+            $this->ajaxReturn($return);
+
+            return false;
+        }
+
         $status = 0;//机构名称
         $data['name'] = $name;
         $data['mark'] = $mark;
@@ -139,14 +149,29 @@ class MemberController extends Controller
     {
         $member_info = M('member_info');
 
-        $data['name'] = $_POST['name'];
-        $data['mark'] = $_POST['mark'];
+        $data['name'] = $_POST['name']; //机构名称
+        $data['mark'] = $mark = $_POST['mark'];
         $data['superMemberid'] = $_POST['superMemberid'];
         $data['type'] = $_POST['type'];
         $data['tel'] = $_POST['tel'];
-        $data['phone'] = $_POST['phone'];//机构名称
+        $data['phone'] = $_POST['phone'];
+
         $map['memberid'] = $_POST['memberid'];
-        $res = $member_info->where($map)->save($_POST);
+
+
+
+        if($member_info->where(array('mark'=>$mark ))->find()){
+            $return = array(
+                'code' => -2,
+                'message' => '编码不能重名！'
+            );
+            $this->ajaxReturn($return);
+
+            return false;
+        }
+
+
+        $res = $member_info->where($map)->save($data);
 
         if ($res) {
             $return = array(
