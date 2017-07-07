@@ -6,14 +6,24 @@
     .icon-star-img {
         width: 120px;
     }
- .pli a.main {
+
+
+
+    .pli a.main {
         background-color: #55abed;
+    }
+
+    .pli strong{
+        color:#0c0a0a;
+        font-weight: bold;
     }
 
     .submenu li:hover {
         color: #55abed;
     }
-*{font-size: 14px;}
+
+
+    *{font-size: 14px;}
 </style>
 <?php
     $starArr = array('Star', 'Info', 'Lucida', 'Meet', 'Appoint', 'Timer');
@@ -55,22 +65,22 @@
             <i class="icon-align-right"></i><strong> 数据查询</strong></a>
             <ul class="submenu">
                 <li><a
-                    <php>if($actionUrl == 'fundList'){echo 'class="active"';}</php>
+                    <php>if($actionUrl == 'fundList'){echo 'class="act"';}</php>
                     href="__ROOTHOME__/DataSearch/fundList">资金查询</a></li>
                 <li><a
-                    <php>if($actionUrl == 'position'){echo 'class="active"';}</php>
+                    <php>if($actionUrl == 'position'){echo 'class="act"';}</php>
                         href="__ROOTHOME__/DataSearch/position">持仓汇总查询</a></li>
                 <li><a
-                    <php>if($actionUrl == 'recharge'){echo 'class="active"';}</php>
+                    <php>if($actionUrl == 'recharge'){echo 'class="act"';}</php>
                     href="__ROOTHOME__/DataSearch/recharge">充值金额查询</a></li>
                 <li><a
-                    <php>if($actionUrl == 'transaction'){echo 'class="active"';}</php>
+                    <php>if($actionUrl == 'transaction'){echo 'class="act"';}</php>
                     href="__ROOTHOME__/DataSearch/transaction" >交易额明细查询</a></li>
                 <li><a
-                    <php>if($actionUrl == 'success'){echo 'class="active"';}</php>
+                    <php>if($actionUrl == 'success'){echo 'class="act"';}</php>
                     href="__ROOTHOME__/DataSearch/success" >成交明细查询</a></li>
                 <li><a
-                    <php>if($actionUrl == 'success_total'){echo 'class="active"';}</php>
+                    <php>if($actionUrl == 'success_total'){echo 'class="act"';}</php>
                     href="__ROOTHOME__/DataSearch/success_total" >成交量汇总</a></li> 
             </ul>
         </li>
@@ -88,7 +98,7 @@
                 <ul class="submenu">
 
                     <li><a href="__ROOTHOME__/accountmanage/userManage"
-                        <php>if($actionUrl == 'userManage'){echo 'class="active"';}</php>
+                        <php>if($actionUrl == 'userManage'){echo 'class="act"';}</php>
                         >账户权限</a>
                     </li>
 
@@ -103,7 +113,7 @@
                         if($user['identity_id']<2){
                     </php>
                         <li><a href="__ROOTHOME__/accountmanage/orgManage"
-                            <php>if($actionUrl == 'orgManage'){echo 'class="active"';}</php>
+                            <php>if($actionUrl == 'orgManage'){echo 'class="act"';}</php>
                         >区域总经销列表</a>
                         </li>
                     <php>
@@ -114,7 +124,7 @@
                         if($user['identity_id']<3){
                     </php>
                         <li><a href="__ROOTHOME__/accountmanage/brokerManage"
-                            <php>if($actionUrl == 'brokerManage'){echo 'class="active"';}</php>
+                            <php>if($actionUrl == 'brokerManage'){echo 'class="act"';}</php>
                         >经销商列表</a>
                         </li>
                     <php>
@@ -122,7 +132,7 @@
                     </php>
 
                     <li><a href="__ROOTHOME__/accountmanage/brokerSubManage"
-                        <php>if($actionUrl == 'brokerSubManage'){echo 'class="active"';}</php>
+                        <php>if($actionUrl == 'brokerSubManage'){echo 'class="act"';}</php>
                         >零售商列表</a>
                     </li>
 

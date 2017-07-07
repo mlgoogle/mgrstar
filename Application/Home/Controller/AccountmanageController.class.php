@@ -18,6 +18,12 @@ class AccountmanageController extends Controller {
             $this ->redirect('login/login',Null,0);
         }
 
+        $identity_id = $user['identity_id'];
+
+        if($identity_id<2){
+            $this->assign('identity_status', 1);
+        }
+
         $this->assign('action','accountManage');
     }
 

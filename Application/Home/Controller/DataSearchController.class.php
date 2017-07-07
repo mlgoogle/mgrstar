@@ -13,12 +13,18 @@ class DataSearchController extends Controller
 
     public function __construct(){
         parent::__construct();
-        $this->user = session('user');
+        $user = $this->user = session('user');
         if(!$this->user){
             $this->display('Login/login');
         }
 
         $this->homeModel =  $article = D('Home/home');
+
+        $identity_id = $user['identity_id'];
+
+        if($identity_id<2){
+            $this->assign('identity_status', 1);
+        }
 
         $this->assign('user',$this->user);
         $this->assign('action','dataSearch');
