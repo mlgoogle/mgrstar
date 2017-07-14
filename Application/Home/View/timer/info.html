@@ -1,10 +1,11 @@
 <include file="public:top_menu" />
+<script src="__JS__/vendor/jquery.datetimepicker.js" data-main="__JS__/common"></script>
 
 <script src="__JS__/vendor/layer.js?version=1498546138669" data-main="__JS__/common"></script>
 
 <style>
     .form-control label {
-        width: 110px;
+        width: 120px;
         display: inline-block;
         text-align: right;
         padding: 10px 10px;
@@ -60,6 +61,15 @@
         margin-right: 50%;
     }
     .info-notice {display: inline-block; color: red;}
+
+    .btn_button {
+        margin-left: 310px;
+        margin-top: 30px;
+    }
+    .btn_add {
+        margin-left: 360px;
+        margin-top: 10px;
+    }
 </style>
 
 <div class="control-bar">
@@ -74,7 +84,7 @@
                 <div class="form-control">
                     <label>明星名称</label>
                     <?php if (!isset($item['id'])) {?>
-                        <input type="text" name="starname" value="<?php echo $item['micro'];?>">
+                        <input type="text" name="starname" value="<?php echo $item['starname'];?>">
                     <?php } else { echo $item['starname']; }?>
                 </div>
                 <?php if (isset($item['id'])) {?>
@@ -84,13 +94,81 @@
                 </div>
                 <?php } ?>
                 <div class="form-control">
-                    <label>总发行时间</label>
-                    <input type="text" name="micro" value="<?php echo $item['micro'];?>">
-                    <span class="info-notice"> <?php echo ($item['micro'] < 1) ? '!!!填写发行时间即可分配消费者持有' : ''; ?></span>
-                    <a href="javascript:;" class="remodal-confirm btn">确认</a>
+                    <label>总发行数量</label>
+                    <input type="text" name="total_micro" value="<?php echo $timeMicro['total_micro'];?>"  class="last_time"
+                            <?php echo ($item['micro'] > 1) ? 'readonly' : ''; ?>
+                        onblur="last_time()" >
+                        <span class="info-notice"> <?php echo ($item['micro'] < 1) ? '!!!填写发行时间即可分配消费者持有' : ''; ?></span>
+                    </div>
+
+
+                <?php if(!isset($item)){?>
+                <div class="form-control">
+                    <label>第一期发售数量</label>
+                        <input type="text" data="micro_data" name="micro[]" value="<?php echo $item['micro'];?>" class="last_time" onblur="last_time()">
+                    </div>
+                    <div class="form-control">
+                        <label>第一期发售时间</label>
+                        <input type="text" name="publish_begin_time[]" id="dateStart0"  value="<?php echo $item['publish_begin_time'];?>">
+                        到
+                        <input type="text" name="publish_end_time[]" id="dateEnd0"  value="<?php echo $item['publish_end_time'];?>">
+                    </div>
+                    <div class="form-control">
+                        <label>发售类型</label>
+                        <select name="publish_type[]" style="width: 100px;">
+                            <option value="0" >预售</option>
+                            <option value="1" >发售</option>
+                            <option value="2" >流通</option>
+                        </select>
+                    </div>
+                    <div class="form-control">
+                        <label>发售价格</label>
+                        <input type="text" name="publish_price[]" value="<?php echo $item['publish_price'];?>">
+                    </div>
+
+                    <div class="form-control">
+                        <a href="javascript:;" class="btn add-fans btn_add">添加</a>
+                    </div>
+
+                <?php }else { $numberArr = array('第一期','第二期','第三期','第四期','第五期');?>
+
+                    <div class="form-control">
+                        <label>{$numberArr[$item['sort']-1]}发售数量</label>
+                        <input type="text" data="micro_data" name="micro" value="<?php echo $item['micro'];?>" class="last_time"  onblur="return edit_last_time()" >
+                    </div>
+                    <div class="form-control">
+                        <label>{$numberArr[$item['sort']-1]}发售时间</label>
+                        <input type="text" name="publish_begin_time" id="dateStart0"  value="<?php echo $item['publish_begin_time'];?>">
+                        到
+                        <input type="text" name="publish_end_time" id="dateEnd0"  value="<?php echo $item['publish_end_time'];?>">
+                    </div>
+                    <div class="form-control">
+                        <label>发售类型</label>
+                        <select name="publish_type" style="width: 100px;">
+                            <option value="0" <?php if($item['publish_type'] == 0) echo 'selected' ?> >预售</option>
+                            <option value="1" <?php if($item['publish_type'] == 1) echo 'selected' ?> >发售</option>
+                            <option value="2" <?php if($item['publish_type'] == 2) echo 'selected' ?> >流通</option>
+                        </select>
+                    </div>
+                    <div class="form-control">
+                        <label>发售价格</label>
+                        <input type="text" name="publish_price" value="<?php echo $item['publish_price'];?>">
+                    </div>
+
+                <?php } ?>
+
+
+                <div class="form-control">
+                    <label>剩余数量</label>
+                    <input type="text" name="publish_last_time" readonly value="<?php echo $item['last_time'];?>">
                 </div>
 
-                <?php if (count($item) > 0 && $item['micro'] > 0) { ?>
+                <div class="form-control" >
+                    <a href="javascript:;" class="remodal-confirm btn btn_button">确认</a>
+                </div>
+
+
+                <?php if (false && $item['micro'] > 0) { ?>
 
                     <div class="timer-list">
                         <h3 style="text-align: center">消费者列表</h3><br>
@@ -177,9 +255,138 @@
             }
         });
     }
+    
+    function edit_last_time() {
+       var micro = $('input[name=micro]').val();
 
-    $(function ()
-    {
+       var publish_last_time = $('input[name=publish_last_time]').val();
+
+        micro = parseInt(micro);
+        publish_last_time = parseInt(publish_last_time);
+
+       if(micro - publish_last_time > 0){
+
+           layer.msg('发售数量过大,应小于剩余数量！');
+           return false;
+       }
+    }
+
+    function last_time() {
+        var total_micro = $('input[name=total_micro]').val();
+
+
+        var micro = 0;
+        $('input[data=micro_data]').each(function(){
+            var microVal = $(this).val();
+
+            if(isNaN(microVal)){
+                microVal = 0;
+            }
+
+            if(!microVal){
+                microVal = 0;
+            }
+
+            microVal = parseInt(microVal);
+
+            //   var microVal = Math.floor(val * 100) / 100;
+            micro = micro + microVal;
+
+        });
+        
+        var last_time = total_micro-micro;
+
+        if(last_time<0){
+            layer.msg('发售时间过大');
+            return false;
+        }
+
+        $('input[name=publish_last_time]').val(last_time);
+    }
+
+    function dateStart(id) {
+
+        //日历插件
+        $("#dateStart"+id).datetimepicker({
+            lang: 'ch',
+            format: 'Y-m-d',
+            formatDate: 'Y-m-d',
+            scrollInput: false,
+            validateOnBlur: false,
+            timepicker: false,
+            minDate:'',
+            onShow: function (ct) {
+                this.setOptions({
+                    //  maxDate: $("#dateEnd").val() ? $("#dateEnd").val() : '+1970-01-01'
+                })
+            },
+        });
+
+    }
+
+    function dateEnd(id) {
+        //日历插件
+        $("#dateEnd"+id).datetimepicker({
+            lang: 'ch',
+            timepicker: false,
+            format: 'Y-m-d',
+            formatDate: 'Y-m-d',
+            scrollInput: false,
+            validateOnBlur: false,
+            onShow: function (ct) {
+                this.setOptions({
+                    minDate: $("#dateStart"+id).val() ? $("#dateStart"+id).val() : '',
+                })
+            }
+        });
+    }
+
+
+    $(function () {
+
+        dateStart(0);dateEnd(0);
+
+        var i=0;
+        var nameVal = ['第一期','第二期','第三期','第四期','第五期'];
+
+        $(".btn_add").on("click",function () {
+            i++;
+
+            if(i>4){
+                layer.msg('最多可加五期！');
+                return false;
+            }
+
+            var html ='<div class="form-control" style="margin-top: 10px">'+
+                    '<label>' + nameVal[i] +'发售数量</label>'+
+                    '<input type="text" data="micro_data" name="micro[]" value="" class="last_time" onblur="last_time()" >'+
+                     '</div>'+
+                   '<div class="form-control">'+
+                     '<label>' + nameVal[i] +'发售时间</label>'+
+                      '<input type="text" name="publish_begin_time[]" id="dateStart'+i+'"  class="dateStart" value="">'+
+                     '到'+
+                   '<input type="text" name="publish_end_time[]" id="dateEnd'+i+'" class="dateEnd" value="">'+
+                '</div>'+
+                '<div class="form-control">'+
+                '<label>发售类型</label>'+
+                '<select name="publish_type[]" style="width: 100px;">'+
+                '<option value="0" >预售</option>'+
+                '<option value="1" >发售</option>'+
+                '<option value="2" >流通</option>'+
+                '</select>'+
+                '</div>'+
+                '<div class="form-control">'+
+                '<label>发售价格</label>'+
+                '<input type="text" name="publish_price[]" value="">'+
+                '</div>';
+
+           $(this).parent().prev().append(html);
+
+           dateStart(i);dateEnd(i);
+
+        });
+
+
         $(".add-free").on("click", function () {
             var id = parseInt($("input[name='id']").val());
             if (id == 0) return false;
@@ -227,25 +434,17 @@
         $(".remodal-confirm").click(function () {
             var id = $.trim($("input[name='id']").val());
             var starname = $.trim($("input[name='starname']").val());
-            if ($("input[name='starname']").val() != undefined && starname.length == 0) {
-                alert("请填写明星名称");
-                return false;
-            }
 
-            var micro = $.trim($("input[name='micro']").val());
-            micro = parseInt(micro);
-
-            if (parseInt(micro) < 1) {
-                return false;
-            }
+            var from = $(".modalForm").serializeArray();
 
             if (id.length > 0) {
                 var url = "__ROOTHOME__/Timer/editTimer";
-                var data = {  id : id, micro : micro }
+                var data = from;
             } else {
                 var url = "__ROOTHOME__/Timer/addTimer";
-                var data = {  micro : micro, starname : starname }
+                var data = from;
             }
+
 
             $.ajax({
                 type: "POST",
@@ -253,7 +452,6 @@
                 dataType: "json",
                 data: data,
                 success: function(msg){
-
                     if(msg.code == 0) {
                         layer.msg(msg.message, {time: 2000});
                         window.setTimeout(
@@ -263,13 +461,9 @@
                     }else if(msg.code == -2){
                         layer.msg(msg.message);
                     }else{
-                        layer.msg('非法操作！');
+                        layer.msg('失败！');
                     }
-//
-//                    alert(msg.message);
-//                    if (msg.code != -2) {
-//                        window.location.href = "__ROOTHOME__/Timer/info/id/" + msg.id;
-//                    }
+
                 }
             });
         });

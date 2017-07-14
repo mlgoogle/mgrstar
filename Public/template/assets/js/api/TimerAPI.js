@@ -34,6 +34,14 @@ define(["jquery"], function ($) {
             $.post(this.baseRequestUrl + "/Timer/searchTimer", data, function (result) {
                 cb(result);
             })
+        },
+
+        //分配用户时间
+        distribute: function (data, cb) {
+            data.pageNum = 10;
+            $.post(this.baseRequestUrl + "/Timer/distributeList", data, function (result) {
+                cb(result);
+            })
         }
     };
     return timerAPI;
