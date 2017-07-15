@@ -25,11 +25,17 @@ class TimerController extends CTController
     }
 
     //模板显示
-    public function timer()
-    {
+    public function timer(){
+
         $this->display('timer/listing');
     }
 
+    //分配
+    public function distribute(){
+        $this->display('timer/distribute');
+    }
+
+    //*
     public function avg()
     {
         $return['code'] = -2;
@@ -128,12 +134,14 @@ class TimerController extends CTController
         $fans = trim($fans);
 
         if (empty($fans)) {
+            $return['code'] = -2;
             $return['message'] = '请输入粉丝昵称或UID';
             return $this->ajaxReturn($return);
         }
 
         $star_time = (int)$_POST['secs'];
         if($star_time < 1) {
+            $return['code'] = -2;
             $return['message'] = '最低分配时间为1';
             return $this->ajaxReturn($return);
         }
@@ -153,7 +161,8 @@ class TimerController extends CTController
 
         $model = M('star_userinfo');
         $userInfo = $model->where("`nickname` = '{$fans}' OR `uid` = '{$fans}'")->find();
-        if (count($userInfo) == 0) {
+
+        if (!$userInfo) {
             $return['message'] = '未找到该粉丝';
             return $this->ajaxReturn($return);
         }
@@ -188,11 +197,13 @@ class TimerController extends CTController
         }
 
         $bool = false;
-        if ($free > $star_time) {
+
+        if ($free >= $star_time) {
             $own->timerid = $timer['id'];
             $own->belong_id = $userInfo['uid'];
             //$own->nickname = $userInfo['nickname'];
             $own->star_time = $star_time;
+            $own->star_code = $timer['starcode'];
             //$own->add_time = date('Y-m-d H:i:s', time());
 
             $return['fans'] = (!empty($userInfo['nickname'])) ? $userInfo['nickname'] : $userInfo['uid'];
@@ -201,9 +212,10 @@ class TimerController extends CTController
             $return['total'] = count($userTimeList) + 1;
             $return['free'] = $free - $star_time;
 
-            $bool = $own->add();
+            $id = $bool = $own->add();
         }
 
+        $return['id'] = $id;
         $return['code'] = ($bool) ? 1 : -2;
         $return['message'] = ($bool) ? '成功' : '失败';
         return $this->ajaxReturn($return);
@@ -246,7 +258,7 @@ class TimerController extends CTController
     }
 
     /**
-     * 分配时间列表
+     *  发行时间列表
      */
     public function info()
     {
@@ -259,22 +271,92 @@ class TimerController extends CTController
         $item = $model->where("`id` = '{$id}'")->find();
         if (!$item) exit('非法输入');
 
+        $microSumArr = $model->field('sum(micro) as microSum')->where("`starcode` = '{$item['starcode']}'")->find();
+
         $item['status'] = self::getStatus($item['status']);
+
+        $timeMicro = M('star_time_micro')->where("`starcode` = '{$item['starcode']}'")->find();
+
+
+        $item['last_time'] = $timeMicro['total_micro'] - $microSumArr['microSum']+$item['micro'];
+
+       // $timer = M('star_belongtime')->where("`timerid` = '{$item['id']}' AND `status` = " . self::DELETE_ONLINE)->order('star_time desc')->select();
+
+//        $star_time = 0;
+//        foreach ($timer as $key => $t) {
+//            $star_time += (int)$t['star_time'];
+//            $timer[$key]['nickname'] = M('star_userinfo')->where('uid = ' . (int)$t['belong_id'])->getField('nickname');;
+//        }
+//        $micro = (int)$item['micro'];
+//        $free = (($micro - $star_time < 0)) ? 0 : $micro - $star_time;
+
+       // $this->assign('free', $free);
+       // dump($timeMicro);exit;
+
+        $item['publish_begin_time'] = date('Y-m-d',strtotime($item['publish_begin_time']));
+        $item['publish_end_time'] = date('Y-m-d',strtotime($item['publish_end_time']));
+        $this->assign('timeMicro', $timeMicro);
+        $this->assign('item', $item);
+        $this->display('timer/info');
+    }
+
+    /**
+     * 分配时间列表
+     */
+    public function dis_info(){
+
+        if (!isset($_GET['id'])) {
+            return $this->display('timer/info');
+        }
+
+        $id = (int)$_GET['id'];
+        $model = M('star_timer');
+        $item = $model->where("`id` = '{$id}'")->find();
+        if (!$item) exit('非法输入');
+
+        $microSumArr = $model->field('sum(micro) as microSum')->where("`starcode` = '{$item['starcode']}'")->find();
+
+        $item['status'] = self::getStatus($item['status']);
+
+        $timeMicro = M('star_time_micro')->where("`starcode` = '{$item['starcode']}'")->find();
+
+
+        $item['last_time'] = $timeMicro['total_micro'] - $microSumArr['microSum']+$item['micro'];
 
         $timer = M('star_belongtime')->where("`timerid` = '{$item['id']}' AND `status` = " . self::DELETE_ONLINE)->order('star_time desc')->select();
 
+        foreach ($timer as $t){
+            $belongIds[] = $t['belong_id'];
+        }
+
         $star_time = 0;
-        foreach ($timer as $key => $t) {
-            $star_time += (int)$t['star_time'];
-            $timer[$key]['nickname'] = M('star_userinfo')->where('uid = ' . (int)$t['belong_id'])->getField('nickname');;
+        if(isset($belongIds)) {
+            $whereUidArr['uid'] = array('in', $belongIds);
+
+            $userInfo = M('star_userinfo')->field('uid,nickname')->where($whereUidArr)->select();
+
+            foreach ($userInfo as $u){
+                $user[$u['uid']] = $u['nickname'];
+            }
+
+            foreach ($timer as $key => $t) {
+                $star_time += (int)$t['star_time'];
+                $timer[$key]['nickname'] = $user[$t['belong_id']];
+            }
         }
         $micro = (int)$item['micro'];
         $free = (($micro - $star_time < 0)) ? 0 : $micro - $star_time;
 
-        $this->assign('free', $free);
-        $this->assign('timer', $timer);
+        $item['sort_name'] = $this->getSortName($item['sort']);
+
+
+        $item['publish_begin_time'] = date('Y-m-d',strtotime($item['publish_begin_time']));
+        $item['publish_end_time'] = date('Y-m-d',strtotime($item['publish_end_time']));
+        $this->assign('timeMicro', $timeMicro);
         $this->assign('item', $item);
-        $this->display('timer/info');
+        $this->assign('timer', $timer);
+        $this->assign('free', $free);
+        $this->display('timer/dis_info');
     }
 
     /**
@@ -295,6 +377,7 @@ class TimerController extends CTController
             return $this->ajaxReturn($return);
         }
 
+
         //数据更新
         $data = array(
             'status' => !$item['status'],
@@ -305,7 +388,7 @@ class TimerController extends CTController
         //结果返回
         $return = array(
             'free' => (int)$_POST['free'] + $item['star_time'],
-            'total' => (int)$_POST['total'] + 1,
+            'total' => (int)$_POST['total'] - 1,
             'code' => $bool,
             'message' => (!$bool) ? 'Success' : 'Error',
         );
@@ -315,8 +398,10 @@ class TimerController extends CTController
     /**
      * 添加
      */
-    public function addTimer()
-    {
+    public function addTimer(){
+
+        $data = array();
+
         $model = M('star_timer');
 
         //接收过滤提交数据
@@ -343,25 +428,133 @@ class TimerController extends CTController
                 return $this->ajaxReturn($return);
             }
 
-            $model->starname = $item['name'];
-            $model->starcode = $item['uid'];
-        }
-
-        $micro = (int)$_POST['micro'];
-
-        //非空提醒
-        if (empty($micro) || $micro < 600) {
+            $starname = $item['name'];
+            $starcode = $item['code'];
+        }else{
             $return = array(
                 'code' => -2,
-                'message' => '消耗秒数最低为600！'
+                'message' => '请填写明星名称！'
             );
             return $this->ajaxReturn($return);
         }
 
+        $total_micro = intval($_POST['total_micro']);
+        if(!$total_micro || $total_micro < 100){
+            $return = array(
+                'code' => -2,
+                'message' => '总发行数量最低为100！'
+            );
+            return $this->ajaxReturn($return);
+        }
+
+        $micro = is_array($_POST['micro'])?$_POST['micro']:array();
+
+        foreach ($micro as $i=>$m){
+            //非空提醒
+            if(empty($m) || $m < 100){
+                $return = array(
+                    'code' => -2,
+                    'message' => '消耗秒数最低为100！'
+                );
+                return $this->ajaxReturn($return);
+            }
+
+            $data[$i]['micro'] = $m;
+        }
+
+        $publish_begin_time = is_array($_POST['publish_begin_time'])?$_POST['publish_begin_time']:array();
+        foreach ($publish_begin_time as $i=>$b){
+            if(!$b){
+                $return = array(
+                    'code' => -2,
+                    'message' => '请填写发售开始时间！'
+                );
+                return $this->ajaxReturn($return);
+            }
+            $data[$i]['publish_begin_time'] = $b;
+        }
+
+        $publish_end_time = is_array($_POST['publish_end_time'])?$_POST['publish_end_time']:array();
+        foreach ($publish_end_time as $i=>$e){
+            if(!$e){
+                $return = array(
+                    'code' => -2,
+                    'message' => '请填写发售结束时间！'
+                );
+                return $this->ajaxReturn($return);
+            }
+            $data[$i]['publish_end_time'] = $e;
+        }
+
+        $publish_type = is_array($_POST['publish_type'])?$_POST['publish_type']:array();
+        foreach ($publish_type as $i=>$t){
+            if(!$e){
+                $return = array(
+                    'code' => -2,
+                    'message' => '请填写发售结束时间！'
+                );
+                return $this->ajaxReturn($return);
+            }
+            $data[$i]['publish_type'] = $t;
+        }
+
+        $publish_price = is_array($_POST['publish_price'])?$_POST['publish_price']:array();
+        foreach ($publish_price as $i=>$p){
+            if(!$p){
+                $return = array(
+                    'code' => -2,
+                    'message' => '请填写发售价格！'
+                );
+                return $this->ajaxReturn($return);
+            }
+            $data[$i]['publish_price'] = sprintf('%.2f',$p);
+        }
+
+        //$nameVal = array('第一期','第二期','第三期','第四期','第五期');
+
+        $lastEndTime = 0;
+        foreach ($data as $j=>$d){
+            $data[$j]['starname'] = $starname;
+            $data[$j]['starcode'] = $starcode;
+            $data[$j]['sort'] = $j+1;
+
+            $data[$j]['add_time'] = date('Y-m-d H:i:s', time());
+            $beginTime = $d['publish_begin_time'];
+            $endTime = $d['publish_end_time'];
+            $data[$j]['publish_end_time'] = $endTime.' 23:59:59';
+
+            if($beginTime>$endTime){
+                $return = array(
+                    'code' => -2,
+                    'message' => $this->getSortName($j+1).'开始时间不能大于结束时间！' //$nameVal[$j]
+                );
+                return $this->ajaxReturn($return);
+            }
+
+            if($lastEndTime){
+                if($beginTime<$lastEndTime){
+                    $return = array(
+                        'code' => -2,
+                        'message' => getSortName($j+1).'开始时间不能小于上期结束时间！'
+                    );
+                    return $this->ajaxReturn($return);
+                }
+            }
+
+            // 结束时间 保存
+            $lastEndTime = $endTime;
+
+        }
+
         //数据入库
-        $model->micro = $micro;
-        $model->add_time = date('Y-m-d H:i:s', time());
-        $id = $model->add();
+        $id = 0;
+        if($model->addAll($data)){
+            //总秒数表
+            $microData['total_micro'] = $total_micro;
+            $microData['starcode'] = $starcode;
+            $microData['add_time'] = date('Y-m-d H:i:s', time());
+            $id = M(star_time_micro)->add($microData);
+        }
 
 
         //结果返回
@@ -377,8 +570,8 @@ class TimerController extends CTController
      * 编辑信息
      * todo 设置图片的大小
      */
-    public function editTimer()
-    {
+    public function editTimer(){
+
         $return['code'] = -2;
         $return['message'] = 'Error';
 
@@ -388,41 +581,65 @@ class TimerController extends CTController
             return $this->ajaxReturn($return);
         }
 
+
         $micro = (int)$_POST['micro'];
-        if ($micro < 601) {
+        if ($micro < 101) {
             $return['message'] = '输入的时间过低';
             return $this->ajaxReturn($return);
         }
 
         $model = M('star_timer');
         $item = $model->where("`id` = '{$id}'")->find();
+
         if (count($item) < 1) {
             $return['message'] = '未找到要更新的数据';
             return $this->ajaxReturn($return);
         }
-        $timer = M('star_belongtime')->where("`timerid` = '{$item['id']}' AND `status` = " . self::DELETE_ONLINE)->select();
-        $star_time = 0;
-        foreach ($timer as $t) {
-            $star_time += (int)$t['star_time'];
-        }
-        if ($micro < $star_time) {
-            $return['message'] = '';
+
+        $microSumArr = M('star_timer')->field('sum(micro) as microSum')->where("`starcode` = '{$item['starcode']}'")->find();
+        $microSum = isset($microSumArr['microSum'])?(int)$microSumArr['microSum']:0;
+        $microSum = $microSum - $item['micro'];
+        if($micro>$microSum){
+            $return['message'] = '发售数量大于剩余数量';
             return $this->ajaxReturn($return);
         }
+
+        //$timer = M('star_belongtime')->where("`timerid` = '{$item['id']}' AND `status` = " . self::DELETE_ONLINE)->select();
+
+
         $id = $item['id'];
+        $publish_begin_time = $_POST['publish_begin_time'];
+        $publish_end_time = $_POST['publish_end_time'];
+
+        if($publish_begin_time>$publish_begin_time){
+            $return['message'] = '开始时间不能大于结束时间';
+            return $this->ajaxReturn($return);
+        }
+
+        $publish_type = $_POST['publish_type'];
+        $publish_price = $_POST['publish_price'];
+
+        $publish_end_time = $publish_end_time. ' 23:59:59';
+
+        unset($model->microSum);
+
         if (count($item) > 0) {
             $model->id = $id;
             $model->micro = $micro;
             $model->modify_time = date('Y-m-d H:i:s', time());
-
+            $model->publish_begin_time = $publish_begin_time;
+            $model->publish_end_time = $publish_end_time;
+            $model->publish_type = $publish_type;
+            $model->publish_price = $publish_price;
             $bool = $model->save();
         }
+
 
         //结果返回
         $return = array(
             'id' => $id,
             'code' => ($bool) ? 0 : 1,
-            'message' => 'Success',
+            'message' => '修改成功',
         );
         return $this->ajaxReturn($return);
     }
@@ -496,19 +713,34 @@ class TimerController extends CTController
      * 列表
      * @todo 搜索
      */
-    public function searchTimer()
-    {
+    public function searchTimer(){
         $timer = M('star_timer');
         $pageNum = I('post.pageNum', 5, 'intval');
         $page = I('post.page', 1, 'intval');
 
         $count = $timer->where('status !=' . self::DELETE_TRUE)->count();// 查询满足要求的总记录数
-        $list = $timer->where('status !=' . self::DELETE_TRUE)->page($page, $pageNum)->order('id desc')->select();//获取分页数据
+        $list = $timer->where('status !=' . self::DELETE_TRUE)->page($page, $pageNum)->order('sort asc,id desc')->select();//获取分页数据
+
+        foreach ($list as $l){
+            $starcodeArr[] = $l['starcode'];
+        }
+
+        $starcodeArr = array_filter(array_unique($starcodeArr));
+
+        $whereMicro['starcode'] = array('in',$starcodeArr);
+
+        $timeMicro = M('star_time_micro')->where($whereMicro)->select();
+
+        foreach($timeMicro as $tm){
+            $dataMicro[$tm['starcode']] = $tm;
+        }
 
         foreach ($list as $key => $item) {
+            $list[$key]['total_micro'] = $dataMicro[$item['starcode']]['total_micro'];
             $list[$key]['status_type'] = $item['status'];
             $list[$key]['status'] = self::getStatus($item['status']);
         }
+
 
         new \Think\Page($count, $pageNum);// 实例化分页类 传入总记录数和每页显示的记录数(25)
         $data['totalPages'] = $count;
@@ -520,6 +752,80 @@ class TimerController extends CTController
         $this->ajaxReturn($data);
     }
 
+    /**
+      分配列表
+     */
+    public function distributeList(){
+        $timer = M('star_timer');
+        $pageNum = I('post.pageNum', 5, 'intval');
+        $page = I('post.page', 1, 'intval');
+
+        $count = $timer->where('status !=' . self::DELETE_TRUE)->count();// 查询满足要求的总记录数
+        $list = $timer->where('status !=' . self::DELETE_TRUE)->page($page, $pageNum)->order('sort asc,id desc')->select();//获取分页数据
+
+        foreach ($list as $l){
+            $starcodeArr[] = $l['starcode'];
+        }
+
+        $starcodeArr = array_filter(array_unique($starcodeArr));
+
+        $whereMicro['starcode'] = array('in',$starcodeArr);
+
+        $timeMicro = M('star_time_micro')->where($whereMicro)->select();
+
+        foreach($timeMicro as $tm){
+            $dataMicro[$tm['starcode']] = $tm;
+        }
+
+        //分配者
+        $whereBelongtime['star_code'] = array('in',$starcodeArr);
+        $whereBelongtime['status'] =  0;
+
+        $belongtime = M('star_belongtime')->where($whereBelongtime)->select();
+
+        foreach ($belongtime as $b){
+            $belongIdArr[] = $b['belong_id'];
+        }
+
+        $whereUserInfo['uid'] = array('in',$belongIdArr);
+
+        $userInfo = M('star_userinfo')->where($whereUserInfo)->select();
+
+        foreach ($userInfo as $u){
+            $userNameArr[$u['uid']] = $u['nickname'];
+        }
+
+        foreach ($belongtime as $belongKey=>$b){
+            $belongtime[$belongKey]['nickname'] = $userNameArr[$b['belong_id']];
+        }
+
+
+
+        foreach ($belongtime as $nb){
+            $nbTime[$nb['timerid']][] = $nb['nickname'];
+        }
+
+
+        foreach ($list as $key => $item) {
+            $list[$key]['total_micro'] = $dataMicro[$item['starcode']]['total_micro'];
+            $list[$key]['status_type'] = $item['status'];
+            $nicknames = implode(',',$nbTime[$item['id']]);
+            $list[$key]['nicknames'] = $nicknames;
+            $list[$key]['status'] = self::getStatus($item['status']);
+        }
+
+
+        new \Think\Page($count, $pageNum);// 实例化分页类 传入总记录数和每页显示的记录数(25)
+        $data['totalPages'] = $count;
+        $data['pageNum'] = $pageNum;
+        $data['page'] = $page;
+        $data['totalPages'] = ceil($count / $pageNum);
+        $data['list'] = $list;
+
+        $this->ajaxReturn($data);
+    }
+
+
     private function getStatus($status)
     {
         $arr = array(
@@ -529,5 +835,11 @@ class TimerController extends CTController
         );
 
         return $arr[$status];
+    }
+
+    private function getSortName($key){
+        $sortNames = array('第一期','第二期','第三期','第四期','第五期');
+
+        return isset($sortNames[$key-1])?$sortNames[$key-1]:'未知';
     }
 }

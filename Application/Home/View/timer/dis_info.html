@@ -1,0 +1,314 @@
+<include file="public:top_menu" />
+
+<script src="__JS__/vendor/layer.js?version=1498546138669" data-main="__JS__/common"></script>
+
+<style>
+    .form-control label {
+        width: 120px;
+        display: inline-block;
+        text-align: right;
+        padding: 10px 10px;
+    }
+    .mybtn{
+        display: inline-block;
+        width: 40px;
+        border:1px solid #CCCCCC;
+        border-radius: 4px;
+        height: 30px;
+        line-height: 30px;
+        cursor: pointer;
+    }
+    .exp {
+        margin:15px 0px;
+        line-height: 25px;
+    }
+    .timer-list {
+        width:60%;
+        margin-top: 25px;
+        border-top: 1px solid #ccc;
+        padding: 10px;
+    }
+   .exp li{
+        list-style-type:none;
+        border-bottom: 1px solid #ccc;
+        margin: 10px 0px 15px 0px;
+    }
+     .close_exp {
+        color: red;
+        font-weight: normal;
+        display: inline;
+        cursor:pointer;
+        font-size: 12px;
+        float: right;
+        width: 30px;
+    }
+    .add-free{
+        border:1px solid #ccc;
+        margin-bottom: 5px;
+        font-weight: normal;
+        display: inline-block;
+        cursor:pointer;
+        font-size: 12px;
+        float: right;
+        border-radius: 2px;
+        width: 60px;
+        text-align: center;
+    }
+    .info-secs {
+        display: inline-block;
+        float: right;
+        margin-right: 50%;
+    }
+    .info-notice {display: inline-block; color: red;}
+</style>
+
+<div class="control-bar">
+    <h3><a href="__ROOTHOME__/Timer/distribute">返回</a>   明星时间管理</h3>
+</div>
+
+<div class="data-container">
+    <div style="margin:auto;width: 50%;padding: 25px;">
+        <div class="remodal-body">
+            <form class="modalForm" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="<?php echo $item['id'];?>">
+                <div class="form-control">
+                    <label>明星名称</label>
+                    <?php if (!isset($item['id'])) {?>
+                        <input type="text" name="starname" value="<?php echo $item['micro'];?>">
+                    <?php } else { echo $item['starname']; }?>
+                </div>
+                <?php if (isset($item['id'])) {?>
+                <div class="form-control control-label">
+                    <label>明星状态</label>
+                    <?php echo $item['status'];?>
+                </div>
+                <?php } ?>
+                <div class="form-control">
+                    <label>总发行数量</label>
+                    <input type="text"  value="<?php echo $timeMicro['total_micro'];?>" readonly>
+                </div>
+
+                <div class="form-control">
+                    <label>{$item['sort_name']}发售数量</label>
+                    <input type="text"  value="<?php echo $item['micro'];?>" readonly >
+                </div>
+                <div class="form-control">
+                    <label>{$item['sort_name']}发售时间</label>
+                    <input type="text"  value="<?php echo $item['publish_begin_time'];?>" readonly >
+                    到
+                    <input type="text"  value="<?php echo $item['publish_end_time'];?>" readonly >
+                </div>
+
+
+                <?php if (count($item) > 0 && $item['micro'] > 0) { ?>
+
+                    <div class="timer-list">
+                        <h3 style="text-align: center">消费者列表</h3><br>
+                        <div class="form-control">
+                            <input type="text" name="fans" placeholder="昵称/UID" />
+                            <input type="text" name="secs" placeholder="秒数" />
+                            <a href="javascript:;" onclick="addExp(this)" class="btn add-fans">添加</a>
+                            <span class="info-notice fans-notice"></span>
+
+                            <div class="exp addexp">
+                                <li><span class="secs-total" data-total="<?php echo count($timer); ?>">消费总数 : <?php echo count($timer); ?></span>
+                                    <!--<b href="javascript:;" class="add-free">平均分配</b>-->
+                                    <span class="info-secs secs-free" style="margin-right: 34%;"  data-free="<?php echo $free;?>"  >可用值 : <?php echo $free;?></span>
+                                </li>
+
+                                <br>
+
+                                <table>
+                                    <tr class="add_list">
+                                        <th>用户名称/Id</th>
+                                        <th>用户持有秒数</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    <?php foreach($timer as $t) {
+                                    $userMark = (!empty($t['nickname'])) ? $t['nickname'] : $t['belong_id'];
+                                    echo '<tr>
+                                            <td> ' . $userMark . ' </td>
+                                            <td> ' . $t['star_time'] . ' </td>
+                                            <td data-id="' . $t['id']  . '" onclick="close_exp(this)" style="color: red;cursor: pointer;" >删除</td>
+                                         </tr>';
+                                   }?>
+
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                 <?php } ?>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    //添加经历、成就
+    function addExp(obj) {
+        var _this = $(obj);
+        var id = parseInt($("input[name='id']").val());
+        if (id == 0) return false;
+
+        var fans = $.trim($("input[name='fans']").val());
+        var secs = $.trim($("input[name='secs']").val());
+        secs = parseInt(secs);
+
+        if (fans.length < 1 || secs < 1) {
+            $(".fans-notice").text("请输入正确的值")
+            return false;
+        } else {
+            $(".fans-notice").text("")
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "__ROOTHOME__/Timer/add",
+            dataType: "json",
+            data: {fans : fans, secs : secs, id : id},
+            success: function(msg){
+                if (msg.code == 1) {
+                    $(".secs-total").text("消费总数 : " + msg.total);
+                    $(".secs-free").text("可用值 : " + msg.free);
+
+                    $(".secs-free").attr("data-free",msg.free);
+                    $(".secs-total").attr("data-total",msg.total);
+
+                    var td = '<tr>'+
+                        '<td> ' + msg.fans + ' </td>'+
+                        '<td> ' + msg.secs + ' </td>'+
+                        '<td data-id="' + msg.id  + '" onclick="close_exp(this)" style="color: red;cursor: pointer;" >删除</td>'+
+                        '</tr>';
+                    $(".add_list").parent().append(td);
+                } else if (msg.code == -2) {
+                    $(".fans-notice").text(msg.message);
+                } else {
+                    $(".fans-notice").text("");
+                }
+            }
+        });
+    }
+
+    //删除经历、成就
+    function close_exp(obj) {
+        var _this = $(obj);
+        var id = parseInt(_this.attr("data-id"));
+        if (id < 1) {return false;}
+
+
+        var free  = parseInt($(".secs-free").attr("data-free"));
+        var total = parseInt($(".secs-total").attr("data-total"));
+
+        $.ajax({
+            type: "POST",
+            url: "__ROOTHOME__/Timer/fstatus",
+            dataType: "json",
+            data: {id : id, free : free, total : total },
+            success: function(msg){
+                $(".secs-total").text("消费总数 : " + msg.total);
+                $(".secs-free").text("可用值 : " + msg.free);
+                _this.parent().remove();
+            }
+        });
+    }
+
+    $(function ()
+    {
+        $(".add-free").on("click", function () {
+            var id = parseInt($("input[name='id']").val());
+            if (id == 0) return false;
+
+            var uids = $.trim($("textarea[name='free-timer']").val());
+            if (uids.length == 0) return false;
+
+            $.ajax({
+                type: "POST",
+                url: "__ROOTHOME__/Timer/avg",
+                dataType: "json",
+                data: {id : id, uids : uids},
+                success: function(msg){
+                    if (msg.code == -2) {
+                        $(".fans-notice").text(msg.message)
+                    } else if (msg.code == 1) {
+                        window.location.reload(true);
+                    } else {
+                        $(".fans-notice").text("")
+                    }
+                }
+            });
+        });
+
+        $("input[name='fans']").on("blur", function () {
+            var fans = $.trim($(this).val());
+            if (fans.length < 1) return false;
+
+            $.ajax({
+                type: "POST",
+                url: "__ROOTHOME__/Timer/getFans",
+                dataType: "json",
+                data: {fans : fans},
+                success: function(msg){
+                    if (msg.code == -2) {
+                        $(".fans-notice").text(msg.message)
+                    } else if (msg.code == 0) {
+                        $(".fans-notice").text("")
+                    }
+                }
+            });
+        })
+
+        //添加、修改明星信息
+        $(".remodal-confirm").click(function () {
+            var id = $.trim($("input[name='id']").val());
+            var starname = $.trim($("input[name='starname']").val());
+            if ($("input[name='starname']").val() != undefined && starname.length == 0) {
+                alert("请填写明星名称");
+                return false;
+            }
+
+            var micro = $.trim($("input[name='micro']").val());
+            micro = parseInt(micro);
+
+            if (parseInt(micro) < 1) {
+                return false;
+            }
+
+            if (id.length > 0) {
+                var url = "__ROOTHOME__/Timer/editTimer";
+                var data = {  id : id, micro : micro }
+            } else {
+                var url = "__ROOTHOME__/Timer/addTimer";
+                var data = {  micro : micro, starname : starname }
+            }
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                dataType: "json",
+                data: data,
+                success: function(msg){
+
+                    if(msg.code == 0) {
+                        layer.msg(msg.message, {time: 2000});
+                        window.setTimeout(
+                            'window.location = "__ROOTHOME__/Timer/timer"',
+                            2000
+                        );
+                    }else if(msg.code == -2){
+                        layer.msg(msg.message);
+                    }else{
+                        layer.msg('非法操作！');
+                    }
+//
+//                    alert(msg.message);
+//                    if (msg.code != -2) {
+//                        window.location.href = "__ROOTHOME__/Timer/info/id/" + msg.id;
+//                    }
+                }
+            });
+        });
+    });
+</script>
+
+<include file="public:footer" />

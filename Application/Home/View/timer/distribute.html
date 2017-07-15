@@ -2,8 +2,8 @@
 
 <div class="control-bar">
     <!--<h3>明星时间管理</h3>-->
-    <a href="__ROOTHOME__/Timer/info" class="btn J_showAdd">新建</a>
-    <a href="javascript:;" class="btn J_onDel">删除</a>
+    <!--<a href="__ROOTHOME__/Timer/info" class="btn J_showAdd">新建</a>-->
+    <!--<a href="javascript:;" class="btn J_onDel">删除</a>-->
 </div>
 
 <style>
@@ -26,13 +26,13 @@
             <th>#</th>
             <th>序号</th>
             <th>明星名称/发行代码</th>
-            <th>发行总时间数量</th>
             <th>期限</th>
+            <th>发行总时间数量</th>
             <th>发售时间量</th>
             <th>发行时间</th>
             <th>当前剩余时间量</th>
-            <th>状态</th>
-            <th>详情</th>
+            <th>分配所有者</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tbody>
@@ -66,7 +66,7 @@
     }
 
     require(['common'], function () {
-        require(['page/timer']);
+        require(['page/distribute']);
     });
 </script>
 

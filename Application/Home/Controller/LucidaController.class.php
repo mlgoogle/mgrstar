@@ -432,27 +432,6 @@ class LucidaController extends CTController
         $weibo = (int)$_POST['weibo'];
        // $code = (int)$_POST['code'];
 
-        //非空提醒
-        if (empty($name) || empty($code)) {
-            $return = array(
-                'code' => -2,
-                'message' => '请输入正确的明星名称和明星ID！'
-            );
-            return $this->ajaxReturn($return);
-        }
-
-        //唯一性判断
-//        $isExist = false;(int)$model->where("`name` = '{$name}' AND `uid` !={$item['uid']}")->count('uid');
-//        $isCode = (int)$model->where("`code` = '{$code}' AND `uid` !={$item['uid']}")->count('uid');
-//
-//        if ($isExist || $isCode) {
-//            $return = array(
-//                'code' => -2,
-//                'message' => '该明星信息已存在！'
-//            );
-//            return $this->ajaxReturn($return);
-//        }
-
         if(!$appointIds){
             $return = array(
                 'code' => -2,
@@ -472,7 +451,7 @@ class LucidaController extends CTController
 
             $pic_flag = 0;
             $hostUrl = 'http://'.$_SERVER['HTTP_HOST'];
-           // dump($_POST['pic'.$i]);exit;
+
 
             $picArr = $_POST['pic'];
             for ($i = 1; $i <= 5; $i++) {
@@ -672,6 +651,14 @@ class LucidaController extends CTController
         $expList = M('star_experience')->where('star_code =' . $item['code'])->select();
 
         $meetList = M('star_meet_servicerel')->field('mid')->where('starcode =' . $item['code'])->select();
+
+        $item['star_pic'] = '';
+        if($uid) {
+            $starPic = M('star_starinfolist')->field('star_pic')->where('star_code =' . $item['code'])->find();
+
+            $item['star_pic'] = isset($starPic['star_pic']) ? trim($starPic['star_pic']) : '';
+        }
+
 
         $meetData = array();
         foreach ($meetList as $k=>$m){

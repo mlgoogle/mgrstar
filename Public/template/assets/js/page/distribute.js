@@ -87,7 +87,7 @@ define([
             var _this = this;
             var table = $(".data-container table");
 
-            timerAPI.search(data, function (result) {
+            timerAPI.distribute(data, function (result) {
 
                 if (!result.list || result.list.length == "0") {
                     table.find("tbody").empty().html("<tr><td colspan='10'>暂无记录</td></tr>");
@@ -100,7 +100,7 @@ define([
                 var oTr,
                     checkTd = '<td><input type="checkbox"></td>';
                 $.each(result.list, function (i, v) {
-                    var href = rootUrl+"/Timer/info/id/"+v.id;
+                    var href = rootUrl+"/Timer/dis_info/id/"+v.id;
                     var controlTd = "<td><a class='J_showEdit1 text-blue' href='"+href+"' >修改/查看</a></td>";
 
                     var id = '<td>' + v.id + '</td>';
@@ -118,16 +118,12 @@ define([
 
                     var publish_last_time  = '<td>' + v.publish_last_time + '</td>';
 
-                    if(v.status_type==0) { //上线
-                        var status_style = 'class="btn btn-up-status"';
-                    }else {
-                        var status_style = 'class="btn btn-status"';
-                    }
+                    var belongName = '<td>' + (v.nicknames?v.nicknames:'') + '</td>';
 
-                    var status = '<td><a href="javascript:;" ' + status_style + 'onclick="status(this)" data-id="'+ v.id +'">' + v.status + '</a></td>';
+                   // var status = '<td><a href="javascript:;" ' + status_style + 'onclick="status(this)" data-id="'+ v.id +'">' + v.status + '</a></td>';
 
-                    oTr += '<tr class="fadeIn animated" data-id="' + v.id + '">' + checkTd + id + starnamecode  + total_micro + sortName +
-                        micro + publish_time + publish_last_time + status + controlTd + '</tr>';
+                    oTr += '<tr class="fadeIn animated" data-id="' + v.id + '">' + checkTd + id + starnamecode  + sortName + total_micro  +
+                        micro + publish_time + publish_last_time + belongName  + controlTd + '</tr>';
                 });
                 table.find("tbody").empty().html(oTr);
                 if (initPage) {
