@@ -273,25 +273,19 @@ class TimerController extends CTController
 
         $microSumArr = $model->field('sum(micro) as microSum')->where("`starcode` = '{$item['starcode']}'")->find();
 
+        if($model->where('sort > '.$item['sort'])->find()){
+            $this->assign('edit', 1);
+        }else{
+            $this->assign('edit', 0);
+        }
+
+
         $item['status'] = self::getStatus($item['status']);
 
         $timeMicro = M('star_time_micro')->where("`starcode` = '{$item['starcode']}'")->find();
 
 
         $item['last_time'] = $timeMicro['total_micro'] - $microSumArr['microSum']+$item['micro'];
-
-       // $timer = M('star_belongtime')->where("`timerid` = '{$item['id']}' AND `status` = " . self::DELETE_ONLINE)->order('star_time desc')->select();
-
-//        $star_time = 0;
-//        foreach ($timer as $key => $t) {
-//            $star_time += (int)$t['star_time'];
-//            $timer[$key]['nickname'] = M('star_userinfo')->where('uid = ' . (int)$t['belong_id'])->getField('nickname');;
-//        }
-//        $micro = (int)$item['micro'];
-//        $free = (($micro - $star_time < 0)) ? 0 : $micro - $star_time;
-
-       // $this->assign('free', $free);
-       // dump($timeMicro);exit;
 
         $item['publish_begin_time'] = date('Y-m-d',strtotime($item['publish_begin_time']));
         $item['publish_end_time'] = date('Y-m-d',strtotime($item['publish_end_time']));
@@ -584,12 +578,17 @@ class TimerController extends CTController
 
         $micro = (int)$_POST['micro'];
         if ($micro < 101) {
-            $return['message'] = '输入的时间过低';
+            $return['message'] = '输入的发售数量过低';
             return $this->ajaxReturn($return);
         }
 
         $model = M('star_timer');
         $item = $model->where("`id` = '{$id}'")->find();
+
+        if($model->where('sort > '.$item['sort'])->find()){
+            $return['message'] = '明星有新的发售，旧的不让修改！';
+            return $this->ajaxReturn($return);
+        }
 
         if (count($item) < 1) {
             $return['message'] = '未找到要更新的数据';

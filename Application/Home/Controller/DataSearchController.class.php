@@ -18,7 +18,7 @@ class DataSearchController extends Controller
             $this->display('Login/login');
         }
 
-        $this->homeModel =  $article = D('Home/home');
+        $this->homeModel =  $article = new \Home\Model\homeModel();// D('Home/home');
 
         $identity_id = $user['identity_id'];
 
@@ -774,6 +774,7 @@ class DataSearchController extends Controller
     }
 
     private function getIdentity($T = false){
+
         return $this->homeModel->getUserInfoIdentity($T);
     }
 
