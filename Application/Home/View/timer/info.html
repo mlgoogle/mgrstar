@@ -344,6 +344,16 @@
 
     $(function () {
 
+        var edit = "<?php echo $edit;?>";
+
+        if(edit){
+            $("input[name='micro']").attr('readonly','readonly');
+            $("input[name='publish_begin_time']").attr('readonly','readonly');
+            $("input[name='publish_end_time']").attr('readonly','readonly');
+            $("select[name='publish_type']").attr('readonly','readonly');
+            $("input[name='publish_price']").attr('readonly','readonly');
+        }
+
         dateStart(0);dateEnd(0);
 
         var i=0;

@@ -104,17 +104,17 @@ define([
                     var controlTd = "<td><a class='J_showEdit1 text-blue' href='"+href+"' >修改/查看</a></td>";
 
                     var id = '<td>' + v.id + '</td>';
-                    var total_micro = '<td>' + v.total_micro + '</td>';
+                    var total_micro = '<td>' + (v.total_micro?v.total_micro:0) + '</td>';
                     var starnamecode = '<td>' + v.starname + '/' + v.starcode + '</td>';
 
                     //var add_time = '<td>' + v.add_time + '</td>';
                    // var ownseconds = '<td>' + v.micro + '</td>';
 
-                    var sortName = '<td>' + nameVal[v.sort-1] + '</td>';
+                    var sortName = '<td>' + (nameVal[v.sort-1]?nameVal[v.sort-1]:'未知') + '</td>';
 
                     var micro   = '<td>' + v.micro + '</td>';
 
-                    var publish_time   = '<td>' + v.publish_begin_time + '--' + v.publish_end_time + '</td>';
+                    var publish_time   = '<td>' + (v.publish_begin_time?v.publish_begin_time:0)  + '--' + (v.publish_end_time?v.publish_end_time:0) + '</td>';
 
                     var publish_last_time  = '<td>' + v.publish_last_time + '</td>';
 
