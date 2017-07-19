@@ -29,7 +29,7 @@ class CustomerController extends CTController
     //模板显示
     public function customer()
     {
-        $this->display('customer/listing');
+        $this->display('Customer/listing');
     }
 
     /**

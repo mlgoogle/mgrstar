@@ -309,7 +309,7 @@ define([
             // showLoading(".J_consumeTable");
             accountAPI.searchAgentSub(data, function (result) {
                 console.log("获取经纪人列表 调用成功!");
-                if (!result.list || result.list.length == "0") {
+                if (!result.list) {
                     table.find("tbody").empty().html("<tr><td colspan='9'>暂无记录</td></tr>");
                     $(".pagination").hide();
                     return false;

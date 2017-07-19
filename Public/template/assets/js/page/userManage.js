@@ -477,6 +477,7 @@ define([
                         optionStr += '<option value="' + v.id + '">' + v.nickname + '</option>'
                     });
                 }else{
+                    var oSelect = $("select[name=org]");
                     // code
                 }
 

@@ -76,11 +76,11 @@ class LucidaController extends CTController
 
 
         $weibo = (int)$_POST['weibo'];
-        $code = (int)$_POST['code'];
+
 
         //非空提醒
         $flag = true;
-        if (empty($name) || empty($code)) {
+        if (empty($name) ) { //|| empty($code)
             $flag = false;
             $return = array(
                 'code' => -2,
@@ -91,10 +91,25 @@ class LucidaController extends CTController
 
         //唯一性判断
         $model = M('star_starbrief');
-        $isExist = $model->where("`name` = '{$name}'")->count('uid');
-        $isCode = (int)$model->where("`code` = '{$code}'")->count('uid');
 
-        if ($isExist || $isCode) {
+
+        //SELECT Auto_increment FROM information_schema.`TABLES` WHERE Table_Schema='数据库名' AND table_name = '表名' limit 1
+
+        //基数是 10000;
+        $code = 10000;
+
+        $AutoIdArr = $model->
+        query('SELECT Auto_increment as autoId FROM information_schema.`TABLES` WHERE TABLE_NAME = \'star_starbrief\' AND TABLE_SCHEMA = \'star\' limit 1');
+        $Auto = implode('',array_column($AutoIdArr,'autoId'));
+
+        $AutoId = isset($Auto)?$Auto:1;
+        $code += $AutoId;
+
+
+        $isExist = $model->where("`name` = '{$name}'")->count('uid');
+        //$isCode = (int)$model->where("`code` = '{$code}'")->count('uid');
+
+        if ($isExist) { // || $isCode
             $flag = false;
             $return = array(
                 'code' => -2,
@@ -164,11 +179,11 @@ class LucidaController extends CTController
             $id = $model->add();
 
             //明星时间管理 对应插入
-            $star_timer = M('star_timer');
-            $star_timer->starname = $name;
-            $star_timer->starcode = $code;
-            $star_timer->add_time = date('Y-m-d H:i:s', time());
-            $star_timer->add();
+//            $star_timer = M('star_timer');
+//            $star_timer->starname = $name;
+//            $star_timer->starcode = $code;
+//            $star_timer->add_time = date('Y-m-d H:i:s', time());
+//            $star_timer->add();
 
             // star_starinfolist 后期加这个表
 

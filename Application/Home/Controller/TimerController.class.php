@@ -273,10 +273,10 @@ class TimerController extends CTController
 
         $microSumArr = $model->field('sum(micro) as microSum')->where("`starcode` = '{$item['starcode']}'")->find();
 
-        if($model->where('sort > '.$item['sort'])->find()){
+        if($model->where('sort > '.$item['sort'] .' AND starcode = ' . $item['starcode'])->find()){
             $this->assign('edit', 1);
         }else{
-            $this->assign('edit', 0);
+            $this->assign('edit', null);
         }
 
 
@@ -585,7 +585,7 @@ class TimerController extends CTController
         $model = M('star_timer');
         $item = $model->where("`id` = '{$id}'")->find();
 
-        if($model->where('sort > '.$item['sort'])->find()){
+        if($model->where('sort > '.$item['sort'] .' AND starcode = ' . $item['starcode'] )->find()){
             $return['message'] = '明星有新的发售，旧的不让修改！';
             return $this->ajaxReturn($return);
         }
@@ -595,9 +595,12 @@ class TimerController extends CTController
             return $this->ajaxReturn($return);
         }
 
+        $totalMicroArr = M('star_time_micro')->field('total_micro')->where("`starcode` = '{$item['starcode']}'")->find();
+        $totalMicro = isset($totalMicroArr['total_micro'])?$totalMicroArr['total_micro']:0;
+
         $microSumArr = M('star_timer')->field('sum(micro) as microSum')->where("`starcode` = '{$item['starcode']}'")->find();
         $microSum = isset($microSumArr['microSum'])?(int)$microSumArr['microSum']:0;
-        $microSum = $microSum - $item['micro'];
+        $microSum = $totalMicro-($microSum - $item['micro']);
         if($micro>$microSum){
             $return['message'] = '发售数量大于剩余数量';
             return $this->ajaxReturn($return);
