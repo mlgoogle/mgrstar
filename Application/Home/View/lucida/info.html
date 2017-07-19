@@ -69,11 +69,13 @@
                         <?php $readonly = ''; if(!empty($item['name'])){ $readonly = 'readonly'; } ?>
                     <input type="text" name="name"  {$readonly} value="<?php echo $item['name'];?>">
                 </div>
-                <div class="form-control">
-                    <label>明星ID</label>
-                        <?php $readonly = ''; if(!empty($item['code'])){ $readonly = 'readonly'; } ?>
-                    <input type="text" name="code" {$readonly} value="<?php echo $item['code'];?>">
-                </div>
+                <?php if(!empty($item['code'])) { ?>
+                    <div class="form-control">
+                        <label>明星代码</label>
+                            <?php $readonly = ''; if(!empty($item['code'])){ $readonly = 'readonly'; } ?>
+                        <input type="text" name="code" {$readonly} value="<?php echo $item['code'];?>">
+                    </div>
+                <?php } ?>
 
                 <div class="form-control">
                     <label>明星头像</label>
