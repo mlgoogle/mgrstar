@@ -19,7 +19,8 @@ class StarController extends CTController
 //const STARDIR = 'uploads' . DIRECTORY_SEPARATOR . 'carousel' . DIRECTORY_SEPARATOR;     //  uploads/carousel/
 
 	const UPLOADSDIR = "Public/uploads/";
-	const STARDIR = "carousel/";
+    const STARDIR = "lucida/";
+	//const STARDIR = "carousel/";
 
 	public function __construct()
     {
@@ -42,8 +43,8 @@ class StarController extends CTController
     /**
      * 添加明星轮播图
      */
-    public function addCarousel()
-    {
+    public function addCarousel(){
+
         //接收过滤提交数据
         $starname = I('post.starname', '', 'strip_tags');
         $starname = trim($starname);
@@ -57,19 +58,19 @@ class StarController extends CTController
         $starcode = (int)$_POST['starcode'];
         $sort = (int)$_POST['sort'];
 
-        if ($sort >= 5) {
-            $return = array(
-                'code' => -2,
-                'message' => '排序不能大于5'
-            );
-            return $this->ajaxReturn($return);
-        }
+//        if ($sort >= 5) {
+//            $return = array(
+//                'code' => -2,
+//                'message' => '排序不能大于5'
+//            );
+//            return $this->ajaxReturn($return);
+//        }
         //唯一性判断
-        $model = M('star_bannerlist');
+        $model = M('star_starbrief');
         $map = array();
 
         $map['sort'] =  $sort;
-        $map['delete_flag'] = self::DELETE_FALSE;
+        $map['is_arousel'] = 0;
 
         $count = $model->where($map)->count('id');
         if ($count) {
@@ -80,16 +81,6 @@ class StarController extends CTController
             return $this->ajaxReturn($return);
         }
 
-        //唯一性判断
-        $model = M('star_bannerlist');
-        $count = $model->where("`delete_flag` = ".self::DELETE_FALSE)->count('id');
-        if ($count > 4) {
-            $return = array(
-                'code' => -2,
-                'message' => '已有固定Banner，请先删除其他！'
-            );
-            return $this->ajaxReturn($return);
-        }
 
         //非空提醒
         if (empty($starname) || empty($starcode)) {
@@ -100,23 +91,21 @@ class StarController extends CTController
             return $this->ajaxReturn($return);
         }
 
-        $isExist = (int)$model->where("`starname` = '{$starname}' AND `delete_flag` = ".self::DELETE_FALSE)->count('id');
-        if ($isExist) {
-            $return = array(
-                'code' => -2,
-                'message' => '该明星信息已存在！'
-            );
-            return $this->ajaxReturn($return);
-        }
+        $starbrief = $model->where("`name` = '{$starname}' AND `is_arousel` = 1")->find();
+
+        $uid = isset($starbrief['uid'])?$starbrief['uid']:0;
 
         //数据入库
-        $model->starname = $starname;
-        $model->starcode = $starcode;
-        $model->pic_url = $pic_url;
-        $model->local_pic = $local_pic;
-        $model->sort = $sort;
-        $model->add_time = time();
-        $bool = ($model->add()) ? 0 : 1;
+        //$model->uid = $uid;
+        //$model->name = $starname;
+        //$model->code = $starcode;
+        $data['pic1'] = $pic_url;
+        $data['local_pic'] = $local_pic;
+       // $model->local_pic = $local_pic;
+        $data['sort'] = $sort;
+        $data['is_arousel'] = 0;
+        //$model->add_time = time();
+        $bool = ($model->where(array('uid' => $uid))->save($data)) ? 0 : 1;
 
         //结果返回
         $return = array(
@@ -191,24 +180,24 @@ class StarController extends CTController
         }
 
         $sort = (int)$_POST['sort'];
-        if ($sort >= 5) {
-            $return = array(
-                'code' => -2,
-                'message' => '排序不能大于5'
-            );
-            return $this->ajaxReturn($return);
-        }
+//        if ($sort >= 5) {
+//            $return = array(
+//                'code' => -2,
+//                'message' => '排序不能大于5'
+//            );
+//            return $this->ajaxReturn($return);
+//        }
         //唯一性判断
-        $model = M('star_bannerlist');
+        $model = M('star_starbrief');
 
 
         $bool = 1;
-        $item = $model->where("`id` = '{$id}'")->find();
+        $item = $model->where("`uid` = '{$id}'")->find();
 
         $pic_url = I('post.pic_url', '', 'strip_tags');
         $pic_url = trim($pic_url);
         if (!empty($pic_url)) {
-            $model->pic_url = $pic_url;
+            $model->pic1 = $pic_url;
         }
 
         $local_pic = I('post.local_pic', '', 'strip_tags');
@@ -220,9 +209,9 @@ class StarController extends CTController
 
         if (count($item) > 0) {
 
-            $model->id = $id;
-           // $model->sort = $sort;
-            $model->modify_time = time();
+            $model->uid = $id;
+            $model->modify_time = date('Y-m-d H:i:s',time());
+            $model->sort   = $sort;
 
             if ($model->save()) {
                 $bool = 0;
@@ -230,6 +219,7 @@ class StarController extends CTController
                 (!empty($pic_url) && $item['pic_url'] != $pic_url) ? @unlink('./' . self::UPLOADSDIR . self::STARDIR . $item['local_pic']) : '';
             }
         }
+
 
         //结果返回
         $return = array(
@@ -275,15 +265,18 @@ class StarController extends CTController
      * 轮播列表
      * @todo 搜索
      */
-    public function searchCarousel()
-    {
-        $carousel = M('star_bannerlist');
+    public function searchCarousel(){
+        $carousel = M('star_starbrief');
         $pageNum = I('post.pageNum', 5, 'intval');
         $page = I('post.page', 1, 'intval');
-        $map = array('delete_flag' => self::DELETE_FALSE);
+        $map = array('star_starbrief.is_arousel' => 0);
 
         $count = $carousel->where($map)->count();// 查询满足要求的总记录数
-        $list = $carousel->where($map)->page($page, $pageNum)->order('sort desc')->select();//获取分页数据
+
+        $list = $carousel
+            ->join('star_starinfolist ON star_starbrief.code = star_starinfolist.star_code','LEFT')->where($map)->order('star_starbrief.sort desc')->select();
+       // $count = $carousel->where($map)->count();// 查询满足要求的总记录数
+       // $list = $carousel->where($map)->page($page, $pageNum)->select();//获取分页数据->order('sort desc')
 
         new \Think\Page($count, $pageNum);// 实例化分页类 传入总记录数和每页显示的记录数(25)
         $data['totalPages'] = $count;
@@ -293,5 +286,48 @@ class StarController extends CTController
         $data['list'] = $list;
 
         $this->ajaxReturn($data);
+    }
+
+    /**
+     * 上下线
+     */
+    public function status(){
+        //获取提交过来的ID值并进行分割 in 查询
+        $code = (int)$_POST['code'];
+        $model = M('star_starinfolist');
+        $item = $model->where("`star_code` = '{$code}'")->find();
+
+        if (count($item) == 0) {
+            $return = array(
+                'code' => -2,
+                'message' => '未找到数据',
+            );
+            return $this->ajaxReturn($return);
+        }
+
+
+
+        if(!M('star_timer')->where('starcode = '.$code.' and status < 2' )->count()){
+
+            $return = array(
+                'code' => -2,
+                'message' => '明星有发行时间才能上线！',
+            );
+            return $this->ajaxReturn($return);
+        }
+
+        //数据更新
+        $data = array(
+            'display_on_home' => !$item['display_on_home'],
+            //'modify_time' => date('Y-m-d H:i:s', time())
+        );
+        $bool = ($model->where(array('star_code' => $item['star_code']))->save($data)) ? 0 : 1;
+
+        //结果返回
+        $return = array(
+            'code' => $bool,
+            'message' => 'success',
+        );
+        return $this->ajaxReturn($return);
     }
 }

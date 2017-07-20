@@ -41,9 +41,9 @@ define([
                 var $this = $(this);
                 var id = $this.parents('tr').attr('data-id');
                 var oTd = $this.parents('tr').find('td');
-                var starcode= oTd.eq(1).text();
-                var starname = oTd.eq(2).text();
-                var sort = oTd.eq(3).text();
+                var starcode= $this.parents('tr').attr('data-code');
+                var starname = oTd.eq(1).text();
+                var sort = oTd.eq(2).text();
                 var pic_url = $this.parents("tr").attr("data-src");
                 var local_pic = $this.parents("tr").attr("data-local");
 
@@ -56,7 +56,7 @@ define([
                 oForm.find("input[name=starcode]").val(starcode);
                 oForm.find("input[name=starcode]").attr("readonly", "readonly");
                 oForm.find("input[name=sort]").val(sort);
-                oForm.find("input[name=sort]").attr("readonly", "readonly");
+                //oForm.find("input[name=sort]").attr("readonly", "readonly");
                 addCarouselModal.open();
             });
 
@@ -174,14 +174,27 @@ define([
                     checkTd = '<td><input type="checkbox"></td>',
                     controlTd = "<td><a class='J_showEdit text-blue' href='javascript:;'>修改</a></td>";
                 $.each(result.list, function (i, v) {
-                    var code = '<td>' + v.starcode + '</td>';
-                    var starname = '<td>' + v.starname + '</td>';
+                    //var code = '<td>' + v.code + '</td>';
+                    var starname = '<td>' + v.name + '</td>';
                     var sort = '<td>' + v.sort + '</td>';
-                    var src = publicUrl + '/uploads/carousel/'+ v.local_pic;
-                    var url = v.pic_url;
+                    var src = v.pic1;//publicUrl + '/uploads/carousel/'+ v.local_pic;
+                    var url = '';//v.pic_url;
                     var pic_url = '<td><img src="'+src +'" class="icon-star-img"></td>';
-                    //var opt = '<td>'+controlTd+'</td>';
-                    oTr += '<tr class="fadeIn animated" data-id="' + v.id + '" data-src="'+ url +'" data-local="'+ v.local_pic +'">' + checkTd + code + starname + sort + pic_url + controlTd + '</tr>';
+                    var display_on_home = v.display_on_home?v.display_on_home:0;
+
+                    if(display_on_home == 0){
+                        var status_style = 'class="btn btn-up-status"';
+                        var status_name  = '下线';
+                    }else {
+                        var status_style = 'class="btn btn-status"';
+                        var status_name  = '上线';
+                    }
+
+                    var status = '<td><a href="javascript:;" ' + status_style + ' onclick="status(this)" data-code="'+ v.code +'">' + status_name + '</a></td>';
+
+
+                    oTr += '<tr class="fadeIn animated" data-id="' + v.uid + '" data-code= "' + v.code + '" data-src="'+ url +'" data-local="'+ v.local_pic +'">' + checkTd +  starname
+                        + sort + pic_url + status + controlTd + '</tr>';
                 });
                 table.find("tbody").empty().html(oTr);
                 if (initPage) {

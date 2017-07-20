@@ -129,7 +129,7 @@ define([
 
                     var status = '<td><a href="javascript:;" ' + status_style + ' onclick="status(this)" data-id="'+ v.uid +'">' + v.status + '</a></td>';
 
-                    oTr += '<tr class="fadeIn animated" data-id="' + v.uid + '" data-src="'+ url +'">' + checkTd + add_time + name + code + pic_url + status + controlTd + '</tr>';
+                    oTr += '<tr class="fadeIn animated" data-id="' + v.uid + '"  data-src="'+ url +'">' + checkTd + add_time + name + code + pic_url + status + controlTd + '</tr>';
                 });
                 table.find("tbody").empty().html(oTr);
                 if (initPage) {

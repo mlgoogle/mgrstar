@@ -191,10 +191,12 @@ class LucidaController extends CTController
 
             $startInfoList->star_code = $code;
             $startInfoList->star_name = $name;
-            $startInfoList->star_phone = $code; // 暂时是明星的 code
+            $startInfoList->star_phone = $phone = $code; // 暂时是明星的 code
             $startInfoList->star_pic = isset($picArr['pic1'])?$picArr['pic1']:'';
             $startInfoList->star_pic = $hostUrl . "/Public/uploads/" . self::STARPIC . $starPic;
             $startInfoList->add();
+
+
             //
 
             if($id){
@@ -207,6 +209,10 @@ class LucidaController extends CTController
                 $star_meet_servicerel->addAll($meetDataList);
 
             }
+
+            $passwd = md5('123456');
+
+            $startInfoList->query('call proc_AddStarAccount('.$phone.','.$passwd.','.$code.')');
 
 
 
@@ -338,6 +344,7 @@ class LucidaController extends CTController
     {
         $ret = array();
         $dir = self::UPLOADSDIR . self::STARDIR;
+
         file_exists($dir) || (mkdir($dir, 0777, true) && chmod($dir, 0777));
 
         $files = $_FILES['myfile']['name'];
@@ -577,8 +584,7 @@ class LucidaController extends CTController
     /**
      * 上下线
      */
-    public function status()
-    {
+    public function status(){
         //获取提交过来的ID值并进行分割 in 查询
         $id = (int)$_POST['id'];
         $model = M('star_starbrief');
