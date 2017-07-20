@@ -454,6 +454,7 @@ class TimerController extends CTController
             }
 
             $data[$i]['micro'] = $m;
+            $data[$i]['publish_last_time'] = $m; // 剩余时间 添加时等于发售数量
         }
 
         $publish_begin_time = is_array($_POST['publish_begin_time'])?$_POST['publish_begin_time']:array();

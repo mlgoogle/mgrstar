@@ -1,10 +1,23 @@
 <include file="public:top_menu" />
 
+
+<style>
+    .btn-status{
+        /* width: 40px;*/
+        background-color:#80D640;
+        /* padding: 0; */
+    }
+
+    .btn-up-status{
+        /* width: 40px;*/
+        background-color:#009f95;
+        /* padding: 0;*/
+    }
+</style>
+
+
 <div class="control-bar">
-    <?php if ($count < 5) { ?>
     <a href="javascript:;" class="btn J_showAdd">新建</a>
-    <?php } ?>
-    <a href="javascript:;" class="btn J_onDel">删除</a>
 </div>
 
 <div class="data-container">
@@ -12,10 +25,10 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>明星ID</th>
             <th>明星名称</th>
             <th>轮播顺序</th>
             <th>轮播图</th>
+            <th>轮播状态</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -63,8 +76,8 @@
             </div>
 
             <div class="form-control">
-                <label>明星ID</label>
-                <input type="text" name="starcode" value="" >
+                <label>明星代码</label>
+                <input type="text" name="starcode" readonly value="" >
             </div>
             <div class="form-control">
                 <label>轮播顺序</label>
@@ -83,6 +96,30 @@
 <script src="__JS__/vendor/require.js" data-main="__JS__/common"></script>
 
 <script type="text/javascript">
+    function status(obj) {
+        var _this = $(obj);
+        var code = _this.attr("data-code");
+        $.ajax({
+            type: "POST",
+            url: "__ROOTHOME__/Star/status",
+            dataType: "json",
+            data: {code : code},
+            success: function(msg){
+                //alert(msg.message);
+                if(msg.code == -2) {
+                    layer.msg(msg.message);
+                }else {
+                    layer.msg(msg.message);
+                    window.setTimeout(
+                        'window.location.reload(true)',
+                        2000
+                    );
+                    // window.location.reload(true);
+                }
+            }
+        });
+    }
+
     var xhr;
     function createXMLHttpRequest() {
         if (window.ActiveXObject) {
