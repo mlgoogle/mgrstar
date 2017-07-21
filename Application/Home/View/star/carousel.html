@@ -13,6 +13,15 @@
         background-color:#009f95;
         /* padding: 0;*/
     }
+
+    .pic1_div img {
+        width : 200px;
+        height : 100px;
+        margin-right:10px;
+        /*height: 60px;*/
+        /*margin: 10px;*/
+        cursor:pointer;
+    }
 </style>
 
 
@@ -71,6 +80,9 @@
                 </style>
             <div class="form-control control-label form-group">
                 <label class="control-label"></label>
+                <div class="pic1_div">
+                    <img src="">
+                </div>
                 <input type="file" name="file" class="file" id="file"/>
                 <span onclick="UpladFile()" class="mybtn">上传</span>
             </div>
@@ -96,6 +108,7 @@
 <script src="__JS__/vendor/require.js" data-main="__JS__/common"></script>
 
 <script type="text/javascript">
+    var publicUrl = '__PUBLIC__';
     function status(obj) {
         var _this = $(obj);
         var code = _this.attr("data-code");
@@ -151,6 +164,9 @@
                 $("#local_pic").val(json.local);
             }
         }
+
+        var img = '<div><img src="'+ publicUrl +'/uploads/pic/'+ json.local +'"></div>';
+        $(".pic1_div").html(img);
     }
 </script>
 

@@ -20,6 +20,7 @@ class StarController extends CTController
 
 	const UPLOADSDIR = "Public/uploads/";
     const STARDIR = "lucida/";
+    const STARPIC = "pic/";
 	//const STARDIR = "carousel/";
 
 	public function __construct()
@@ -148,7 +149,7 @@ class StarController extends CTController
     public function uploadFile()
     {
         $ret['file'] = '';
-        $dir = './' . self::UPLOADSDIR . self::STARDIR;
+        $dir = './' . self::UPLOADSDIR . self::STARPIC;
 
         file_exists($dir) || (mkdir($dir, 0777, true) && chmod($dir, 0777));
 
@@ -157,7 +158,7 @@ class StarController extends CTController
             $path = pathinfo($_FILES['myfile']['name']);
 			$fileName = date('ymdhis') . uniqid() . '.' . $path['extension'];
             move_uploaded_file($_FILES['myfile']['tmp_name'], $dir . $fileName);
-            $ret['file'] =  $hostUrl . '/' . self::UPLOADSDIR . self::STARDIR . $fileName;
+            $ret['file'] =  $hostUrl . '/' . self::UPLOADSDIR . self::STARPIC . $fileName;
             $ret['local'] = $fileName;
         }
 
