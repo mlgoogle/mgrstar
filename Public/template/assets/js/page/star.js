@@ -56,6 +56,10 @@ define([
                 oForm.find("input[name=starcode]").val(starcode);
                 oForm.find("input[name=starcode]").attr("readonly", "readonly");
                 oForm.find("input[name=sort]").val(sort);
+
+                var img = '<div><img src="'+ pic_url +'"></div>';
+                $(".pic1_div").html(img);
+
                 //oForm.find("input[name=sort]").attr("readonly", "readonly");
                 addCarouselModal.open();
             });
@@ -178,7 +182,7 @@ define([
                     var starname = '<td>' + v.name + '</td>';
                     var sort = '<td>' + v.sort + '</td>';
                     var src = v.pic1;//publicUrl + '/uploads/carousel/'+ v.local_pic;
-                    var url = '';//v.pic_url;
+                    //var url = v.pic_url;
                     var pic_url = '<td><img src="'+src +'" class="icon-star-img"></td>';
                     var display_on_home = v.display_on_home?v.display_on_home:0;
 
@@ -193,7 +197,7 @@ define([
                     var status = '<td><a href="javascript:;" ' + status_style + ' onclick="status(this)" data-code="'+ v.code +'">' + status_name + '</a></td>';
 
 
-                    oTr += '<tr class="fadeIn animated" data-id="' + v.uid + '" data-code= "' + v.code + '" data-src="'+ url +'" data-local="'+ v.local_pic +'">' + checkTd +  starname
+                    oTr += '<tr class="fadeIn animated" data-id="' + v.uid + '" data-code= "' + v.code + '" data-src="'+ src +'" data-local="'+ v.local_pic +'">' + checkTd +  starname
                         + sort + pic_url + status + controlTd + '</tr>';
                 });
                 table.find("tbody").empty().html(oTr);

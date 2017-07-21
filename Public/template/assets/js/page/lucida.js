@@ -116,10 +116,10 @@ define([
                     var add_time = '<td>' + v.add_time + '</td>';
                     var code = '<td>' + v.code + '</td>';
                     var name = '<td>' + v.name + '</td>';
-                    var src = publicUrl + '/uploads/lucida/'+ v.pic1;
+                    var src =  v.pic_src;
                     //var src = v.pic1;
-                    var url = v.pic1;
-                    var pic_url = '<td><img src="'+ src +'" class="icon-star-img"></td>';
+                    var pic1 = v.pic1;
+                    var pic_url = '<td><img src="'+ pic1 +'" class="icon-star-img"></td>';
 
                     if(v.status_type == 0){
                         var status_style = 'class="btn btn-up-status"';
@@ -129,7 +129,7 @@ define([
 
                     var status = '<td><a href="javascript:;" ' + status_style + ' onclick="status(this)" data-id="'+ v.uid +'">' + v.status + '</a></td>';
 
-                    oTr += '<tr class="fadeIn animated" data-id="' + v.uid + '"  data-src="'+ url +'">' + checkTd + add_time + name + code + pic_url + status + controlTd + '</tr>';
+                    oTr += '<tr class="fadeIn animated" data-id="' + v.uid + '"  data-src="'+ src +'">' + checkTd + add_time + name + code + pic_url + status + controlTd + '</tr>';
                 });
                 table.find("tbody").empty().html(oTr);
                 if (initPage) {

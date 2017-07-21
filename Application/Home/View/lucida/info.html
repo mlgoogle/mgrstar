@@ -2,7 +2,6 @@
             <link rel="stylesheet" href="__CSS__/modals/jquery.datetimepicker.min.css">
             <script src="__JS__/vendor/jquery.datetimepicker.js" data-main="__JS__/common"></script>
             <script src="__JS__/vendor/layer.js?version=1498546138669" data-main="__JS__/common"></script>
-
 <style>
     .form-control label {
         width: 110px;
@@ -10,6 +9,11 @@
         text-align: right;
         padding: 10px 10px;
     }
+
+    .form-control input[type=file] {
+        width: 200px;
+    }
+
     .mybtn{
         display: inline-block;
         width: 40px;
@@ -43,6 +47,30 @@
     .lucida-div img {
         height: 240px;
         margin: 10px;
+        cursor:pointer;
+    }
+
+    .star_pic_div img {
+        width : 60px;
+        margin-right:10px;
+        /*height: 60px;*/
+        /*margin: 10px;*/
+        cursor:pointer;
+    }
+
+    .back_pic_div img {
+        width : 100px;
+        margin-right:10px;
+        /*height: 60px;*/
+        /*margin: 10px;*/
+        cursor:pointer;
+    }
+
+    .pic1_div img {
+        width : 100px;
+        margin-right:10px;
+        /*height: 60px;*/
+        /*margin: 10px;*/
         cursor:pointer;
     }
 
@@ -80,9 +108,45 @@
                 <div class="form-control">
                     <label>明星头像</label>
                     <input type="file"  id='filePic' readonly value="" accept="image/png,image/jpg"  >
+
+                    <span  class="star_pic_div">
+                        <?php if($item['head_url']) {  ?>
+                            <img src="<?php echo $item['head_url'];?>"  >
+                        <?php } ?>
+                    </span>
+
                     <span onclick="UploadPic()" class="mybtn">上传</span>
-                    <input type="hidden" name="star_pic"  value="<?php echo $item['star_pic'];?>">
+                    <input type="hidden" name="head_url"  value="<?php echo $item['head_url1'];?>">
                 </div>
+
+                <div class="form-control">
+                    <label>介绍背景图</label>
+                    <input type="file"  id='fileBackPic' readonly value="" accept="image/png,image/jpg"  >
+
+                    <span  class="back_pic_div">
+                        <?php if($item['back_pic']) {  ?>
+                        <img src="<?php echo $item['back_pic'];?>"  >
+                        <?php } ?>
+                    </span>
+
+                    <span onclick="UploadBackPic()" class="mybtn">上传</span>
+                    <input type="hidden" name="back_pic"  value="<?php echo $item['back_pic1'] ?>">
+                </div>
+
+                <div class="form-control">
+                    <label>首页推荐图</label>
+                    <input type="file"  id='filePic1' readonly value="" accept="image/png,image/jpg"  >
+
+                    <span  class="pic1_div">
+                        <?php if($item['pic1']) {  ?>
+                        <img src="<?php echo $item['pic1'];?>"  >
+                        <?php } ?>
+                    </span>
+
+                    <span onclick="UploadIndexPic()" class="mybtn">上传</span>
+                    <input type="hidden" name="pic1"  value="<?php echo $item['picIndex'];?>">
+                </div>
+
 
                 <div class="form-control control-label">
                     <label>国 籍</label>
@@ -149,7 +213,7 @@
                 </div>
                 <br>
                 <div class="form-control control-label form-group">
-                    <label class="control-label"></label>
+                    <label class="control-label">写真大图</label>
                     <input name='file' type="file" multiple id="file" size="4"  />
                     <span onclick="UpladFile()" class="mybtn">上传</span>
                 </div>
@@ -179,6 +243,9 @@
     </div>
 </div>
 <script type="text/javascript">
+
+    var publicUrl = "__PUBLIC__";//定义js中的url路径
+    var rootHomeUrl = "__ROOTHOME__";
 
     function rv_pic(obj) {
         var _this = $(obj);
@@ -326,58 +393,14 @@
             xhr = new XMLHttpRequest();
         }
     }
-
-    function UpladFile() {
-        var fileObj = document.getElementById("file").files;
-        var FileController = '__ROOTHOME__/Lucida/uploadFile';
-
-        var len = fileObj.length;
-        var form = new FormData();
-        for (var i = 0; i < len; i++) {
-            form.append("myfile[]", fileObj[i]);
-        }
-
-        createXMLHttpRequest();
-        xhr.onreadystatechange = handleStateChange;
-        xhr.open("post", FileController, true);
-        xhr.send(form);
-    }
-
-    function handleStateChange() {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200 || xhr.status == 0) {
-                var result = xhr.responseText;
-                var json = eval("(" + result + ")");
-                var len = json.length;
-                var existImgLen = parseInt($(".lucida-div img").length);
-
-                for (var i = 0; i < len; i++) {
-                    var i = parseInt(i);
-                    var num = i + existImgLen + 1;
-                    if (num > 5) {
-                        num = (i < 1) ? 1 : i;
-                    }
-                    var name = "pic" + num;
-                    var inp = "<input type='hidden' name='"+name+"' value='"+ json[i] +"' />";
-                    $(".modalForm").append(inp);
-
-                   var img = '<span><img src="__PUBLIC__/uploads/lucida/'+json[i]+'"></span>';
-                    //var img = '<span><img src="'+json[i]+'"></span>';
-                    $(".lucida-div").append(img);
-                    //$(".lucida-div").html(img);
-                }
-            }
-        }
-    }
     
     function UploadPic() {
         var fileObj = document.getElementById("filePic").files;
-        var form = new FormData();
 
         var len = fileObj.length;
         var form = new FormData();
         for (var i = 0; i < len; i++) {
-            var size  = fileObj[i].type/1024;
+            var size  = fileObj[i].size/1024;
             var type  = fileObj[i].type;
 
             if(size>1000){
@@ -394,12 +417,14 @@
             form.append("myfile", fileObj[i]);
         }
 
+
         createXMLHttpRequest();
         xhr.onreadystatechange = handPic;
         var FileController = '__ROOTHOME__/Lucida/UploadPic';
+
         xhr.open("post", FileController, true);
         xhr.send(form);
-        
+
     }
     
     function handPic() {
@@ -411,13 +436,21 @@
                 if(json.code == -2){
                     layer.msg(json.message);
                 }else {
-                    $('input[name=star_pic]').val(json);
+                    $('input[name=head_url]').val(json);
                 }
             }
+
+            var img = '<span><img src="__PUBLIC__/uploads/pic/'+ json +'"></span>';
+            //var img = '<span><img src="'+json[i]+'"></span>';
+            $(".star_pic_div").html(img);
            // console.log(xhr);
            // console.log(json);
         }
     }
+
+
+
 </script>
+<script src="__JS__/page/pic.js?version=1498546138669" data-main="__JS__/common"></script>
 
 <include file="public:footer" />
