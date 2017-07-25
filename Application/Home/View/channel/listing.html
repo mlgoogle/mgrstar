@@ -1,9 +1,9 @@
 <include file="public:top_menu" />
 
 <div class="control-bar">
-    <!--<h3>明星时间管理</h3>-->
-    <a href="__ROOTHOME__/Timer/info" class="btn J_showAdd">新建</a>
-    <a href="javascript:;" class="btn J_onDel">删除</a>
+    <h3>{$title}</h3>
+    <!--<a href="__ROOTHOME__/Timer/info" class="btn J_showAdd">新建</a>-->
+    <!--<a href="javascript:;" class="btn J_onDel">删除</a>-->
 </div>
 
 <style>
@@ -25,14 +25,10 @@
         <tr>
             <th>#</th>
             <th>序号</th>
-            <th>明星名称/发行代码</th>
-            <th>发行总时间数量</th>
-            <th>发行期</th>
-            <th>发售时间量</th>
-            <th>发行时间</th>
-            <th>当前发行期剩余时间量</th>
-            <th>状态</th>
-            <th>详情</th>
+            <th>省市</th>
+            <th>运营公司</th>
+            <th>运营经纪人</th>
+            <th>渠道号</th>
         </tr>
         </thead>
         <tbody>
@@ -59,14 +55,14 @@
                     'window.location.reload(true)',
                     2000
                 );
-               // alert(msg.message);
-              //  window.location.reload(true);
+                // alert(msg.message);
+                //  window.location.reload(true);
             }
         });
     }
 
     require(['common'], function () {
-        require(['page/timer']);
+        require(['page/channel']);
     });
 </script>
 

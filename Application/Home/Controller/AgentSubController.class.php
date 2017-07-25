@@ -18,6 +18,7 @@ class AgentSubController extends Controller
             //$this->ajaxReturn(array('code'=>-1,'message'=>'fail','data'=>'not login'));
 
         }
+
     }
 
     public function getList()
@@ -93,8 +94,7 @@ class AgentSubController extends Controller
         $this->ajaxReturn($data);
     }
 
-    public function add()
-    {
+    public function add(){
         $memberSub_info = M('agentsub_info');
         $data['memberId'] = $memberId = $_POST['memberid'];
         $data['agentId'] = $agentId = $_POST['agentId'];
@@ -152,10 +152,72 @@ class AgentSubController extends Controller
             return false;
         }
 
+        $province = I('post.province','','strip_tags');
+        $provinceId = I('post.provinceId','','intval');
+        $city = I('post.city','','strip_tags');
+        $code = I('post.code','','strip_tags');
 
+        $company  = I('post.company','','strip_tags');
+
+        if(!$provinceId){
+            $return = array(
+                'code' => -2,
+                'message' => '请选择一个省份！',
+            );
+            $this->ajaxReturn($return);
+            return false;
+        }
+
+        if(!$code){
+            $return = array(
+                'code' => -2,
+                'message' => '请选择一个城市！',
+            );
+            $this->ajaxReturn($return);
+            return false;
+        }
+
+        if(!$company){
+            $return = array(
+                'code' => -2,
+                'message' => '请填写一个公司！',
+            );
+            $this->ajaxReturn($return);
+            return false;
+        }
 
         $res = $memberSub_info->add($data);
-        //dump($memberSub_info->_sql());exit;
+
+
+
+        //添加渠道
+        if($res){
+            $agentSubId = $subId = $res;
+            M('star_company')->company = $company;
+            //添加公司
+            $id = M('star_company')->add();
+            $companyId   = dechex($id); //十进制转十六进制
+            $agentSubId  = dechex($agentSubId);
+            $companyStr  = sprintf('%03s', $companyId);
+            $agentSubStr = sprintf('%03s', $agentSubId);
+
+            $channelModel = M('star_channel');
+
+            $user = $this->user;
+
+            $channelModel->uid = $user['id'];
+            $channelModel->agentsubId = $subId;
+            $channelModel->channel = $code . '-' . $companyStr . '-' . $agentSubStr;
+            $channelModel->company = $company;
+            $channelModel->city = $city;
+            $channelModel->province  = $province;
+
+            $channelModel->add();
+
+        }
+
+
+
         if ($res) {
             $return = array(
                 'code' => 0,

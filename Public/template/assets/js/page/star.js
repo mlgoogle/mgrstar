@@ -34,6 +34,7 @@ define([
         initModal: function () {
             $(".J_showAdd").on("click", function () {
                 var oForm = $(".addCarouselModal .modalForm");
+                $(".pic1_div").html('');
                 oForm.find("input[name=starname]").removeAttr("readonly");
                 addCarouselModal.open();
             });

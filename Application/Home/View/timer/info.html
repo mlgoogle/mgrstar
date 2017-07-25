@@ -84,7 +84,7 @@
                 <div class="form-control">
                     <label>明星名称</label>
                     <?php if (!isset($item['id'])) {?>
-                        <input type="text" name="starname" value="<?php echo $item['starname'];?>">
+                        <input type="text" name="starname" value="<?php echo $item['starname'];?>" onblur="return isStarName()" >
                     <?php } else { echo $item['starname']; }?>
                 </div>
                 <?php if (isset($item['id'])) {?>
@@ -96,8 +96,8 @@
                 <div class="form-control">
                     <label>总发行数量</label>
                     <input type="text" name="total_micro" value="<?php echo $timeMicro['total_micro'];?>"  class="last_time"
-                            <?php echo ($item['micro'] > 1) ? 'readonly' : ''; ?>
-                        onblur="last_time()" >
+                            <?php echo ($item['micro'] > 1) ? 'readonly' : 'onblur="last_time()"'; ?>
+                    >
                         <span class="info-notice"> <?php echo ($item['micro'] < 1) ? '!!!填写发行时间即可分配消费者持有' : ''; ?></span>
                     </div>
 
@@ -201,6 +201,27 @@
 </div>
 <script type="text/javascript">
 
+
+    //判断 明星是否存在
+    function isStarName() {
+        starname = $('input[name=starname]').val();
+        $.ajax({
+            type: "POST",
+            url: "__ROOTHOME__/Timer/isStarName",
+            dataType: "json",
+            data: {starname : starname},
+            success: function(msg){
+                if (msg.code == 0) {
+                    //code
+                } else if (msg.code == -2) {
+                    layer.msg(msg.message);
+                } else {
+                    //layer.msg(msg.message);
+                }
+            }
+        });
+    }
+
     //添加经历、成就
     function addExp(obj) {
         var _this = $(obj);
@@ -263,6 +284,8 @@
 
         micro = parseInt(micro);
         publish_last_time = parseInt(publish_last_time);
+
+       // console.log(micro,publish_last_time,micro - publish_last_time);
 
        if(micro - publish_last_time > 0){
 
