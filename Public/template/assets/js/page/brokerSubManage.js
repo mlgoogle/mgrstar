@@ -71,8 +71,60 @@ define([
 
         initModal: function () {
             $(".J_showAdd").on("click", function () {
+
+
+                var oForm = $(".addBrokerModal .modalForm");
+                var provinceSelect = oForm.find("select[name=province]");
+                var provinceOptionStr = '<option value="0">选择省份</option>';
+                //省市
+                data = {};
+                accountAPI.getProvince(data, function (result) {
+
+                    if (!result.list) {
+                       provinceSelect.html(provinceOptionStr);
+                       // return false;
+                    }else {
+                        $.each(result.list, function (i, v) {
+                            provinceOptionStr += '<option value="' + v.id + '">'+v.province+'</option>';
+                        });
+                        provinceSelect.html(provinceOptionStr);
+                    }
+                });
+
+                oForm.find("select[name=city]").css('display','none');
+
                 addBrokerModal.open();
             });
+
+
+            //点击机构选择框，获取城市
+            body.on("change","select[name=province]",function() {
+
+                var oForm = $(".addBrokerModal .modalForm");
+                var citySelect = oForm.find("select[name=city]");
+                var cityOptionStr = '';
+
+                var data = {
+                    pid: $(this).val(),
+                    page: ''
+                };
+                accountAPI.getCity(data, function (result) {
+                    console.log('经纪人列表-调用成功');
+                    if (!result.list) {
+                        citySelect.html(cityOptionStr);
+                        return false;
+                    }
+
+                    $.each(result.list, function (i, t) {
+
+                        cityOptionStr += '<option value="' + t.code  + '">' + t.city  + '</option>';
+                    });
+                    citySelect.html(cityOptionStr);
+
+                    citySelect.css('display','inline');
+                });
+            });
+
             body.on("click", ".J_showCheckBroker", function () {
                 var $this = $(this);
                 brokerId = $this.parents('tr').attr('data-id');
@@ -140,7 +192,6 @@ define([
 
             //点击机构选择框，获取下级区域经纪人
             body.on("change",".org_select",function() {
-                //  alert(4534543);
 
                 var agentSelect = $("select[name=agent]");
                 var agentOptionStr = '<option value="0">选择区域经纪人</option>';
@@ -189,13 +240,21 @@ define([
                 var $this = $(this);
                 //if ($this.hasClass("disabled")) return;
                 //$this.addClass("disabled");
+                var provinceId = oForm.find('select[name=province]').val();
+                var code = oForm.find('select[name=city]').val();
                 var data = {
                     memberid: oForm.find('select').val(),
                     agentId:  oForm.find("select[name=agent]").val(),
                     mark: oForm.find('[name=id]').val(),
                     nickname: oForm.find('[name=name]').val(),
-                    phone: oForm.find('[name=phone]').val()
+                    phone: oForm.find('[name=phone]').val(),
+                    provinceId: provinceId,
+                    province: oForm.find('select[name=province] option[value='+ provinceId +']').text(),
+                    code: code,
+                    city: oForm.find('select[name=city] option[value='+ code +']').text(),
+                    company: oForm.find('input[name=company]').val(),
                 };
+
                 accountAPI.addAgentSub(data, function (result) {
 
                     if (result.code == 0) {

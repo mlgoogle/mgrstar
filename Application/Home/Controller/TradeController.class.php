@@ -46,7 +46,7 @@ class TradeController extends Controller
         $list = $Trades->where($map)->order('open_position_time desc')->page($page, $pageNum)->select();//获取分页数据
         foreach ($list as $key => $value) {
             $actualMap['id'] = $value['code_id'];
-            $list[$key]['actaulInfo'] = M('actuals_goods')->where($actaulMap)->find();
+            $list[$key]['actaulInfo'] = M('actuals_goods')->where($actualMap)->find();
             $list[$key]['close_position_time'] = date("Y-m-d H:i:s", $value['close_position_time']);
 
         }
@@ -143,7 +143,7 @@ class TradeController extends Controller
         $list = $Trades->where($map)->order('open_position_time desc')->page($page, $pageNum)->select();//获取分页数据
         foreach ($list as $key => $value) {
             $actualMap['id'] = $value['code_id'];
-            $list[$key]['actaulInfo'] = M('actuals_goods')->where($actaulMap)->find();
+            $list[$key]['actaulInfo'] = M('actuals_goods')->where($actualMap)->find();
             $list[$key]['close_position_time'] = date("Y-m-d H:i:s", $value['close_position_time']);
 
         }
@@ -181,7 +181,7 @@ class TradeController extends Controller
         foreach ($list as $key => $value) {
             $actualMap['id'] = $value['code_id'];
             $userMap['uid'] = $value['uid'];
-            $list[$key]['actaulInfo'] = M('actuals_goods')->where($actaulMap)->find();
+            $list[$key]['actaulInfo'] = M('actuals_goods')->where($actualMap)->find();
             $list[$key]['close_position_time'] = date("Y-m-d H:i:s", $value['close_position_time']);
             $list[$key]['userInfo'] = M('user_info')->where($userMap)->find();
 
@@ -216,7 +216,7 @@ class TradeController extends Controller
         foreach ($list as $key => $value) {
             $actualMap['id'] = $value['code_id'];
             $userMap['uid'] = $value['uid'];
-            $list[$key]['actaulInfo'] = M('actuals_goods')->where($actaulMap)->find();
+            $list[$key]['actaulInfo'] = M('actuals_goods')->where($actualMap)->find();
             $list[$key]['close_position_time'] = date("Y-m-d H:i:s", $value['close_position_time']);
             $list[$key]['userInfo'] = M('user_info')->where($userMap)->find();
 
@@ -437,7 +437,7 @@ class TradeController extends Controller
         foreach ($list as $key => $value) {
             $actualMap['id'] = $value['code_id'];
             $userMap['uid'] = $value['uid'];
-            $list[$key]['actaulInfo'] = M('actuals_goods')->where($actaulMap)->find();
+            $list[$key]['actaulInfo'] = M('actuals_goods')->where($actualMap)->find();
             $list[$key]['userInfo'] = M('user_info')->where($userMap)->find();
             $list[$key]['close_position_time'] = date("Y-m-d H:i:s", $value['close_position_time']);
 
@@ -448,14 +448,11 @@ class TradeController extends Controller
         $data['page'] = $page;
         $data['totalPages'] = ceil($count / $pageNum);
         if (!$list) {
-<<<<<<< HEAD
             $list = array();
-=======
-            $list = [array();
->>>>>>> star/master
         }
+
         $data['list'] = $list;
-        //s$data['from'] ='$Page->';
+
 
         $this->ajaxReturn($data);
     }

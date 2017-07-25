@@ -257,6 +257,7 @@ class TimerController extends CTController
         }
     }
 
+
     /**
      *  发行时间列表
      */
@@ -282,7 +283,7 @@ class TimerController extends CTController
 
         $item['status'] = self::getStatus($item['status']);
 
-        $timeMicro = M('star_time_micro')->where("`starcode` = '{$item['starcode']}'")->find();
+        $timeMicro = M('star_time_micro')->where("`starcode` = '{$item['starcode']}'")->order('add_time desc')->find();
 
 
         $item['last_time'] = $timeMicro['total_micro'] - $microSumArr['microSum']+$item['micro'];
@@ -403,7 +404,8 @@ class TimerController extends CTController
             $name = I('post.starname', '', 'strip_tags');
             $name = trim($name);
 
-            $isExist = (int)$model->where("`starname` = '{$name}' AND `status` !=".self::DELETE_TRUE)->count('id');
+            $isExist = (int)$model->where("`starname` = '{$name}' AND `status` <>".self::DELETE_TRUE)->count('id');
+
             if ($isExist) {
                 $return = array(
                     'code' => -2,
@@ -578,7 +580,7 @@ class TimerController extends CTController
 
 
         $micro = (int)$_POST['micro'];
-        if ($micro < 101) {
+        if ($micro < 100) {
             $return['message'] = '输入的发售数量过低';
             return $this->ajaxReturn($return);
         }
@@ -826,6 +828,26 @@ class TimerController extends CTController
         $data['list'] = $list;
 
         $this->ajaxReturn($data);
+    }
+
+    /**
+     *  判断明星名称是否存在
+     */
+    public function isStarName(){
+
+        $model = M('star_starbrief');
+        $name = isset($_POST['starname'])?$_POST['starname']:'';
+
+        $timerRow = $model->where("`name` = '{$name}' AND `status` <>".self::DELETE_TRUE)->count('uid');
+
+        if(!$timerRow) {
+            //结果返回
+            $return = array(
+                'code' => ($timerRow) ? 0 : -2,
+                'message' => '明星不存在',
+            );
+            return $this->ajaxReturn($return);
+        }
     }
 
 

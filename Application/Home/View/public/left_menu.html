@@ -94,19 +94,20 @@
             </ul>
         </li>
 
-        <!--<li class="pli">-->
-            <!--<a href="javascript:;">-->
-                <!--<strong>-->
-                    <!--渠道管理-->
-                <!--</strong>-->
-            <!--</a>-->
-            <!--<ul class="submenu">-->
+        <li class="pli">
+            <a href="javascript:;" <php>if(CONTROLLER_NAME == 'Channel'){echo 'class="main"';}</php> >
+                <strong>
+                    渠道管理
+                </strong>
+            </a>
+            <ul class="submenu">
 
-                <!--<li><a href=":;"-->
-                    <!--&gt;推广渠道</a>-->
-                <!--</li>-->
-            <!--</ul>-->
-        <!--</li>-->
+                <li><a
+                    <php>if(ACTION_NAME == 'listing'){echo 'class="act"';}</php>
+                    href="__ROOTHOME__/channel/listing" > 推广渠道</a>
+                </li>
+            </ul>
+        </li>
 
         <php>
             if($user['identity_id']<4){

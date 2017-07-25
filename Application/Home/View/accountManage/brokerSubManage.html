@@ -1,5 +1,11 @@
 <include file="public:top_menu" />
 
+<style>
+    .form-control select[name=city] {
+        width: 100px;
+    }
+</style>
+
             <div class="search-bar">
                 <select name="level"></select>
                 <input type="text" name="phone" placeholder="手机号码">
@@ -60,6 +66,20 @@
                 <div class="form-control">
                     <label>手机号码</label>
                     <input type="text" name="phone">
+                </div>
+
+                <div class="form-control" style="display: inline-block; width: 470px;text-align: left; margin-left: 50px;" >
+                    <label>省市</label>
+                    <select name="province"  style="width: 145px;">
+                        <option>请选择</option>
+                    </select>
+                    <select name="city" style="width: 150px;display: none" >
+                    </select>
+                </div>
+
+                <div class="form-control">
+                    <label>所属公司</label>
+                    <input type="text" name="company">
                 </div>
             </form>
         </div>
