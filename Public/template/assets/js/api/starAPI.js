@@ -43,6 +43,41 @@ define(["jquery"], function ($) {
                 cb(result);
             })
         },
+
+        //明星用户
+        userList: function (data, cb) {
+            $.post(this.baseRequestUrl + "/Star/userList", data, function (result) {
+                console.log(result)
+                cb(result);
+            })
+        },
+
+
+        //明星用户 add
+        addUser: function (data, cb) {
+            $.post(this.baseRequestUrl + "/Star/addUser", data, function (result) {
+                console.log(result)
+                cb(result);
+            })
+        },
+
+        //明星用户 edit
+        editUser: function (data, cb) {
+            $.post(this.baseRequestUrl + "/Star/editUser", data, function (result) {
+                console.log(result)
+                cb(result);
+            })
+        },
+
+
+        //输入明星名称获取明星用户code
+        getStarUserInfo: function (data, cb) {
+            $.post(this.baseRequestUrl + "/Star/getStarUserInfo", data, function (result) {
+                console.log(result)
+                cb(result);
+            })
+        },
+
     };
     return starAPI;
 });
