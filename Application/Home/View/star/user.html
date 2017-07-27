@@ -1,0 +1,97 @@
+<include file="public:top_menu" />
+
+
+<style>
+    .btn-status{
+        /* width: 40px;*/
+        background-color:#80D640;
+        /* padding: 0; */
+    }
+
+    .btn-up-status{
+        /* width: 40px;*/
+        background-color:#009f95;
+        /* padding: 0;*/
+    }
+
+    .pic1_div img {
+        width : 200px;
+        height : 100px;
+        margin-right:10px;
+        /*height: 60px;*/
+        /*margin: 10px;*/
+        cursor:pointer;
+    }
+</style>
+
+<div for="add_star" class="control-bar">
+    <a href="javascript:;" id ="add_star" class="btn J_showAdd">新建</a>
+</div>
+
+
+<div class="data-container">
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>明星名称</th>
+            <th>明星账号</th>
+            <th>明星密码</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="pagination"></div>
+</div>
+
+<div data-remodal-id="addUserModal" class="remodal addUserModal">
+    <div class="remodal-head">
+        <div class="remodal-title">明星账号</div>
+        <div data-remodal-action="cancel" class="remodal-close"></div>
+    </div>
+    <div class="remodal-body">
+        <form class="modalForm" enctype="multipart/form-data">
+            <input type="text" name="id" style="display: none">
+            <div class="form-control">
+                <label>明星名称</label>
+                <input type="text" name="starname">
+            </div>
+            <div class="form-control">
+                <label>明星账号</label>
+                <input type="text" name="phoneNum"  value="" >
+            </div>
+            <div class="form-control" style="display: none">
+                <label>明星密码</label>
+                <input type="text" name="password"  value="" >
+            </div>
+
+
+            <div class="form-control">
+                <label>明星代码</label>
+                <input type="text" name="starcode" readonly value="" >
+            </div>
+        </form>
+    </div>
+    <div class="remodal-footer">
+        <a href="javascript:;"  class="remodal-confirm">确认</a>
+    </div>
+</div>
+
+<div id="browse" class="browse">
+</div>
+
+<script src="__JS__/vendor/require.js" data-main="__JS__/common"></script>
+
+<script type="text/javascript">
+
+</script>
+
+<script>
+    require(['common'], function () {
+        require(['page/starUser']);
+    });
+</script>
+
+<include file="public:footer" />

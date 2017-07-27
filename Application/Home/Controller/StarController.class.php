@@ -26,19 +26,24 @@ class StarController extends CTController
 	public function __construct()
     {
         parent::__construct();
-        $this->assign('title', '轮播列表');
+
 
     }
 
     //模板显示
-    public function carousel()
-    {
-
+    public function carousel(){
+        $this->assign('title', '轮播列表');
         $model = M('star_bannerlist');
         $count = $model->where("`delete_flag` = ".self::DELETE_FALSE)->count('id');
 
         $this->assign('count', $count);
         $this->display('star/carousel');
+    }
+
+    //明星帐号
+    public function user(){
+        $this->assign('title', '明星账号');
+        $this->display('star/user');
     }
 
     /**
@@ -119,8 +124,7 @@ class StarController extends CTController
     /**
      * 接收的明星姓名查询明星对应信息
      */
-    public function getStarInfo()
-    {
+    public function getStarInfo(){
         $model = M('star_starbrief');
         $starname = I('post.starname', '', 'strip_tags');
         $starname = trim($starname);
@@ -331,4 +335,187 @@ class StarController extends CTController
         );
         return $this->ajaxReturn($return);
     }
+
+    //帐号相关内容
+
+
+    public function userList(){
+        $userInfo = M('star_userinfo');
+        $pageNum = I('post.pageNum', 5, 'intval');
+        $page = I('post.page', 1, 'intval');
+        $map['starcode'] = array('exp','is not null');
+
+        $count = $userInfo->where($map)->count();// 查询满足要求的总记录数
+        $list = $userInfo->where($map)->page($page, $pageNum)->select();
+
+        $starcodeRow = array();
+        foreach ($list as $l){
+            $starcodeRow[] = $l['starcode'];
+        }
+
+        $starcodeRow = array_filter(array_unique($starcodeRow));
+
+        $where['code'] = array('in',$starcodeRow);
+        $brief = M('star_starbrief')->where($where)->select();
+
+        $nameArr = array();
+        foreach ($brief as $b){
+            $nameArr[$b['code']] = $b['name'];
+        }
+
+        foreach ($list as $k=>$l){
+            $list[$k]['starname'] = isset($nameArr[$l['starcode']])?$nameArr[$l['starcode']]:'';
+        }
+
+        new \Think\Page($count, $pageNum);// 实例化分页类 传入总记录数和每页显示的记录数(25)
+
+        $data['list'] = $list;
+        return $this->ajaxReturn($data);
+    }
+
+    public function addUser(){
+
+        $userInfoModel = M('star_userinfo');
+        $starname = I('post.starname', '', 'strip_tags');
+        $starname = trim($starname);
+
+
+
+        $starcode = I('post.starcode', 0, 'intval');
+
+        $item = M('star_starbrief')->where("`code` = '{$starcode}' AND ( status = 0 OR status = 1 ) ")->find();// 默认 明星 没有删除的
+
+        if (!$item) {
+            $return = array(
+                'code' => -2,
+                'message' => "未找到明星 -{$starname}"
+            );
+            return $this->ajaxReturn($return);
+        }
+
+
+        $phoneNum = I('post.phoneNum',0,'strip_tags');
+
+        $phoneNum = trim($phoneNum);
+
+        if($userInfoModel->where("`starcode` = '{$starcode}'")->find()){  //`phoneNum` = '{$phoneNum}' OR
+            $return = array(
+                'code' => -2,
+                'message' => '明星已存在！'
+            );
+            $this->ajaxReturn($return);
+            return false;
+        }
+
+        if( $userInfoModel->where("`phoneNum` = '{$phoneNum}'")->find()){
+            $return = array(
+                'code' => -2,
+                'message' => '帐号已存在！'
+            );
+            $this->ajaxReturn($return);
+            return false;
+        }
+
+        if (!$phoneNum){
+            $return = array(
+                'code' => -2,
+                'message' => '请输入帐号！'
+            );
+            $this->ajaxReturn($return);
+            return false;
+        }else {
+            if (!preg_match('/^1[3-9][0-9]{9}$/', $phoneNum)) {
+                $return = array(
+                    'code' => -2,
+                    'message' => '账号必须为手机号！'
+                );
+                $this->ajaxReturn($return);
+                return false;
+            }
+        }
+
+        $data = array(
+            'starcode' => $starcode,
+            'phoneNum' => $phoneNum,
+            'passwd'   => md5(123456)
+        );
+
+        $bool = -2;
+
+        if($userInfoModel->add($data)){
+            $bool = 0;
+        }
+
+        //结果返回
+        $return = array(
+            'code' => $bool,
+            'message' => $bool?'失败':'成功',
+        );
+
+        return $this->ajaxReturn($return);
+
+    }
+
+    public function editUser(){
+        $password = I('post.password', '', 'strip_tags');
+        $id = I('post.id', 0 ,'intval');
+
+        $password = strtolower($password);
+        if(!$password){
+            $return = array(
+                'code' => -2,
+                'message' => '请输入密码！'
+            );
+            $this->ajaxReturn($return);
+        }else{
+            if (!preg_match('/^[a-z][a-z0-9]{5,14}$/', $password)) {
+                $return = array(
+                    'code' => -2,
+                    'message' => '密码必须是英文字母开头6到15位！'
+                );
+                $this->ajaxReturn($return);
+                return false;
+            }
+        }
+        M('star_userinfo')->uid = $id;
+        M('star_userinfo')->passwd  = md5($password);
+        if(M('star_userinfo')->save()){
+            $return = array(
+                'code' => 0,
+                'message' => '成功'
+            );
+        }else{
+            $return = array(
+                'code' => -2,
+                'message' => '失败'
+            );
+        }
+
+        $this->ajaxReturn($return);
+    }
+
+    /**
+     * 接收的明星姓名查询明星对应信息
+     */
+    public function getStarUserInfo(){
+        $model = M('star_starbrief');
+        $starname = I('post.starname', '', 'strip_tags');
+        $starname = trim($starname);
+
+        $item = $model->where("`name` = '{$starname}' AND ( status = 0 OR status = 1 ) ")->find();// 默认 明星 没有删除的
+
+        if (count($item) > 0) {
+            $arr['star_code'] = $item['code'];
+            $arr['star_name'] = $item['name'];
+        }else{
+            $return = array(
+                'code' => -2,
+                'message' => "未找到明星 -{$starname}"
+            );
+            return $this->ajaxReturn($return);
+        }
+
+        return $this->ajaxReturn($arr);
+    }
+
 }
