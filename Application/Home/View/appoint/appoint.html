@@ -17,6 +17,30 @@
         background-color:#009f95;
        /* padding: 0;*/
     }
+
+    .remodal form .form-control label {
+        display: inline-block;
+        width: 150px;
+        text-align: right;
+        margin-right: 10px;
+    }
+
+    .star_url_div img {
+        width : 100px;
+        margin-right:10px;
+        /*height: 60px;*/
+        /*margin: 10px;*/
+        cursor:pointer;
+    }
+
+    .star_url2_div img {
+        width : 135px;
+        margin-right:10px;
+        /*height: 60px;*/
+        /*margin: 10px;*/
+        cursor:pointer;
+    }
+
 </style>
 
 <div class="data-container">
@@ -56,7 +80,7 @@
             </div>
 
             <div class="form-control control-label">
-                <label>约见配图</label>
+                <label>约见配图（选中）</label>
                 <input type="hidden" name="showpic_url" id="pic_url" class="txt" readonly />
                 <input type="text" name="local_pic" id="local_pic" class="txt" readonly />
             </div>
@@ -72,9 +96,47 @@
                 }
             </style>
             <div class="form-control control-label form-group">
+                <span  class="star_url_div">
+                    <?php if($item['url1']) {  ?>
+                    <img src="<?php echo $item['url1'];?>"  >
+                    <?php } ?>
+                </span>
+            </div>
+            <div class="form-control control-label form-group">
                 <label class="control-label"></label>
                 <input type="file" name="file" class="file" id="file"/>
                 <span onclick="UpladFile()" class="mybtn">上传</span>
+            </div>
+
+            <div class="form-control control-label">
+                <label>约见配图（未选中）</label>
+                <input type="hidden" name="pic_url2" id="pic_url2" class="txt" readonly />
+                <input type="text" name="local_url2" id="local_url2" class="txt" readonly />
+            </div>
+            <style>
+                .mybtn2{
+                    display: inline-block;
+                    width: 40px;
+                    border:1px solid #CCCCCC;
+                    border-radius: 4px;
+                    height: 30px;
+                    line-height: 30px;
+                    cursor: pointer;
+                }
+            </style>
+
+            <div class="form-control control-label form-group">
+                <span  class="star_url2_div">
+                    <?php if($item['url2']) {  ?>
+                    <img src="<?php echo $item['url2'];?>"  >
+                    <?php } ?>
+                </span>
+            </div>
+
+            <div class="form-control control-label form-group">
+                <label class="control-label"></label>
+                <input type="file" name="file2" class="file" id="file2"/>
+                <span onclick="UpladFileUrl2()" class="mybtn2">上传</span>
             </div>
 
         </form>
@@ -120,6 +182,38 @@
                 $("#pic_url").val(json.file);
                 $("#local_pic").val(json.local);
             }
+
+            var img = '<img src="__PUBLIC__/uploads/info/'+ json.local +'">';
+            $(".star_url_div").html(img);
+        }
+    }
+    
+    function UpladFileUrl2() {
+        var fileObj = document.getElementById("file2").files[0];
+        console.log(fileObj);
+        var FileController = '__ROOTHOME__/info/uploadFile';
+        var form = new FormData();
+        form.append("myfile", fileObj);
+        createXMLHttpRequest();
+        xhr.onreadystatechange = handleStateChangeUrl2;
+        xhr.open("post", FileController, true);
+        xhr.send(form);
+    }
+
+    function handleStateChangeUrl2() {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200 || xhr.status == 0) {
+                var result = xhr.responseText;
+                var json = eval("(" + result + ")");
+                console.log(json.file);
+
+                $("#pic_url2").val(json.file);
+                $("#local_url2").val(json.local);
+            }
+
+            var img = '<img src="__PUBLIC__/uploads/info/'+ json.local +'">';
+            //var img = '<span><img src="'+json[i]+'"></span>';
+            $(".star_url2_div").html(img);
         }
     }
 
