@@ -40,11 +40,22 @@ define([
                 var oTd = $this.parents('tr').find('td');
                 var appointname = oTd.eq(3).text();
                 var micro = oTd.eq(4).text();
+                var url1   = $this.parents('tr').attr('data-url1');
+                var url2   = $this.parents('tr').attr('data-url2');
 
                 var oForm = $(".addAppointModal .modalForm");
                 oForm.find("input[name=id]").val(id);
                 oForm.find("input[name=appointname]").val(appointname);
                 oForm.find("input[name=micro]").val(micro);
+
+                oForm.find("input[name=showpic_url]").val(url1);
+                oForm.find("input[name=pic_url2]").val(url2);
+
+
+                var img = '<img src="' + url1 +'">';
+                $(".star_url_div").html(img); //选中
+                var img2 = '<img src="' + url2 +'">';
+                $(".star_url2_div").html(img2); //未选中
                 addAppointModal.open();
             });
 
@@ -67,7 +78,8 @@ define([
                     oForm: oForm.find("input[name=status]").val(),
                     micro: oForm.find('[name=micro]').val(),
                     showpic_url: oForm.find('[name=showpic_url]').val(),
-                    local_pic: oForm.find('[name=local_pic]').val()
+                    local_pic: oForm.find('[name=local_pic]').val(),
+                    pic_url2: oForm.find('[name=pic_url2]').val()
                 };
 
                 if (id > 0) {
@@ -160,7 +172,8 @@ define([
 
                     var status = '<td><a href="javascript:;" ' + status_style + ' onclick="status(this)" data-id="'+ v.mid +'">' + v.status + '</a></td>';
 
-                    oTr += '<tr class="fadeIn animated" data-id="' + v.mid + '">' + checkTd + id + add_time + appointname + micro + status + controlTd + '</tr>';
+                    oTr += '<tr class="fadeIn animated" data-id="' + v.mid + '" data-url1="' + v.url1 + '" data-url2="' + v.url2 + '" >' +
+                        checkTd + id + add_time + appointname + micro + status + controlTd + '</tr>';
                 });
                 table.find("tbody").empty().html(oTr);
                 if (initPage) {

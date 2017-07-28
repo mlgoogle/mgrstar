@@ -75,13 +75,23 @@ class AppointController extends CTController
             return $this->ajaxReturn($return);
         }
 
-        $url1 = $url2 = I('post.showpic_url', '', 'strip_tags');
+        $url1  =  I('post.showpic_url', '', 'strip_tags');
+        $url2  =  I('post.pic_url2', '', 'strip_tags');
+
         $local_pic = I('post.local_pic', '', 'strip_tags');
 
-        if(empty($url1)){
+        if(empty($url1)) {
             $return = array(
                 'code' => -2,
-                'message' => '请上传图片！'
+                'message' => '请上传选中约见配图！'
+            );
+            return $this->ajaxReturn($return);
+        }
+
+        if(empty($url2)) {
+            $return = array(
+                'code' => -2,
+                'message' => '请上传未选中约见配图！'
             );
             return $this->ajaxReturn($return);
         }
@@ -140,14 +150,25 @@ class AppointController extends CTController
             );
             return $this->ajaxReturn($return);
         }
+        
 
-        $url1 = $url2 = I('post.showpic_url', '', 'strip_tags');
+        $url1  = I('post.showpic_url', '', 'strip_tags');
+        $url2  = I('post.pic_url2', '', 'strip_tags');
+
         $local_pic = I('post.local_pic', '', 'strip_tags');
 
         if(empty($url1)) {
             $return = array(
                 'code' => -2,
-                'message' => '请上传图片！'
+                'message' => '请上传选中约见配图！'
+            );
+            return $this->ajaxReturn($return);
+        }
+
+        if(empty($url2)) {
+            $return = array(
+                'code' => -2,
+                'message' => '请上传未选中约见配图！'
             );
             return $this->ajaxReturn($return);
         }
