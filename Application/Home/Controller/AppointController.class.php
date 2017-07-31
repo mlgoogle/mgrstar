@@ -150,7 +150,7 @@ class AppointController extends CTController
             );
             return $this->ajaxReturn($return);
         }
-        
+
 
         $url1  = I('post.showpic_url', '', 'strip_tags');
         $url2  = I('post.pic_url2', '', 'strip_tags');

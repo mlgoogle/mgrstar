@@ -404,18 +404,18 @@ class TimerController extends CTController
             $name = I('post.starname', '', 'strip_tags');
             $name = trim($name);
 
-            $isExist = (int)$model->where("`starname` = '{$name}' AND `status` <>".self::DELETE_TRUE)->count('id');
-
-            if ($isExist) {
-                $return = array(
-                    'code' => -2,
-                    'message' => '该明星已有值！'
-                );
-                return $this->ajaxReturn($return);
-            }
+//            $isExist = (int)$model->where("`starname` = '{$name}' AND `status` <>".self::DELETE_TRUE)->count('id');
+//
+//            if ($isExist) {
+//                $return = array(
+//                    'code' => -2,
+//                    'message' => '该明星已有值！'
+//                );
+//                return $this->ajaxReturn($return);
+//            }
 
             $starModel = M('star_starbrief');
-            $item = $starModel->where("`name` = '{$name}' OR `uid`='{$name}'")->find();
+            $item = $starModel->where("`name` = '{$name}'  AND  `status` <> ".self::DELETE_TRUE)->find();
             if (count($item) == 0) {
                 $return = array(
                     'code' => -2,
@@ -434,125 +434,138 @@ class TimerController extends CTController
             return $this->ajaxReturn($return);
         }
 
-        $total_micro = intval($_POST['total_micro']);
-        if(!$total_micro || $total_micro < 100){
+        $sortArr = M('star_timer')->field('sort,publish_end_time')->where('starcode = '.$starcode . ' AND status <> 2 ')->order('sort desc')->find();
+        $sort    = isset($sortArr['sort'])?$sortArr['sort']:0;
+        $endTime = isset($sortArr['publish_end_time'])?$sortArr['publish_end_time']:0;//最新一期的结束时间
+
+        if($sort>=5){
             $return = array(
-                'code' => -2,
-                'message' => '总发行数量最低为100！'
+                'code' =>  -2,
+                'message' => '明星发行期最多五期！'
             );
             return $this->ajaxReturn($return);
         }
 
-        $micro = is_array($_POST['micro'])?$_POST['micro']:array();
 
-        foreach ($micro as $i=>$m){
-            //非空提醒
-            if(empty($m) || $m < 100){
+        $is_micro = intval($_POST['is_micro']);
+        if($is_micro) {
+            $total_micro = intval($_POST['total_micro']);
+            if (!$total_micro || $total_micro < 100) {
                 $return = array(
                     'code' => -2,
-                    'message' => '消耗秒数最低为100！'
+                    'message' => '总发行数量最低为100！'
                 );
                 return $this->ajaxReturn($return);
             }
-
-            $data[$i]['micro'] = $m;
-            $data[$i]['publish_last_time'] = $m; // 剩余时间 添加时等于发售数量
         }
 
-        $publish_begin_time = is_array($_POST['publish_begin_time'])?$_POST['publish_begin_time']:array();
-        foreach ($publish_begin_time as $i=>$b){
-            if(!$b){
-                $return = array(
-                    'code' => -2,
-                    'message' => '请填写发售开始时间！'
-                );
-                return $this->ajaxReturn($return);
-            }
-            $data[$i]['publish_begin_time'] = $b;
+        $micro = isset($_POST['micro'])?(int)$_POST['micro']:0;
+
+        //非空提醒
+        if(empty($micro) || $micro < 100){
+            $return = array(
+                'code' => -2,
+                'message' => '消耗秒数最低为100！'
+            );
+            return $this->ajaxReturn($return);
         }
 
-        $publish_end_time = is_array($_POST['publish_end_time'])?$_POST['publish_end_time']:array();
-        foreach ($publish_end_time as $i=>$e){
-            if(!$e){
-                $return = array(
-                    'code' => -2,
-                    'message' => '请填写发售结束时间！'
-                );
-                return $this->ajaxReturn($return);
-            }
-            $data[$i]['publish_end_time'] = $e;
+        $data['micro'] = $micro;
+        $data['publish_last_time'] = $micro; // 剩余时间 添加时等于发售数量
+
+
+        $publish_begin_time = isset($_POST['publish_begin_time'])?$_POST['publish_begin_time']:0;
+
+        if(!$publish_begin_time){
+            $return = array(
+                'code' => -2,
+                'message' => '请填写发售开始时间！'
+            );
+            return $this->ajaxReturn($return);
+        }
+        $data['publish_begin_time'] = $publish_begin_time;
+
+        if($endTime>$publish_begin_time){
+            $return = array(
+                'code' => -2,
+                'message' => '发售的开始时间必须大于上期的结束时间！'
+            );
+            return $this->ajaxReturn($return);
         }
 
-        $publish_type = is_array($_POST['publish_type'])?$_POST['publish_type']:array();
-        foreach ($publish_type as $i=>$t){
-            if(!$e){
+
+        $publish_end_time = isset($_POST['publish_end_time'])?$_POST['publish_end_time']:0;
+        if(!$publish_end_time){
+            $return = array(
+                'code' => -2,
+                'message' => '请填写发售结束时间！'
+            );
+            return $this->ajaxReturn($return);
+        }
+        $data['publish_end_time'] = $publish_end_time = $publish_end_time . ' 23:59:59';
+
+
+        $publish_type = isset($_POST['publish_type'])?$_POST['publish_type']:0;
+        $data['publish_type'] = $publish_type;
+
+
+        $publish_price = isset($_POST['publish_price'])?$_POST['publish_price']:0;
+        if(!$publish_price){
+            $return = array(
+                'code' => -2,
+                'message' => '请填写发售价格！'
+            );
+            return $this->ajaxReturn($return);
+        }
+        $data['publish_price'] = sprintf('%.2f',$publish_price);
+
+
+        //剩余
+        $totalMicros = M('star_time_micro')->field('total_micro')->where('starcode = '.$starcode)->find();
+        if(isset($totalMicros)) { //明星没有总发行时间 不能判断剩余时间
+            $totalMicro = isset($totalMicros['total_micro']) ? $totalMicros['total_micro'] : '';
+            $lastTime = $this->lastTime($totalMicro, $starcode);
+            $lastTime = $lastTime - $micro;
+
+            if ($lastTime < 0) {
                 $return = array(
                     'code' => -2,
-                    'message' => '请填写发售结束时间！'
+                    'message' => '发售数量不能大于剩余数量数量！'
                 );
                 return $this->ajaxReturn($return);
             }
-            $data[$i]['publish_type'] = $t;
         }
 
-        $publish_price = is_array($_POST['publish_price'])?$_POST['publish_price']:array();
-        foreach ($publish_price as $i=>$p){
-            if(!$p){
-                $return = array(
-                    'code' => -2,
-                    'message' => '请填写发售价格！'
-                );
-                return $this->ajaxReturn($return);
-            }
-            $data[$i]['publish_price'] = sprintf('%.2f',$p);
+
+        $data['starname'] = $starname;
+        $data['starcode'] = $starcode;
+        $data['sort'] = (int)$_POST['sort'];
+
+        $data['add_time'] = date('Y-m-d H:i:s', time());
+
+
+
+        if($publish_begin_time>$publish_end_time){
+            $return = array(
+                'code' => -2,
+                'message' => '开始时间不能大于结束时间！' //$nameVal[$j]
+            );
+            return $this->ajaxReturn($return);
         }
 
         //$nameVal = array('第一期','第二期','第三期','第四期','第五期');
 
-        $lastEndTime = 0;
-        foreach ($data as $j=>$d){
-            $data[$j]['starname'] = $starname;
-            $data[$j]['starcode'] = $starcode;
-            $data[$j]['sort'] = $j+1;
-
-            $data[$j]['add_time'] = date('Y-m-d H:i:s', time());
-            $beginTime = $d['publish_begin_time'];
-            $endTime = $d['publish_end_time'];
-            $data[$j]['publish_end_time'] = $endTime.' 23:59:59';
-
-            if($beginTime>$endTime){
-                $return = array(
-                    'code' => -2,
-                    'message' => $this->getSortName($j+1).'开始时间不能大于结束时间！' //$nameVal[$j]
-                );
-                return $this->ajaxReturn($return);
-            }
-
-            if($lastEndTime){
-                if($beginTime<$lastEndTime){
-                    $return = array(
-                        'code' => -2,
-                        'message' => getSortName($j+1).'开始时间不能小于上期结束时间！'
-                    );
-                    return $this->ajaxReturn($return);
-                }
-            }
-
-            // 结束时间 保存
-            $lastEndTime = $endTime;
-
-        }
-
         //数据入库
         $id = 0;
-        if($model->addAll($data)){
-            //总秒数表
-            $microData['total_micro'] = $total_micro;
-            $microData['starcode'] = $starcode;
-            $microData['add_time'] = date('Y-m-d H:i:s', time());
-            $id = M(star_time_micro)->add($microData);
+        if($id = $model->add($data)){
+            if($is_micro) {
+                //总秒数表
+                $microData['total_micro'] = $total_micro;
+                $microData['starcode'] = $starcode;
+                $microData['add_time'] = date('Y-m-d H:i:s', time());
+                $id = M('star_time_micro')->add($microData);
+            }
         }
-
 
         //结果返回
         $return = array(
@@ -601,7 +614,7 @@ class TimerController extends CTController
         $totalMicroArr = M('star_time_micro')->field('total_micro')->where("`starcode` = '{$item['starcode']}'")->find();
         $totalMicro = isset($totalMicroArr['total_micro'])?$totalMicroArr['total_micro']:0;
 
-        $microSumArr = M('star_timer')->field('sum(micro) as microSum')->where("`starcode` = '{$item['starcode']}'")->find();
+        $microSumArr = M('star_timer')->field('sum(micro) as microSum')->where("`starcode` = '{$item['starcode']}'  AND status <> 2 ")->find();
         $microSum = isset($microSumArr['microSum'])?(int)$microSumArr['microSum']:0;
         $microSum = $totalMicro-($microSum - $item['micro']);
         if($micro>$microSum){
@@ -838,7 +851,7 @@ class TimerController extends CTController
         $model = M('star_starbrief');
         $name = isset($_POST['starname'])?$_POST['starname']:'';
 
-        $timerRow = $model->where("`name` = '{$name}' AND `status` <>".self::DELETE_TRUE)->count('uid');
+        $timerRow = $model->field('code')->where("`name` = '{$name}' AND `status` <>".self::DELETE_TRUE)->find();
 
         if(!$timerRow) {
             //结果返回
@@ -848,6 +861,39 @@ class TimerController extends CTController
             );
             return $this->ajaxReturn($return);
         }
+
+        $code = isset($timerRow['code'])?$timerRow['code']:0;
+
+        $sortArr = M('star_timer')->field('sort')->where('starcode = '.$code . ' AND status <> 2 ')->order('sort desc')->find();
+        $sort = isset($sortArr['sort'])?$sortArr['sort']:0;
+
+
+        if($sort>=5){
+            $return = array(
+                'code' =>  -2,
+                'message' => '明星发行期最多五期！'
+            );
+            return $this->ajaxReturn($return);
+        }
+
+        $sortName = $this->getSortName($sort+1);
+
+        //
+        $totalMicros = M('star_time_micro')->field('total_micro')->where('starcode = '.$code)->find();
+        $totalMicro = isset($totalMicros['total_micro'])?$totalMicros['total_micro']:'';
+
+        //剩余
+
+        $last_time = $this->lastTime($totalMicro,$code);
+
+        $return = array(
+            'code' => 0,
+            'total_micro' => $totalMicro,
+            'sort_name'   => $sortName,
+            'sort'        => $sort+1,
+            'last_time'   => $last_time
+        );
+        return $this->ajaxReturn($return);
     }
 
 
@@ -866,5 +912,12 @@ class TimerController extends CTController
         $sortNames = array('第一期','第二期','第三期','第四期','第五期');
 
         return isset($sortNames[$key-1])?$sortNames[$key-1]:'未知';
+    }
+
+    private function lastTime($totalMicro,$code){
+        $microSumArr = M('star_timer')->field('sum(micro) as microSum')->where("`starcode` = '{$code}'  AND status <> 2 ")->find();
+        $microSum = isset($microSumArr['microSum'])?(int)$microSumArr['microSum']:0;
+
+       return $last_time = $totalMicro - $microSum;
     }
 }
