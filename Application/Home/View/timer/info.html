@@ -63,9 +63,15 @@
     .info-notice {display: inline-block; color: red;}
 
     .btn_button {
-        margin-left: 310px;
-        margin-top: 30px;
+         margin-left: 310px;
+         margin-top: 30px;
+     }
+
+    .btn_next {
+        margin-left: 360px;
+        margin-top: 20px;
     }
+
     .btn_add {
         margin-left: 360px;
         margin-top: 10px;
@@ -88,34 +94,40 @@
                     <?php } else { echo $item['starname']; }?>
                 </div>
                 <?php if (isset($item['id'])) {?>
-                <div class="form-control control-label">
-                    <label>明星状态</label>
-                    <?php echo $item['status'];?>
-                </div>
+                    <div class="form-control control-label">
+                        <label>明星状态</label>
+                        <?php echo $item['status'];?>
+                    </div>
                 <?php } ?>
                 <div class="form-control">
                     <label>总发行数量</label>
+                    <input type="hidden" name="is_micro" value="1">
+
                     <input type="text" name="total_micro" value="<?php echo $timeMicro['total_micro'];?>"  class="last_time"
                             <?php echo ($item['micro'] > 1) ? 'readonly' : 'onblur="last_time()"'; ?>
                     >
-                        <span class="info-notice"> <?php echo ($item['micro'] < 1) ? '!!!填写发行时间即可分配消费者持有' : ''; ?></span>
-                    </div>
+                        <span class="info-notice"> <?php echo ($item['micro'] < 1) ? '填写发行时间即可分配消费者持有,发行期最多为五期！' : ''; ?></span>
+
+                    <input type="hidden" name="sort" value="">
+                </div>
 
 
                 <?php if(!isset($item)){?>
-                <div class="form-control">
-                    <label>第一期发售数量</label>
-                        <input type="text" data="micro_data" name="micro[]" value="<?php echo $item['micro'];?>" class="last_time" onblur="last_time()">
+
+                <div class="time_info">
+                  <div class="form-control">
+                    <label id="micro_sort">发售数量</label>
+                        <input type="text" data="micro_data" name="micro" value="<?php echo $item['micro'];?>" > <!--class="last_time" onblur="last_time()" -->
                     </div>
                     <div class="form-control">
-                        <label>第一期发售时间</label>
-                        <input type="text" name="publish_begin_time[]" id="dateStart0"  value="<?php echo $item['publish_begin_time'];?>">
+                        <label id="time_sort" >发售时间</label>
+                        <input type="text" name="publish_begin_time" id="dateStart0"  value="<?php echo $item['publish_begin_time'];?>">
                         到
-                        <input type="text" name="publish_end_time[]" id="dateEnd0"  value="<?php echo $item['publish_end_time'];?>">
+                        <input type="text" name="publish_end_time" id="dateEnd0"  value="<?php echo $item['publish_end_time'];?>">
                     </div>
                     <div class="form-control">
                         <label>发售类型</label>
-                        <select name="publish_type[]" style="width: 100px;">
+                        <select name="publish_type" style="width: 100px;">
                             <option value="0" >预售</option>
                             <option value="1" >发售</option>
                             <option value="2" >流通</option>
@@ -123,12 +135,19 @@
                     </div>
                     <div class="form-control">
                         <label>发售价格</label>
-                        <input type="text" name="publish_price[]" value="<?php echo $item['publish_price'];?>">
+                        <input type="text" name="publish_price" value="<?php echo $item['publish_price'];?>">
                     </div>
 
-                    <div class="form-control">
-                        <a href="javascript:;" class="btn add-fans btn_add">添加</a>
+                    <div class="form-control" style="padding-top: 30px">
+                        <label>剩余数量</label>
+                        <input type="text" name="publish_last_time" readonly value="<?php echo $item['last_time'];?>">
                     </div>
+
+                </div>
+
+                <div class="form-control">
+                    <a href="javascript:;" class="btn btn_next" >下一步</a>
+                </div>
 
                 <?php }else { $numberArr = array('第一期','第二期','第三期','第四期','第五期');?>
 
@@ -155,52 +174,22 @@
                         <input type="text" name="publish_price" value="<?php echo $item['publish_price'];?>">
                     </div>
 
+                    <div class="form-control" style="padding-top: 30px">
+                        <label>剩余数量</label>
+                        <input type="text" name="publish_last_time" readonly value="<?php echo $item['last_time'];?>">
+                    </div>
+
                 <?php } ?>
 
-
-                <div class="form-control">
-                    <label>剩余数量</label>
-                    <input type="text" name="publish_last_time" readonly value="<?php echo $item['last_time'];?>">
-                </div>
-
-                <div class="form-control" >
+                <div class="form-control" <?php if(!isset($item)){?> style="display: none" <?php } ?> >
                     <a href="javascript:;" class="remodal-confirm btn btn_button">确认</a>
                 </div>
 
-
-                <?php if (false && $item['micro'] > 0) { ?>
-
-                    <div class="timer-list">
-                        <h3 style="text-align: center">消费者列表</h3><br>
-                        <div class="form-control">
-                            <input type="text" name="fans" placeholder="昵称/UID" />
-                            <input type="text" name="secs" placeholder="秒数" />
-                            <a href="javascript:;" onclick="addExp(this)" class="btn add-fans">添加</a>
-                            <span class="info-notice fans-notice"></span>
-
-                            <div class="exp addexp">
-                                <li><span class="secs-total">消费总数 : <?php echo count($timer); ?></span>
-                                    <b href="javascript:;" class="add-free">平均分配</b>
-                                    <span class="info-secs secs-free" style="margin-right: 34%;">可用值 : <?php echo $free;?></span>
-                                </li>
-                                <?php if ($free > 0) { ?>
-                                    <textarea name="free-timer" style="width: 450px;height: 100px;" placeholder="多个用户ID 请用英文,逗号分隔"/></textarea>
-                                <?php } ?>
-                                <br>
-                                <?php foreach($timer as $t) {
-                                 $userMark = (!empty($t['nickname'])) ? $t['nickname'] : $t['belong_id'];
-                                 echo '<li> ' . $userMark . '<b class="close_exp" data-id='.$t['id'].' onclick="close_exp(this)">X</b><span class="info-secs">' .$t['star_time'] .'</span> </li>';
-                                }?>
-                            </div>
-                        </div>
-                    </div>
-                 <?php } ?>
             </form>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-
 
     //判断 明星是否存在
     function isStarName() {
@@ -212,10 +201,27 @@
             data: {starname : starname},
             success: function(msg){
                 if (msg.code == 0) {
+                    var total_micro = msg.total_micro;
+                    var sort_name   = msg.sort_name;
+                    var sort        = msg.sort;
+                    if(total_micro){
+                        $('input[name=total_micro]').val(total_micro);
+                        $('input[name=total_micro]').attr('readonly','readonly');
+                        $('input[name=total_micro]').attr('class','');
+                        $('input[name=total_micro]').attr('onblur','');
+                        $('input[name=is_micro]').val(0);
+                    }
+                    $('input[name=sort]').val(sort);
+                    $("#micro_sort").text(sort_name + "发售数量");
+                    $("#time_sort").text(sort_name + "发售时间");
+                    var last_time = msg.last_time;
+                    $('input[name=publish_last_time]').val(last_time);
                     //code
                 } else if (msg.code == -2) {
                     layer.msg(msg.message);
+                    return 0;
                 } else {
+                    return 0;
                     //layer.msg(msg.message);
                 }
             }
@@ -285,7 +291,6 @@
         micro = parseInt(micro);
         publish_last_time = parseInt(publish_last_time);
 
-       // console.log(micro,publish_last_time,micro - publish_last_time);
 
        if(micro - publish_last_time > 0){
 
@@ -382,41 +387,29 @@
         var i=0;
         var nameVal = ['第一期','第二期','第三期','第四期','第五期'];
 
-        $(".btn_add").on("click",function () {
-            i++;
+        //默认隐藏
+        $(".time_info").hide();
 
-            if(i>4){
-                layer.msg('最多可加五期！');
+        $(".btn_next").on("click",function () {
+            var starname = $("input[name=starname]").val();
+            var total_micro = $("input[name=total_micro]").val();
+
+            if(!starname){
+                layer.msg('请输入明星名称');
+                return false;
+            }
+            if(!total_micro){
+                layer.msg('请输入总发行数量');
+                return false;
+            }
+            if(total_micro<100){
+                layer.msg('总发行数量最低为100');
                 return false;
             }
 
-            var html ='<div class="form-control" style="margin-top: 10px">'+
-                    '<label>' + nameVal[i] +'发售数量</label>'+
-                    '<input type="text" data="micro_data" name="micro[]" value="" class="last_time" onblur="last_time()" >'+
-                     '</div>'+
-                   '<div class="form-control">'+
-                     '<label>' + nameVal[i] +'发售时间</label>'+
-                      '<input type="text" name="publish_begin_time[]" id="dateStart'+i+'"  class="dateStart" value="">'+
-                     '到'+
-                   '<input type="text" name="publish_end_time[]" id="dateEnd'+i+'" class="dateEnd" value="">'+
-                '</div>'+
-                '<div class="form-control">'+
-                '<label>发售类型</label>'+
-                '<select name="publish_type[]" style="width: 100px;">'+
-                '<option value="0" >预售</option>'+
-                '<option value="1" >发售</option>'+
-                '<option value="2" >流通</option>'+
-                '</select>'+
-                '</div>'+
-                '<div class="form-control">'+
-                '<label>发售价格</label>'+
-                '<input type="text" name="publish_price[]" value="">'+
-                '</div>';
-
-           $(this).parent().prev().append(html);
-
-           dateStart(i);dateEnd(i);
-
+            $(".time_info").show();
+            $(".btn_next").parent().hide()
+            $(".btn_button").parent().show();
         });
 
 
@@ -477,7 +470,6 @@
                 var url = "__ROOTHOME__/Timer/addTimer";
                 var data = from;
             }
-
 
             $.ajax({
                 type: "POST",
