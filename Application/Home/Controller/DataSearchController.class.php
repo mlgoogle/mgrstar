@@ -10,6 +10,11 @@ class DataSearchController extends Controller
 
     private $user;
     private $homeModel;
+    private $excel;
+    private $fileName;
+    protected $titles = array();
+    protected $excelModel;
+
 
     public function __construct(){
         parent::__construct();
@@ -19,6 +24,7 @@ class DataSearchController extends Controller
         }
 
         $this->homeModel =  $article = new \Home\Model\homeModel();// D('Home/home');
+        $this->excel = 1 ;
 
         $identity_id = $user['identity_id'];
 
@@ -79,10 +85,32 @@ class DataSearchController extends Controller
 
         $pageNum = isset($_POST['pageNum'])?$_POST['pageNum']:5;
         $page = isset($_POST['page'])?$_POST['page']:1;
-        $count = $user_info->where($map)->count();// 查询满足要求的总记录数
 
         $nickname = $_POST['nickname'];
         $phoneNum = $_POST['phoneNum'];
+
+        /*
+         搜索 机构等
+         */
+        $memberId = $_POST['memberMark'];
+        $agentId = $_POST['agentMark'];
+        $agentSubId = $_POST['agentSubMark'];
+
+
+        if($memberId){
+            $map['memberId'] = $memberId;
+        }
+
+        if($agentId){
+            $map['agentId'] = $agentId;
+        }
+
+        if($agentSubId){
+            $map['subagentId'] = $agentSubId;
+        }
+        /*
+         end
+         */
 
         if($nickname){
             $map['nickname'] = $nickname;
@@ -92,7 +120,10 @@ class DataSearchController extends Controller
             $map['phoneNum'] = $phoneNum;
         }
 
+        $count = $user_info->where($map)->count();// 查询满足要求的总记录数
+
         $list = $user_info->where($map)->page($page,$pageNum)->select();//获取分页数据
+
         foreach($list as $l){
             $userIds[] = $l['uid'];
         }
@@ -165,7 +196,6 @@ class DataSearchController extends Controller
         foreach ($freezeRows as $f){
             $freezePrice =  $f['order_num']* $f['order_price'];
 
-            //  dump($freezePrice);
 
             $freezeOrderPrice[$f['buy_uid']]['order_price'][] = $freezePrice;
             $freezePriceSum[$f['buy_uid']] = $f;
@@ -206,23 +236,40 @@ class DataSearchController extends Controller
         foreach ($list as $key=>$l){
             $listAll[$key] = $l;
             $listAll[$key]['sell_info'] = $sellPriceSum[$l['uid']];// 卖家  ：收入
+            $sell_price = $listAll[$key]['sell_sum_price'] = (int)$listAll[$key]['sell_info']['order_sum_price'];
+
             $listAll[$key]['buy_info']  = $buyPriceSum[$l['uid']];//买家 ：支出
+            $buy_price = $listAll[$key]['buy_sum_price'] = (int)$listAll[$key]['buy_info']['order_sum_price'];
+
 
             $listAll[$key]['total_info'] = $totalSellArr[$l['uid']]; // 卖家时,没成功的为资产
+            $total_sum_price = (int)$listAll[$key]['total_sum_price'] = $listAll[$key]['total_info']['order_sum_price'];
 
             $listAll[$key]['balance_info'] = $balaceArr[$l['uid']]; // 余额资金
+            $listAll[$key]['balance'] = (int)$listAll[$key]['balance_info']['balance'];
 
             $listAll[$key]['freeze_info'] = $freePriceSum[$l['uid']]; // 可用资金
+            $listAll[$key]['order_sum_price'] = (int)$listAll[$key]['freeze_info']['order_sum_price'];//冻结资金
+
+
+            $listAll[$key]['status_name'] = ((int)$sell_price -  (int)$buy_price < 0)?'亏':'赢';
+
+            $listAll[$key]['total'] = (int)$total_sum_price + (int)$buy_price ;
+
+    }
+
+
+        if($this->excel) {
+            $data['totalPages'] = $count;
+            $data['pageNum'] = $pageNum;
+            $data['page'] = $page;
+            $data['totalPages'] = ceil($count / $pageNum);
+            $data['list'] = $listAll;
+
+            $this->ajaxReturn($data);
         }
 
-
-        $data['totalPages'] = $count;
-        $data['pageNum'] =$pageNum;
-        $data['page'] = $page;
-        $data['totalPages'] = ceil($count/$pageNum);
-        $data['list'] = $listAll;
-
-        $this->ajaxReturn($data);
+        $this->excel = $listAll;
     }
 
     public function  getUserOrderinfo(){
@@ -237,6 +284,29 @@ class DataSearchController extends Controller
         $nickname = $_POST['nickname'];
         $phoneNum = $_POST['phoneNum'];
 
+        /*
+         搜索 机构等
+         */
+        $memberId = $_POST['memberMark'];
+        $agentId = $_POST['agentMark'];
+        $agentSubId = $_POST['agentSubMark'];
+
+        if($memberId){
+            $map['memberId'] = $memberId;
+        }
+
+        if($agentId){
+            $map['agentId'] = $agentId;
+        }
+
+        if($agentSubId){
+            $map['subagentId'] = $agentSubId;
+        }
+        /*
+         end
+         */
+
+
         if($nickname){
             $map['nickname'] = $nickname;
         }
@@ -244,6 +314,8 @@ class DataSearchController extends Controller
         if($phoneNum){
             $map['phoneNum'] = $phoneNum;
         }
+
+
 
         $count = $user_info->where($map)->count();// 查询满足要求的总记录数
 
@@ -311,26 +383,44 @@ class DataSearchController extends Controller
 
             $lists[$l['uid']]['agent_sub'] = $agentSubData[$lagentSubId];
 
+            //$lists[$l['uid']]['finished_buy_price'] = $finishedbuyRows[$l['uid']];
+            $starcode = $lists[$l['uid']]['starcode'] = $finishedbuyRows[$l['uid']]['starcode'];
+            $starname =  $lists[$l['uid']]['starname'] = $finishedbuyRows[$l['uid']]['starname'];
+            $lists[$l['uid']]['order_num'] = (int)$finishedbuyRows[$l['uid']]['order_num'];
+            $lists[$l['uid']]['un_order_num'] = (int)$unfinishedBuyRows[$l['uid']]['un_order_num'];
 
-            $lists[$l['uid']]['finished_buy_price'] = $finishedbuyRows[$l['uid']];
-            //$lists[$l['uid']]['finished_buy_price']['nums'] = count($finishedbuyRows[$l['uid']]);
-            //$lists[$l['uid']]['starcode'] = $finishedbuyRows[$l['uid']]['starcode'];
-
-            foreach ($finishedbuyRows[$l['uid']] as $fd){
-                $lists[$l['uid']]['finished_buy_price'][$fd['starcode']]['un_order_num'] =  $unfinishedBuyRows[$l['uid']][$fd['starcode']]['order_num'];
+            if($starcode || $starname) {
+                $lists[$l['uid']]['starcodename'] = $starcode . ' / ' . $starname;
+            }else{
+                $lists[$l['uid']]['starcodename'] = '';
             }
+
+            $type_member = isset($lists[$l['uid']]['member'])?$lists[$l['uid']]['member']['name']:'';
+            $type_agent = isset($lists[$l['uid']]['agent'])?$lists[$l['uid']]['member']['nickname']:'';
+            $agent_sub = isset($lists[$l['uid']]['agent_sub'])?$lists[$l['uid']]['agent_sub']['nickname']:'';
+
+            if($type_member || $type_agent || $agent_sub){
+                $lists[$l['uid']]['type_info'] = $type_member . ',' . $type_agent . ',' . $agent_sub;
+            }else{
+                $lists[$l['uid']]['type_info'] = '';
+            }
+
 
             // $lists[$l['uid']]['unfinished_buy_price']= $unfinishedBuyRows[$l['uid']];
             //$lists[$l['uid']]['unfinished_buy_price']['nums'] = count($unfinishedBuyRows[$l['uid']]);
         }
 
-        $data['totalPages'] = $count;
-        $data['pageNum'] =$pageNum;
-        $data['page'] = $page;
-        $data['totalPages'] = ceil($count/$pageNum);
-        $data['list'] = $lists;
+        if($this->excel) {
+            $data['totalPages'] = $count;
+            $data['pageNum'] = $pageNum;
+            $data['page'] = $page;
+            $data['totalPages'] = ceil($count / $pageNum);
+            $data['list'] = $lists;
 
-        $this->ajaxReturn($data);
+            $this->ajaxReturn($data);
+        }
+
+        $this->excel = $lists;
 
     }
 
@@ -346,6 +436,28 @@ class DataSearchController extends Controller
 
         $nickname = $_POST['nickname'];
         $phoneNum = $_POST['phoneNum'];
+
+        /*
+         搜索 机构等
+         */
+        $memberId = $_POST['memberMark'];
+        $agentId = $_POST['agentMark'];
+        $agentSubId = $_POST['agentSubMark'];
+
+        if($memberId){
+            $map['memberId'] = $memberId;
+        }
+
+        if($agentId){
+            $map['agentId'] = $agentId;
+        }
+
+        if($agentSubId){
+            $map['subagentId'] = $agentSubId;
+        }
+        /*
+         end
+         */
 
         if($nickname){
             $map['nickname'] = $nickname;
@@ -410,6 +522,7 @@ class DataSearchController extends Controller
 
         }
 
+
         foreach ($list as $l) {
             $lists[$l['uid']] = $l;
 
@@ -422,31 +535,89 @@ class DataSearchController extends Controller
 
             $lists[$l['uid']]['agent_sub'] = $agentSubData[$lagentSubId];
 
-            $lists[$l['uid']]['recharge'] = $rechargeData[$w['uid']];
+            $lists[$l['uid']]['recharge']= $rechargeData[$l['uid']];
+            $lists[$l['uid']]['deposit_name'] = isset($rechargeData[$l['uid']]['deposit_name'])?$rechargeData[$l['uid']]['deposit_name']:'未知';
+            $lists[$l['uid']]['amount_sum'] = isset($rechargeData[$l['uid']]['amount_sum'])?$rechargeData[$l['uid']]['amount_sum']:0;
+
+
+            $type_member = isset($lists[$l['uid']]['member'])?$lists[$l['uid']]['member']['name']:'';
+            $type_agent  = isset($lists[$l['uid']]['agent'])?$lists[$l['uid']]['agent']['nickname']:'';
+            $type_agent_sub  = isset($lists[$l['uid']]['agent_sub'])?$lists[$l['uid']]['agent_sub']['nickname']:'';
+
+            if($type_member || $type_agent || $type_agent_sub){
+                $lists[$l['uid']]['type_info'] =  $type_member . ',' .  $type_agent . ',' .  $type_agent_sub ;
+            }else{
+                $lists[$l['uid']]['type_info'] = '';
+            }
+
         }
 
-        $data['totalPages'] = $count;
-        $data['pageNum'] =$pageNum;
-        $data['page'] = $page;
-        $data['totalPages'] = ceil($count/$pageNum);
-        $data['list'] = $lists;
 
-        $this->ajaxReturn($data);
+
+        if($this->excel) {
+            $data['totalPages'] = $count;
+            $data['pageNum'] = $pageNum;
+            $data['page'] = $page;
+            $data['totalPages'] = ceil($count / $pageNum);
+            $data['list'] = $lists;
+
+            $this->ajaxReturn($data);
+        }else{
+            $this->excel = $lists;
+        }
     }
 
     //交易  失败的订单
 
     public function getTransactionInfo(){
+        $status = (int)$_POST['status'];
+        /*
+         搜索 机构等
+         */
+        $memberId = $_POST['memberMark'];
+        $agentId = $_POST['agentMark'];
+        $agentSubId = $_POST['agentSubMark'];
+
+        if($memberId){
+            $map['memberId'] = $memberId;
+        }
+
+        if($agentId){
+            $map['agentId'] = $agentId;
+        }
+
+        if($agentSubId){
+            $map['subagentId'] = $agentSubId;
+        }
+
+        /*
+         end
+         */
+
+        $user_info = M('star_userinfo');
+
+        $uidArr = $user_info->field('uid')->where($map)->select();
+        foreach ($uidArr as $uid){
+             $newUids[] = $uid['uid'];
+        }
+
+        $newUids = array_merge($newUids);
+        $newUids = array_filter(array_unique($newUids));
+
+        if($status == 1){  //买方
+
+            $whereOreder['buy_uid'] = array('in',$newUids);
+        }else if($status == 2){ // 卖方
+            $whereOreder['sell_uid'] = array('in',$newUids);
+        }
 
         //$this->getIdentity();
 
         $star_orderlist = M('star_orderlist');
 
-        $status = (int)$_POST['status'];
-
         $whereOreder['order_type'] = -1;
 
-        $pageNum = isset($_POST['pageNum'])?$_POST['pageNum']:5;
+        $pageNum = isset($_POST['pageNum'])?$_POST['pageNum']:10;
         $page = isset($_POST['page'])?$_POST['page']:1;
 
         $startTime = I('post.startTime');
@@ -468,12 +639,8 @@ class DataSearchController extends Controller
         }
 
 
-//        $uids = array_merge($sellUid,$buyUid);
-//        $uids = array_filter(array_unique($uids));
-
         $map = array();
 
-        $user_info = M('star_userinfo');
 
         if($status == 1){  //买方
             $uids = array_merge($buyUid);
@@ -487,7 +654,6 @@ class DataSearchController extends Controller
 
         $map = $this->getIdentity();
 
-        //dump($map);exit;
         $map['uid'] = array('in',$uids);
 
 
@@ -501,9 +667,6 @@ class DataSearchController extends Controller
 
             $userInfo[$u['uid']] = $u;
         }
-
-
-
 
 
         $memberIds = array_filter(array_unique($memberIds));
@@ -561,18 +724,33 @@ class DataSearchController extends Controller
             $lists[$l['id']]['agent'] = $agentSubData[$lagentId];
 
             $lists[$l['id']]['agent_sub'] = $agentSubData[$lagentSubId];
+
+            $type_member = isset($lists[$l['id']]['member']['name'])?$lists[$l['id']]['member']['name']:'';
+            $type_agent = isset($lists[$l['id']]['agent']['nickname'])?$lists[$l['id']]['agent']['nickname']:'';
+            $type_agent_sub = isset($lists[$l['id']]['type_agent_sub']['nickname'])?$lists[$l['id']]['type_agent_sub']['nickname']:'';
+
+            if($type_member || $type_agent || $type_agent_sub){
+                $lists[$l['id']]['type_info'] = $type_member . ',' . $type_agent . ',' . $type_agent_sub;
+            }else{
+                $lists[$l['id']]['type_info'] = '';
+            }
+
+
         }
 
+        if($this->excel) {
+            $data['totalPages'] = $count;
+            $data['pageNum'] = $pageNum;
+            $data['page'] = $page;
+            $data['totalPages'] = ceil($count / $pageNum);
+            $data['list'] = $lists;
 
-        $data['totalPages'] = $count;
-        $data['pageNum'] =$pageNum;
-        $data['page'] = $page;
-        $data['totalPages'] = ceil($count/$pageNum);
-        $data['list'] = $lists;
+            $data['status'] = $status;
 
-        $data['status'] = $status;
-
-        $this->ajaxReturn($data);
+            $this->ajaxReturn($data);
+        }else{
+            $this->excel =  $lists;
+        }
 
     }
 
@@ -581,11 +759,51 @@ class DataSearchController extends Controller
     public function getSuccessInfo(){
 
         $status = (int)$_POST['status'];
+
+        /*
+         搜索 机构等
+         */
+        $memberId = $_POST['memberMark'];
+        $agentId = $_POST['agentMark'];
+        $agentSubId = $_POST['agentSubMark'];
+
+        if($memberId){
+            $map['memberId'] = $memberId;
+        }
+
+        if($agentId){
+            $map['agentId'] = $agentId;
+        }
+
+        if($agentSubId){
+            $map['subagentId'] = $agentSubId;
+        }
+
+        /*
+         end
+         */
+
+        $uidArr = M('star_userinfo')->field('uid')->where($map)->select();
+        foreach ($uidArr as $uid){
+            $newUids[] = $uid['uid'];
+        }
+
+        $newUids = array_merge($newUids);
+        $newUids = array_filter(array_unique($newUids));
+
+        if($status == 1){  //买方
+
+            $whereOreder['buy_uid'] = array('in',$newUids);
+        }else if($status == 2){ // 卖方
+            $whereOreder['sell_uid'] = array('in',$newUids);
+        }
+
+
         $star_orderlist = M('star_orderlist');
 
         $whereOreder['order_type'] = 2;
 
-        $pageNum = isset($_POST['pageNum'])?$_POST['pageNum']:5;
+        $pageNum = isset($_POST['pageNum'])?$_POST['pageNum']:10;
         $page = isset($_POST['page'])?$_POST['page']:1;
 
         $startTime = I('post.startTime');
@@ -654,7 +872,6 @@ class DataSearchController extends Controller
             $lists[$l['id']]['name'] = isset($userInfo[$listUid]['nickname'])?$userInfo[$listUid]['nickname']:'';
             $lists[$l['id']]['phone'] = isset($userInfo[$listUid]['phoneNum'])?$userInfo[$listUid]['phoneNum']:'';
 
-            //dump($lists[$l['id']]['name']);dump($listUid);dump($lists);exit;
 
            // $lists[$l['id']]['buy_name'] = isset($userInfo[$buyUid]['nickname'])?$userInfo[$buyUid]['nickname']:'';
            // $lists[$l['id']]['buy_phone'] = isset($userInfo[$buyUid]['phoneNum'])?$userInfo[$buyUid]['phoneNum']:'';
@@ -666,15 +883,19 @@ class DataSearchController extends Controller
         }
 
 
+        if($this->excel){
 
-        $data['totalPages'] = $count;
-        $data['pageNum'] =$pageNum;
-        $data['page'] = $page;
-        $data['totalPages'] = ceil($count/$pageNum);
-        $data['list'] = $lists;
-        $data['status'] = $status;
+            $data['totalPages'] = $count;
+            $data['pageNum'] = $pageNum;
+            $data['page'] = $page;
+            $data['totalPages'] = ceil($count / $pageNum);
+            $data['list'] = $lists;
+            $data['status'] = $status;
 
-        $this->ajaxReturn($data);
+            $this->ajaxReturn($data);
+        }else{
+            $this->excel = $lists;
+        }
 
 
     }
@@ -708,7 +929,6 @@ class DataSearchController extends Controller
 
         $list = D()->table("{$groupSql} as t")->order('days desc')->page($page,$pageNum)->select();
 
-        //dump(D()->table("{$groupSql} as t")->_sql());
 
         $data['totalPages'] = $count;
         $data['pageNum'] =$pageNum;
@@ -723,11 +943,23 @@ class DataSearchController extends Controller
 
         $orederRows = M('star_orderlist')->field(' sum(order_num) as nums , starcode,buy_uid ')->where($where)->group('starcode')->select(); //买方
 
-        // dump($orederRows);
 
         foreach ($orederRows as $o){
-            $rows[$o['buy_uid']][$o['starcode']]['order_num'] = $o['nums'];
-            $rows[$o['buy_uid']][$o['starcode']]['starcode'] = $o['starcode'];
+            $codeArr[] = $o['starcode'];
+        }
+
+        $codeWhere['code']  = array('in',$codeArr);
+        $nameArr = M('star_starbrief')->field('code,name')->where($codeWhere)->select();
+
+        $nameRow = array();
+        foreach ($nameArr as $n){
+            $nameRow[$n['code']] = $n['name'];
+        }
+
+        foreach ($orederRows as $o){
+            $rows[$o['buy_uid']]['order_num'] = $o['nums'];
+            $rows[$o['buy_uid']]['starcode'] = $o['starcode'];
+            $rows[$o['buy_uid']]['starname'] = isset($nameRow[$o['starcode']])?$nameRow[$o['starcode']]:'';
         }
 
 
@@ -750,7 +982,7 @@ class DataSearchController extends Controller
         return $agent_info->where($where)->select();
     }
 
-    private function getAgentSubName(){
+    private function getAgentSubName($where){
         $agent_info = M('agentsub_info');
         return $agent_info->where($where)->select();
     }
@@ -777,5 +1009,217 @@ class DataSearchController extends Controller
 
         return $this->homeModel->getUserInfoIdentity($T);
     }
+
+    private function excelModels($fields){
+        return new \Home\Model\excelModel($this->titles,$fields,$this->fileName);
+    }
+
+
+    public function downloadExcelFund(){
+        $this->titles = $this->titlesFundArr();
+        $fields = $this->fieldFundArr();
+        $this->fileName = '资金查询';
+        $this->excelModel =  $this->excelModels($fields);
+
+        $this->excel = 0;
+        $this->getUserInfo();
+        $excel =$this->excel;
+        $this->excelModel->excelFile($excel);
+    }
+
+    private function titlesFundArr(){
+        return array(
+            '序号',
+            '消费者名称',
+            '收入',
+            '支出',
+            '冻结资金',
+            '可用资金',
+            '浮动盈亏',
+            '资产总值'
+        );
+    }
+
+    private function fieldFundArr(){
+        return array(
+            'uid',
+            'nickname',
+            'sell_sum_price',
+            'buy_sum_price',
+            'order_sum_price',
+            'balance',
+            'status_name',
+            'total',
+        );
+    }
+
+    public function downloadExcelPosition(){
+        $this->titles = $this->titlesPositionArr();
+        $this->fileName = '持仓汇总';
+        $fields = $this->fieldPositionArr();
+        $this->excelModel =  $this->excelModels($fields);
+
+        $this->excel = 0;
+        $this->getUserOrderinfo();
+        $excel =$this->excel;
+        $this->excelModel->excelFile($excel);
+    }
+
+    private function titlesPositionArr(){
+        return array(
+            '序号',
+            '明星编号／明星',
+            '消费者姓名',
+            '消费者手机号',
+            '持仓量（持单个明星总秒数）',
+            '冻结量（未交易成功的秒数）',
+            '所属机构、所属区域、所属经纪人',
+        );
+    }
+
+    private function fieldPositionArr(){
+        return array(
+            'uid',
+            'starcodename',
+            'nickname',
+            'phoneNum',
+            'order_num',
+            'un_order_num',
+            'type_info',
+        );
+    }
+
+    public function downloadExcelRecharge(){
+        $this->titles = $this->titlesRechargeArr();
+        $this->fileName = '充值金额';
+        $fields = $this->fieldRechargeArr();
+        $this->excelModel =  $this->excelModels($fields);
+
+        $this->excel = 0;
+        $this->getRechargeInfo();
+        $excel =$this->excel;
+        $this->excelModel->excelFile($excel);
+    }
+
+    private function titlesRechargeArr(){
+        return array(
+            '序号',
+            '消费者手机号',
+            '消费者姓名',
+            '所属机构、所属区域、所属经纪人',
+            '充值方式',
+            '充值金额'
+        );
+    }
+
+    private function fieldRechargeArr(){
+        return array(
+            'uid',
+            'phoneNum',
+            'nickname',
+            'type_info',
+            'deposit_name',
+            'amount_sum'
+        );
+    }
+
+    public function downloadExcelTransaction(){
+        $status = (int)$_POST['status'];
+        if($status == 1){
+            $name = '买家';
+        }else if($status == 2){
+            $name = '卖家';
+        }else{
+            $name = '未知';
+        }
+
+        $this->titles = $this->titlesTransactionArr($name);
+        $this->fileName = '交易额明细';
+
+        $fields = $this->fieldTransactionArr();
+        $this->excelModel =  $this->excelModels($fields);
+
+        $this->excel = 0;
+        $this->getTransactionInfo();
+        $excel =$this->excel;
+        $this->excelModel->excelFile($excel);
+    }
+
+    private function titlesTransactionArr($name='买家'){
+        return array(
+            '序号',
+            $name.'手机号',
+            $name.'姓名',
+            '所属机构、所属区域、所属经纪人',
+            '成交数量',
+            '成交金额'
+        );
+    }
+
+    private function fieldTransactionArr(){
+        return array(
+            'id',
+            'phone',
+            'name',
+            'type_info',
+            'order_num',
+            'order_price'
+        );
+    }
+
+
+    public function downloadExcelSuccess(){
+        $status = (int)$_POST['status'];
+        if($status == 1){
+            $name = '买家';
+        }else if($status == 2){
+            $name = '卖家';
+        }else{
+            $name = '未知';
+        }
+
+        $this->titles = $this->titlesSuccessArr($name);
+        $this->fileName = '成交明细';
+
+        $fields = $this->fieldTSuccessArr();
+        $this->excelModel =  $this->excelModels($fields);
+
+        $this->excel = 0;
+        $this->getSuccessInfo();
+        $excel =$this->excel;
+        $this->excelModel->excelFile($excel);
+    }
+
+    private function titlesSuccessArr($name='买家'){
+        return array(
+            '序号',
+            '成交日期时间',
+            '成交订单编号',
+            $name.'姓名',
+            $name.'手机号',
+            '交易类型',
+            '明星名称／代码',
+            '成交数量',
+            '成交价格',
+            '成交金额'
+        );
+    }
+
+    private function fieldTSuccessArr(){
+        return array(
+            'id',
+            'close_time',
+            'order_id',
+            'name',
+            'phone',
+            'statusValue',
+            'starcode',
+            'order_num',
+            'order_price',
+            'order_total'
+        );
+    }
+
+
 
 }

@@ -52,12 +52,21 @@ define([
             var _this = this;
             $(".J_search").on("click", function () {
                 var oForm = $(".search-bar");
+                var memberMark = oForm.find("input[name=memberMark]").val();
+                if(memberMark){
+                    oForm.find("input[name=search_id]").val(1);
+                }else {
+                    oForm.find("input[name=search_id]").val(0);
+                }
                 var data = {
                     page: 1,
                     startTime: oForm.find("#dateStart").val(),
                     endTime: oForm.find("#dateEnd").val(),
                     nickname: oForm.find("[name=nickname]").val(),
-                    phoneNum: oForm.find("input[name=phone]").val()
+                    phoneNum: oForm.find("input[name=phone]").val(),
+                    memberMark: oForm.find("input[name=memberMark]").val(),
+                    agentMark: oForm.find("[name=agentMark]").val(),
+                    agentSubMark: oForm.find("[name=agentSubMark]").val()
                 };
                 _this.fnGetList(data, true);
             });
@@ -71,7 +80,10 @@ define([
                     startTime: oForm.find("#dateStart").val(),
                     endTime: oForm.find("#dateEnd").val(),
                     nickname: oForm.find("[name=nickname]").val(),
-                    phoneNum: oForm.find("input[name=phone]").val()
+                    phoneNum: oForm.find("input[name=phone]").val(),
+                    memberMark: oForm.find("input[name=memberMark]").val(),
+                    agentMark: oForm.find("[name=agentMark]").val(),
+                    agentSubMark: oForm.find("[name=agentSubMark]").val()
                 };
                 _this.fnGetList(data, true);
             });

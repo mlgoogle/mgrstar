@@ -19,7 +19,7 @@ class InfoController extends CTController
     //const UPLOADSDIR = '.' .DIRECTORY_SEPARATOR. 'Public'. DIRECTORY_SEPARATOR;             // ./Public/uploads/info/
     //const STARDIR = 'uploads' . DIRECTORY_SEPARATOR . 'info' . DIRECTORY_SEPARATOR;         //  uploads/info/
 
-	const UPLOADSDIR = "/Public/uploads/";
+	const UPLOADSDIR = "Public/uploads/";
     const STARDIR = "info/";
     public function __construct()
     {

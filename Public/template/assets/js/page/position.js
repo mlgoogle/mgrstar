@@ -52,12 +52,26 @@ define([
             var _this = this;
             $(".J_search").on("click", function () {
                 var oForm = $(".search-bar");
+
+                var memberMark = oForm.find("input[name=memberMark]").val();
+                var agentMark  = oForm.find("[name=agentMark]").val();
+                var agentSubMark  = oForm.find("[name=agentSubMark]").val();
+                if(memberMark){
+                    oForm.find("input[name=search_id]").val(1);
+                }else {
+                    oForm.find("input[name=search_id]").val(0);
+                }
+
                 var data = {
                     page: 1,
+                    pageNum: 10,
                     startTime: oForm.find("#dateStart").val(),
                     endTime: oForm.find("#dateEnd").val(),
                     nickname: oForm.find("[name=nickname]").val(),
-                    phoneNum: oForm.find("input[name=phone]").val()
+                    phoneNum: oForm.find("input[name=phone]").val(),
+                    memberMark: oForm.find("input[name=memberMark]").val(),
+                    agentMark: oForm.find("[name=agentMark]").val(),
+                    agentSubMark: oForm.find("[name=agentSubMark]").val()
                 };
                 _this.fnGetList(data, true);
             });
@@ -103,43 +117,24 @@ define([
                     var nameTd = '<td>' + v.nickname + '</td>';
                     var phoneTd = '<td>' + v.phoneNum + '</td>';
 
-                    console.log(v);
 
-                    var type_member = v.member?v.member.name:'';
-                    var type_agent = v.agent?v.agent.nickname:'';
-                    var type_agent_sub = v.agent_sub?v.agent_sub.nickname:'';
+                    // var type_member = v.member?v.member.name:'';
+                    // var type_agent = v.agent?v.agent.nickname:'';
+                    // var type_agent_sub = v.agent_sub?v.agent_sub.nickname:'';
 
-                    var type_info = '<td>' +  type_member + ',' + type_agent + ',' + type_agent_sub +'</td>';
-
-
-                    //console.log(v.finished_buy_price.nums);
+                    var type_info = '<td>' +  v.type_info +'</td>';
 
 
-                    if(v.finished_buy_price) {
+                    var starcodeTd = '<td>' + (v.starcodename ? v.starcodename : '') + '</td>';
+                    var order_numTd = '<td>' + (v.order_num ? v.order_num : 0) + '</td>';
+                    var un_order_numTd = '<td>' + (v.un_order_num ? v.un_order_num : 0) + '</td>';
 
-                        $.each(v.finished_buy_price, function (i, t) {
+                    oTr +=
+                        '<tr class="fadeIn animated" data-id="' + v.uid + '">'
+                        + checkTd + xuTd + starcodeTd + nameTd + phoneTd + order_numTd + un_order_numTd +
+                        type_info +
+                        '</tr>';
 
-                            var starcodeTd = '<td>' + (t.starcode ? t.starcode : '') + '</td>';
-                            var finished_buy_price = '<td>' + (t.order_num ? t.order_num : 0) + '</td>';
-                            var unfinished_buy_price = '<td>' + (t.un_order_num ? t.un_order_num : 0) + '</td>';
-                           // alert(starcodeTd);
-                            oTr +=
-                                '<tr class="fadeIn animated" data-id="' + v.uid + '">'
-                                + checkTd + xuTd + starcodeTd + nameTd + phoneTd + finished_buy_price + unfinished_buy_price +
-                                type_info +
-                                '</tr>';
-                        });
-                    }else {
-
-                        var starcodeTd = '<td>' + '' + '</td>';
-                        var finished_buy_price = '<td>' + 0 + '</td>';
-                        var unfinished_buy_price = '<td>' +  0  + '</td>';
-
-                        oTr +=
-                            '<tr class="fadeIn animated" data-id="' + v.uid + '">'
-                            + checkTd + xuTd + starcodeTd + nameTd + phoneTd + finished_buy_price + unfinished_buy_price + type_info +
-                            '</tr>';
-                    }
                 });
 
                 table.find("tbody").empty().html(oTr);

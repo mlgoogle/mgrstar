@@ -52,12 +52,21 @@ define([
             var _this = this;
             $(".J_search").on("click", function () {
                 var oForm = $(".search-bar");
+                var memberMark = oForm.find("input[name=memberMark]").val();
+                if(memberMark){
+                    oForm.find("input[name=search_id]").val(1);
+                }else {
+                    oForm.find("input[name=search_id]").val(0);
+                }
                 var data = {
                     page: 1,
                     startTime: oForm.find("#dateStart").val(),
                     endTime: oForm.find("#dateEnd").val(),
                     nickname: oForm.find("[name=nickname]").val(),
-                    phoneNum: oForm.find("input[name=phone]").val()
+                    phoneNum: oForm.find("input[name=phone]").val(),
+                    memberMark: memberMark,
+                    agentMark: oForm.find("[name=agentMark]").val(),
+                    agentSubMark: oForm.find("[name=agentSubMark]").val()
                 };
                 _this.fnGetList(data, true);
             });
@@ -103,16 +112,14 @@ define([
                     var phoneTd = '<td>' + v.phoneNum + '</td>';
 
 
-                    var type_member = v.member?v.member.name:'';
-                    var type_agent = v.agent?v.agent.nickname:'';
-                    var type_agent_sub = v.agent_sub?v.agent_sub.nickname:'';
 
-                    var type_info = '<td>' +  type_member + ',' + ',' + type_agent + type_agent_sub +'</td>';
+                    var type_info = '<td>' +  v.type_info +'</td>';
 
 
-                    var deposit_nameTd = '<td>' + (v.recharge?v.recharge.deposit_name:'') + '</td>';
+                    var deposit_nameTd = '<td>' + (v.recharge?v.recharge.deposit_name:'未知') + '</td>';
                     var amount_sumTd = '<td>' + (v.recharge?v.recharge.amount_sum:0) + '</td>';
 
+                    console.log(v.recharge);
 
                     oTr +=
                         '<tr class="fadeIn animated" data-id="' + v.uid + '">'
