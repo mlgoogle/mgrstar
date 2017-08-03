@@ -7,7 +7,6 @@ define([
     "pagination",
     "remodal"
 ], function ($, utils, config, dataAPI) {
-    console.log(dataAPI);
 
     var changeLineModal = $('[data-remodal-id=changeLineModal]').remodal();
     var body = $("body");
@@ -52,12 +51,32 @@ define([
             var _this = this;
             $(".J_search").on("click", function () {
                 var oForm = $(".search-bar");
+                var memberMark = oForm.find("input[name=memberMark]").val();
+                var agentMark  = oForm.find("[name=agentMark]").val();
+                var agentSubMark  = oForm.find("[name=agentSubMark]").val();
+                if(memberMark){
+                    oForm.find("input[name=search_id]").val(1);
+                    /*
+                    if(agentMark){
+                        oForm.find("input[name=search_id]").val(2);
+                        if(agentSubMark){
+                            oForm.find("input[name=search_id]").val(3);
+                        }
+                    }
+                    */
+                }else {
+                    oForm.find("input[name=search_id]").val(0);
+                }
+
                 var data = {
                     page: 1,
                     startTime: oForm.find("#dateStart").val(),
                     endTime: oForm.find("#dateEnd").val(),
                     nickname: oForm.find("[name=nickname]").val(),
-                    phoneNum: oForm.find("input[name=phone]").val()
+                    phoneNum: oForm.find("input[name=phone]").val(),
+                    memberMark: memberMark,
+                    agentMark: agentMark,
+                    agentSubMark: agentSubMark
                 };
                 _this.fnGetList(data, true);
             });
@@ -83,6 +102,8 @@ define([
         fnGetList: function (data, initPage) {
             var _this = this;
             var table = $(".data-container table");
+
+
             dataAPI.getUserinfo(data, function (result) {
                 console.log("获取客户管理列表 调用成功!");
 
@@ -95,20 +116,15 @@ define([
                     checkTd = '<td><input type="checkbox"></td>';
 
                 $.each(result.list, function (i, v) {
-                    var timeTd = '<td>' + v.registerTime + '</td>';
                     var xuTd   = '<td>' + v.uid + '</td>';
-                    var endTimeTd   = '<td>'+''+ '</td>';
                     var nameTd = '<td>' + v.nickname + '</td>';
-                    var phoneTd = '<td>' + v.phoneNum + '</td>';
-                    var orgTd = '<td>' + (v.memberInfo ? v.memberInfo.name : "") + '</td>';
-                    var brokerTd = '<td>' + (v.ageInfo ? v.ageInfo.nickname : "") + '</td>';
 
-                    var dayTimeTd =  '<td>'+''+ '</td>';//结算日
-                    var numberTd =  '<td>'+''+ '</td>';//消费者编号
+                   // var dayTimeTd =  '<td>'+''+ '</td>';//结算日
+                  //  var numberTd =  '<td>'+''+ '</td>';//消费者编号
                     var sellPriceTd =  '<td>' +   (v.sell_info ?v.sell_info.order_sum_price:0 )+ '</td>'; // 收入
                     var buyPriceTd =  '<td>' +  (v.buy_info ?v.buy_info.order_sum_price:0 ) + '</td>'; // 支出
-                    var startCapitalTd = '<td>'+''+ '</td>';//起始资金
-                    var endCapitalTd = '<td>'+''+ '</td>';//期末资金
+                 //   var startCapitalTd = '<td>'+''+ '</td>';//起始资金
+                  //  var endCapitalTd = '<td>'+''+ '</td>';//期末资金
                     var balanceTd =  '<td>' +  (v.balance_info?v.balance_info.balance:0) + '</td>'; //余额 可用资金
                     var freezeTd =  '<td>' +  (v.freeze_info?v.freeze_info.order_sum_price:0) + '</td>'; //冻结资金
 
@@ -117,22 +133,15 @@ define([
                    var  buy_price = v.buy_info ?v.buy_info.order_sum_price:0 ;
                    var  sell_total_price =  v.total_info ?v.total_info.order_sum_price:0 ;// 卖家时,没成功的为资产
 
-                    statusTd = sell_price -  buy_price < 0?'亏':'赢';
+                    statusTdName = sell_price -  buy_price < 0?'亏':'赢';
                     var  total_order_sum_price = sell_total_price + buy_price;
-                    var statusTd = '<td>' + statusTd + '</td>';
+                    var statusTd = '<td>' + statusTdName + '</td>';
                     var totalTd  = '<td>' + total_order_sum_price  + '</td>'; //总资产;
 
-
-                    var controlTd =
-                        "<td>" +
-                        "<a class='text-blue' href='../clientmanage/wpclog?uid=" + v.uid + "'> 查看 </a> " +
-                        // "<a class='J_showChangeLine text-blue' href='javascript:;'> 额度 </a> | " +
-                        // "<a class='J_showStopTrade text-blue' href='javascript:;'> 停止交易 </a>" +
-                        "</td>";
                     oTr +=
                         '<tr class="fadeIn animated" data-id="' + v.uid + '">'
-                        + checkTd + xuTd + dayTimeTd + numberTd + nameTd + sellPriceTd + buyPriceTd + startCapitalTd +
-                        endCapitalTd + freezeTd + balanceTd + statusTd + totalTd +
+                        + checkTd + xuTd   + nameTd + sellPriceTd + buyPriceTd
+                        + freezeTd + balanceTd + statusTd + totalTd +
                         '</tr>';
                 });
                 table.find("tbody").empty().html(oTr);

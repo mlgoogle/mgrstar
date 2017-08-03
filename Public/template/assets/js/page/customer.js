@@ -127,10 +127,19 @@ define([
             var _this = this;
             $(".J_search").on("click", function () {
                 var oForm = $(".search-bar");
+                var memberMark = oForm.find("input[name=memberMark]").val();
+                if(memberMark){
+                    oForm.find("input[name=search_id]").val(1);
+                }else {
+                    oForm.find("input[name=search_id]").val(0);
+                }
                 var data = {
                     page: 1,
                     superMemberid: oForm.find("select[name=level]").val(),
-                    name: oForm.find("input[name=orgName]").val() || ""
+                    name: oForm.find("input[name=orgName]").val() || "",
+                    memberMark: memberMark ,
+                    agentMark: oForm.find("[name=agentMark]").val(),
+                    agentSubMark: oForm.find("[name=agentSubMark]").val()
                 };
                 _this.fnGetList(data, true);
             });
@@ -160,10 +169,11 @@ define([
                     var registerStatus = '<td>' + v.isreal + '</td>';
                     var recommend = '<td>' + v.recommend + '</td>';
 
-                    oTr += '<tr class="fadeIn animated" data-id="' + v.id + '" data-idcard="' +v.idcards+ '">' + id + registerTime + phoneNum + realname + nickname + recommend + registerStatus + agentId + controlTd + '</tr>';
+                    oTr += '<tr class="fadeIn animated" data-id="' + v.id + '" data-idcard="' +v.idcards+ '">' + id + registerTime + phoneNum + realname +
+                        nickname + recommend + registerStatus + agentId + controlTd + '</tr>';
                 });
 
-                oTr += '<tr><td colspan="8">当前消费者总数为：'+ result.total +'</td></tr>';
+                oTr += '<tr><td colspan="10">当前消费者总数为：'+ result.total +'</td></tr>';
                     table.find("tbody").empty().html(oTr);
                 if (initPage) {
                     var pageCount = result.totalPages;

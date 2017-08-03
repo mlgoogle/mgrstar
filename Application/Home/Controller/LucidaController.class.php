@@ -543,29 +543,29 @@ class LucidaController extends CTController
             return $this->ajaxReturn($return);
         }
 
-        if(!$headUrl){
-            $return = array(
-                'code' => -2,
-                'message' => ' 请上传头像！'
-            );
-            return $this->ajaxReturn($return);
-        }
-
-        if(!$backPic){
-            $return = array(
-                'code' => -2,
-                'message' => ' 请上传介绍背景图！'
-            );
-            return $this->ajaxReturn($return);
-        }
-
-        if(!$pic1){
-            $return = array(
-                'code' => -2,
-                'message' => ' 请上传首页推荐图！'
-            );
-            return $this->ajaxReturn($return);
-        }
+//        if(!$headUrl){
+//            $return = array(
+//                'code' => -2,
+//                'message' => ' 请上传头像！'
+//            );
+//            return $this->ajaxReturn($return);
+//        }
+//
+//        if(!$backPic){
+//            $return = array(
+//                'code' => -2,
+//                'message' => ' 请上传介绍背景图！'
+//            );
+//            return $this->ajaxReturn($return);
+//        }
+//
+//        if(!$pic1){
+//            $return = array(
+//                'code' => -2,
+//                'message' => ' 请上传首页推荐图！'
+//            );
+//            return $this->ajaxReturn($return);
+//        }
 
         if (count($item) > 0) {
             $model->uid = $item['uid'];
@@ -579,9 +579,9 @@ class LucidaController extends CTController
             $hostUrl = 'http://'.$_SERVER['HTTP_HOST'];
 
 
-            $picArr = $_POST['pic'];
+            $picArr = $_POST['pic'];  // 写真大图
             for ($i = 2; $i <= 5; $i++) {
-                if (isset($_POST['pic'.$i])) {
+                if (!empty($_POST['pic'.$i])) {
                     $pic_flag++;
                     $key = 'pic' . $i;
                     $pic = I("post.$key", '', 'strip_tags');
@@ -597,14 +597,14 @@ class LucidaController extends CTController
                     $pic_flag = 1;
                 }
             }
-
-            if ($pic_flag == 0) {
-                $return = array(
-                    'code' => -2,
-                    'message' => '至少上传一张写真大图！'
-                );
-                return $this->ajaxReturn($return);
-            }
+//
+//            if ($pic_flag == 0) {
+//                $return = array(
+//                    'code' => -2,
+//                    'message' => '至少上传一张写真大图！'
+//                );
+//                return $this->ajaxReturn($return);
+//            }
 
 
             $model->colleage = $colleage;
@@ -612,10 +612,15 @@ class LucidaController extends CTController
             $model->worth = $worth;
            // $model->appoint_id = $appoint_id;
             $model->weibo = $weibo;
-            $model->head_url = $hostUrl . "/Public/uploads/" . self::STARPIC .$headUrl;
-
-            $model->back_pic = $hostUrl . "/Public/uploads/" . self::STARPIC .$backPic;
-            $model->pic1 = $hostUrl . "/Public/uploads/" . self::STARPIC .$pic1;
+            if($headUrl) {
+                $model->head_url = $hostUrl . "/Public/uploads/" . self::STARPIC . $headUrl;
+            }
+            if($backPic) {
+                $model->back_pic = $hostUrl . "/Public/uploads/" . self::STARPIC . $backPic;
+            }
+            if($pic1) {
+                $model->pic1 = $hostUrl . "/Public/uploads/" . self::STARPIC . $pic1;
+            }
 
 
             $model->modify_time = date('Y-m-d H:i:s', time());

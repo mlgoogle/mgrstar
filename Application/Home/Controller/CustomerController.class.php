@@ -17,11 +17,16 @@ class CustomerController extends CTController
     const DELETE_OFF = 1;
     const DELETE_TRUE = 2;
 
-    public function __construct()
-    {
+    private $excel;
+    protected $titles = array();
+    protected $excelModel;
+
+    public function __construct(){
         parent::__construct();
 
-        //$this->user = session('user');
+            //$this->user = session('user');
+
+        $this->excel = 1;
 
         $this->assign('title', '消费者列表');
     }
@@ -193,8 +198,31 @@ class CustomerController extends CTController
         $pageNum = I('post.pageNum', 5, 'intval');
         $page = I('post.page', 1, 'intval');
 
-        $count = $customer->count();// 查询满足要求的总记录数
-        $list = $customer->page($page, $pageNum)->order('uid desc')->select();//获取分页数据
+        /*
+         搜索 机构等
+         */
+        $memberId = $_POST['memberMark'];
+        $agentId = $_POST['agentMark'];
+        $agentSubId = $_POST['agentSubMark'];
+        $map = array();
+        if($memberId){
+            $map['memberId'] = $memberId;
+        }
+
+        if($agentId){
+            $map['agentId'] = $agentId;
+        }
+
+        if($agentSubId){
+            $map['subagentId'] = $agentSubId;
+        }
+
+        /*
+         end
+         */
+
+        $count = $customer->where($map)->count();// 查询满足要求的总记录数
+        $list = $customer->where($map)->page($page, $pageNum)->order('uid desc')->select();//获取分页数据
         foreach ($list as $item) {
             $uidArr[] = $item['uid'];
         }
@@ -225,15 +253,60 @@ class CustomerController extends CTController
                 $list[$key]['isreal'] = '是';
             }
         }
+        if($this->excel) {
+            new \Think\Page($count, $pageNum);// 实例化分页类 传入总记录数和每页显示的记录数(25)
+            $data['totalPages'] = $count;
+            $data['pageNum'] = $pageNum;
+            $data['page'] = $page;
+            $data['totalPages'] = ceil($count / $pageNum);
+            $data['list']  = $list;
+            $data['total'] = $count;
 
-        new \Think\Page($count, $pageNum);// 实例化分页类 传入总记录数和每页显示的记录数(25)
-        $data['totalPages'] = $count;
-        $data['pageNum'] = $pageNum;
-        $data['page'] = $page;
-        $data['totalPages'] = ceil($count / $pageNum);
-        $data['list'] = $list;
-        $data['total'] = $count;
-
-        $this->ajaxReturn($data);
+            $this->ajaxReturn($data);
+        }
+        $this->excel = $list;
     }
+
+
+
+    public function downloadExcel(){
+        $this->titles = $this->titlesArr();
+        $fields = $this->fieldArr();
+        $this->fileName = '消费者列表';
+        $this->excelModel = new \Home\Model\excelModel($this->titles,$fields,$this->fileName);
+
+        $this->excel = 0;
+        $this->searchCustomer();
+        $excel =$this->excel;
+        $this->excelModel->excelFile($excel);
+    }
+
+    private function titlesArr(){
+        return array(
+            '序号',
+            '创建时间',
+            '手机号',
+            '姓名',
+            '昵称',
+            '所属机构/区域/经纪人',
+            '实名认证',
+            '推荐人'
+        );
+    }
+
+    private function fieldArr(){
+        return array(
+            'uid',
+            'registerTime',
+            'phoneNum',
+            'realname',
+            'nickname',
+            'recommend',
+            'isreal',
+            'agentId',
+            ''
+        );
+    }
+
+    
 }

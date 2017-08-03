@@ -107,7 +107,7 @@
 
                 <div class="form-control">
                     <label>明星头像</label>
-                    <input type="file"  id='filePic' readonly value="" accept="image/png,image/jpg"  >
+                    <input type="file"  id='filePic'  readonly value="" accept="image/png,image/jpg"  >
 
                     <span  class="star_pic_div">
                         <?php if($item['head_url']) {  ?>
@@ -116,12 +116,12 @@
                     </span>
 
                     <span onclick="UploadPic()" class="mybtn">上传</span>
-                    <input type="hidden" name="head_url"  value="<?php echo $item['head_url1'];?>">
+                    <input type="hidden" name="head_url"  value=""> <!-- <?php echo $item['head_url1'];?> -->
                 </div>
 
                 <div class="form-control">
                     <label>介绍背景图</label>
-                    <input type="file"  id='fileBackPic' readonly value="" accept="image/png,image/jpg"  >
+                    <input type="file"  id='fileBackPic'  readonly value="" accept="image/png,image/jpg"  >
 
                     <span  class="back_pic_div">
                         <?php if($item['back_pic']) {  ?>
@@ -130,12 +130,12 @@
                     </span>
 
                     <span onclick="UploadBackPic()" class="mybtn">上传</span>
-                    <input type="hidden" name="back_pic"  value="<?php echo $item['back_pic1'] ?>">
+                    <input type="hidden" name="back_pic"  value="">  <!-- <?php echo $item['back_pic1'] ?> -->
                 </div>
 
                 <div class="form-control">
                     <label>首页推荐图</label>
-                    <input type="file"  id='filePic1' readonly value="" accept="image/png,image/jpg"  >
+                    <input type="file"  id='filePic1'  readonly value="" accept="image/png,image/jpg"  >
 
                     <span  class="pic1_div">
                         <?php if($item['pic1']) {  ?>
@@ -144,7 +144,7 @@
                     </span>
 
                     <span onclick="UploadIndexPic()" class="mybtn">上传</span>
-                    <input type="hidden" name="pic1"  value="<?php echo $item['picIndex'];?>">
+                    <input type="hidden" name="pic1"  value="">   <!-- <?php echo $item['picIndex'];?> -->
                 </div>
 
 
@@ -226,7 +226,7 @@
                                 <label style="cursor: pointer;color: #ff0000">X</label>
                             </div>
                             <div style="margin:10px;"><img src="'.$pic.'" title="点击删除"  data-key="'.$key.'"></div>
-                            <input type="hidden" name="'.$key .'" value="'.$pathPic.'">
+                            <input type="hidden" name="'.$key .'" value="">  <!-- '.$pathPic.' -->
                         </span>';
                         }
                     </php>
