@@ -347,7 +347,6 @@ class StarController extends CTController
 
         $count = $userInfo->where($map)->count();// 查询满足要求的总记录数
         $list = $userInfo->where($map)->page($page, $pageNum)->select();
-
         $starcodeRow = array();
         foreach ($list as $l){
             $starcodeRow[] = $l['starcode'];
@@ -369,6 +368,11 @@ class StarController extends CTController
 
         new \Think\Page($count, $pageNum);// 实例化分页类 传入总记录数和每页显示的记录数(25)
 
+
+        $data['totalPages'] = $count;
+        $data['pageNum'] = $pageNum;
+        $data['page'] = $page;
+        $data['totalPages'] = ceil($count / $pageNum);
         $data['list'] = $list;
         return $this->ajaxReturn($data);
     }
@@ -401,20 +405,12 @@ class StarController extends CTController
         if($userInfoModel->where("`starcode` = '{$starcode}'")->find()){  //`phoneNum` = '{$phoneNum}' OR
             $return = array(
                 'code' => -2,
-                'message' => '明星已存在！'
+                'message' => '明星已关联账号！'
             );
             $this->ajaxReturn($return);
             return false;
         }
 
-        if( $userInfoModel->where("`phoneNum` = '{$phoneNum}'")->find()){
-            $return = array(
-                'code' => -2,
-                'message' => '帐号已存在！'
-            );
-            $this->ajaxReturn($return);
-            return false;
-        }
 
         if (!$phoneNum){
             $return = array(
@@ -433,11 +429,47 @@ class StarController extends CTController
                 return false;
             }
         }
+        if( $userInfoModel->where("`phoneNum` = '{$phoneNum}' and `starcode` is not null ")->find()){
+            $return = array(
+                'code' => -2,
+                'message' => '账号已关联明星！'
+            );
+            $this->ajaxReturn($return);
+            return false;
+        }
+
+        if( $userInfoModel->where("`phoneNum` = '{$phoneNum}'")->find()){
+            $dataCode = array(
+                'starcode' => $starcode
+            );
+            if(
+                $userInfoModel->where("`phoneNum` = '{$phoneNum}'")->save($dataCode)){
+                $return = array(
+                    'code' => 0,
+                    'message' =>'成功',
+                );
+            }else{
+                $return = array(
+                    'code' => -2,
+                    'message' =>'失败',
+                );
+            }
+            return $this->ajaxReturn($return);
+
+//            $return = array(
+//                'code' => -2,
+//                'message' => '帐号已存在！'
+//            );
+//            $this->ajaxReturn($return);
+            return false;
+        }
+
 
         $data = array(
-            'starcode' => $starcode,
-            'phoneNum' => $phoneNum,
-            'passwd'   => md5(123456)
+            'starcode'     => $starcode,
+            'phoneNum'     => $phoneNum,
+            'passwd'       => md5(123456),
+            'registerTime' => date('Y-m-d H:i:s',time())
         );
 
         $bool = -2;

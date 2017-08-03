@@ -34,7 +34,13 @@ define([
         initModal: function () {
             $(".J_showAdd").on("click", function () {
                 var oForm = $(".addUserModal .modalForm");
-                $(".pic1_div").html('');
+               // $(".pic1_div").html('');
+                oForm.find("input[name=starname]").val('');
+                oForm.find("input[name=phoneNum]").val('');
+                oForm.find("input[name=starcode]").val('');
+                oForm.find("input[name=starcode]").parent().css('display','block');
+                oForm.find("input[name=password]").parent().css('display','none');
+
                 oForm.find("input[name=starname]").removeAttr("readonly");
                 addUserModal.open();
             });
@@ -71,10 +77,10 @@ define([
                 starAPI.getStarUserInfo({starname: _this.val()}, function (result) {
                     if(result.code==-2){
                         layer.msg(result.message);
-                        $(".addUserModal input[name='starcode']").attr("value", '');
+                        $(".addUserModal input[name=starcode]").val('');
                     }else {
-                        $(".addUserModal input[name='starname']").attr("value", result.star_name);
-                        $(".addUserModal input[name='starcode']").attr("value", result.star_code);
+                        $(".addUserModal input[name=starname]").attr("value", result.star_name);
+                        $(".addUserModal input[name=starcode]").val(result.star_code);
                     }
                 })
             })

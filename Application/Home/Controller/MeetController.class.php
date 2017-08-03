@@ -13,10 +13,11 @@ use Think\Controller;
  */
 class MeetController extends CTController
 {
-    //1已约见    2已拒绝 3已完成
+    //1已约见    2已拒绝 3已完成 4-已同意
     const TTYPE_MEET = 1;
     const TYPE_REJ = 2;
     const TYPE_COM = 3;
+    const TYPE_AGREE = 4;
 
     public function __construct()
     {
@@ -258,10 +259,12 @@ class MeetController extends CTController
 
     private function getStatus($status)
     {
+        //1-待确认 2-已拒绝 3-已完成 4-已同意;
         $arr = array(
             self::TTYPE_MEET => '已约见',
             self::TYPE_REJ => '已拒绝',
-            self::TYPE_COM => '已完成'
+            self::TYPE_COM => '已完成',
+            self::TYPE_AGREE => '已同意'
         );
 
         return $arr[$status];
