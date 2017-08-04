@@ -201,12 +201,46 @@ class AgentController extends Controller
 
 
         $id = (int)$_POST['id'];
-        $data['memberId'] = $_POST['memberId'];
+        $data['memberId'] = $memberId = $_POST['memberId'];
         $data['mark'] = $mark = $_POST['mark'];
-        $data['nickname'] = $_POST['nickname'];
+        $data['nickname'] = $nickname = $_POST['nickname'];
         $data['phone'] = $_POST['phone'];
 
-        if(M('agent_info')->where(array('mark'=>$mark ))->find()){
+
+        if(empty($memberId)){
+            $return = array(
+                'code' => -2,
+                'message' => '请选择所属机构！'
+            );
+            $this->ajaxReturn($return);
+
+            return false;
+        }
+
+        if(empty($nickname)){
+            $return = array(
+                'code' => -2,
+                'message' => '请填写经纪人名称！'
+            );
+            $this->ajaxReturn($return);
+
+            return false;
+        }
+
+        if(empty($mark)){
+            $return = array(
+                'code' => -2,
+                'message' => '请填写机构编码！'
+            );
+            $this->ajaxReturn($return);
+
+            return false;
+        }
+
+        $where['mark'] = $mark;
+        $where['id'] = array('neq',$id);
+
+        if(M('agent_info')->where($where)->find()){
             $return = array(
                 'code' => -2,
                 'message' => '编码不能重名！'

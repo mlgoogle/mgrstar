@@ -245,10 +245,10 @@ class AdminuserController extends Controller
         //$data['uname'] = $_POST['uname'];
         $pass = $_POST['password'];
         $data['pass'] = md5($_POST['password']);
-        $data['nickname'] = $_POST['nickname'];
+        $data['nickname'] = $nickname = $_POST['nickname'];
         $data['memberId'] = $memberId =  $_POST['memberId'];
-        $data['agentId'] = $_POST['agentId'];
-        $data['agentSubId'] = $_POST['agentSubtId'];
+        $data['agentId'] = $agentId = $_POST['agentId'];
+        $data['agentSubId'] = $agentSubtId = $_POST['agentSubtId'];
         $data['cellphone'] = $cellphone = $_POST['cellphone'];
 
 
@@ -261,10 +261,29 @@ class AdminuserController extends Controller
             return false;
         }
 
+
         if(!$pass) {
             $return = array(
                 'code' => -2,
                 'message' => '请填写密码！'
+            );
+            $this->ajaxReturn($return);
+            return false;
+        }
+
+        if(empty($nickname)){
+            $return = array(
+                'code' => -2,
+                'message' => '请填写用户名称！'
+            );
+            $this->ajaxReturn($return);
+            return false;
+        }
+
+        if(empty($cellphone)){
+            $return = array(
+                'code' => -2,
+                'message' => '请填写手机号！'
             );
             $this->ajaxReturn($return);
             return false;
@@ -283,7 +302,6 @@ class AdminuserController extends Controller
 
         $res = $adminUser->where("id = $id")->save($data);
 
-      //  echo $adminUser->_sql();
 
         if ($res) {
             $return = array(

@@ -28,7 +28,7 @@ class homeModel extends Model{
         $memberId = $this->user['memberId'];
         $agentId = $this->user['agentId'];
         $agentSubId = $this->user['agentSubId'];
-
+        $map = array();
 
         if($T){
             if ($identity_id == 4) { //经纪人用户
@@ -50,7 +50,7 @@ class homeModel extends Model{
             } else {  // 交易所用户
                 //$identity_id = 1;
 
-                $map['memberId'] = array('gt', '0');
+                //$map['memberId'] = array('gt', '0');
 
             }
         }else {
@@ -74,7 +74,7 @@ class homeModel extends Model{
             } else {  // 交易所用户
                 //$identity_id = 1;
 
-                $map['memberId'] = array('gt', '0');
+                //$map['memberId'] = array('gt', '0');
 
             }
         }

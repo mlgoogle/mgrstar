@@ -85,6 +85,7 @@ class AgentSubController extends Controller
             $list[$key]['agentInfo'] = $agentRow[$value['agentId']];
         }
 
+
         $Page = new \Think\Page($count, $pageNum);// 实例化分页类 传入总记录数和每页显示的记录数(25)
         $data['totalPages'] = $count;
         $data['pageNum'] = $pageNum;
@@ -317,13 +318,57 @@ class AgentSubController extends Controller
 
 
         $id = $_POST['id'];
-        $data['memberId'] = $_POST['memberId'];
-        $data['agentId'] = $_POST['agentId'];
+        $data['memberId'] = $memberId = $_POST['memberId'];
+        $data['agentId'] = $agentId = $_POST['agentId'];
         $data['mark'] = $mark = $_POST['mark'];
-        $data['nickname'] = $_POST['nickname'];
+        $data['nickname'] = $nickname = $_POST['nickname'];
         $data['phone'] = $_POST['phone'];
 
-        if(M('agentsub_info')->where(array('mark'=>$mark ))->find()){
+
+        if(empty($memberId)){
+            $return = array(
+                'code' => -2,
+                'message' => '请选择所属机构！'
+            );
+            $this->ajaxReturn($return);
+
+            return false;
+        }
+        if(empty($agentId)){
+            $return = array(
+                'code' => -2,
+                'message' => '请选择区域经纪人！'
+            );
+            $this->ajaxReturn($return);
+
+            return false;
+        }
+
+
+        if(empty($nickname)){
+            $return = array(
+                'code' => -2,
+                'message' => '请填写经纪人名称！！'
+            );
+            $this->ajaxReturn($return);
+
+            return false;
+        }
+
+        if(empty($mark)){
+            $return = array(
+                'code' => -2,
+                'message' => '请填写经纪人编号！！'
+            );
+            $this->ajaxReturn($return);
+
+            return false;
+        }
+
+        $where['mark'] = $mark;
+        $where['id'] = array('neq',$id);
+
+        if(M('agentsub_info')->where($where)->find()){
             $return = array(
                 'code' => -2,
                 'message' => '编码不能重名！'
@@ -333,21 +378,20 @@ class AgentSubController extends Controller
             return false;
         }
 
+
+
+
+
         $map['id']= $id;
         $res = M('agentsub_info')->where($map)->save($data);
 
 
-        if ($res) {
-            $return = array(
-                'code' => 0,
-                'message' => 'success',
-            );
-        } else {
-            $return = array(
-                'code' => -1,
-                'message' => 'fail',
-            );
-        }
+
+        $return = array(
+            'code' => 0,
+            'message' => 'success',
+        );
+
         $this->ajaxReturn($return);
     }
 

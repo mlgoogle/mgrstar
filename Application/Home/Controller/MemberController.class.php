@@ -90,6 +90,17 @@ class MemberController extends Controller
             return false;
         }
 
+
+        if(empty($mark)){
+            $return = array(
+                'code' => -2,
+                'message' => '请填写机构编码！'
+            );
+            $this->ajaxReturn($return);
+
+            return false;
+        }
+
         if (!$tel) {
             $return = array(
                 'code' => -2,
@@ -149,18 +160,51 @@ class MemberController extends Controller
     {
         $member_info = M('member_info');
 
-        $data['name'] = $_POST['name']; //机构名称
+        $data['name'] = $name = $_POST['name']; //机构名称
         $data['mark'] = $mark = $_POST['mark'];
         $data['superMemberid'] = $_POST['superMemberid'];
         $data['type'] = $_POST['type'];
-        $data['tel'] = $_POST['tel'];
+        $data['tel'] = $tel = $_POST['tel'];
         $data['phone'] = $_POST['phone'];
 
-        $map['memberid'] = $_POST['memberid'];
+        $map['memberid'] = $id = $_POST['memberid'];
+
+        if(empty($name)){
+            $return = array(
+                'code' => -2,
+                'message' => '请填写机构名称！'
+            );
+            $this->ajaxReturn($return);
+
+            return false;
+        }
 
 
+        if(empty($mark)){
+            $return = array(
+                'code' => -2,
+                'message' => '请填写机构编码！'
+            );
+            $this->ajaxReturn($return);
 
-        if($member_info->where(array('mark'=>$mark ))->find()){
+            return false;
+        }
+
+        if (!$tel) {
+            $return = array(
+                'code' => -2,
+                'message' => '请填写手机号！'
+            );
+            $this->ajaxReturn($return);
+
+            return false;
+        }
+
+
+        $where['mark'] = $mark;
+        $where['memberid'] = array('neq',$id);
+
+        if($member_info->where($where)->find()){
             $return = array(
                 'code' => -2,
                 'message' => '编码不能重名！'

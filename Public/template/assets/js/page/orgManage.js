@@ -76,10 +76,12 @@ define([
             };
             accountAPI.getTopOrgList(data, function (result) {
                 console.log('一级机构列表-调用成功');
-                $.each(result, function (i, v) {
-                    optionStr += '<option value="' + v.memberid + '">' + v.name + '</option>';
-                    optionSearchStr += '<option value="' + v.memberid + '">' + v.name + '</option>';
-                });
+                if(result) {
+                    $.each(result, function (i, v) {
+                        optionStr += '<option value="' + v.memberid + '">' + v.name + '</option>';
+                        optionSearchStr += '<option value="' + v.memberid + '">' + v.name + '</option>';
+                    });
+                }
                 oSelectSearch.html(optionSearchStr);
                 oSelect.html(optionStr);
             });
