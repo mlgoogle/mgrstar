@@ -856,6 +856,7 @@ class DataSearchController extends Controller
         }
 
 
+
         foreach ($list as $l){
             $lists[$l['id']] = $l;
             $sellUid = $l['sell_uid'];
@@ -863,8 +864,10 @@ class DataSearchController extends Controller
 
             if($status == 1){  //买方
                 $listUid = $buyUid;
+                $statusValue = '买入';
             }else if($status == 2){ // 卖方
                 $listUid = $sellUid;
+                $statusValue = '买出';
             }else{
                 return false;
             }
@@ -875,7 +878,7 @@ class DataSearchController extends Controller
 
            // $lists[$l['id']]['buy_name'] = isset($userInfo[$buyUid]['nickname'])?$userInfo[$buyUid]['nickname']:'';
            // $lists[$l['id']]['buy_phone'] = isset($userInfo[$buyUid]['phoneNum'])?$userInfo[$buyUid]['phoneNum']:'';
-
+            $lists[$l['id']]['statusValue'] = $statusValue;
 
             $lists[$l['id']]['order_total'] = $l['order_num']*$l['order_price'];
 

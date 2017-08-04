@@ -44,10 +44,12 @@ define([
             };
             accountAPI.getTopOrgList(data, function (result) {
                 console.log('一级机构列表-调用成功');
-                $.each(result, function (i, v) {
-                    optionStr += '<option value="' + v.memberid + '">' + v.name + '</option>';
-                    optionSearchStr += '<option value="' + v.memberid + '">' + v.name + '</option>';
-                });
+                if(result) {
+                    $.each(result, function (i, v) {
+                        optionStr += '<option value="' + v.memberid + '">' + v.name + '</option>';
+                        optionSearchStr += '<option value="' + v.memberid + '">' + v.name + '</option>';
+                    });
+                }
                 oSelectSearch.html(optionSearchStr);
                 oSelect.html(optionStr);
             });
@@ -129,7 +131,8 @@ define([
                 var $this = $(this);
                 brokerId = $this.parents('tr').attr('data-id');
                 var oTd = $this.parents('tr').find('td');
-                var orgName = oTd.eq(4).text();
+                var orgName = oTd.eq(3).text();
+                var orgSubName = oTd.eq(4).text();
 
                 var mark = oTd.eq(2).text();
                 var brokerName = oTd.eq(5).text();
@@ -152,8 +155,16 @@ define([
                 memberObj = oForm.find("select[name=org] option[value='" + memberId + "']");
                 console.log(memberObj);
 
-                oForm.find("select[name=org] option:selected").attr("selected", false);
-                memberObj.attr("selected", true);
+                //  oForm.find("select[name=org] option:selected").attr("selected", false);
+                oForm.find("select[name=org] option").each(function (a,v) {
+                    $(this).attr("selected", false);
+                });
+
+               // memberObj.attr("selected", true);
+                memberObj.remove();
+
+                oForm.find("select[name=org]").append("<option value='" + memberId +  "' selected >" + orgName + "</option>");  //为Select追加一个Option(下拉项)
+
 
 
                 var data= {memberid:memberId};
@@ -373,7 +384,7 @@ define([
                     $(".pagination").hide();
                     return false;
                 }
-                var oTr,
+                var oTr = '',
                     checkTd = '<td><input type="checkbox"></td>',
                     controlTd = "<td>" +
                         "<a class='J_showCheckBroker text-blue' href='javascript:;'> 修改 </a>" +
@@ -381,7 +392,7 @@ define([
                 $.each(result.list, function (i, v) {
                     var codeTd = '<td>' + v.id + '</td>';
                     var markTd = '<td>' + v.mark + '</td>';
-                    var memberNameTd = '<td>' + v.memberInfo.name + '</td>';
+                    var memberNameTd = '<td>' + (v.memberInfo?v.memberInfo.name:'') + '</td>';
                     var agentNameTd  = '<td>' + v.agentInfo.nickname + '</td>';
                     var nameTd = '<td>' + v.nickname + '</td>';
                     var typeTd = '<td>' + config.roleType[v.type] + '</td>'; // 角色类型
@@ -396,6 +407,7 @@ define([
                     oTr += '<tr class="fadeIn animated" data-id="' + v.id + '">' + checkTd + codeTd + markTd + memberNameTd
                         + agentNameTd + nameTd + phoneTd + statusTd  + controlTd + memberId + agentId + '</tr>';
                 });
+
                 table.find("tbody").empty().html(oTr);
                 if (initPage) {
                     var pageCount = result.totalPages;

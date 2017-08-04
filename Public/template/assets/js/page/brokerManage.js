@@ -44,10 +44,12 @@ define([
             };
             accountAPI.getTopOrgList(data, function (result) {
                 console.log('一级机构列表-调用成功');
-                $.each(result, function (i, v) {
-                    optionStr += '<option value="' + v.memberid + '">' + v.name + '</option>';
-                    optionSearchStr += '<option value="' + v.memberid + '">' + v.name + '</option>';
-                });
+                if(result) {
+                    $.each(result, function (i, v) {
+                        optionStr += '<option value="' + v.memberid + '">' + v.name + '</option>';
+                        optionSearchStr += '<option value="' + v.memberid + '">' + v.name + '</option>';
+                    });
+                }
                 oSelectSearch.html(optionSearchStr);
                 oSelect.html(optionStr);
             });
@@ -271,7 +273,7 @@ define([
                 $.each(result.list, function (i, v) {
                     var codeTd = '<td>' + v.id + '</td>';
                     var markTd = '<td>' + v.mark + '</td>';
-                    var memberNameTd = '<td>' + v.memberInfo.name + '</td>';
+                    var memberNameTd = '<td>' + (v.memberInfo?v.memberInfo.name:'') + '</td>';
                     var nameTd = '<td>' + v.nickname + '</td>';
                     var typeTd = '<td>' + config.roleType[v.type] + '</td>'; // 角色类型
                     var orgTd = '<td>' + (v.memberInfo ? v.memberInfo.name : "" ) + '</td>';
