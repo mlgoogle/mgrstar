@@ -116,10 +116,8 @@ define([
                     var type_info = '<td>' +  v.type_info +'</td>';
 
 
-                    var deposit_nameTd = '<td>' + (v.recharge?v.recharge.deposit_name:'未知') + '</td>';
+                    var deposit_nameTd = '<td>' + (v.deposit_name?v.deposit_name:'未知') + '</td>';
                     var amount_sumTd = '<td>' + (v.recharge?v.recharge.amount_sum:0) + '</td>';
-
-                    console.log(v.recharge);
 
                     oTr +=
                         '<tr class="fadeIn animated" data-id="' + v.uid + '">'

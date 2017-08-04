@@ -509,7 +509,7 @@ class DataSearchController extends Controller
 
         $whereIds['uid'] = array('in',$userUids);
 
-        $whereIds['status'] = 1;
+        $whereIds['status'] = 3; // 3-支付服务端成功
 
         $rechargeRows = $recharge_info->field('sum(amount) as amount_sum,uid,depositType')->where($whereIds)->group('uid')->select();
 
@@ -517,7 +517,7 @@ class DataSearchController extends Controller
         $depositArr = array('未知','微信','银行卡');
 
         foreach ($rechargeRows as $w){
-            $w['deposit_name'] = $depositArr[$w['depositType']];
+            $w['deposit_name'] = isset($depositArr[$w['depositType']])?$depositArr[$w['depositType']]:'未知';
             $rechargeData[$w['uid']] = $w;
 
         }
