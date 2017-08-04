@@ -509,7 +509,7 @@ class DataSearchController extends Controller
 
         $whereIds['uid'] = array('in',$userUids);
 
-        $whereIds['status'] = 1;
+        $whereIds['status'] = 3; // 3-支付服务端成功 
 
         $rechargeRows = $recharge_info->field('sum(amount) as amount_sum,uid,depositType')->where($whereIds)->group('uid')->select();
 
