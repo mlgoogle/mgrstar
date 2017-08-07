@@ -40,12 +40,14 @@ define([
         }
 
         accountAPI.getAgentList(data, function (result) {
-
+            var agentTr = '<option value="0">--选择--</option>',agentOptionHtml = '';
             if(!result.list){
+                $('.search-bar select[name=agent]').html(agentTr);
+                $('.search-bar select[name=agentSub]').html(agentTr);
                 return false;
             }
 
-            var agentTr = '<option value="0">--选择--</option>',agentOptionHtml = '';
+
             $.each(result.list, function (j, a) {
 
                 agentOptionHtml = '<option value="' + a.id + '" data-mark = "' + a.mark + '" >' + a.nickname + '</option>';
@@ -71,12 +73,13 @@ define([
         }
 
         accountAPI.getAgentSubList(data, function (result) {
+            var agentSubTr = '<option value="0">--选择--</option>',agentSubOptionHtml = '';
 
             if(!result.list){
+                $('.search-bar select[name=agentSub]').html(agentSubTr);
                 return false;
             }
 
-            var agentSubTr = '<option value="0">--选择--</option>',agentSubOptionHtml = '';
             $.each(result.list, function (j, a) {
 
                 agentSubOptionHtml = '<option value="' + a.id + '" data-mark = "' + a.mark + '" >' + a.nickname + '</option>';
