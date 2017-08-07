@@ -236,25 +236,32 @@ class DataSearchController extends Controller
         foreach ($list as $key=>$l){
             $listAll[$key] = $l;
             $listAll[$key]['sell_info'] = $sellPriceSum[$l['uid']];// 卖家  ：收入
-            $sell_price = $listAll[$key]['sell_sum_price'] = (int)$listAll[$key]['sell_info']['order_sum_price'];
+            $sell_price = $listAll[$key]['sell_info']['order_sum_price'];
+            $sell_price = $listAll[$key]['sell_sum_price'] = isset($sell_price)?$sell_price:0;
 
             $listAll[$key]['buy_info']  = $buyPriceSum[$l['uid']];//买家 ：支出
-            $buy_price = $listAll[$key]['buy_sum_price'] = (int)$listAll[$key]['buy_info']['order_sum_price'];
+            $buy_price = $listAll[$key]['buy_info']['order_sum_price'];
+            $buy_price = $listAll[$key]['buy_sum_price'] = isset($buy_price)?$buy_price:0;
 
 
             $listAll[$key]['total_info'] = $totalSellArr[$l['uid']]; // 卖家时,没成功的为资产
-            $total_sum_price = (int)$listAll[$key]['total_sum_price'] = $listAll[$key]['total_info']['order_sum_price'];
+            $total_sum_price = $listAll[$key]['total_info']['order_sum_price'];
+            $total_sum_price = $listAll[$key]['total_sum_price'] = isset($total_sum_price)?$total_sum_price:0;
 
             $listAll[$key]['balance_info'] = $balaceArr[$l['uid']]; // 余额资金
-            $listAll[$key]['balance'] = (int)$listAll[$key]['balance_info']['balance'];
+            $balance = isset($listAll[$key]['balance_info']['balance'])?$listAll[$key]['balance_info']['balance']:0;
+            $listAll[$key]['balance'] = is_float($balance)?sprintf('%.3f', $balance):$balance;
 
             $listAll[$key]['freeze_info'] = $freePriceSum[$l['uid']]; // 可用资金
-            $listAll[$key]['order_sum_price'] = (int)$listAll[$key]['freeze_info']['order_sum_price'];//冻结资金
+            $order_sum_price = $listAll[$key]['freeze_info']['order_sum_price'];//冻结资金
+            $order_sum_price = isset($order_sum_price)?$order_sum_price:0;
+            $listAll[$key]['order_sum_price']  = sprintf('%.3f', $order_sum_price);
 
 
             $listAll[$key]['status_name'] = ((int)$sell_price -  (int)$buy_price < 0)?'亏':'赢';
 
-            $listAll[$key]['total'] = (int)$total_sum_price + (int)$buy_price ;
+            $total = $total_sum_price + $buy_price ;
+            $listAll[$key]['total'] = is_float($total)?sprintf('%.3f', $total):$total;
 
     }
 
@@ -513,8 +520,8 @@ class DataSearchController extends Controller
 
         $rechargeRows = $recharge_info->field('sum(amount) as amount_sum,uid,depositType')->where($whereIds)->group('uid')->select();
 
-        //充值类型 1:微信 2:银行卡
-        $depositArr = array('未知','微信','银行卡');
+        //充值类型 1:是微信 2:是银联 3:是支付宝
+        $depositArr = array('未知','微信','银联','支付宝');
 
         foreach ($rechargeRows as $w){
             $w['deposit_name'] = isset($depositArr[$w['depositType']])?$depositArr[$w['depositType']]:'未知';

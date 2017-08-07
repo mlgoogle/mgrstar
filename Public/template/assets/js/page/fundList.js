@@ -125,18 +125,18 @@ define([
                     var buyPriceTd =  '<td>' +  (v.buy_info ?v.buy_info.order_sum_price:0 ) + '</td>'; // 支出
                  //   var startCapitalTd = '<td>'+''+ '</td>';//起始资金
                   //  var endCapitalTd = '<td>'+''+ '</td>';//期末资金
-                    var balanceTd =  '<td>' +  (v.balance_info?v.balance_info.balance:0) + '</td>'; //余额 可用资金
+                    var balanceTd =  '<td>' +  (v.balance?v.balance:0) + '</td>'; //余额 可用资金
                     var freezeTd =  '<td>' +  (v.freeze_info?v.freeze_info.order_sum_price:0) + '</td>'; //冻结资金
 
 
                    var  sell_price = (v.sell_info ?v.sell_info.order_sum_price:0 );
                    var  buy_price = v.buy_info ?v.buy_info.order_sum_price:0 ;
-                   var  sell_total_price =  v.total_info ?v.total_info.order_sum_price:0 ;// 卖家时,没成功的为资产
+                  // var  sell_total_price =  v.total_info ?v.total_info.order_sum_price:0 ;// 卖家时,没成功的为资产
 
                     statusTdName = sell_price -  buy_price < 0?'亏':'赢';
-                    var  total_order_sum_price = sell_total_price + buy_price;
+                    //var  total_order_sum_price = sell_total_price + buy_price;
                     var statusTd = '<td>' + statusTdName + '</td>';
-                    var totalTd  = '<td>' + total_order_sum_price  + '</td>'; //总资产;
+                    var totalTd  = '<td>' + (v.total?v.total:0)  + '</td>'; //总资产;
 
                     oTr +=
                         '<tr class="fadeIn animated" data-id="' + v.uid + '">'
