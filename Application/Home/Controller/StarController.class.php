@@ -274,7 +274,7 @@ class StarController extends CTController
         $carousel = M('star_starbrief');
         $pageNum = I('post.pageNum', 5, 'intval');
         $page = I('post.page', 1, 'intval');
-        $map = array('star_starbrief.is_arousel' => 0);
+        $map = 'star_starbrief.is_arousel = 0 AND star_starbrief.status <> 2' ;
 
         $count = $carousel->where($map)->count();// 查询满足要求的总记录数
 

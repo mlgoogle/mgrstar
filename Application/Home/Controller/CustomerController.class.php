@@ -223,9 +223,28 @@ class CustomerController extends CTController
 
         $count = $customer->where($map)->count();// 查询满足要求的总记录数
         $list = $customer->where($map)->page($page, $pageNum)->order('uid desc')->select();//获取分页数据
+
+        $channelArr = array();
         foreach ($list as $item) {
             $uidArr[] = $item['uid'];
+            if($item['channel']) {
+                $channelArr[] = $item['channel']; //渠道号
+            }
         }
+
+        $channelArr = array_filter(array_unique($channelArr));
+
+        $whereChannel['channel'] = array('in',$channelArr);
+
+        $channelRow = M('star_channel')->where($whereChannel)->select();
+
+
+
+        $channelData = array();
+        foreach ($channelRow as $c){
+            $channelData[$c['channel']] = $c;
+        }
+
 
         //实名认证用户ID
         if (isset($uidArr) && count($uidArr) > 0) {
@@ -242,10 +261,9 @@ class CustomerController extends CTController
             $list[$key]['isreal'] = '否';
             $list[$key]['idcards'] = '';
 
-            //推荐人 用昵称还是真实姓名  机构代理人表待确定
-            $recommand = $customer->where('uid = ' . (int)$val['recommend'])->getField('nickname');
-            $list[$key]['recommend'] =  ($recommand) ? $recommand : '';
-            //$list[$key]['agent'] =  $customer->where('uid = ' . (int)$val['agentId'])->getField('nickname');
+            //推荐人 用昵称  经纪人昵称
+            $agentsubName = isset($channelData[$val['channel']])?$channelData[$val['channel']]['agentsubName']:null;
+            $list[$key]['agentsubName'] = isset($agentsubName)?$agentsubName:'';
 
             if (isset($userList[$val['uid']])) {
                 $list[$key]['realname'] = $userList[$val['uid']]['realname'];
@@ -253,6 +271,7 @@ class CustomerController extends CTController
                 $list[$key]['isreal'] = '是';
             }
         }
+
         if($this->excel) {
             new \Think\Page($count, $pageNum);// 实例化分页类 传入总记录数和每页显示的记录数(25)
             $data['totalPages'] = $count;
@@ -303,8 +322,7 @@ class CustomerController extends CTController
             'nickname',
             'recommend',
             'isreal',
-            'agentId',
-            ''
+            'agentsubName'
         );
     }
 
