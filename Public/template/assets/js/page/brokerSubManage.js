@@ -153,7 +153,6 @@ define([
 
                 //
                 memberObj = oForm.find("select[name=org] option[value='" + memberId + "']");
-                console.log(memberObj);
 
                 //  oForm.find("select[name=org] option:selected").attr("selected", false);
                 oForm.find("select[name=org] option").each(function (a,v) {

@@ -165,12 +165,12 @@ define([
                     var registerTime = '<td>' + v.registerTime + '</td>';
                     var realname = '<td>' + v.realname + '</td>';
                     var nickname = '<td>' + v.nickname + '</td>';
-                    var agentId = '<td>' + v.agentId + '</td>';
+                    var agentsubNameTd = '<td>' + v.agentsubName + '</td>';
                     var registerStatus = '<td>' + v.isreal + '</td>';
                     var recommend = '<td>' + v.recommend + '</td>';
 
                     oTr += '<tr class="fadeIn animated" data-id="' + v.id + '" data-idcard="' +v.idcards+ '">' + id + registerTime + phoneNum + realname +
-                        nickname + recommend + registerStatus + agentId + controlTd + '</tr>';
+                        nickname + recommend + registerStatus + agentsubNameTd + controlTd + '</tr>';
                 });
 
                 oTr += '<tr><td colspan="10">当前消费者总数为：'+ result.total +'</td></tr>';

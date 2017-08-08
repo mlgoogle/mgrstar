@@ -208,10 +208,11 @@ class AgentSubController extends Controller
 
             $channelModel->uid = $user['id'];
             $channelModel->agentsubId = $subId;
-            $channelModel->channel = $code . '-' . $companyStr . '-' . $agentSubStr;
+            $channelModel->channel = $code . $companyStr . $agentSubStr;//$code . '-' . $companyStr . '-' . $agentSubStr;
             $channelModel->company = $company;
             $channelModel->city = $city;
             $channelModel->province  = $province;
+            $channelModel->agentsubName  = $name;
 
             $channelModel->add();
 

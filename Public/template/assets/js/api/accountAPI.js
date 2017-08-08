@@ -249,7 +249,6 @@ define(["jquery"], function ($) {
         //省市
         getProvince: function (data,cb) {
             $.post(this.baseRequestUrl+"/channel/getProvince", data, function (result) {
-                console.log(data)
                 cb(result);
             })
         },

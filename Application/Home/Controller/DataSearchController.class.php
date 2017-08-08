@@ -179,7 +179,7 @@ class DataSearchController extends Controller
         $whereBalance['uid']  =  array('in',$userIds);
         $balaceArr = array();
 
-        foreach (M('user_balance')->where($whereBalance)->select() as $bArr){
+        foreach (M('user_balance')->field('uid,balance')->where($whereBalance)->select() as $bArr){
             $balaceArr[$bArr['uid']] = $bArr;
         }
 
