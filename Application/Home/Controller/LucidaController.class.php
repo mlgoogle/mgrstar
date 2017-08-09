@@ -220,8 +220,8 @@ class LucidaController extends CTController
             $startInfoList->star_code = $code;
             $startInfoList->star_name = $name;
             $startInfoList->star_phone = $phone = $code; // 暂时是明星的 code
-            $startInfoList->star_pic = isset($picArr['pic1'])?$picArr['pic1']:'';
-            //$startInfoList->star_pic = $hostUrl . "/Public/uploads/" . self::STARPIC . $starPic;
+           // $startInfoList->star_pic = isset($picArr['pic1'])?$picArr['pic1']:'';
+            $startInfoList->star_pic = $hostUrl . "/Public/uploads/" . self::STARPIC .$headUrl;
             $startInfoList->add();
 
 
@@ -543,50 +543,27 @@ class LucidaController extends CTController
             return $this->ajaxReturn($return);
         }
 
-//        if(!$headUrl){
-//            $return = array(
-//                'code' => -2,
-//                'message' => ' 请上传头像！'
-//            );
-//            return $this->ajaxReturn($return);
-//        }
-//
-//        if(!$backPic){
-//            $return = array(
-//                'code' => -2,
-//                'message' => ' 请上传介绍背景图！'
-//            );
-//            return $this->ajaxReturn($return);
-//        }
-//
-//        if(!$pic1){
-//            $return = array(
-//                'code' => -2,
-//                'message' => ' 请上传首页推荐图！'
-//            );
-//            return $this->ajaxReturn($return);
-//        }
 
         if (count($item) > 0) {
             $model->uid = $item['uid'];
-           // $model->name = $name;
+            // $model->name = $name;
             $model->nationality = $nationality;
             $model->birth = $birth;
             $model->work = $work;
-          //  $model->code = $code;
+            //  $model->code = $code;
 
             $pic_flag = 0;
-            $hostUrl = 'http://'.$_SERVER['HTTP_HOST'];
+            $hostUrl = 'http://' . $_SERVER['HTTP_HOST'];
 
 
             $picArr = $_POST['pic'];  // 写真大图
             for ($i = 2; $i <= 5; $i++) {
-                if (!empty($_POST['pic'.$i])) {
+                if (!empty($_POST['pic' . $i])) {
                     $pic_flag++;
                     $key = 'pic' . $i;
                     $pic = I("post.$key", '', 'strip_tags');
                     $pic = trim($pic);
-                    $model->$key = $hostUrl. "/Public/uploads/" . self::STARDIR . $pic;
+                    $model->$key = $hostUrl . "/Public/uploads/" . self::STARDIR . $pic;
                     if (!empty($pic) && $item[$key] != $pic) {
                         @unlink(self::UPLOADSDIR . self::STARDIR . $item[$key]);
                     }
@@ -597,28 +574,20 @@ class LucidaController extends CTController
                     $pic_flag = 1;
                 }
             }
-//
-//            if ($pic_flag == 0) {
-//                $return = array(
-//                    'code' => -2,
-//                    'message' => '至少上传一张写真大图！'
-//                );
-//                return $this->ajaxReturn($return);
-//            }
 
 
             $model->colleage = $colleage;
             $model->resident = $resident;
             $model->worth = $worth;
-           // $model->appoint_id = $appoint_id;
+            // $model->appoint_id = $appoint_id;
             $model->weibo = $weibo;
-            if($headUrl) {
+            if ($headUrl) {
                 $model->head_url = $hostUrl . "/Public/uploads/" . self::STARPIC . $headUrl;
             }
-            if($backPic) {
+            if ($backPic) {
                 $model->back_pic = $hostUrl . "/Public/uploads/" . self::STARPIC . $backPic;
             }
-            if($pic1) {
+            if ($pic1) {
                 $model->pic1 = $hostUrl . "/Public/uploads/" . self::STARPIC . $pic1;
             }
 
@@ -628,21 +597,32 @@ class LucidaController extends CTController
             if ($model->save()) {
                 $bool = 1;
 
-                if($id){
+                if ($headUrl) {
+                    $startInfoList = M('star_starinfolist');
+                    $wheres['star_code'] = $code;
+
+
+                    $data['star_pic'] = $hostUrl . "/Public/uploads/" . self::STARPIC . $headUrl;
+
+                    $startInfoList->where($wheres)->save($data);
+                }
+
+
+                if ($id) {
 
                     $star_meet_servicerel = M('star_meet_servicerel');
                     //修改先删除以前的
-                    $star_meet_servicerel ->where(array('starcode'=>$code))->delete();
+                    $star_meet_servicerel->where(array('starcode' => $code))->delete();
                     //  时间使用范围 明星关联的约见类型添加
                     foreach ($appointIds as $mid) {
-                        $meetDataList[] = array('starcode'=>$code,'mid'=>$mid);
+                        $meetDataList[] = array('starcode' => $code, 'mid' => $mid);
                     }
 
                     $star_meet_servicerel->addAll($meetDataList);
 
                 }
 
-            }else{
+            } else {
                 $return = array(
                     //'id' => $item['uid'],
                     'code' => -2,

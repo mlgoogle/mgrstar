@@ -42,7 +42,7 @@ define([
                 var realname = oTd.eq(3).text();
                 var phoneNum = oTd.eq(2).text();
                 var nickname = oTd.eq(4).text();
-                var recommend = oTd.eq(5).text();
+                var recommend = oTd.eq(7).text();
 
                 // id + registerTime + phoneNum + realname + nickname + recommend + registerStatus + agentId + controlTd
                 var oForm = $(".addCustomerModal .modalForm");
@@ -167,10 +167,10 @@ define([
                     var nickname = '<td>' + v.nickname + '</td>';
                     var agentsubNameTd = '<td>' + v.agentsubName + '</td>';
                     var registerStatus = '<td>' + v.isreal + '</td>';
-                    var recommend = '<td>' + v.recommend + '</td>';
+                    var type_infoTd = '<td>' + v.type_info + '</td>';
 
                     oTr += '<tr class="fadeIn animated" data-id="' + v.id + '" data-idcard="' +v.idcards+ '">' + id + registerTime + phoneNum + realname +
-                        nickname + recommend + registerStatus + agentsubNameTd + controlTd + '</tr>';
+                        nickname + type_infoTd + registerStatus + agentsubNameTd + controlTd + '</tr>';
                 });
 
                 oTr += '<tr><td colspan="10">当前消费者总数为：'+ result.total +'</td></tr>';

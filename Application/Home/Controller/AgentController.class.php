@@ -81,7 +81,6 @@ class AgentController extends Controller
     {
         $agent_info = M('agent_info');
         $data['memberId'] = $memberId = $_POST['memberid'];
-        $data['mark'] = $mark = $_POST['mark'];
         $data['nickname'] = $name = $_POST['nickname'];
         $data['phone'] = $_POST['phone'];
         $data['status'] = 0;
@@ -97,14 +96,6 @@ class AgentController extends Controller
             return false;
         }
 
-        if (!$mark) {
-            $return = array(
-                'code' => -2,
-                'message' => '请填写区域经纪人编号！',
-            );
-            $this->ajaxReturn($return);
-            return false;
-        }
 
 
         if (!$name) {
@@ -117,15 +108,20 @@ class AgentController extends Controller
         }
 
 
-        if($agent_info->where(array('mark'=>$mark ))->find()){
-            $return = array(
-                'code' => -2,
-                'message' => '编码不能重名！'
-            );
-            $this->ajaxReturn($return);
+        $mark = 100000;
 
-            return false;
-        }
+        $AutoIdArr = $agent_info->
+        query('SELECT Auto_increment as autoId FROM information_schema.`TABLES` WHERE TABLE_NAME = \'agent_info\' AND TABLE_SCHEMA = \'star\' limit 1');
+        $Auto = implode('',array_column($AutoIdArr,'autoId'));
+
+        $AutoId = isset($Auto)?$Auto:1;
+        $mark += $AutoId;
+
+
+        $mark = $agentSubStr = sprintf('%03s', $mark);
+
+
+        $data['mark'] = $mark;
 
         $res = $agent_info->add($data);
 
@@ -202,7 +198,6 @@ class AgentController extends Controller
 
         $id = (int)$_POST['id'];
         $data['memberId'] = $memberId = $_POST['memberId'];
-        $data['mark'] = $mark = $_POST['mark'];
         $data['nickname'] = $nickname = $_POST['nickname'];
         $data['phone'] = $_POST['phone'];
 
@@ -227,28 +222,7 @@ class AgentController extends Controller
             return false;
         }
 
-        if(empty($mark)){
-            $return = array(
-                'code' => -2,
-                'message' => '请填写机构编码！'
-            );
-            $this->ajaxReturn($return);
 
-            return false;
-        }
-
-        $where['mark'] = $mark;
-        $where['id'] = array('neq',$id);
-
-        if(M('agent_info')->where($where)->find()){
-            $return = array(
-                'code' => -2,
-                'message' => '编码不能重名！'
-            );
-            $this->ajaxReturn($return);
-
-            return false;
-        }
 
         $map['id']= $id;
         $res = M('agent_info')->where($map)->save($data);

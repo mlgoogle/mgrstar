@@ -76,7 +76,6 @@ class MemberController extends Controller
         $member_info = M('member_info');
 
         $name = $_POST['name'];//机构名称
-        $mark = $_POST['mark'];
         $tel = $_POST['tel'];
         $phone = $_POST['phone'];
 
@@ -91,15 +90,15 @@ class MemberController extends Controller
         }
 
 
-        if(empty($mark)){
-            $return = array(
-                'code' => -2,
-                'message' => '请填写机构编码！'
-            );
-            $this->ajaxReturn($return);
-
-            return false;
-        }
+//        if(empty($mark)){
+//            $return = array(
+//                'code' => -2,
+//                'message' => '请填写机构编码！'
+//            );
+//            $this->ajaxReturn($return);
+//
+//            return false;
+//        }
 
         if (!$tel) {
             $return = array(
@@ -111,15 +110,27 @@ class MemberController extends Controller
             return false;
         }
 
-        if($member_info->where(array('mark'=>$mark ))->find()){
-            $return = array(
-                'code' => -2,
-                'message' => '编码不能重名！'
-            );
-            $this->ajaxReturn($return);
+//        if($member_info->where(array('mark'=>$mark ))->find()){
+//            $return = array(
+//                'code' => -2,
+//                'message' => '编码不能重名！'
+//            );
+//            $this->ajaxReturn($return);
+//
+//            return false;
+//        }
 
-            return false;
-        }
+        $mark = 100000;
+
+        $AutoIdArr = $member_info->
+        query('SELECT Auto_increment as autoId FROM information_schema.`TABLES` WHERE TABLE_NAME = \'member_info\' AND TABLE_SCHEMA = \'star\' limit 1');
+        $Auto = implode('',array_column($AutoIdArr,'autoId'));
+
+        $AutoId = isset($Auto)?$Auto:1;
+        $mark += $AutoId;
+
+
+        $mark = $agentSubStr = sprintf('%03s', $mark); //$_POST['mark'];
 
         $status = 0;//机构名称
         $data['name'] = $name;
@@ -161,7 +172,6 @@ class MemberController extends Controller
         $member_info = M('member_info');
 
         $data['name'] = $name = $_POST['name']; //机构名称
-        $data['mark'] = $mark = $_POST['mark'];
         $data['superMemberid'] = $_POST['superMemberid'];
         $data['type'] = $_POST['type'];
         $data['tel'] = $tel = $_POST['tel'];
@@ -180,16 +190,6 @@ class MemberController extends Controller
         }
 
 
-        if(empty($mark)){
-            $return = array(
-                'code' => -2,
-                'message' => '请填写机构编码！'
-            );
-            $this->ajaxReturn($return);
-
-            return false;
-        }
-
         if (!$tel) {
             $return = array(
                 'code' => -2,
@@ -201,18 +201,9 @@ class MemberController extends Controller
         }
 
 
-        $where['mark'] = $mark;
+        //$where['mark'] = $mark;
         $where['memberid'] = array('neq',$id);
 
-        if($member_info->where($where)->find()){
-            $return = array(
-                'code' => -2,
-                'message' => '编码不能重名！'
-            );
-            $this->ajaxReturn($return);
-
-            return false;
-        }
 
 
         $res = $member_info->where($map)->save($data);

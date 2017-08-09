@@ -224,13 +224,22 @@ class CustomerController extends CTController
         $count = $customer->where($map)->count();// 查询满足要求的总记录数
         $list = $customer->where($map)->page($page, $pageNum)->order('uid desc')->select();//获取分页数据
 
+
+
+
         $channelArr = array();
         foreach ($list as $item) {
             $uidArr[] = $item['uid'];
             if($item['channel']) {
                 $channelArr[] = $item['channel']; //渠道号
             }
+
+            $memberIds[] = $item['memberId']; // 机构 mark
+            $agentSubIds[] = $item['agentId']; // 经纪人 mark
+
+            $agentIds[] = $item['agentIdSub']; //区域经纪人 mark
         }
+
 
         $channelArr = array_filter(array_unique($channelArr));
 
@@ -255,21 +264,79 @@ class CustomerController extends CTController
             }
         }
 
+
+
+
+        $memberIds = array_filter(array_unique($memberIds));
+        $agentIds = array_filter(array_unique($agentIds));
+        $agentSubIds = array_filter(array_unique($agentSubIds));
+
+        $whereMemberIds['mark'] = array('in',$memberIds);
+        $whereAgentIds['mark'] = array('in',$agentIds);
+        $whereAgentSubIds['mark'] = array('in',$agentSubIds);
+
+        $memberRows = $this->getMemberNmae($whereMemberIds);
+        $agentRows  = $this->getAgentName($whereAgentIds);
+        $agentSubRows  = $this->getAgentSubName($whereAgentSubIds);
+
+
+        foreach ($memberRows as $m){
+            $memberData[$m['mark']]['name'] = $m['name'];
+        }
+
+        foreach ($agentRows as $ag){
+            $agentData[$ag['mark']]['nickname'] = $ag['nickname'];
+        }
+
+        foreach ($agentSubRows as $a){
+            $agentSubData[$a['mark']]['nickname'] = $a['nickname'];
+        }
+
+
+
         //用户与消费数据组装
         foreach ($list as $key => $val) {
             $list[$key]['realname'] = '';
             $list[$key]['isreal'] = '否';
             $list[$key]['idcards'] = '';
 
+            //$recommand = $customer->where('uid = ' . (int)$val['recommend'])->getField('nickname');
+            //$list[$key]['recommend'] =  ($recommand) ? $recommand : '';
+
             //推荐人 用昵称  经纪人昵称
             $agentsubName = isset($channelData[$val['channel']])?$channelData[$val['channel']]['agentsubName']:null;
             $list[$key]['agentsubName'] = isset($agentsubName)?$agentsubName:'';
+
 
             if (isset($userList[$val['uid']])) {
                 $list[$key]['realname'] = $userList[$val['uid']]['realname'];
                 $list[$key]['idcards'] = $userList[$val['uid']]['id_card'];
                 $list[$key]['isreal'] = '是';
             }
+
+            $lMemberId = $val['memberId'];  //mark
+            $lagentId = $val['agentId'];    // mark
+            $lagentSubId = $val['subagentId'];    // mark
+
+            //dump($val);dump($lMemberId);dump($lagentId);exit;
+
+            $list[$key]['member'] = $memberData[$lMemberId];
+            $list[$key]['agent'] = $agentSubData[$lagentId];
+
+            $list[$key]['agent_sub'] = $agentSubData[$lagentSubId];
+
+            $type_member = isset($list[$key]['member'])?$list[$key]['member']['name']:'';
+            $type_agent = isset($list[$key]['agent'])?$list[$key]['member']['nickname']:'';
+            $agent_sub = isset($list[$key]['agent_sub'])?$list[$key]['agent_sub']['nickname']:'';
+
+
+            if($type_member || $type_agent || $agent_sub){
+                $list[$key]['type_info'] = $type_member . ',' . $type_agent . ',' . $agent_sub;
+            }else{
+                $list[$key]['type_info'] = '';
+            }
+
+
         }
 
         if($this->excel) {
@@ -320,10 +387,29 @@ class CustomerController extends CTController
             'phoneNum',
             'realname',
             'nickname',
-            'recommend',
+            'type_info',
             'isreal',
             'agentsubName'
         );
+    }
+
+
+    private function getMemberNmae($where){
+        $member_info = M('member_info');
+        $memberInfo = $member_info->where($where)->select();
+
+        return $memberInfo;
+    }
+
+
+    private function getAgentName($where){
+        $agent_info = M('agent_info');
+        return $agent_info->where($where)->select();
+    }
+
+    private function getAgentSubName($where){
+        $agent_info = M('agentsub_info');
+        return $agent_info->where($where)->select();
     }
 
     
