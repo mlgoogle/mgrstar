@@ -7,7 +7,6 @@ define([
     "pagination",
     "remodal"
 ], function ($, utils, config, dataAPI) {
-    console.log(dataAPI);
 
     var changeLineModal = $('[data-remodal-id=changeLineModal]').remodal();
     var body = $("body");

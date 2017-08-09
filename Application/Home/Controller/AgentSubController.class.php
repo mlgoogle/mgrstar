@@ -99,7 +99,6 @@ class AgentSubController extends Controller
         $memberSub_info = M('agentsub_info');
         $data['memberId'] = $memberId = $_POST['memberid'];
         $data['agentId'] = $agentId = $_POST['agentId'];
-        $data['mark'] = $mark = $_POST['mark'];
         $data['nickname'] = $name = $_POST['nickname'];
         $data['phone'] = $_POST['phone'];
         $data['status'] = 0;
@@ -124,15 +123,6 @@ class AgentSubController extends Controller
             return false;
         }
 
-        if(!$mark){
-            $return = array(
-                'code' => -2,
-                'message' => '请填写经纪人编号！',
-            );
-            $this->ajaxReturn($return);
-            return false;
-        }
-
 
         if(!$name){
             $return = array(
@@ -143,15 +133,19 @@ class AgentSubController extends Controller
             return false;
         }
 
-        if($memberSub_info->where(array('mark'=>$mark ))->find()){
-            $return = array(
-                'code' => -2,
-                'message' => '编码不能重名！'
-            );
-            $this->ajaxReturn($return);
 
-            return false;
-        }
+        $mark = 100000;
+
+        $AutoIdArr = $memberSub_info->
+        query('SELECT Auto_increment as autoId FROM information_schema.`TABLES` WHERE TABLE_NAME = \'agentsub_info\' AND TABLE_SCHEMA = \'star\' limit 1');
+        $Auto = implode('',array_column($AutoIdArr,'autoId'));
+
+        $AutoId = isset($Auto)?$Auto:1;
+        $mark += $AutoId;
+
+        $mark = $agentSubStr = sprintf('%03s', $mark);
+        $data['mark'] = $mark;
+
 
         $province = I('post.province','','strip_tags');
         $provinceId = I('post.provinceId','','intval');
@@ -321,7 +315,6 @@ class AgentSubController extends Controller
         $id = $_POST['id'];
         $data['memberId'] = $memberId = $_POST['memberId'];
         $data['agentId'] = $agentId = $_POST['agentId'];
-        $data['mark'] = $mark = $_POST['mark'];
         $data['nickname'] = $nickname = $_POST['nickname'];
         $data['phone'] = $_POST['phone'];
 
@@ -355,32 +348,6 @@ class AgentSubController extends Controller
 
             return false;
         }
-
-        if(empty($mark)){
-            $return = array(
-                'code' => -2,
-                'message' => '请填写经纪人编号！！'
-            );
-            $this->ajaxReturn($return);
-
-            return false;
-        }
-
-        $where['mark'] = $mark;
-        $where['id'] = array('neq',$id);
-
-        if(M('agentsub_info')->where($where)->find()){
-            $return = array(
-                'code' => -2,
-                'message' => '编码不能重名！'
-            );
-            $this->ajaxReturn($return);
-
-            return false;
-        }
-
-
-
 
 
         $map['id']= $id;
