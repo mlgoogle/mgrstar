@@ -83,7 +83,7 @@ class DataSearchController extends Controller
 
         $user_info = M('star_userinfo');
 
-        $pageNum = isset($_POST['pageNum'])?$_POST['pageNum']:5;
+        $pageNum = isset($_POST['pageNum'])?$_POST['pageNum']:10;
         $page = isset($_POST['page'])?$_POST['page']:1;
 
         $nickname = $_POST['nickname'];
@@ -111,6 +111,11 @@ class DataSearchController extends Controller
         /*
          end
          */
+        $startTime = I('post.startTime');
+        $endTime = I('post.endTime');
+        if($startTime && $endTime) {
+            $map['registerTime'] = array(array('egt',$startTime),array('elt',$endTime));
+        }
 
         if($nickname){
             $map['nickname'] = $nickname;
@@ -312,6 +317,11 @@ class DataSearchController extends Controller
         /*
          end
          */
+        $startTime = I('post.startTime');
+        $endTime = I('post.endTime');
+        if($startTime && $endTime) {
+            $map['registerTime'] = array(array('egt',$startTime),array('elt',$endTime));
+        }
 
 
         if($nickname){
@@ -438,7 +448,7 @@ class DataSearchController extends Controller
 
         $map = $this->getIdentity();
 
-        $pageNum = isset($_POST['pageNum'])?$_POST['pageNum']:5;
+        $pageNum = isset($_POST['pageNum'])?$_POST['pageNum']:10;
         $page = isset($_POST['page'])?$_POST['page']:1;
 
         $nickname = $_POST['nickname'];
@@ -465,6 +475,11 @@ class DataSearchController extends Controller
         /*
          end
          */
+        $startTime = I('post.startTime');
+        $endTime = I('post.endTime');
+        if($startTime && $endTime) {
+            $map['registerTime'] = array(array('egt',$startTime),array('elt',$endTime));
+        }
 
         if($nickname){
             $map['nickname'] = $nickname;

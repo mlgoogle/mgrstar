@@ -21,6 +21,7 @@ define([
 
         render: function () {
             this.initModal();
+            this.initEventBind();
             this.fnGetList({}, true);
         },
 
@@ -28,6 +29,9 @@ define([
             this.onAdd();
             this.onDel();
             this.onSearch();
+        },
+        initEventBind: function () {
+            utils.initDatePicker();
         },
 
         initModal: function () {
@@ -137,6 +141,8 @@ define([
                     page: 1,
                     superMemberid: oForm.find("select[name=level]").val(),
                     name: oForm.find("input[name=orgName]").val() || "",
+                    startTime: oForm.find("#dateStart").val(),
+                    endTime: oForm.find("#dateEnd").val(),
                     memberMark: memberMark ,
                     agentMark: oForm.find("[name=agentMark]").val(),
                     agentSubMark: oForm.find("[name=agentSubMark]").val()

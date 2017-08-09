@@ -220,10 +220,17 @@ class CustomerController extends CTController
         /*
          end
          */
+        $startTime = I('post.startTime');
+        $endTime = I('post.endTime');
+        if($startTime && $endTime) {
+           // $startTime = strtotime($startTime);
+           // $endTime = strtotime($endTime)+(24*3600);
+            $map['registerTime'] = array(array('egt',$startTime),array('elt',$endTime));
+        }
+
 
         $count = $customer->where($map)->count();// 查询满足要求的总记录数
         $list = $customer->where($map)->page($page, $pageNum)->order('uid desc')->select();//获取分页数据
-
 
 
 
