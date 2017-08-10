@@ -626,6 +626,7 @@ class DataSearchController extends Controller
         $newUids = array_merge($newUids);
         $newUids = array_filter(array_unique($newUids));
 
+
         if($status == 1){  //买方
 
             $whereOreder['buy_uid'] = array('in',$newUids);
@@ -844,6 +845,7 @@ class DataSearchController extends Controller
         foreach ($list as $l){
             $buyUid[] = $l['buy_uid'];
             $sellUid[] = $l['sell_uid'];
+            $starcodeArr[] = $l['starcode'];
         }
 
 
@@ -877,6 +879,17 @@ class DataSearchController extends Controller
             $userInfo[$u['uid']] = $u;
         }
 
+        $starcodeArr = array_merge($starcodeArr);
+        $starcodeArr = array_filter(array_unique($starcodeArr));
+
+        $starcodeWhere['code'] = array('in',$starcodeArr);
+
+        $nameRows = M('star_starbrief')->field('code,name')->where($starcodeWhere)->select();
+
+        $nameData = array();
+        foreach ($nameRows as $n){
+            $nameData[$n['code']] = $n;
+        }
 
 
         foreach ($list as $l){
@@ -893,6 +906,18 @@ class DataSearchController extends Controller
             }else{
                 return false;
             }
+
+
+            $starcode = $l['starcode'];
+            $starname = $nameData[$l['starcode']]['name'];
+
+            if($starname || $starcode){
+                $lists[$l['id']]['starnamecode'] = $starname . '/' . $starcode;
+            }else{
+                $lists[$l['id']]['starnamecode'] = '';
+            }
+
+
 
             $lists[$l['id']]['name'] = isset($userInfo[$listUid]['nickname'])?$userInfo[$listUid]['nickname']:'';
             $lists[$l['id']]['phone'] = isset($userInfo[$listUid]['phoneNum'])?$userInfo[$listUid]['phoneNum']:'';
@@ -1238,7 +1263,7 @@ class DataSearchController extends Controller
             'name',
             'phone',
             'statusValue',
-            'starcode',
+            'starnamecode',
             'order_num',
             'order_price',
             'order_total'

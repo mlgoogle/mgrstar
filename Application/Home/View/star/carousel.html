@@ -109,6 +109,7 @@
 
 <script type="text/javascript">
     var publicUrl = '__PUBLIC__';
+    var starUrl = "<?php echo C('CGI_STAR_URl') ?>";
     function status(obj) {
         var _this = $(obj);
         var code = _this.attr("data-code");
@@ -123,6 +124,9 @@
                     layer.msg(msg.message);
                 }else {
                     layer.msg(msg.message);
+
+                    ajaxUrl();
+
                     window.setTimeout(
                         'window.location.reload(true)',
                         2000
@@ -163,16 +167,18 @@
                 $("#pic_url").val(json.file);
                 $("#local_pic").val(json.local);
             }
+
+            var img = '<div><img src="'+ publicUrl +'/uploads/pic/'+ json.local +'"></div>';
+            $(".pic1_div").html(img);
         }
 
-        var img = '<div><img src="'+ publicUrl +'/uploads/pic/'+ json.local +'"></div>';
-        $(".pic1_div").html(img);
     }
 </script>
 
 <script>
     require(['common'], function () {
         require(['page/star']);
+        require(['public/ajaxUrl']);
     });
 </script>
 

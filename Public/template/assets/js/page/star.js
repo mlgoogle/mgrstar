@@ -104,6 +104,7 @@ define([
                 if (id > 0) {
                     starAPI.editCarousel(data, function (result) {
                         if (result.code == 0) {
+                            ajaxUrl();
                             layer.msg('修改成功');
                             addCarouselModal    .close();
                             $this.removeClass("disabled");
@@ -119,6 +120,7 @@ define([
 
                 starAPI.addCarousel(data, function (result) {
                     if (result.code == 0) {
+                        ajaxUrl();
                         layer.msg('添加成功');
                         addCarouselModal    .close();
                         $this.removeClass("disabled");
