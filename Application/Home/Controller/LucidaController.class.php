@@ -29,16 +29,18 @@ class LucidaController extends CTController
     const ACH_STATUS = 1;   //成就
     const DEL_STATUS = 2;   //删除
 
-    public function __construct()
-    {
+
+    public function __construct(){
+
         parent::__construct();
         $this->assign('title', '明星列表');
     }
 
     //模板显示
-    public function listing()
-    {
-        $this->display('lucida/listing');
+    public function listing(){
+
+       $this->display('lucida/listing');
+
     }
 
     /**
@@ -703,6 +705,8 @@ class LucidaController extends CTController
             'code' => $bool,
             'message' => 'success',
         );
+
+
         return $this->ajaxReturn($return);
     }
 
@@ -736,6 +740,7 @@ class LucidaController extends CTController
         $data['page'] = $page;
         $data['totalPages'] = ceil($count / $pageNum);
         $data['list'] = $list;
+
 
         $this->ajaxReturn($data);
     }
@@ -871,4 +876,5 @@ class LucidaController extends CTController
 
         return $arr[$status];
     }
+
 }

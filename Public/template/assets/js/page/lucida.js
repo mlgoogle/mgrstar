@@ -75,6 +75,7 @@ define([
                         var data = {ids : idArr};
                         lucidaAPI.delLucida(data, function (result) {
                             _this.fnGetList({}, true);
+                            ajaxUrl();
                         });
                         layer.close(index)
                     });

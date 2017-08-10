@@ -148,7 +148,7 @@ define([
                     var phoneTd = '<td>' + v.phone + '</td>';
                     var statusValueTd  = '<td>' + statusValue + '</td>';
 
-                    var starcodeTd = '<td>' + (v.starcode?v.starcode:0) + '</td>';
+                    var starnamecodeTd = '<td>' + (v.starnamecode?v.starnamecode:'') + '</td>';
 
                     //var type_status = '<td>' + '' + '</td>';
 
@@ -161,7 +161,7 @@ define([
                     oTr +=
                         '<tr class="fadeIn animated" data-id="' + v.uid + '">'
                         + checkTd + xuTd + close_timeTd + order_idTd + nameTd + phoneTd + statusValueTd +
-                        starcodeTd  + order_numTd
+                        starnamecodeTd  + order_numTd
                         + order_priceTd + order_total +
                         '</tr>';
 
