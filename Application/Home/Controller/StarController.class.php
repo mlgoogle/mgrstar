@@ -185,13 +185,7 @@ class StarController extends CTController
         }
 
         $sort = (int)$_POST['sort'];
-//        if ($sort >= 5) {
-//            $return = array(
-//                'code' => -2,
-//                'message' => '排序不能大于5'
-//            );
-//            return $this->ajaxReturn($return);
-//        }
+
         //唯一性判断
         $model = M('star_starbrief');
 
@@ -272,14 +266,15 @@ class StarController extends CTController
      */
     public function searchCarousel(){
         $carousel = M('star_starbrief');
-        $pageNum = I('post.pageNum', 5, 'intval');
+        $pageNum = I('post.pageNum', 10, 'intval');
         $page = I('post.page', 1, 'intval');
         $map = 'star_starbrief.is_arousel = 0 AND star_starbrief.status <> 2' ;
 
         $count = $carousel->where($map)->count();// 查询满足要求的总记录数
 
         $list = $carousel
-            ->join('star_starinfolist ON star_starbrief.code = star_starinfolist.star_code','LEFT')->where($map)->order('star_starbrief.sort desc')->select();
+            ->join('star_starinfolist ON star_starbrief.code = star_starinfolist.star_code','LEFT')->where($map)
+            ->page($page, $pageNum)->order('star_starbrief.sort desc')->select();
        // $count = $carousel->where($map)->count();// 查询满足要求的总记录数
        // $list = $carousel->where($map)->page($page, $pageNum)->select();//获取分页数据->order('sort desc')
 
@@ -291,6 +286,26 @@ class StarController extends CTController
         $data['list'] = $list;
 
         $this->ajaxReturn($data);
+    }
+
+    public function getTimeStatus(){
+        //0-预售 1-发售 2-流通
+        $publish_arr = array('预售','发售','流通');
+
+        $starcode = (int)$_POST['starcode'];
+
+        $where['starcode'] = $starcode;
+
+        $timerRow = M('star_timer')->where($where)->order('sort desc')->find();
+
+        $publish_type = isset($timerRow['publish_type'])?(int)$timerRow['publish_type']:0;
+        $return = array(
+            'code' => 0,
+            'publish_name' => $publish_arr[$publish_type],
+        );
+
+        return $this->ajaxReturn($return);
+
     }
 
     /**

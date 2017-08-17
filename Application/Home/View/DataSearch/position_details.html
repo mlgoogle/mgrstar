@@ -1,0 +1,136 @@
+<include file="public:top_menu" />
+
+<style>
+    .search_download{
+        margin: 1px;
+        padding-top: 5px;
+        padding-left: 90%;
+        padding-bottom: 20px;
+        background-color: #fff;
+    }
+</style>
+
+<!--<div class="control-bar"><a href="javascript:;" class="btn">导出EXL</a></div>-->
+    <div class="search-bar">
+        <h3><a href="__ROOTHOME__/DataSearch/position">返回</a>   消费者姓名 : {$userName}</h3>
+    </div>
+    <div class="data-container">
+        <table>
+            <thead>
+            <tr>
+                <th></th>
+                <th>序号</th>
+                <th>明星编号／明星</th>
+                <th>持仓量（持单个明星总秒数）</th>
+                <th>冻结量（未交易成功的秒数）</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr><td colspan='8'>暂无记录</td></tr>
+            </tbody>
+        </table>
+        <div class="pagination"></div>
+        <!--<div class="search_download">-->
+            <!--<a href="javascript:;" class="btn download_btn">导出Excel</a>-->
+        <!--</div>-->
+    </div>
+</div>
+</div>
+
+</div>
+
+
+<script src="__JS__/vendor/require.js" data-main="__JS__/common_new"></script>
+<script>
+    var id = '{$id}';
+    require(['common_new'], function () {
+        require(['page/position_details']);
+    });
+   // require(['common'], function () {
+  //      require(['page/position_details']);
+//        require(['public/select_public']);
+ //   });
+</script>
+
+<script>
+    $(function () {
+        $(".download_btn").click(function () {
+
+            var oForm = $(".search-bar");
+            var memberMark = oForm.find("input[name=memberMark]").val();
+            var search_id  = oForm.find("input[name=search_id]").val();
+
+            var url = "__ROOTHOME__/DataSearch/downloadExcelPosition";
+            var form=$("<form>");//定义一个form表单
+            form.attr("style","display:none");
+            form.attr("target","");
+            form.attr("method","post");
+            form.attr("action",url);
+            var input1=$("<input>");
+            input1.attr("type","hidden");
+            input1.attr("name","pageNum");
+            input1.attr("value",1000);
+
+            $("body").append(form);//将表单放置在web中
+            form.append(input1);
+
+            if(memberMark && search_id) {
+                var memberMark   = memberMark ;
+                var agentMark    = oForm.find("[name=agentMark]").val();
+                var agentSubMark = oForm.find("[name=agentSubMark]").val();
+                var input2=$("<input>");
+                input2.attr("type","hidden");
+                input2.attr("name","memberMark");
+                input2.attr("value",memberMark);
+                var input3=$("<input>");
+                input3.attr("type","hidden");
+                input3.attr("name","agentMark");
+                input3.attr("value",agentMark);
+                var input4=$("<input>");
+                input4.attr("type","hidden");
+                input4.attr("name","agentSubMark");
+                input4.attr("value",agentSubMark);
+
+                form.append(input2);
+                form.append(input3);
+                form.append(input4);
+            }
+
+            var input5 = $("<input>");
+            var nickname = oForm.find("input[name=nickname]").val();
+            input5.attr("type", "hidden");
+            input5.attr("name", "nickname");
+            input5.attr("value", nickname);
+            var input6 = $("<input>");
+            var phone = oForm.find("input[name=phone]").val();
+            input6.attr("type", "hidden");
+            input6.attr("name", "phone");
+            input6.attr("value", phone);
+            form.append(input5);
+            form.append(input6);
+
+            var input7=$("<input>");
+            var startTime = $('#dateStart').val();
+            input7.attr("type","hidden");
+            input7.attr("name","startTime");
+            input7.attr("value",startTime);
+
+            var input8=$("<input>");
+            var endTime = $('#dateEnd').val();
+            input8.attr("type","hidden");
+            input8.attr("name","endTime");
+            input8.attr("value",endTime);
+
+            form.append(input7);
+            form.append(input8);
+
+
+            form.submit();//表单提交
+
+        });
+    })
+</script>
+
+</body>
+
+<include file="public:footer"/>

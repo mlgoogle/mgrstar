@@ -95,8 +95,10 @@ define([
 
         fnGetList: function (data, initPage) {
             var _this = this;
-            var table = $(".data-container table");
-            dataAPI.getUserOrderinfo(data, function (result) {
+            var table = $(".data-container table");  console.log(data);
+
+            data.id = id;
+            dataAPI.getPositionDetails(data, function (result) {
                 console.log("获取客户管理列表 调用成功!");
 
                 if (!result.list || result.list.length == "0") {
@@ -109,31 +111,21 @@ define([
 
                 $.each(result.list, function (i, v) {
 
-                    var xuTd   = '<td>' + v.uid + '</td>';
+                    var xuTd   = '<td>' + v.id + '</td>';
 
                    // var starcodeTd = '<td>' + (v.starcode?v.starcode:0) + '</td>';
 
-                    var nameTd = '<td>' + v.nickname + '</td>';
-                    var phoneTd = '<td>' + v.phoneNum + '</td>';
+                    var starcodenameTd = '<td>' + v.starcodename + '</td>';
+                    var starTimeTd = '<td>' + v.star_time + '</td>';
 
 
-                    // var type_member = v.member?v.member.name:'';
-                    // var type_agent = v.agent?v.agent.nickname:'';
-                    // var type_agent_sub = v.agent_sub?v.agent_sub.nickname:'';
+                    var orderNumTd = '<td>' +  v.order_num +'</td>';
 
-                    var type_info = '<td>' +  v.type_info +'</td>';
-
-
-                   // var starcodeTd = '<td>' + (v.starcodename ? v.starcodename : '') + '</td>';
-                   // var order_numTd = '<td>' + (v.order_num ? v.order_num : 0) + '</td>';
-                   // var un_order_numTd = '<td>' + (v.un_order_num ? v.un_order_num : 0) + '</td>';
-
-                    var xq = '<td> <a href="'+ rootUrl +'/DataSearch/position_details/id/'+ v.uid +'">查看</a></td>';
 
                     oTr +=
                         '<tr class="fadeIn animated" data-id="' + v.uid + '">'
-                        + checkTd + xuTd + nameTd + phoneTd  +
-                        type_info + xq +
+                        + checkTd + xuTd + starcodenameTd + starTimeTd  +
+                        orderNumTd +
                         '</tr>';
 
                 });

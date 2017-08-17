@@ -125,14 +125,14 @@
                         到
                         <input type="text" name="publish_end_time" id="dateEnd0"  value="<?php echo $item['publish_end_time'];?>">
                     </div>
-                    <div class="form-control">
-                        <label>发售类型</label>
-                        <select name="publish_type" style="width: 100px;">
-                            <option value="0" >预售</option>
-                            <option value="1" >发售</option>
-                            <option value="2" >流通</option>
-                        </select>
-                    </div>
+                    <!--<div class="form-control">-->
+                        <!--<label>发售类型</label>-->
+                        <!--<select name="publish_type" style="width: 100px;">-->
+                            <!--<option value="0" >预售</option>-->
+                            <!--<option value="1" >发售</option>-->
+                            <!--<option value="2" >流通</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
                     <div class="form-control">
                         <label>发售价格</label>
                         <input type="text" name="publish_price" value="<?php echo $item['publish_price'];?>">
@@ -163,11 +163,16 @@
                     </div>
                     <div class="form-control">
                         <label>发售类型</label>
-                        <select name="publish_type" style="width: 100px;">
-                            <option value="0" <?php if($item['publish_type'] == 0) echo 'selected' ?> >预售</option>
-                            <option value="1" <?php if($item['publish_type'] == 1) echo 'selected' ?> >发售</option>
-                            <option value="2" <?php if($item['publish_type'] == 2) echo 'selected' ?> >流通</option>
-                        </select>
+
+                        <?php if($item['publish_type'] == 0) echo '预售' ?>
+                        <?php if($item['publish_type'] == 1) echo '发售' ?>
+                        <?php if($item['publish_type'] == 2) echo '流通' ?>
+
+                        <!--<select name="publish_type" style="width: 100px;">-->
+                            <!--<option value="0" <?php if($item['publish_type'] == 0) echo 'selected' ?> >预售</option>-->
+                            <!--<option value="1" <?php if($item['publish_type'] == 1) echo 'selected' ?> >发售</option>-->
+                            <!--<option value="2" <?php if($item['publish_type'] == 2) echo 'selected' ?> >流通</option>-->
+                        <!--</select>-->
                     </div>
                     <div class="form-control">
                         <label>发售价格</label>

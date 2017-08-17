@@ -434,9 +434,22 @@ class TimerController extends CTController
             return $this->ajaxReturn($return);
         }
 
-        $sortArr = M('star_timer')->field('sort,publish_end_time')->where('starcode = '.$starcode . ' AND status <> 2 ')->order('sort desc')->find();
+        $sortArr = M('star_timer')->field('sort,publish_end_time,publish_last_time')->where('starcode = '.$starcode . ' AND status <> 2 ')->order('sort desc')->find();
         $sort    = isset($sortArr['sort'])?$sortArr['sort']:0;
         $endTime = isset($sortArr['publish_end_time'])?$sortArr['publish_end_time']:0;//最新一期的结束时间
+
+        $last_time = isset($sortArr['publish_last_time'])?$sortArr['publish_last_time']:0;
+
+
+
+
+        if ($last_time > 0) {
+            $return = array(
+                'code' => -2,
+                'message' => '明星没有持有时间才能添加！'
+            );
+            return $this->ajaxReturn($return);
+        }
 
         if($sort>=5){
             $return = array(
@@ -505,8 +518,8 @@ class TimerController extends CTController
         $data['publish_end_time'] = $publish_end_time = $publish_end_time . ' 23:59:59';
 
 
-        $publish_type = isset($_POST['publish_type'])?$_POST['publish_type']:0;
-        $data['publish_type'] = $publish_type;
+        //$publish_type = isset($_POST['publish_type'])?$_POST['publish_type']:0;
+        //$data['publish_type'] = $publish_type;
 
 
         $publish_price = isset($_POST['publish_price'])?$_POST['publish_price']:0;
@@ -634,7 +647,7 @@ class TimerController extends CTController
             return $this->ajaxReturn($return);
         }
 
-        $publish_type = $_POST['publish_type'];
+       // $publish_type = $_POST['publish_type'];
         $publish_price = $_POST['publish_price'];
 
         $publish_end_time = $publish_end_time. ' 23:59:59';
@@ -647,7 +660,7 @@ class TimerController extends CTController
             $model->modify_time = date('Y-m-d H:i:s', time());
             $model->publish_begin_time = $publish_begin_time;
             $model->publish_end_time = $publish_end_time;
-            $model->publish_type = $publish_type;
+           // $model->publish_type = $publish_type;
             $model->publish_price = $publish_price;
             $bool = $model->save();
         }
@@ -864,9 +877,21 @@ class TimerController extends CTController
 
         $code = isset($timerRow['code'])?$timerRow['code']:0;
 
-        $sortArr = M('star_timer')->field('sort')->where('starcode = '.$code . ' AND status <> 2 ')->order('sort desc')->find();
+        $sortArr = M('star_timer')->field('publish_last_time,sort')->where('starcode = '.$code . ' AND status <> 2 ')->order('sort desc')->find();
         $sort = isset($sortArr['sort'])?$sortArr['sort']:0;
 
+        $last_time = isset($sortArr['publish_last_time'])?$sortArr['publish_last_time']:0;
+
+
+
+
+        if ($last_time > 0) {
+            $return = array(
+                'code' => -2,
+                'message' => '明星没有持有时间才能添加！'
+            );
+            return $this->ajaxReturn($return);
+        }
 
         if($sort>=5){
             $return = array(

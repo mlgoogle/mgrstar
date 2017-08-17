@@ -48,6 +48,22 @@ class DataSearchController extends Controller
         $this->display('DataSearch/position');
     }
 
+    public function position_details(){ // 持仓详情
+
+        $this->assign('actionUrl','position');
+
+        $id = I('get.id',0,'intval');
+
+        $user = M('star_userinfo')->where(array('uid'=>$id))->find();
+
+        $nickname = isset($user['nickname'])?$user['nickname']:'';
+        $this->assign('id',$id);
+        $this->assign('userName',$nickname);
+
+
+        $this->display('DataSearch/position_details');
+    }
+
     public function recharge(){ //充值
         $this->assign('actionUrl','recharge');
 
@@ -338,10 +354,10 @@ class DataSearchController extends Controller
 
         $list = $user_info->where($map)->page($page,$pageNum)->select();//获取分页数据
 
-        $userIds = array();
+       // $userIds = array();
 
         foreach($list as $l){
-            $userIds[]   = $l['uid'];
+          //  $userIds[]   = $l['uid'];
             $memberIds[] = $l['memberId']; // 机构 mark
             $agentSubIds[] = $l['agentId']; // 经纪人 mark
 
@@ -375,21 +391,8 @@ class DataSearchController extends Controller
         }
 
 
-
-        $whereOrderUids['buy_uid']  =  array('in',$userIds); //买方uids
-        $whereOrderUids['sell_type'] =  2 ;// 卖方完成
-        $whereOrderUids['buy_type'] =  2 ;// 买方完成
-
-        $finishedbuyRows = $this->getBuyRows($whereOrderUids);
-
-        $whereunfinishedUids['buy_uid']  =  array('in',$userIds);
-        $whereunfinishedUids['_string'] = 'sell_type <> 2 OR buy_type <> 2';
-        $unfinishedBuyRows = $this->getBuyRows($whereunfinishedUids);
-
-
         foreach ($list as $l){
             $lists[$l['uid']] = $l;
-
 
             $lMemberId = $l['memberId'];  //mark
             $lagentId = $l['agentId'];    // mark
@@ -400,17 +403,6 @@ class DataSearchController extends Controller
 
             $lists[$l['uid']]['agent_sub'] = $agentSubData[$lagentSubId];
 
-            //$lists[$l['uid']]['finished_buy_price'] = $finishedbuyRows[$l['uid']];
-            $starcode = $lists[$l['uid']]['starcode'] = $finishedbuyRows[$l['uid']]['starcode'];
-            $starname =  $lists[$l['uid']]['starname'] = $finishedbuyRows[$l['uid']]['starname'];
-            $lists[$l['uid']]['order_num'] = (int)$finishedbuyRows[$l['uid']]['order_num'];
-            $lists[$l['uid']]['un_order_num'] = (int)$unfinishedBuyRows[$l['uid']]['un_order_num'];
-
-            if($starcode || $starname) {
-                $lists[$l['uid']]['starcodename'] = $starcode . ' / ' . $starname;
-            }else{
-                $lists[$l['uid']]['starcodename'] = '';
-            }
 
             $type_member = isset($lists[$l['uid']]['member'])?$lists[$l['uid']]['member']['name']:'';
             $type_agent = isset($lists[$l['uid']]['agent'])?$lists[$l['uid']]['member']['nickname']:'';
@@ -421,10 +413,6 @@ class DataSearchController extends Controller
             }else{
                 $lists[$l['uid']]['type_info'] = '';
             }
-
-
-            // $lists[$l['uid']]['unfinished_buy_price']= $unfinishedBuyRows[$l['uid']];
-            //$lists[$l['uid']]['unfinished_buy_price']['nums'] = count($unfinishedBuyRows[$l['uid']]);
         }
 
         if($this->excel) {
@@ -438,6 +426,48 @@ class DataSearchController extends Controller
         }
 
         $this->excel = $lists;
+
+    }
+
+    //持仓详情
+    public function getPositionDetails(){
+        $id = I('post.id',0,'intval');
+        $pageNum = isset($_POST['pageNum'])?$_POST['pageNum']:10;
+        $page = isset($_POST['page'])?$_POST['page']:1;
+        $model = M('star_belongtime');
+
+        $map['belong_id'] = $id;
+        $map['status'] = 0;
+        $count = $model->where($map)->count();
+        $starRow = $model->where($map)->page($page,$pageNum)->select();
+
+        $whereunfinishedUids['buy_uid']  =  array('in',array($id));
+        $whereunfinishedUids['_string'] = 'sell_type <> 2 OR buy_type <> 2';
+        $unfinishedBuyRows = $this->getBuyRows($whereunfinishedUids);
+
+        $list = array();
+        foreach ($starRow as $k=>$s){
+            $list[$k] = $s;
+            $order_num = isset($unfinishedBuyRows[$s['star_code']])?$unfinishedBuyRows[$s['star_code']]['order_num']:0;
+            $list[$k]['order_num'] = isset($order_num)?$order_num:0;
+
+            $starname = isset($unfinishedBuyRows[$s['star_code']])?$unfinishedBuyRows[$s['star_code']]['starname']:'';
+            $code = $s['star_code'];
+            if($starname || $code){
+                $starCodeName = $code . ' / ' . $starname;
+            }
+
+            $list[$k]['starcodename'] = isset($starCodeName)?$starCodeName:'';
+        }
+
+
+        $data['totalPages'] = $count;
+        $data['pageNum'] = $pageNum;
+        $data['page'] = $page;
+        $data['totalPages'] = ceil($count / $pageNum);
+        $data['list'] = $list;
+
+        $this->ajaxReturn($data);
 
     }
 
@@ -993,7 +1023,6 @@ class DataSearchController extends Controller
 
         $orederRows = M('star_orderlist')->field(' sum(order_num) as nums , starcode,buy_uid ')->where($where)->group('starcode')->select(); //买方
 
-
         foreach ($orederRows as $o){
             $codeArr[] = $o['starcode'];
         }
@@ -1007,9 +1036,9 @@ class DataSearchController extends Controller
         }
 
         foreach ($orederRows as $o){
-            $rows[$o['buy_uid']]['order_num'] = $o['nums'];
-            $rows[$o['buy_uid']]['starcode'] = $o['starcode'];
-            $rows[$o['buy_uid']]['starname'] = isset($nameRow[$o['starcode']])?$nameRow[$o['starcode']]:'';
+            $rows[$o['starcode']]['order_num'] = $o['nums'];
+            $rows[$o['starcode']]['starcode'] = $o['starcode'];
+            $rows[$o['starcode']]['starname'] = isset($nameRow[$o['starcode']])?$nameRow[$o['starcode']]:'';
         }
 
 
@@ -1118,6 +1147,24 @@ class DataSearchController extends Controller
     private function titlesPositionArr(){
         return array(
             '序号',
+            '消费者姓名',
+            '消费者手机号',
+            '所属机构、所属区域、所属经纪人',
+        );
+    }
+
+    private function fieldPositionArr(){
+        return array(
+            'uid',
+            'nickname',
+            'phoneNum',
+            'type_info',
+        );
+    }
+
+    private function titlesPositionOsArr(){
+        return array(
+            '序号',
             '明星编号／明星',
             '消费者姓名',
             '消费者手机号',
@@ -1127,7 +1174,7 @@ class DataSearchController extends Controller
         );
     }
 
-    private function fieldPositionArr(){
+    private function fieldPositionOsArr(){
         return array(
             'uid',
             'starcodename',

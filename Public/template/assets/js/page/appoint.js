@@ -166,14 +166,18 @@ define([
 
                     if(v.status_type == 0){
                         var status_style = 'class="btn btn-up-status"';
+                        var edit_status = '下线';
                     }else{
                         var status_style = 'class="btn btn-status"';
+                        var edit_status = '上线';
                     }
 
-                    var status = '<td><a href="javascript:;" ' + status_style + ' onclick="status(this)" data-id="'+ v.mid +'">' + v.status + '</a></td>';
+                    var status = '<td>' + v.status + '</td>';
+
+                    var edit_status_name = '<td><a href="javascript:;" ' + status_style + ' onclick="status(this)" data-id="'+ v.mid +'">' + edit_status + '</a></td>';
 
                     oTr += '<tr class="fadeIn animated" data-id="' + v.mid + '" data-url1="' + v.url1 + '" data-url2="' + v.url2 + '" >' +
-                        checkTd + id + add_time + appointname + micro + status + controlTd + '</tr>';
+                        checkTd + id + add_time + appointname + micro + status + edit_status_name + controlTd + '</tr>';
                 });
                 table.find("tbody").empty().html(oTr);
                 if (initPage) {
