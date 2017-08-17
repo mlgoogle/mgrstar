@@ -3,6 +3,7 @@
 define(["jquery"], function ($) {
     var dataAPI = {
         baseRequestUrl:"..",
+        baseRequestNewUrl:"../../../",
         login: function (data,cb) {
             $.post(this.baseRequestUrl+"/login/dologin",data,function (result) {
                 cb(result);
@@ -66,9 +67,19 @@ define(["jquery"], function ($) {
             })
         },
 
+         //持仓详情
+        getPositionDetails:function (data,cb) {
+
+            console.log(this.baseRequestNewUrl);
+
+            $.post(this.baseRequestNewUrl + "/dataSearch/getPositionDetails", data, function (result) {
+                cb(result);
+            })
+        },
 
 
 
-        };
+
+    };
     return dataAPI;
 });

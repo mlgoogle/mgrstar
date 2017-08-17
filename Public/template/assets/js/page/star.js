@@ -36,6 +36,9 @@ define([
                 var oForm = $(".addCarouselModal .modalForm");
                 $(".pic1_div").html('');
                 oForm.find("input[name=starname]").removeAttr("readonly");
+
+                $("#publish_name_id").html('');
+
                 addCarouselModal.open();
             });
             body.on("click", ".J_showEdit", function () {
@@ -57,6 +60,15 @@ define([
                 oForm.find("input[name=starcode]").val(starcode);
                 oForm.find("input[name=starcode]").attr("readonly", "readonly");
                 oForm.find("input[name=sort]").val(sort);
+
+                data = {starcode:starcode};
+
+                starAPI.getTimeStatus(data, function (result) {
+
+                    html = '<label>发售类型</label> ' + result.publish_name;
+
+                    $("#publish_name_id").html(html);
+                });
 
                 var img = '<div><img src="'+ pic_url +'"></div>';
                 $(".pic1_div").html(img);
@@ -190,18 +202,22 @@ define([
                     var display_on_home = v.display_on_home?v.display_on_home:0;
 
                     if(display_on_home == 0){
-                        var status_style = 'class="btn btn-up-status"';
-                        var status_name  = '下线';
-                    }else {
                         var status_style = 'class="btn btn-status"';
+                        var status_name  = '下线';
+
+                        var edit_status_name = '上线';
+                    }else {
+                        var status_style = 'class="btn btn-up-status"';
                         var status_name  = '上线';
+                        var edit_status_name = '下线';
                     }
 
-                    var status = '<td><a href="javascript:;" ' + status_style + ' onclick="status(this)" data-code="'+ v.code +'">' + status_name + '</a></td>';
+                    var status = '<td>' + status_name + '</td>';
+                    var edit_status = '<td><a href="javascript:;" ' + status_style + ' onclick="status(this)" data-code="'+ v.code +'">' + edit_status_name + '</a></td>';
 
 
                     oTr += '<tr class="fadeIn animated" data-id="' + v.uid + '" data-code= "' + v.code + '" data-src="'+ src +'" data-local="'+ v.local_pic +'">' + checkTd +  starname
-                        + sort + pic_url + status + controlTd + '</tr>';
+                        + sort + pic_url + status + edit_status +  controlTd + '</tr>';
                 });
                 table.find("tbody").empty().html(oTr);
                 if (initPage) {

@@ -124,13 +124,19 @@ define([
 
                     if(v.status_type == 0){
                         var status_style = 'class="btn btn-up-status"';
+
+                        var edit_status = '下架';
                     }else {
                         var status_style = 'class="btn btn-status"';
+                        var edit_status = '上架';
                     }
 
-                    var status = '<td><a href="javascript:;" ' + status_style + ' onclick="status(this)" data-id="'+ v.uid +'">' + v.status + '</a></td>';
+                    var status = '<td>' + v.status + '</td>';
 
-                    oTr += '<tr class="fadeIn animated" data-id="' + v.uid + '"  data-src="'+ src +'">' + checkTd + add_time + name + code + pic_url + status + controlTd + '</tr>';
+                    var edit_status_name = '<td><a href="javascript:;" ' + status_style + ' onclick="status(this)" data-id="'+ v.uid +'">' + edit_status + '</a></td>';
+
+                    oTr += '<tr class="fadeIn animated" data-id="' + v.uid + '"  data-src="'+ src +'">' + checkTd + add_time + name + code + pic_url + status +
+                        edit_status_name + controlTd + '</tr>';
                 });
                 table.find("tbody").empty().html(oTr);
                 if (initPage) {

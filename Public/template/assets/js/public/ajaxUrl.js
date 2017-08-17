@@ -14,6 +14,7 @@ function ajaxPost(url,data) {
         type: "POST",
         url: url,
         dataType: "json",
+        contentType:"application/json",
         data: data,
         success: function(msg){
 

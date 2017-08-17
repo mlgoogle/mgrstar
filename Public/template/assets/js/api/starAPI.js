@@ -30,7 +30,6 @@ define(["jquery"], function ($) {
 
         //查询
         search: function (data, cb) {
-            data.pageNum = 10;
             $.post(this.baseRequestUrl + "/Star/searchCarousel", data, function (result) {
                 cb(result);
             })
@@ -39,7 +38,6 @@ define(["jquery"], function ($) {
         //输入明星名称获取明星code
         getStarInfo: function (data, cb) {
             $.post(this.baseRequestUrl + "/Star/getStarInfo", data, function (result) {
-                console.log(result)
                 cb(result);
             })
         },
@@ -47,7 +45,6 @@ define(["jquery"], function ($) {
         //明星用户
         userList: function (data, cb) {
             $.post(this.baseRequestUrl + "/Star/userList", data, function (result) {
-                console.log(result)
                 cb(result);
             })
         },
@@ -56,7 +53,6 @@ define(["jquery"], function ($) {
         //明星用户 add
         addUser: function (data, cb) {
             $.post(this.baseRequestUrl + "/Star/addUser", data, function (result) {
-                console.log(result)
                 cb(result);
             })
         },
@@ -64,7 +60,6 @@ define(["jquery"], function ($) {
         //明星用户 edit
         editUser: function (data, cb) {
             $.post(this.baseRequestUrl + "/Star/editUser", data, function (result) {
-                console.log(result)
                 cb(result);
             })
         },
@@ -73,10 +68,17 @@ define(["jquery"], function ($) {
         //输入明星名称获取明星用户code
         getStarUserInfo: function (data, cb) {
             $.post(this.baseRequestUrl + "/Star/getStarUserInfo", data, function (result) {
-                console.log(result)
                 cb(result);
             })
         },
+        
+        //  获取发行信息
+        getTimeStatus: function (data,cb) {
+            $.post(this.baseRequestUrl + "/Star/getTimeStatus", data, function (result) {
+                console.log(result);
+                cb(result);
+            })
+        }
 
     };
     return starAPI;
