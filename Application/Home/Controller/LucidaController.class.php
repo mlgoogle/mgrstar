@@ -169,7 +169,7 @@ class LucidaController extends CTController
                 $key = 'pic' . $i;
                 $pic = I("post.$key", '', 'strip_tags');
                 $pic = trim($pic);
-                $picArr[$key] = $model->$key = $hostUrl . "/Public/uploads/" . self::STARDIR . $pic;
+                $picArr[$key] = $model->$key = $pic;
             }
         }
 
@@ -194,9 +194,9 @@ class LucidaController extends CTController
         $model->colleage = $colleage;
         $model->resident = $resident;
         $model->worth = $worth;
-        $model->head_url = $hostUrl . "/Public/uploads/" . self::STARPIC .$headUrl;
-        $model->back_pic = $hostUrl . "/Public/uploads/" . self::STARPIC .$backPic;
-        $model->pic1 = $hostUrl . "/Public/uploads/" . self::STARPIC .$pic1;
+        $model->head_url = $headUrl;
+        $model->back_pic = $backPic;
+        $model->pic1 = $pic1;
        // $model->appoint_id = $appoint_id;
         $model->weibo = $weibo;
 
@@ -223,7 +223,7 @@ class LucidaController extends CTController
             $startInfoList->star_name = $name;
             $startInfoList->star_phone = $phone = $code; // 暂时是明星的 code
            // $startInfoList->star_pic = isset($picArr['pic1'])?$picArr['pic1']:'';
-            $startInfoList->star_pic = $hostUrl . "/Public/uploads/" . self::STARPIC .$headUrl;
+            $startInfoList->star_pic = $headUrl;
             $startInfoList->add();
 
 
@@ -565,7 +565,7 @@ class LucidaController extends CTController
                     $key = 'pic' . $i;
                     $pic = I("post.$key", '', 'strip_tags');
                     $pic = trim($pic);
-                    $model->$key = $hostUrl . "/Public/uploads/" . self::STARDIR . $pic;
+                    $model->$key =  $pic;
                     if (!empty($pic) && $item[$key] != $pic) {
                         @unlink(self::UPLOADSDIR . self::STARDIR . $item[$key]);
                     }
@@ -584,13 +584,13 @@ class LucidaController extends CTController
             // $model->appoint_id = $appoint_id;
             $model->weibo = $weibo;
             if ($headUrl) {
-                $model->head_url = $hostUrl . "/Public/uploads/" . self::STARPIC . $headUrl;
+                $model->head_url =  $headUrl;
             }
             if ($backPic) {
-                $model->back_pic = $hostUrl . "/Public/uploads/" . self::STARPIC . $backPic;
+                $model->back_pic =  $backPic;
             }
             if ($pic1) {
-                $model->pic1 = $hostUrl . "/Public/uploads/" . self::STARPIC . $pic1;
+                $model->pic1 = $pic1;
             }
 
 
@@ -604,7 +604,7 @@ class LucidaController extends CTController
                     $wheres['star_code'] = $code;
 
 
-                    $data['star_pic'] = $hostUrl . "/Public/uploads/" . self::STARPIC . $headUrl;
+                    $data['star_pic'] =  $headUrl;
 
                     $startInfoList->where($wheres)->save($data);
                 }

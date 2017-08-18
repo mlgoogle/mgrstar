@@ -31,10 +31,15 @@ define([
         },
 
         initModal: function () {
+
             $(".J_showAdd").on("click", function () {
+                $(".star_url_div").html('');
+                $(".star_url2_div").html('');
                 addAppointModal.open();
             });
             body.on("click", ".J_showEdit", function () {
+                var oForm = $(".addAppointModal .modalForm");
+
                 var $this = $(this);
                 var id = $this.parents('tr').attr('data-id');
                 var oTd = $this.parents('tr').find('td');
@@ -43,7 +48,6 @@ define([
                 var url1   = $this.parents('tr').attr('data-url1');
                 var url2   = $this.parents('tr').attr('data-url2');
 
-                var oForm = $(".addAppointModal .modalForm");
                 oForm.find("input[name=id]").val(id);
                 oForm.find("input[name=appointname]").val(appointname);
                 oForm.find("input[name=micro]").val(micro);
@@ -176,7 +180,7 @@ define([
 
                     var edit_status_name = '<td><a href="javascript:;" ' + status_style + ' onclick="status(this)" data-id="'+ v.mid +'">' + edit_status + '</a></td>';
 
-                    oTr += '<tr class="fadeIn animated" data-id="' + v.mid + '" data-url1="' + v.url1 + '" data-url2="' + v.url2 + '" >' +
+                    oTr += '<tr class="fadeIn animated" data-id="' + v.mid + '" data-url1="' + qn_domain + v.url1 + '" data-url2="' + qn_domain +  v.url2 + '" >' +
                         checkTd + id + add_time + appointname + micro + status + edit_status_name + controlTd + '</tr>';
                 });
                 table.find("tbody").empty().html(oTr);

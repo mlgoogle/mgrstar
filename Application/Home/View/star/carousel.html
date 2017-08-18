@@ -116,7 +116,12 @@
 
 <script type="text/javascript">
     var publicUrl = '__PUBLIC__';
+    var uploadUrl = "<?php echo U('Autoload/upload') ?>";
+
     var starUrl = "<?php echo C('CGI_STAR_URl') ?>";
+
+    var qn_domain = "<?php echo C('qn_domain') ?>";
+
     function status(obj) {
         var _this = $(obj);
         var code = _this.attr("data-code");
@@ -155,7 +160,7 @@
 
     function UpladFile() {
         var fileObj = document.getElementById("file").files[0];
-        var FileController = '__ROOTHOME__/Star/uploadFile';
+        var FileController = uploadUrl;
         var form = new FormData();
         form.append("myfile", fileObj);
         createXMLHttpRequest();
@@ -169,13 +174,12 @@
             if (xhr.status == 200 || xhr.status == 0) {
                 var result = xhr.responseText;
                 var json = eval("(" + result + ")");
-                console.log(json.file);
+                console.log(json.path);
 
-                $("#pic_url").val(json.file);
-                $("#local_pic").val(json.local);
+                $("#pic_url").val(json.path);
             }
 
-            var img = '<div><img src="'+ publicUrl +'/uploads/pic/'+ json.local +'"></div>';
+            var img = '<div><img src="'+ qn_domain  + json.path +'"></div>';
             $(".pic1_div").html(img);
         }
 

@@ -170,7 +170,7 @@
 
 
         <!--<li class="pli">-->
-            <!--<a href="javascript:;" <php>if(CONTROLLER_NAME == 'Channel'){echo 'class="main"';}</php> >-->
+            <!--<a href="javascript:;" <php>if(CONTROLLER_NAME == 'Profit'){echo 'class="main"';}</php> >-->
                 <!--<strong>-->
                     <!--收益查询-->
                 <!--</strong>-->
@@ -179,7 +179,7 @@
 
                 <!--<li><a href="__ROOTHOME__/profit/commision"-->
                     <!--<php>if(ACTION_NAME == 'commision'){echo 'class="act"';}</php>-->
-                    <!--&gt;经纪人佣金</a>-->
+                    <!--&gt;佣金管理-经纪人</a>-->
                 <!--</li>-->
             <!--</ul>-->
         <!--</li>-->
@@ -187,6 +187,9 @@
     </ul>
 </div>
 <script>
+    var uploadUrl = "<?php echo U('Autoload/upload') ?>";
+    var qn_domain = "<?php echo $qn_domain = C('qn_domain') ?>";
+
     $(function () {
         $(".pli").each(function () {
 

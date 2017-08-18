@@ -1,22 +1,14 @@
 <?php
 return array(
 	//'配置项'=>'配置值'
-  //数据库配置信息
+    //数据库配置信息
 
-    /*
 
-            'DB_TYPE'   => 'mysql', // 数据库类型
-            'DB_HOST'   => '139.224.34.22', // 服务器地址
-            'DB_NAME'   => 'star', // 数据库名
-            'DB_USER'   => 'star', // 用户名
-            'DB_PWD'    => 'pEQrhRrG', // 密码
-    */
-
-        'DB_TYPE'   => 'mysqli', // 数据库类型
-        'DB_HOST'   => 'localhost', // 服务器地址
-        'DB_NAME'   => 'star', // 数据库名
-        'DB_USER'   => 'root', // 用户名
-        'DB_PWD'    => 'root', // 密码
+    'DB_TYPE'   => 'mysqli', // 数据库类型
+    'DB_HOST'   => 'localhost', // 服务器地址
+    'DB_NAME'   => 'star', // 数据库名
+    'DB_USER'   => 'root', // 用户名
+    'DB_PWD'    => 'root', // 密码
 
 
     'DB_PORT'   => 3306, // 端口
@@ -40,5 +32,10 @@ return array(
 
 
     'CGI_STAR_URl' => 'http://122.144.169.214/cgi-bin/star/quotations/v1/refreshstar.fcgi',
+
+    //七牛云
+    'qn_domain' => 'http://ouim6qew1.bkt.clouddn.com/',
+    'qn_ak' => '4jvwuLa_Xcux7WQ40KMO89DfinEuI3zXizMpwnc7',
+    'qn_sk' => '8tSk8O9VS0vl9zh8jUV1mkR1GijH2KyXMLbVel_T',
 
 );

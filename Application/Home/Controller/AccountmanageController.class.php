@@ -67,11 +67,6 @@ class AccountmanageController extends Controller {
         $this->display('accountManage/brokerSubManage');
     }
 
-    //佣金
-    public function commision(){
-        $this->display('accountManage/commision');
-    }
-
 
     public function queryPhoneNum(){
         $phoneNum = $_POST['phoneNum'];

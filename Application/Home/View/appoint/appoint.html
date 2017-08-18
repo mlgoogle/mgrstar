@@ -164,7 +164,7 @@
 
     function UpladFile() {
         var fileObj = document.getElementById("file").files[0];
-        var FileController = '__ROOTHOME__/info/uploadFile';
+        var FileController = uploadUrl;
         var form = new FormData();
         form.append("myfile", fileObj);
         createXMLHttpRequest();
@@ -178,21 +178,28 @@
             if (xhr.status == 200 || xhr.status == 0) {
                 var result = xhr.responseText;
                 var json = eval("(" + result + ")");
-                console.log(json.file);
 
-                $("#pic_url").val(json.file);
-                $("#local_pic").val(json.local);
+                if(json.status == 0){
+                    layer.msg(json.message);
+                }else {
+
+                    $("#pic_url").val(json.path);
+                    $("#local_pic").val(json.path);
+                    var img = '<img src=" ' + qn_domain + json.path + '">';
+                    $(".star_url_div").html(img);
+
+                }
+
             }
 
-            var img = '<img src="__PUBLIC__/uploads/info/'+ json.local +'">';
-            $(".star_url_div").html(img);
+
         }
     }
     
     function UpladFileUrl2() {
         var fileObj = document.getElementById("file2").files[0];
         console.log(fileObj);
-        var FileController = '__ROOTHOME__/info/uploadFile';
+        var FileController = uploadUrl;
         var form = new FormData();
         form.append("myfile", fileObj);
         createXMLHttpRequest();
@@ -206,15 +213,16 @@
             if (xhr.status == 200 || xhr.status == 0) {
                 var result = xhr.responseText;
                 var json = eval("(" + result + ")");
-                console.log(json.file);
+                if(json.status == 0){
+                    layer.msg(json.message);
+                }else {
+                    $("#pic_url2").val(json.path);
+                    $("#local_url2").val(json.path);
+                }
 
-                $("#pic_url2").val(json.file);
-                $("#local_url2").val(json.local);
+                var img = '<img src="' + qn_domain + json.path +'">';
+                $(".star_url2_div").html(img);
             }
-
-            var img = '<img src="__PUBLIC__/uploads/info/'+ json.local +'">';
-            //var img = '<span><img src="'+json[i]+'"></span>';
-            $(".star_url2_div").html(img);
         }
     }
 

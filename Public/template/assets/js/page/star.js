@@ -196,7 +196,7 @@ define([
                     //var code = '<td>' + v.code + '</td>';
                     var starname = '<td>' + v.name + '</td>';
                     var sort = '<td>' + v.sort + '</td>';
-                    var src = v.pic1;//publicUrl + '/uploads/carousel/'+ v.local_pic;
+                    var src = qn_domain + v.pic1;//publicUrl + '/uploads/carousel/'+ v.local_pic;
                     //var url = v.pic_url;
                     var pic_url = '<td><img src="'+src +'" class="icon-star-img"></td>';
                     var display_on_home = v.display_on_home?v.display_on_home:0;
