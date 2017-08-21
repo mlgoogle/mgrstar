@@ -38,7 +38,7 @@ function UploadIndexPic(){
     clName = 'pic1_div';
     name = 'pic1';
     xhrPic.onreadystatechange = imgPic;
-    var FileController = rootHomeUrl + '/Lucida/UploadFilePic' ;
+    var FileController = uploadUrl ;
     xhrPic.open("post", FileController, true);
     xhrPic.send(form);
 }
@@ -72,7 +72,7 @@ function UploadBackPic() {
     clName = 'back_pic_div';
     name = 'back_pic';
     xhrPic.onreadystatechange = imgPic;
-    var FileController = rootHomeUrl + '/Lucida/UploadFilePic' ;
+    var FileController = uploadUrl ;
     xhrPic.open("post", FileController, true);
     xhrPic.send(form);
 
@@ -84,31 +84,33 @@ function imgPic() {
             var result = xhrPic.responseText;
             var json = eval("(" + result + ")");
 
-            if(json.code == -2){
+            if(json.status == 0){
                 layer.msg(json.message);
             }else {
-                $('input[name='+ name +']').val(json);
+                $('input[name='+ name +']').val(json.path);
             }
+
+            var img = '<span><img src="'+ qn_domain  + json.path +'"></span>';
+            $("."+clName).html(img);
         }
 
 
-      var img = '<span><img src="'+ publicUrl +'/uploads/pic/'+ json +'"></span>';
-        $("."+clName).html(img);
-        // console.log(xhr);
-        // console.log(json);
+
     }
 }
 
 
 function UpladFile() {
     var fileObj = document.getElementById("file").files;
-    var FileController = rootHomeUrl + '/Lucida/uploadFile';
+    var FileController = uploadUrl;
+
 
     var len = fileObj.length;
     var form = new FormData();
     for (var i = 0; i < len; i++) {
-        form.append("myfile[]", fileObj[i]);
+        form.append("myfile", fileObj[i]);
     }
+
 
     createXMLHttpRequestPic();
     xhrPic.onreadystatechange = handleStateChange;
@@ -125,21 +127,44 @@ function handleStateChange() {
             var len = json.length;
             var existImgLen = parseInt($(".lucida-div img").length);
 
-            for (var i = 0; i < len; i++) {
-                var i = parseInt(i);
-                var num = i + existImgLen + 1;
-                if (num > 5) {
-                    num = (i < 1) ? 1 : i;
-                }
+
+
+
+            if(json.status == 0){
+                layer.msg(json.message);
+            }else {
                 var name = "pic" + (num + 1);
-                var inp = "<input type='hidden' name='"+name+"' value='"+ json[i] +"' />";
+                var inp = "<input type='hidden' name='"+name+"' value='"+ json.path +"' />";
                 $(".modalForm").append(inp);
 
-                var img = '<span><img src="'+ publicUrl +'/uploads/lucida/'+json[i]+'"></span>';
+
+                var img = '<span><img src="'+ qn_domain  + json.path+'"></span>';
                 //var img = '<span><img src="'+json[i]+'"></span>';
                 $(".lucida-div").append(img);
-                //$(".lucida-div").html(img);
+
+                num ++;
             }
+
+
+            // console.log(json);
+            //
+            // for (var i = 0; i < len; i++) {
+            //     var i = parseInt(i);
+            //     var num = i + existImgLen + 1;
+            //     if (num > 5) {
+            //         num = (i < 1) ? 1 : i;
+            //     }
+            //     var name = "pic" + (num + 1);
+            //     var inp = "<input type='hidden' name='"+name+"' value='"+ json.path +"' />";
+            //     $(".modalForm").append(inp);
+            //
+            //     console.log(json[i].path);
+            //
+            //     var img = '<span><img src="'+ qn_domain  + json.path+'"></span>';
+            //     //var img = '<span><img src="'+json[i]+'"></span>';
+            //     $(".lucida-div").append(img);
+            //     //$(".lucida-div").html(img);
+            // }
         }
     }
 }

@@ -111,7 +111,7 @@
 
                     <span  class="star_pic_div">
                         <?php if($item['head_url']) {  ?>
-                            <img src="<?php echo $item['head_url'];?>"  >
+                            <img src="<?php echo  $qn_domain . $item['head_url'];?>"  >
                         <?php } ?>
                     </span>
 
@@ -125,7 +125,7 @@
 
                     <span  class="back_pic_div">
                         <?php if($item['back_pic']) {  ?>
-                        <img src="<?php echo $item['back_pic'];?>"  >
+                        <img src="<?php echo  $qn_domain . $item['back_pic'];?>"  >
                         <?php } ?>
                     </span>
 
@@ -139,7 +139,7 @@
 
                     <span  class="pic1_div">
                         <?php if($item['pic1']) {  ?>
-                        <img src="<?php echo $item['pic1'];?>"  >
+                        <img src="<?php echo  $qn_domain . $item['pic1'];?>"  >
                         <?php } ?>
                     </span>
 
@@ -219,13 +219,14 @@
                 </div>
                 <div class="lucida-div">
                     <php>
+                        $count = count($pics);
                         foreach ($pics as $key => $pic) {  $pathPic = isset($pathPics[$key])?$pathPics[$key]:'';
                         echo '
                         <span>
                             <div  style="margin-top: 30px;margin-left: 430px;margin-bottom: -40px;" onclick="rv_pic(this)" data-key="'.$key.'" >
                                 <label style="cursor: pointer;color: #ff0000">X</label>
                             </div>
-                            <div style="margin:10px;"><img src="'.$pic.'" title="点击删除"  data-key="'.$key.'"></div>
+                            <div style="margin:10px;"><img src="' . $qn_domain .$pic.'" title="点击删除"  data-key="'.$key.'"></div>
                             <input type="hidden" name="'.$key .'" value="">  <!-- '.$pathPic.' -->
                         </span>';
                         }
@@ -244,6 +245,7 @@
 </div>
 <script type="text/javascript">
 
+    var num = parseInt("{$count}") + 1;
     var publicUrl = "__PUBLIC__";//定义js中的url路径
     var rootHomeUrl = "__ROOTHOME__";
 
@@ -421,7 +423,7 @@
 
         createXMLHttpRequest();
         xhr.onreadystatechange = handPic;
-        var FileController = '__ROOTHOME__/Lucida/UploadPic';
+        var FileController = uploadUrl;
 
         xhr.open("post", FileController, true);
         xhr.send(form);
@@ -434,18 +436,17 @@
                 var result = xhr.responseText;
                 var json = eval("(" + result + ")");
 
-                if(json.code == -2){
+                if(json.status == 0){
                     layer.msg(json.message);
                 }else {
-                    $('input[name=head_url]').val(json);
+                    $('input[name=head_url]').val(json.path);
                 }
+                var img = '<span><img src="'+ qn_domain  + json.path +'"></span>';
+                $(".star_pic_div").html(img);
             }
 
-            var img = '<span><img src="__PUBLIC__/uploads/pic/'+ json +'"></span>';
-            //var img = '<span><img src="'+json[i]+'"></span>';
-            $(".star_pic_div").html(img);
-           // console.log(xhr);
-           // console.log(json);
+
+
         }
     }
 

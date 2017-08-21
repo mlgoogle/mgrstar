@@ -9,25 +9,19 @@ namespace Home\Controller;
  * Class StarController
  * @package Home\Controller
  */
-class StarController extends CTController
-{
+class StarController extends CTController{
+
     //软删除
     const DELETE_TRUE = 1;
     const DELETE_FALSE = 0;
-
-//const UPLOADSDIR = '\.' .DIRECTORY_SEPARATOR. 'Public'. DIRECTORY_SEPARATOR;             // ./Public/uploads/carousel/
-//const STARDIR = 'uploads' . DIRECTORY_SEPARATOR . 'carousel' . DIRECTORY_SEPARATOR;     //  uploads/carousel/
 
 	const UPLOADSDIR = "Public/uploads/";
     const STARDIR = "lucida/";
     const STARPIC = "pic/";
 	//const STARDIR = "carousel/";
 
-	public function __construct()
-    {
+	public function __construct(){
         parent::__construct();
-
-
     }
 
     //模板显示
@@ -150,8 +144,8 @@ class StarController extends CTController
     /**
      * 图片上传
      */
-    public function uploadFile()
-    {
+    public function uploadFile(){
+
         $ret['file'] = '';
         $dir = './' . self::UPLOADSDIR . self::STARPIC;
 
