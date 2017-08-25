@@ -20,7 +20,7 @@ class DataSearchController extends Controller
         parent::__construct();
         $user = $this->user = session('user');
         if(!$this->user){
-            $this->display('Login/login');
+            $this ->redirect('login/login',Null,0);
         }
 
         $this->homeModel =  $article = new \Home\Model\homeModel();// D('Home/home');

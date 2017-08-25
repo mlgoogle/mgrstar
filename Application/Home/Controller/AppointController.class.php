@@ -179,8 +179,15 @@ class AppointController extends CTController
             $model->mid = $id;
             $model->price = $micro;
 
-            $model->url1 = $url1;
-            $model->url2 = $url2;
+
+            if($url1){
+                $model->url1 = $url1;
+            }
+
+            if($url2) {
+                $model->url2 = $url2;
+            }
+
             $model->local_pic = $local_pic;
 
             $model->modify_time = date('Y-m-d H:i:s', time());

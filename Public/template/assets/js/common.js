@@ -16,6 +16,7 @@ requirejs.config({
         countAPI        : 'api/countAPI',
         dataAPI         : 'api/dataAPI',
         channelAPI      : 'api/channelAPI',
+        profitAPI      : 'api/profitAPI',
 
 
         // base64: 'libs/base64',

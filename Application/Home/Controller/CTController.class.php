@@ -14,10 +14,10 @@ use Think\Controller;
 class CTController extends Controller
 {
     protected $user;
-    public function _initialize()
-    {
-        if (!count(session('user'))) {
-            $this->redirect('login/login');
+    public function _initialize(){
+
+        if(!session('user')){
+            $this ->redirect('login/login',Null,0);
         }
 
         $user = $this->user = session('user');

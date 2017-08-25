@@ -17,8 +17,7 @@ class AdminuserController extends Controller
         $this->user = session('user');
 
         if (!session('user')) {
-            //$this->ajaxReturn(array('code'=>-1,'message'=>'fail','data'=>'not login'));
-
+            $this ->redirect('login/login',Null,0);
         }
     }
 
