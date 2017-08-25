@@ -56,9 +56,9 @@ define([
                 oForm.find("input[name=pic_url2]").val(url2);
 
 
-                var img = '<img src="' + url1 +'">';
+                var img = '<img src="' + qn_domain + url1 +'">';
                 $(".star_url_div").html(img); //选中
-                var img2 = '<img src="' + url2 +'">';
+                var img2 = '<img src="' + qn_domain + url2 +'">';
                 $(".star_url2_div").html(img2); //未选中
                 addAppointModal.open();
             });
@@ -180,7 +180,8 @@ define([
 
                     var edit_status_name = '<td><a href="javascript:;" ' + status_style + ' onclick="status(this)" data-id="'+ v.mid +'">' + edit_status + '</a></td>';
 
-                    oTr += '<tr class="fadeIn animated" data-id="' + v.mid + '" data-url1="' + qn_domain + v.url1 + '" data-url2="' + qn_domain +  v.url2 + '" >' +
+                    oTr += '<tr class="fadeIn animated" data-id="' + v.mid +
+                        '" data-url1="'  + v.url1 + '" data-url2="'  +  v.url2 + '" >' +
                         checkTd + id + add_time + appointname + micro + status + edit_status_name + controlTd + '</tr>';
                 });
                 table.find("tbody").empty().html(oTr);

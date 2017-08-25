@@ -38,4 +38,15 @@ return array(
     'qn_ak' => '4jvwuLa_Xcux7WQ40KMO89DfinEuI3zXizMpwnc7',
     'qn_sk' => '8tSk8O9VS0vl9zh8jUV1mkR1GijH2KyXMLbVel_T',
 
+    //提现配置
+    'post_url'      => 'https://back.byepay.cn:30006/payment/gateway/100305100100/',  //请求地址
+    'key'           => '8470D3D03BA7A19B9E0FD63EC96591E3',
+    'withdrawals_data' => array(
+        'subMerNo'      => '10000740', // 商户编号
+        'acctNo'        =>  '698548828', // 银行卡号
+        'notifyUrl'     => 'http://'.$_SERVER['HTTP_HOST'].'/index.php/Home/Profit/notifyUrl', // 异步请求地址
+        'isCompay'      => '1', // 对公对私标识0为对私，1为对公
+        'customerName'  => '民生银行羊城支行', //代付账户名称
+    ),
+
 );

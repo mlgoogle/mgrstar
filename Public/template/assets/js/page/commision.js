@@ -2,13 +2,14 @@ define([
     "jquery",
     "utils",
     "config",
-    "accountAPI",
+    "profitAPI",
     "layer",
     "pagination",
     "remodal"
-], function ($, utils, config, accountAPI) {
+], function ($, utils, config, profitAPI) {
     var addBrokerModal = $('[data-remodal-id=addBrokerModal]').remodal();
-    var checkBrokerModal = $('[data-remodal-id=checkBrokerModal]').remodal();
+    var editBrokerModal = $('[data-remodal-id=editBrokerModal]').remodal();
+    var withdrawalsModel = $('[data-remodal-id=withdrawalsModel]').remodal();
     var body = $("body");
     var brokerId;
 
@@ -20,17 +21,16 @@ define([
         },
         render: function () {
             this.initModal();
-            this.initOrgList();
-            this.initTopOrgList();
+           // this.initOrgList();
+           // this.initTopOrgList();
 
             this.fnGetList({}, true);
         },
         bindEvents: function () {
-            this.onSearch();
-            this.onAdd();
-            this.onDel();
-            this.onUpdateUserStatus();
-            this.onCheck();
+            //this.onSearch();
+            //this.onAdd();
+            // this.onUpdateUserStatus();
+            //this.onCheck();
         },
 
         initTopOrgList: function () {
@@ -74,157 +74,120 @@ define([
         initModal: function () {
             $(".J_showAdd").on("click", function () {
 
-
-                var oForm = $(".addBrokerModal .modalForm");
-                var provinceSelect = oForm.find("select[name=province]");
-                var provinceOptionStr = '<option value="0">选择省份</option>';
-                //省市
-                data = {};
-                accountAPI.getProvince(data, function (result) {
-
-                    if (!result.list) {
-                        provinceSelect.html(provinceOptionStr);
-                        // return false;
-                    }else {
-                        $.each(result.list, function (i, v) {
-                            provinceOptionStr += '<option value="' + v.id + '">'+v.province+'</option>';
-                        });
-                        provinceSelect.html(provinceOptionStr);
-                    }
-                });
-
-                oForm.find("select[name=city]").css('display','none');
-
                 addBrokerModal.open();
             });
 
+            $(".J_showEdit").on("click", function () {
 
-            //点击机构选择框，获取城市
-            body.on("change","select[name=province]",function() {
+                editBrokerModal.open();
+            });
 
-                var oForm = $(".addBrokerModal .modalForm");
-                var citySelect = oForm.find("select[name=city]");
-                var cityOptionStr = '';
+            $(".put_withdrawals").on('click',function () {
+                withdrawalsModel.open();
+            });
+            //添加 绑定银行卡
+            $(".add-bank").on("click", function () {
+                var oForm = $(".addBrokerModal");
 
-                var data = {
-                    pid: $(this).val(),
-                    page: ''
+                var bankPersonName = oForm.find('input[name=bankPersonName]').val();
+                var bankAccount = oForm.find('input[name=bankAccount]').val();
+                data = {
+                    bankPersonName:bankPersonName,
+                    bankAccount:bankAccount,
                 };
-                accountAPI.getCity(data, function (result) {
-                    console.log('经纪人列表-调用成功');
-                    if (!result.list) {
-                        citySelect.html(cityOptionStr);
+                profitAPI.addBank(data,function (result){
+
+                    if(result.code == -2){
+                        layer.msg(result.message);
                         return false;
+                    }else{
+                        layer.msg(result.message);
+
+                        addBrokerModal.close();
+                        window.setTimeout(
+                            'window.location.reload()',
+                            2000
+                        );
                     }
 
-                    $.each(result.list, function (i, t) {
-
-                        cityOptionStr += '<option value="' + t.code  + '">' + t.city  + '</option>';
-                    });
-                    citySelect.html(cityOptionStr);
-
-                    citySelect.css('display','inline');
-                });
-            });
-
-            body.on("click", ".J_showCheckBroker", function () {
-                var $this = $(this);
-                brokerId = $this.parents('tr').attr('data-id');
-                var oTd = $this.parents('tr').find('td');
-                var orgName = oTd.eq(3).text();
-                var orgSubName = oTd.eq(4).text();
-
-                var mark = oTd.eq(2).text();
-                var brokerName = oTd.eq(5).text();
-                var phone = oTd.eq(6).text();
-                var oForm = $(".checkBrokerModal .modalForm");
-
-                var memberId = oTd.eq(9).text();
-                var agentId  = oTd.eq(10).text();
-                oForm.find("input[name=org]").val(memberId);
-                oForm.find("input[name=agent]").val(agentId);
-
-                oForm.find("input[name=id]").val(mark);
-                oForm.find("input[name=name]").val(brokerName);
-                oForm.find("input[name=phone]").val(phone);
-                oForm.find("input[name=brokerId]").val(brokerId);
-
-                checkBrokerModal.open();
-
-                //
-                memberObj = oForm.find("select[name=org] option[value='" + memberId + "']");
-
-                //  oForm.find("select[name=org] option:selected").attr("selected", false);
-                oForm.find("select[name=org] option").each(function (a,v) {
-                    $(this).attr("selected", false);
-                });
-
-                // memberObj.attr("selected", true);
-                memberObj.remove();
-
-                oForm.find("select[name=org]").append("<option value='" + memberId +  "' selected >" + orgName + "</option>");  //为Select追加一个Option(下拉项)
-
-
-
-                var data= {memberid:memberId};
-
-
-                var agentSelect = oForm.find("select[name=agent]");
-                var agentOptionStr = '<option value="0">选择区域经纪人</option>';
-
-                accountAPI.getAgentList(data,function (result){
-
-
-                    if (!result.list) {
-                        agentSelect.html(agentOptionStr);
-                        return false;
-                    }
-
-                    $.each(result.list, function (i, t) {
-
-                        var selected = '';
-                        if(t.id==agentId){
-                            selected = 'selected';
-                        }
-
-                        agentOptionStr += '<option value="' + t.id + '" ' + selected + '>' + t.nickname + '</option>';
-                    });
-                    agentSelect.html(agentOptionStr);
 
                 });
 
             });
+
+            //提现
+            $(".withdrawals-bank").on("click", function () {
+                var oForm = $(".withdrawalsModel");
+
+               // var bankPersonName = oForm.find('input[name=bankPersonName]').val();
+                var bankAccount    = oForm.find('input[name=bankAccount]').val();
+                var bankSum        = oForm.find('input[name=bankSum]').val();
+                var bankName       = oForm.find('input[name=bankName]').val();
+                data = {
+                    bankSum:bankSum,
+                //    bankPersonName:bankPersonName,
+                    bankAccount:bankAccount,
+                    bankName : bankName
+                };
+                profitAPI.withdrawals(data,function (result){
+
+                    if(result.code == -2){
+                        layer.msg(result.message);
+                        return false;
+                    }else{
+                        layer.msg(result.message);
+                        editBrokerModal.close();
+
+                        window.setTimeout(
+                            'window.location.reload()',
+                            2000
+                        );
+                    }
+
+                });
+
+                // addBrokerModal.close();
+            });
+
+
+            //修改 更换银行卡
+            $(".edit-bank").on("click", function () {
+                var oForm = $(".editBrokerModal");
+
+                var bankPersonName = oForm.find('input[name=bankPersonName]').val();
+                var bankAccount    = oForm.find('input[name=bankAccount]').val();
+                var id = oForm.find('input[name=id]').val();
+                data = {
+                    id:id,
+                    bankPersonName:bankPersonName,
+                    bankAccount:bankAccount
+                };
+                profitAPI.editBank(data,function (result){
+
+                    if(result.code == -2){
+                        layer.msg(result.message);
+                        return false;
+                    }else{
+                        layer.msg(result.message);
+                        editBrokerModal.close();
+
+                        window.setTimeout(
+                            'window.location.reload()',
+                            2000
+                        );
+                    }
+
+
+                });
+
+                // addBrokerModal.close();
+            });
+
 
             $(document).on('closed', '.remodal', function (e) {
                 $(this).find(".modalForm")[0].reset();
             });
 
-
-            //点击机构选择框，获取下级区域经纪人
-            body.on("change",".org_select",function() {
-
-                var agentSelect = $("select[name=agent]");
-                var agentOptionStr = '<option value="0">选择区域经纪人</option>';
-
-                var data = {
-                    memberid: $(this).val(),
-                    page: ''
-                };
-                accountAPI.getAgentList(data, function (result) {
-                    console.log('经纪人列表-调用成功');
-                    if (!result.list) {
-                        agentSelect.html(agentOptionStr);
-                        return false;
-                    }
-
-                    $.each(result.list, function (i, t) {
-
-                        agentOptionStr += '<option value="' + t.id + '">' + t.nickname + '</option>';
-                    });
-                    agentSelect.html(agentOptionStr);
-
-                });
-            });
         },
 
         onSearch: function () {
@@ -242,141 +205,13 @@ define([
             });
         },
 
-        onAdd: function () {
-            var _this = this;
-            var btn = $(".addBrokerModal .remodal-confirm");
-            var oForm = $(".addBrokerModal form");
-            btn.on("click", function () {
-                var $this = $(this);
-                //if ($this.hasClass("disabled")) return;
-                //$this.addClass("disabled");
-                var provinceId = oForm.find('select[name=province]').val();
-                var code = oForm.find('select[name=city]').val();
-                var data = {
-                    memberid: oForm.find('select').val(),
-                    agentId:  oForm.find("select[name=agent]").val(),
-                    mark: oForm.find('[name=id]').val(),
-                    nickname: oForm.find('[name=name]').val(),
-                    phone: oForm.find('[name=phone]').val(),
-                    provinceId: provinceId,
-                    province: oForm.find('select[name=province] option[value='+ provinceId +']').text(),
-                    code: code,
-                    city: oForm.find('select[name=city] option[value='+ code +']').text(),
-                    company: oForm.find('input[name=company]').val(),
-                };
 
-                accountAPI.addAgentSub(data, function (result) {
-
-                    if (result.code == 0) {
-                        addBrokerModal.close();
-                        layer.msg("新建成功");
-                        _this.fnGetList({}, true);
-                    }else if(result.code == -2){
-                        layer.msg(result.message);
-                    }  else {
-                        layer.msg("新建失败");
-                    }
-                    // $this.removeClass("disabled");
-                });
-            })
-        },
-        /**
-         * 修改经纪人
-         */
-        onCheck: function () {
-            var _this = this;
-            var btn = $(".checkBrokerModal .J_check");
-            var oForm = $(".checkBrokerModal form");
-            //var oTd = $this.parents('tr').find('td');
-            btn.on("click", function () {
-                var $this = $(this);
-
-                var data = {
-                    id:  oForm.find('input[name=brokerId]').val(),
-                    memberId: oForm.find('select[name=org]').val(),
-                    agentId: oForm.find('select[name=agent]').val(),
-                    mark: oForm.find('input[name=id]').val(),
-                    nickname: oForm.find('input[name=name]').val(),
-                    phone: oForm.find('input[name=phone]').val(),
-                    // verify: verify
-                };
-
-
-
-                accountAPI.updateAgentSub(data, function (result) {
-                    if (result.code == 0) {
-                        checkBrokerModal.close();
-                        _this.fnGetList({}, true);
-                    } else if(result.code == -2){
-                        layer.msg(result.message);
-                    }else {
-                        layer.msg("操作失败");
-                    }
-                    $this.removeClass("disabled");
-                });
-            })
-        },
-
-        /**
-         * 删除
-         */
-        onDel: function () {
-            var _this = this;
-            $(".J_onDel").on("click", function () {
-                var selectArr = utils.getCheckedArr();
-                if (!selectArr.length) {
-                    layer.msg("请选择要操作的数据");
-                    return;
-                }
-                var data = {
-                    id: selectArr
-                };
-                accountAPI.delBroker(data, function (result) {
-                    if (result.code == 0) {
-                        layer.msg("删除成功");
-                        _this.fnGetList({}, true);
-                    } else {
-                        layer.msg("删除失败");
-                    }
-
-                })
-            })
-        },
-
-        /**
-         * 启用/禁用
-         */
-        onUpdateUserStatus: function () {
-            var _this = this;
-            $(".J_updateStatus").on("click", function () {
-                var idArr = utils.getCheckedArr();
-                if (!idArr.length) {
-                    layer.msg("请选择要操作的数据");
-                    return;
-                }
-                var data = {
-                    id: idArr,
-                    status: $(this).hasClass('open-i') ? 1 : 0
-                };
-
-                accountAPI.updateBrokerSubStatus(data, function (result) {
-                    var text = data.status === 1 ? '启用成功' : '禁用成功';
-
-                    if (result.code == 0) {
-                        layer.msg(text);
-                        _this.fnGetList({}, true);
-                    }else {
-                        layer.msg("操作失败");
-                    }
-                })
-            })
-
-        },
         fnGetList: function (data, initPage) {
             var _this = this;
             var table = $(".data-container table");
+
             // showLoading(".J_consumeTable");
-            accountAPI.searchAgentSub(data, function (result) {
+            profitAPI.subAgentProfit(data, function (result) {
                 console.log("获取经纪人列表 调用成功!");
                 if (!result.list) {
                     table.find("tbody").empty().html("<tr><td colspan='9'>暂无记录</td></tr>");
@@ -389,23 +224,24 @@ define([
                         "<a class='J_showCheckBroker text-blue' href='javascript:;'> 修改 </a>" +
                         "</td>";
                 $.each(result.list, function (i, v) {
-                    var codeTd = '<td>' + v.id + '</td>';
+                    var xuTd = '<td>' + v.id + '</td>';
                     var markTd = '<td>' + v.mark + '</td>';
-                    var memberNameTd = '<td>' + (v.memberInfo?v.memberInfo.name:'') + '</td>';
-                    var agentNameTd  = '<td>' + v.agentInfo.nickname + '</td>';
-                    var nameTd = '<td>' + v.nickname + '</td>';
-                    var typeTd = '<td>' + config.roleType[v.type] + '</td>'; // 角色类型
-                    var orgTd = '<td>' + (v.memberInfo ? v.memberInfo.name : "" ) + '</td>';
-                    var phoneTd = '<td>' + v.phone + '</td>';
-                    var statusTd = '<td>' + config.brokerStatus[v.status] + '</td>';
-                    var checkStatusTd = '<td>' + config.brokerCheckStatus[v.verify] + '</td>';
+                    var nicknameTd = '<td>' + (v.nickname?v.nickname:'') + '</td>';
+                    var orderNumTd  =  '<td>' + (v.order_num?v.order_num:0) + '</td>';
+                    var orderSumPriceTd  =  '<td>' + (v.order_sum_price?v.order_sum_price:0) + '</td>';
+                    var profit_price = v.profit_price?v.profit_price:0;
+                    var profitPriceTd  =  '<td>' + profit_price + '</td>';
 
-                    var memberId = '<td style="display: none">'+ v.memberId+'</td>';
-                    var agentId = '<td style="display: none">'+ v.agentId+'</td>';
 
-                    oTr += '<tr class="fadeIn animated" data-id="' + v.id + '">' + checkTd + codeTd + markTd + memberNameTd
-                        + agentNameTd + nameTd + phoneTd + statusTd  + controlTd + memberId + agentId + '</tr>';
+                    oTr += '<tr class="fadeIn animated" data-id="' + v.id + '">' + checkTd + xuTd + nicknameTd + markTd + orderNumTd + orderSumPriceTd
+                         + profitPriceTd + '</tr>';
+
+                    var oForm = $(".withdrawalsModel");
+                    var bankSum = profit_price*100;
+                    oForm.find('input[name=bankSum]').val(bankSum);
+                    $('#profit_priceTd_text').text(profit_price);
                 });
+
 
                 table.find("tbody").empty().html(oTr);
                 if (initPage) {
