@@ -33,6 +33,8 @@ class AdminuserController extends Controller
 
         $map = $identity = $this->getUserIdentity(); //判断用户类型
 
+        $map['identity_id'] = array('gt',0);
+
         if (!empty($_POST['nickname'])) {
             $map['nickname'] = array('like', "%" . $_POST['nickname'] . "%");
         }

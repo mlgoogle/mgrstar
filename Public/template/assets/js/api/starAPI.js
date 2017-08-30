@@ -75,10 +75,88 @@ define(["jquery"], function ($) {
         //  获取发行信息
         getTimeStatus: function (data,cb) {
             $.post(this.baseRequestUrl + "/Star/getTimeStatus", data, function (result) {
-                console.log(result);
                 cb(result);
             })
-        }
+        },
+
+        //明星列表
+        agentUser: function (data,cb) {
+            $.post(this.baseRequestUrl + "/StarAgent/agentUser", data, function (result) {
+                cb(result);
+            })
+        },
+
+        //明星用户 add
+        addAgentUser: function (data, cb) {
+            $.post(this.baseRequestUrl + "/StarAgent/addAgentUser", data, function (result) {
+                cb(result);
+            })
+        },
+
+        //明星用户 edit
+        editAgentUser: function (data, cb) {
+            $.post(this.baseRequestUrl + "/StarAgent/editAgentUser", data, function (result) {
+                cb(result);
+            })
+        },
+
+        //明星经纪人列表
+        starAgentList: function (data, cb) {
+            $.post(this.baseRequestUrl + "/StarAgent/starAgentList", data, function (result) {
+                cb(result);
+            })
+        },
+
+        //明星用户 add
+        addStarAgent: function (data, cb) {
+            $.post(this.baseRequestUrl + "/StarAgent/addStarAgent", data, function (result) {
+                cb(result);
+            })
+        },
+
+        //明星用户 edit
+        editStarAgent: function (data, cb) {
+            $.post(this.baseRequestUrl + "/StarAgent/editStarAgent", data, function (result) {
+                cb(result);
+            })
+        },
+
+        //修改状态
+        updateUserStatus: function (data, cb) {
+            $.post(this.baseRequestUrl + "/StarAgent/updateUserStatus", data, function (result) {
+                cb(result);
+            })
+        },
+
+        //删除
+        DelStarAgent: function (data, cb) {
+            $.post(this.baseRequestUrl + "/StarAgent/DelStarAgent", data, function (result) {
+                cb(result);
+            })
+        },
+        
+        //
+        addBank: function (data, cb) {
+            $.post(this.baseRequestUrl + "/StarAgent/addBank", data, function (result) {
+                cb(result);
+            })
+        },
+
+        //
+        editBank: function (data, cb) {
+            $.post(this.baseRequestUrl + "/StarAgent/editBank", data, function (result) {
+                cb(result);
+            })
+        },
+
+        //
+        withdrawals: function (data, cb) {
+            $.post(this.baseRequestUrl + "/StarAgent/withdrawals", data, function (result) {
+                cb(result);
+            })
+        },
+
+
 
     };
     return starAPI;

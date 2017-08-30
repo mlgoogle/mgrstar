@@ -30,7 +30,9 @@ class AccountmanageController extends Controller {
     public function orgManage(){
 
         $identityId = $this->user['identity_id'];
-       // dump();
+
+        if($identityId<0) return false;
+
         if($identityId==1){
             // code;
         }else if($identityId==2){
@@ -40,12 +42,14 @@ class AccountmanageController extends Controller {
         }else {
             $this->redirect('Home/accountmanage/brokerSubManage');
         }
+
         $this->assign('actionUrl','orgManage');
 
         $this->display('accountManage/orgManage');
     }
 
-    public function userManage(){ 
+    public function userManage(){
+
         $this->assign('actionUrl','userManage');
 
         $this->display('accountManage/userManage');

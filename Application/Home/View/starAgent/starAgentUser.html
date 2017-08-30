@@ -1,0 +1,219 @@
+<include file="public:top_menu" />
+
+
+<style>
+    .btn-status{
+        /* width: 40px;*/
+        background-color:#80D640;
+        /* padding: 0; */
+    }
+
+    .btn-up-status{
+        /* width: 40px;*/
+        background-color:#009f95;
+        /* padding: 0;*/
+    }
+
+    .pic1_div img {
+        width : 200px;
+        height : 100px;
+        margin-right:10px;
+        /*height: 60px;*/
+        /*margin: 10px;*/
+        cursor:pointer;
+    }
+
+     .search{
+         margin: 1px;
+         padding-top: 5px;
+         padding-bottom: 20px;
+         background-color: #fff;
+     }
+    .put_withdrawals {
+        background: #e80c4c;
+    }
+
+
+</style>
+
+<?php
+    $BrokerModal = 'addBrokerModal';
+    $J_show = 'J_bankAdd';
+    if($bankAdminInfoArr){
+        $BrokerModal = 'ditBrokerModal';
+        $J_show = 'J_bankEdit';
+    }
+
+    $bankPersonName =  isset($bankAdminInfoArr['bankPersonName'])?trim($bankAdminInfoArr['bankPersonName']):'';
+    $bankAccount =  isset($bankAdminInfoArr['bankAccount'])?trim($bankAdminInfoArr['bankAccount']):'';
+    $bankName =  isset($bankAdminInfoArr['bankName'])?trim($bankAdminInfoArr['bankName']):'';
+    $id =  isset($bankAdminInfoArr['id'])?trim($bankAdminInfoArr['id']):0;
+
+?>
+
+
+<div for="add_star" class="control-bar">
+    <a href="javascript:;" id ="add_star" class="btn J_showAdd">新建</a>
+</div>
+
+
+<div class="data-container">
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>明星账号</th>
+            <th>明星名称</th>
+            <th>明星密码</th>
+            <th>明星 ID</th>
+            <th>明星个人收益/元</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="pagination"></div>
+
+    <div class="search">
+        <a href="javascript:;" class="btn {$J_show}">{$bankAdminTitle}</a>
+        <a href="javascript:;" class="btn put_withdrawals">提现佣金</a>
+    </div>
+
+</div>
+
+<div data-remodal-id="addUserModal" class="remodal addUserModal">
+    <div class="remodal-head">
+        <div class="remodal-title">明星账号</div>
+        <div data-remodal-action="cancel" class="remodal-close"></div>
+    </div>
+    <div class="remodal-body">
+        <form class="modalForm" enctype="multipart/form-data">
+            <input type="text" name="id" style="display: none">
+
+            <div class="form-control">
+                <label>明星名称</label>
+                <input type="text" name="starname">
+            </div>
+            <div class="form-control">
+                <label>明星账号</label>
+                <input type="text" name="phoneNum"  value="" >
+            </div>
+            <div class="form-control" style="display: none">
+                <label>明星密码</label>
+                <input type="text" name="password"  value="" >
+            </div>
+
+
+            <div class="form-control">
+                <label>明星代码</label>
+                <input type="text" name="starcode" readonly value="" >
+            </div>
+        </form>
+    </div>
+    <div class="remodal-footer">
+        <a href="javascript:;"  class="remodal-confirm">确认</a>
+    </div>
+</div>
+
+    <div data-remodal-id="addBankModal" class="remodal addBankModal">
+        <div class="remodal-head">
+            <div class="remodal-title">{$bankAdminTitle}</div>
+            <div data-remodal-action="cancel" class="remodal-close"></div>
+        </div>
+        <div class="remodal-body">
+            <form class="modalForm">
+                <div class="form-control">
+                    <label>账户姓名</label>
+                    <input type="text" name="bankPersonName" value="{$bankPersonName}">
+                </div>
+                <div class="form-control">
+                    <label>银行卡号</label>
+                    <input type="text" name="bankAccount" value="{$bankAccount}">
+                </div>
+
+            </form>
+        </div>
+        <div class="remodal-footer">
+            <a href="javascript:;"  class="remodal-confirm add-bank">确认</a>
+        </div>
+    </div>
+
+    <div data-remodal-id="editBankModal" class="remodal editBankModal">
+        <div class="remodal-head">
+            <div class="remodal-title">{$bankAdminTitle}</div>
+            <div data-remodal-action="cancel" class="remodal-close"></div>
+        </div>
+        <div class="remodal-body">
+            <form class="modalForm">
+                <div class="form-control">
+                    <label>账户姓名</label>
+                    <input type="text" name="bankPersonName" value="{$bankPersonName}">
+                </div>
+                <div class="form-control">
+                    <label>银行卡号</label>
+                    <input type="text" name="bankAccount" value="{$bankAccount}">
+                </div>
+                <div class="form-control">
+                    <label>银行名称</label>
+                    <input type="text" readonly="readonly" value="{$bankName}">
+                    <input type="hidden" name='id' value="{$id}">
+                </div>
+            </form>
+        </div>
+        <div class="remodal-footer">
+            <!--<a href="javascript:;"  class="remodal-cancel J_check">拒绝</a>-->
+            <a href="javascript:;"  class="remodal-confirm edit-bank">确定</a>
+        </div>
+    </div>
+
+    <div data-remodal-id="withdrawalsModel" class="remodal withdrawalsModel">
+        <div class="remodal-head">
+            <div class="remodal-title">提现信息</div>
+            <div data-remodal-action="cancel" class="remodal-close"></div>
+        </div>
+        <div class="remodal-body">
+            <form class="modalForm">
+                <div class="form-control">
+                    <label>账户姓名</label>
+                    {$bankPersonName}
+                    <input type="hidden" name="bankPersonName" value="{$bankPersonName}">
+                </div>
+                <div class="form-control">
+                    <label>银行卡号</label>
+                    {$bankAccount}
+                    <input type="hidden" name="bankAccount" value="{$bankAccount}">
+                </div>
+
+                <div class="form-control">
+                    <label>提现金额</label>
+                    <em id="profit_priceTd_text">0</em>
+                    <input type="hidden" name="bankSum" value="0">
+                </div>
+                <!--<input type="hidden" name="bankName" value="{$bankName}">-->
+
+            </form>
+        </div>
+        <div class="remodal-footer">
+            <!--<a href="javascript:;"  class="remodal-cancel J_check">拒绝</a>-->
+            <a href="javascript:;"  class="remodal-confirm withdrawals-bank" style="font-size:14px">确定提现</a>
+        </div>
+    </div>
+
+
+<div id="browse" class="browse">
+</div>
+
+<script src="__JS__/vendor/require.js" data-main="__JS__/common"></script>
+
+<script type="text/javascript">
+
+</script>
+
+<script>
+    require(['common'], function () {
+        require(['page/starAgentUser']);
+    });
+</script>
+
+<include file="public:footer" />

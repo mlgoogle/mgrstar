@@ -137,7 +137,7 @@ define([
                     }else{
                         layer.msg(result.message);
 
-                        editBrokerModal.close();
+                        withdrawalsModel.close();
 
                         window.setTimeout(
                             'window.location.reload()',
