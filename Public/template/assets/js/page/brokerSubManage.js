@@ -392,7 +392,7 @@ define([
                     var codeTd = '<td>' + v.id + '</td>';
                     var markTd = '<td>' + v.mark + '</td>';
                     var memberNameTd = '<td>' + (v.memberInfo?v.memberInfo.name:'') + '</td>';
-                    var agentNameTd  = '<td>' + v.agentInfo.nickname + '</td>';
+                    var agentNameTd  = '<td>' + (v.agentInfo?v.agentInfo.nickname:'') + '</td>';
                     var nameTd = '<td>' + v.nickname + '</td>';
                     var typeTd = '<td>' + config.roleType[v.type] + '</td>'; // 角色类型
                     var orgTd = '<td>' + (v.memberInfo ? v.memberInfo.name : "" ) + '</td>';

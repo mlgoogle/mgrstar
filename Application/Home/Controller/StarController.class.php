@@ -353,6 +353,7 @@ class StarController extends CTController{
         $pageNum = I('post.pageNum', 5, 'intval');
         $page = I('post.page', 1, 'intval');
         $map['starcode'] = array('exp','is not null');
+        $map['adminId'] = 0;
 
         $count = $userInfo->where($map)->count();// 查询满足要求的总记录数
         $list = $userInfo->where($map)->page($page, $pageNum)->select();
@@ -451,8 +452,7 @@ class StarController extends CTController{
             $dataCode = array(
                 'starcode' => $starcode
             );
-            if(
-                $userInfoModel->where("`phoneNum` = '{$phoneNum}'")->save($dataCode)){
+            if($userInfoModel->where("`phoneNum` = '{$phoneNum}'")->save($dataCode)){
                 $return = array(
                     'code' => 0,
                     'message' =>'成功',

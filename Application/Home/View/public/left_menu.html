@@ -111,7 +111,7 @@
         </li>
 
         <php>
-            if($user['identity_id']<4){
+            if($user['identity_id']<4 && $user['identity_id']>0){
         </php>
             <li class="pli">
                 <a href="javascript:;"
@@ -127,13 +127,6 @@
                         <php>if($actionUrl == 'userManage'){echo 'class="act"';}</php>
                         >账户权限</a>
                     </li>
-
-                    <!--<li><a href="javascript:;"-->
-                        <!--<php>if($actionUrl == '#'){echo 'class="active"';}</php>-->
-                        <!--&gt;账户角色</a></li>-->
-                    <!--
-                    <li><a href="#">创建系统账户</a></li>
-                    -->
 
                     <php>
                         if($user['identity_id']<2){
@@ -193,6 +186,40 @@
                 </li>
             </ul>
         </li>
+
+
+        <li class="pli">
+            <a href="javascript:;" <php>if(CONTROLLER_NAME == 'StarAgent'){echo 'class="main"';}</php> >
+            <strong>
+                明经纪人收益
+            </strong>
+            </a>
+            <ul class="submenu">
+
+
+
+                <li><a href="__ROOTHOME__/starAgent/agent"
+                    <php>if(ACTION_NAME == 'agent'){echo 'class="act"';}</php>
+                    >明星经纪人</a>
+                </li>
+
+                <php>
+                    if($user['identity_id']==-1){
+                </php>
+
+
+                    <li><a href="__ROOTHOME__/starAgent/starAgentUser"
+                        <php>if(ACTION_NAME == 'starAgentUser'){echo 'class="act"';}</php>
+                        >明星帐号</a>
+                    </li>
+
+                <php>
+                    }
+                </php>
+            </ul>
+        </li>
+
+
 
     </ul>
 </div>

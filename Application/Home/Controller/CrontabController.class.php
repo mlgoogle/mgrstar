@@ -16,10 +16,56 @@ class CrontabController extends CTController{
 
     }
 
+
+    public function addSummary(){
+        $this->addStarTrofitSummary(); // 明星收益统计
+        $this->addTrofitSummary(); // 用户交易收益统计
+    }
+
+    public function addStarTrofitSummary(){
+        $profitStarSummaryModel = M('profit_star_summary');
+
+        $openTime = time()-3600*24;
+
+        $map = '';
+
+       // $map = ' where order_date = ' . date('Y-m-d',$openTime);
+        
+
+//        $transStatisArr = M('TransStatis')->field('sum(order_price) as price_num, starcode')->where($map)
+//            ->group('starcode')->select();
+
+        $transStatisArr = M('TransStatis')->query('select sum(order_price) as price_num, starcode from TransStatis '. $map .' group by starcode ');
+
+        $i = 0;
+        foreach ($transStatisArr as $t){
+            $starcode = $t['starcode'];
+            $order_price = $t['price_num'];
+            $data['create_time'] = $create_time = date('Y-m-d', time());
+
+            $data['order_price']=array('exp','order_price+'.$order_price);
+
+            if(!$p = $profitStarSummaryModel->where(array('starcode'=>$starcode))->save($data)){ //加$n
+                $data['starcode'] = $starcode;
+                $data['order_price'] = $order_price;
+                $profitStarSummaryModel->add($data);
+            }
+
+            $i++;
+        }
+
+        $newLog ='log_time:'.date('Y-m-d H:i:s');
+        file_put_contents('./transStatis.sql',$newLog.PHP_EOL, FILE_APPEND);
+    }
+
     public function addTrofitSummary(){
         $profitSummaryModel = M('profit_summary');
 
-        $orderlistArr = M('star_orderlist')->field('sum(order_num) as sum_num, sum(order_price) as sum_price,sell_uid')->where(array('order_type'=>2))
+        $map['order_type'] = 2;
+        $openTime = time()-3600*24;
+        $map['open_time']  = array('egt',$openTime);
+
+        $orderlistArr = M('star_orderlist')->field('sum(order_num) as sum_num, sum(order_price) as sum_price,sell_uid')->where($map)
             ->group('sell_uid')->select();
 
 
@@ -31,11 +77,11 @@ class CrontabController extends CTController{
 
         $uidArr  = array_filter(array_unique($uidArr));
 
-        $map['uid'] = array('in',$uidArr);
-        $map['channel'] = array('exp','is not null');
-        $map['channel'] = array('neq','');
+        $userMap['uid'] = array('in',$uidArr);
+        $userMap['channel'] = array('exp','is not null');
+        $userMap['channel'] = array('neq','');
 
-        $userinfo = M('star_userinfo')->field('uid,channel')->where($map)->select();
+        $userinfo = M('star_userinfo')->field('uid,channel')->where($userMap)->select();
 
         $userArr = array();
         foreach ($userinfo as $u){
@@ -54,6 +100,8 @@ class CrontabController extends CTController{
                 $i++;
             }
         }
+
+
 
         $profitSummaryModel->addAll($data);
 

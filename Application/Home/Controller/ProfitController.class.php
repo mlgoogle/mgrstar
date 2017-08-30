@@ -452,7 +452,6 @@ class ProfitController extends CTController{
             $this->assign('bankAdminTitle','绑定银行卡');
         }
 
-
     }
 
 }

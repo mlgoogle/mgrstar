@@ -40,12 +40,15 @@ class AgentSubController extends Controller
             $map['phone'] = array('like', "%" . $_POST['phone'] . "%");
         }
 
+        $map['memberId'] = array('gt',0);
+
 
         $pageNum = isset($_POST['pageNum']) ? $_POST['pageNum'] : 5;
         $page = isset($_POST['page']) ? $_POST['page'] : 1;
         $count = $agentSub_info->where($map)->count();// 查询满足要求的总记录数
 
         $list = $agentSub_info->where($map)->page($page, $pageNum)->select();//获取分页数据
+
 
         //机构
         $memberArr = array();

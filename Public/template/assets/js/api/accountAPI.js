@@ -5,7 +5,7 @@
 define(["jquery"], function ($) {
     var accountAPI = {
 
-        baseRequestUrl: "../",
+        baseRequestUrl: "..",
 
         /**
          * 机构管理-获取一级机构列表 (添加机构时渲染所属机构 下拉列表)
