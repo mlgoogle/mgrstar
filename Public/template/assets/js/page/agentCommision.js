@@ -25,6 +25,8 @@ define([
            // this.initTopOrgList();
 
             this.fnGetList({}, true);
+
+            this.fnGetProfitLogList({}, true);//提现记录列表
         },
         bindEvents: function () {
             //this.onSearch();
@@ -119,13 +121,13 @@ define([
             $(".withdrawals-bank").on("click", function () {
                 var oForm = $(".withdrawalsModel");
 
-               // var bankPersonName = oForm.find('input[name=bankPersonName]').val();
+               var bankPersonName = oForm.find('input[name=bankPersonName]').val();
                 var bankAccount    = oForm.find('input[name=bankAccount]').val();
                 var bankSum        = oForm.find('input[name=bankSum]').val();
                 var bankName       = oForm.find('input[name=bankName]').val();
                 data = {
                     bankSum:bankSum,
-                //    bankPersonName:bankPersonName,
+                    bankPersonName:bankPersonName,
                     bankAccount:bankAccount,
                     bankName : bankName
                 };
@@ -210,9 +212,58 @@ define([
         },
 
 
+        //提现记录列表
+        fnGetProfitLogList: function (data, initPage) {
+            var _this = this;
+            var table = $(".data-container table").eq(1);
+            profitAPI.profitLogList(data,function (result) {
+
+                if (!result.list || result.list.length == "0") {
+                    table.find("tbody").empty().html("<tr><td colspan='10'>暂无记录</td></tr>");
+                    $(".pagination.log-list").hide();
+                    return false;
+                }
+
+                var oTr = '';
+                checkTd = '<td><input type="checkbox"></td>';
+                controlTd = "<td>  </td>";
+                $.each(result.list, function (i, v) {
+                    var bankPersonNameTd = '<td>' + v.bankPersonName + '</td>';
+                    var bankAccountTd = '<td>' + v.bankAccount + '</td>';
+                    var profit_priceTd = '<td>' + (v.profit_price?v.profit_price:0) + '</td>';
+
+                    var create_timeTd = '<td>' + v.create_time + '</td>';
+
+
+
+                    oTr += '<tr class="fadeIn animated" data-id="' + v.id + '" data-code= "' + v.starcode + '"  >' + checkTd
+                        + bankPersonNameTd  + bankAccountTd + profit_priceTd + create_timeTd + controlTd + '</tr>';
+                });
+
+
+                table.find("tbody").empty().html(oTr);
+                if (initPage) {
+                    var pageCount = result.totalPages;
+                    if (pageCount > 0) {
+                        $(".pagination.log-list").show().html("").createPage({
+                            pageCount: pageCount,
+                            current: 1,
+                            backFn: function (p) {
+                                var newData = data;
+                                newData.page = p;
+                                _this.fnGetProfitLogList(data)
+                            }
+                        })
+                    }
+                }
+
+            });
+        },
+
+
         fnGetList: function (data, initPage) {
             var _this = this;
-            var table = $(".data-container table");
+            var table = $(".data-container table").eq(0);
 
             // showLoading(".J_consumeTable");
             profitAPI.agentProfit(data, function (result) {
@@ -254,7 +305,7 @@ define([
                     var pageCount = result.totalPages;
                     if (pageCount > 0) {
                         console.log("页数：" + pageCount);
-                        $(".pagination").show().html("").createPage({
+                        $(".pagination.list").show().html("").createPage({
                             pageCount: pageCount,
                             current: 1,
                             backFn: function (p) {

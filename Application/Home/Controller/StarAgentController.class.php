@@ -283,10 +283,42 @@ class StarAgentController extends CTController{
         $this->ajaxReturn($return);
     }
 
+    //明星经纪人提现记录列表
+    public function starLogList(){
+        $user = $this->user;
+
+        $identity_id = $user['identity_id'];
+
+        if($identity_id != -1) return false;
+
+
+        $profitStarLogModel = M('profit_star_log');
+        $pageNum = I('post.pageNum', 5, 'intval');
+        $page = I('post.page', 1, 'intval');
+
+        $adminId = $user['id'];
+
+        $map['adminId'] = $adminId;
+
+        $count = $profitStarLogModel->where($map)->count();// 查询满足要求的总记录数
+        $profitStarLogArr = $profitStarLogModel->where($map)->page($page, $pageNum)->order('id desc')->select();
+
+
+        $data['totalPages'] = $count;
+        $data['pageNum'] = $pageNum;
+        $data['page'] = $page;
+        $data['totalPages'] = ceil($count / $pageNum);
+        $data['list'] = $profitStarLogArr;
+        return $this->ajaxReturn($data);
+
+    }
+
     public function agentUser(){
         $user = $this->user;
 
         $identity_id = $user['identity_id'];
+
+        $adminId =  $user['id'];
 
         if($identity_id != -1) return false;
 
@@ -325,29 +357,34 @@ class StarAgentController extends CTController{
         }
 
         $profitStarcodeArr = array();
-        $profitSumPrice = 0;
+        //$profitSumPrice = 0;
         foreach ($list as $k=>$l){
             $list[$k]['starname'] = isset($nameArr[$l['starcode']])?$nameArr[$l['starcode']]:'';
             $list[$k]['star_price'] = $star_price =isset($priceArr[$l['starcode']])?$priceArr[$l['starcode']]:0;
 
             $profitStarcodeArr[] = $l['starcode'];
-            $profitSumPrice += $star_price;
+            //$profitSumPrice += $star_price;
         }
 
         new \Think\Page($count, $pageNum);// 实例化分页类 传入总记录数和每页显示的记录数(25)
 
 
+        $profitSumPriceArr = $profitStarSummaryModel->field('sum(order_price) as sum_price')->where(array('adminId'=>$adminId))->find();
+
+        $profitSumPrice = isset($profitSumPriceArr['sum_price'])?$profitSumPriceArr['sum_price']:0;
+
+
         $profitSumPrice = $profitSumPrice*self::MAX_NUMBER;
 
         F("profitSumPrice", $profitSumPrice*100); //缓存起来
-        F("profitStarcodeArr", $profitStarcodeArr);
+       // F("profitStarcodeArr", $profitStarcodeArr);
 
         $data['totalPages'] = $count;
         $data['pageNum'] = $pageNum;
         $data['page'] = $page;
         $data['totalPages'] = ceil($count / $pageNum);
         $data['list'] = $list;
-        $data['sum_price'] = $profitSumPrice;
+        $data['sum_price'] = sprintf('%0.2f',$profitSumPrice);
         return $this->ajaxReturn($data);
     }
 
@@ -562,9 +599,10 @@ class StarAgentController extends CTController{
     }
 
     public function withdrawals(){
-        $bankAccount = I('post.bankAccount',0,'intval');
-        $bankSum = F("profitSumPrice");//去缓存的值 //I('post.bankSum',0,'intval');
+        $bankAccount = I('post.bankAccount',0,'intval'); // 银行卡号
+        $bankSum = F("profitSumPrice");//缓存的值 //I('post.bankSum',0,'intval');  // 提现金额
         $bankName = I('post.bankName','','string');
+        $bankPersonName = I('post.bankPersonName','','string');
 
         if(empty($bankSum)){
             $return = array(
@@ -589,6 +627,7 @@ class StarAgentController extends CTController{
             return $this->ajaxReturn($returnAjax);
         }
 
+
         if(empty($returnAjax['respDesc']) ){
             $return = array(
                 'code' => 0,
@@ -597,7 +636,7 @@ class StarAgentController extends CTController{
             );
             F('profitSumPrice',NULL);//删除缓存数据
 
-            if($this->withdrawalsFinish(F("profitStarcodeArr"),$bankSum)) { //成功后的操作
+            if($this->withdrawalsFinish($bankAccount,$bankPersonName,$bankSum)) { //成功后的操作
                 F("profitSumPrice", 0);
             }
         }else{
@@ -612,18 +651,22 @@ class StarAgentController extends CTController{
     }
 
     //提现成功后的操作
-    public function withdrawalsFinish($starcodeArr,$profitPrice=0){
+    public function withdrawalsFinish($bankAccount,$bankPersonName,$profitPrice=0){
         try {
             $profitStarSummaryModel = M('profit_star_summary');
             $profitStarLogModel = M('profit_star_log');
 
-            $map['starcode'] = array('in', $starcodeArr);
+            //$map['starcode'] = array('in', $starcodeArr);
+            $map['adminId'] = $this->user['id'];
             $dataStarSummary['order_price'] = 0;
             $profitStarSummaryModel->where($map)->save($dataStarSummary);
+            $profitPrice = sprintf('%0.2f',$profitPrice/100);
 
-            $dataStarLog['adminId'] = $this->user['id'];
-            $dataStarLog['profit_price'] = $profitPrice;
-            $dataStarLog['create_time'] = date('Y-m-d', time());
+            $dataStarLog['adminId']         = $this->user['id'];
+            $dataStarLog['profit_price']    = $profitPrice;
+            $dataStarLog['bankAccount']     = $bankAccount;
+            $dataStarLog['bankPersonName']  = $bankPersonName;
+            $dataStarLog['create_time']     = date('Y-m-d', time());
             $profitStarLogModel->add($dataStarLog);
             return true;
         }catch (Exception $e){

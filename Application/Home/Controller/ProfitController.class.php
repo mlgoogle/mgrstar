@@ -69,13 +69,20 @@ class ProfitController extends CTController{
      */
     public function subAgentProfit(){
         $channelModel = M('star_channel');
-        $userinfoModel = M('star_userinfo');
-        $orderlistModel = M('star_orderlist');
+        //$userinfoModel = M('star_userinfo');
+       // $orderlistModel = M('star_orderlist');
+        $profitSummaryModel = M('profit_summary');
+        $profitLogModel = M('profit_log');
 
         $user = $this->user ;
 
         $agentSubId = $user['agentSubId'];
         $identityId = $user['identity_id'];
+        $adminId = $user['id'];
+
+        $adminIdArr = $profitLogModel->field('create_time')->where(array('adminId'=>$adminId))->order('create_time desc')->find();
+
+        $createTime = isset($adminIdArr['create_time'])?$adminIdArr['create_time']:0;
 
         $data['list'] = array();
         if($identityId == 4) {
@@ -87,28 +94,26 @@ class ProfitController extends CTController{
 
             $channelArr =  $channelModel->field('channel')->where($channelMap)->find();
 
-            $userinfoMap['channel'] =  $channel = isset($channelArr['channel'])?trim($channelArr['channel']):'';
-            if($channel) {
-                $userInfoArr = $userinfoModel->field('uid')->where($userinfoMap)->find();
-            }
+            $profitSummaryMap['channel'] =  $channel = isset($channelArr['channel'])?trim($channelArr['channel']):'';
+            $profitSummaryMap['create_time'] = array('gt',$createTime);
 
-            $orderlistMap['sell_uid'] =  $uid = isset($userInfoArr['uid'])?trim($userInfoArr['uid']):0;
+            $profitSummaryArr = $profitSummaryModel->where($profitSummaryMap)->select();
+
 
             $order_num = $order_sum_price = 0;
-            if($uid){
-                $whereOreder['order_type'] = 2;
-                $orderlistArr = $orderlistModel->where($orderlistMap)->select();
-                foreach ($orderlistArr as $o){
-                    $order_num  += $o['order_num'];
-                    $order_sum_price += $o['order_num']*$o['order_price'];
-                }
+            foreach ($profitSummaryArr as $p){
+                $order_num  += $p['order_num'];
+                $sum_price =  $p['order_num']*$p['order_price'];
 
+                $order_sum_price += $sum_price;
             }
+
 
             foreach ($list as $k=>$v) {
                 $list[$k]['order_num'] = $order_num;
                 $list[$k]['order_sum_price'] = $order_sum_price;
-                $list[$k]['profit_price'] = $order_sum_price/self::MAX_NUMBER;
+                //sprintf('%0.2f',$profitPrice/100);
+                $list[$k]['profit_price'] = sprintf('%0.2f',$order_sum_price/self::MAX_NUMBER);
             }
 
 
@@ -118,20 +123,25 @@ class ProfitController extends CTController{
         $this->ajaxReturn($data);
     }
 
-
     /**
      * @ 佣金管理-经销商(区域经纪人)
      */
     public function agentProfit(){
         $channelModel = M('star_channel');
-        $userinfoModel = M('star_userinfo');
-        $orderlistModel = M('star_orderlist');
+       // $userinfoModel = M('star_userinfo');
+       // $orderlistModel = M('star_orderlist');
         $profitSummaryModel = M('profit_summary');
+        $profitLogModel = M('profit_log');
 
         $user = $this->user ;
 
         $agentId = $user['agentId'];
         $identityId = $user['identity_id'];
+
+        $adminId = $user['id'];
+        $adminIdArr = $profitLogModel->field('create_time')->where(array('adminId'=>$adminId))->order('create_time desc')->find();
+
+        $createTime = isset($adminIdArr['create_time'])?$adminIdArr['create_time']:0;
 
         $data['list'] = array();
         if($identityId == 3) {
@@ -161,8 +171,10 @@ class ProfitController extends CTController{
             }
 
 
-            $userinfoMap['channel'] =  array('in',$channelNumberArr);
-            $profitSummaryArr = $profitSummaryModel->where($userinfoMap)->select();
+            $profitSummaryMap['channel'] =  array('in',$channelNumberArr);
+            $profitSummaryMap['create_time'] = array('gt',$createTime);
+
+            $profitSummaryArr = $profitSummaryModel->where($profitSummaryMap)->select();
 
             
             $profitSummaryChannelArr = array();
@@ -187,7 +199,7 @@ class ProfitController extends CTController{
                 $list[$k]['order_num'] = $sum_num;
                 $list[$k]['order_sum_price'] = $order_sum_price;
                 $profit_price += $order_sum_price/self::MAX_NUMBER;
-                $list[$k]['profit_price'] = $order_sum_price/self::MAX_NUMBER;
+                $list[$k]['profit_price'] = sprintf('%.2f',$order_sum_price/self::MAX_NUMBER);
 
                 $list[$k]['profit_sum_price'] = $profit_price;
             }
@@ -198,7 +210,6 @@ class ProfitController extends CTController{
 
         $this->ajaxReturn($data);
     }
-
     /**
      * @ 佣金管理-机构
      */
@@ -207,6 +218,7 @@ class ProfitController extends CTController{
 //        $userinfoModel = M('star_userinfo');
 //        $orderlistModel = M('star_orderlist');
         $profitSummaryModel = M('profit_summary');
+        $profitLogModel = M('profit_log');
 
         $user = $this->user ;
 
@@ -214,6 +226,11 @@ class ProfitController extends CTController{
 
         $memberId = $user['memberId'];
         $identityId = $user['identity_id'];
+
+        $adminId = $user['id'];
+        $adminIdArr = $profitLogModel->field('create_time')->where(array('adminId'=>$adminId))->order('create_time desc')->find();
+
+        $createTime = isset($adminIdArr['create_time'])?$adminIdArr['create_time']:0;
 
         $data['list'] = array();
         if($identityId == 2) {
@@ -243,8 +260,10 @@ class ProfitController extends CTController{
             }
 
 
-            $userinfoMap['channel'] =  array('in',$channelNumberArr);
-            $profitSummaryArr = $profitSummaryModel->where($userinfoMap)->select();
+            $profitSummaryMap['channel'] =  array('in',$channelNumberArr);
+            $profitSummaryMap['create_time'] = array('gt',$createTime);
+
+            $profitSummaryArr = $profitSummaryModel->where($profitSummaryMap)->select();
 
 
             $profitSummaryChannelArr = array();
@@ -269,7 +288,7 @@ class ProfitController extends CTController{
                 $list[$k]['order_num'] = $sum_num;
                 $list[$k]['order_sum_price'] = $order_sum_price;
                 $profit_price += $order_sum_price/self::MAX_NUMBER;
-                $list[$k]['profit_price'] = $order_sum_price/self::MAX_NUMBER;
+                $list[$k]['profit_price'] = sprintf('%0.2f',$order_sum_price/self::MAX_NUMBER);
 
                 $list[$k]['profit_sum_price'] = $profit_price;
             }
@@ -345,6 +364,7 @@ class ProfitController extends CTController{
     public function withdrawals(){
         $bankAccount = I('post.bankAccount',0,'intval');
         $bankSum = I('post.bankSum',0,'intval');
+        $bankPersonName = I('post.bankPersonName','','trim'); //持卡人名字
         $bankName = I('post.bankName','','string');
 
         if(empty($bankSum)){
@@ -370,12 +390,15 @@ class ProfitController extends CTController{
             return $this->ajaxReturn($returnAjax);
         }
 
+        $this->notifyUrl($bankAccount,$bankPersonName,$bankSum); // 添加提现记录
+
         if(empty($returnAjax['respDesc']) ){
             $return = array(
                 'code' => 0,
                 'message' => '提现成功！',
                 'withdrawals'=>$returnAjax,
             );
+            $this->notifyUrl($bankAccount,$bankPersonName,$bankSum); // 添加提现记录
         }else{
             $return = array(
                 'code' => -2,
@@ -387,9 +410,46 @@ class ProfitController extends CTController{
         return $this->ajaxReturn($return);
     }
 
-    // 回调 地址
-    public function notifyUrl(){
-        return $this->ajaxReturn($this->withdrawalsModel->notifyUrl());
+    // 回调 地址  添加提现记录
+    public function notifyUrl($bankAccount,$bankPersonName,$profitPrice=0){
+        $adminId = $this->user['id'];
+
+        $data['adminId'] = $adminId;
+        $data['bankAccount'] = $bankAccount;
+        $data['bankPersonName'] = $bankPersonName;
+        $data['profit_price'] = sprintf('%0.2f',$profitPrice/100);
+        $data['create_time'] = date('Y-m-d',time());
+
+        M('profit_log')->add($data);
+        //return $this->ajaxReturn($this->withdrawalsModel->notifyUrl());
+    }
+
+    //提现记录列表
+    public function profitLogList(){
+        $user = $this->user;
+
+        //$identity_id = $user['identity_id'];
+
+
+        $profitLogModel = M('profit_log');
+        $pageNum = I('post.pageNum', 5, 'intval');
+        $page = I('post.page', 1, 'intval');
+
+        $adminId = $user['id'];
+
+        $map['adminId'] = $adminId;
+
+        $count = $profitLogModel->where($map)->count();// 查询满足要求的总记录数
+        $profitStarLogArr = $profitLogModel->where($map)->page($page, $pageNum)->order('id desc')->select();
+
+
+        $data['totalPages'] = $count;
+        $data['pageNum'] = $pageNum;
+        $data['page'] = $page;
+        $data['totalPages'] = ceil($count / $pageNum);
+        $data['list'] = $profitStarLogArr;
+        return $this->ajaxReturn($data);
+
     }
 
 

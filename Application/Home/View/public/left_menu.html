@@ -187,7 +187,9 @@
             </ul>
         </li>
 
-
+        <php>
+            if($user['identity_id']==-1 || $user['identity_id']==1){
+        </php>
         <li class="pli">
             <a href="javascript:;" <php>if(CONTROLLER_NAME == 'StarAgent'){echo 'class="main"';}</php> >
             <strong>
@@ -218,6 +220,7 @@
                 </php>
             </ul>
         </li>
+        <php> } </php>
 
 
 

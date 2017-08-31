@@ -34,6 +34,7 @@
     }
 
 
+
 </style>
 
 <?php
@@ -57,7 +58,7 @@
 </div>
 
 
-<div class="data-container">
+<div class="data-container list">
     <table>
         <thead>
         <tr>
@@ -73,12 +74,36 @@
         <tbody>
         </tbody>
     </table>
-    <div class="pagination"></div>
+    <div class="pagination list"></div>
 
     <div class="search">
         <a href="javascript:;" class="btn {$J_show}">{$bankAdminTitle}</a>
         <a href="javascript:;" class="btn put_withdrawals">提现佣金</a>
     </div>
+
+</div>
+
+
+<div  class="control-bar">
+    提现记录
+</div>
+
+<div class="data-container profit-log-list">
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>持卡人</th>
+            <th>银行卡号</th>
+            <th>提现金额</th>
+            <th>提现时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="pagination log-list"></div>
 
 </div>
 
@@ -189,6 +214,7 @@
                     <label>提现金额</label>
                     <em id="profit_priceTd_text">0</em>
                     <input type="hidden" name="bankSum" value="0">
+                    <input type="hidden" name="bankName" value="{$bankName}">
                 </div>
                 <!--<input type="hidden" name="bankName" value="{$bankName}">-->
 
