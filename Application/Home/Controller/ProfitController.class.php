@@ -409,7 +409,7 @@ class ProfitController extends CTController{
     }
 
     // 回调 地址  添加提现记录
-    public function notifyUrl($bankAccount,$bankPersonName,$profitPrice=0){
+    public function notifyUrl($bankAccount='',$bankPersonName='',$profitPrice=0){
 
       if($profitPrice){
 

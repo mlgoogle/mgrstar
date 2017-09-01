@@ -141,7 +141,8 @@ define([
 
                     var xuTd   = '<td>' + v.id + '</td>';
 
-                    var close_timeTd = '<td>' + v.close_time + '</td>';//close_time
+                    var open_timeTd = '<td>' + v.open_time + '</td>';//close_time
+                   // var close_timeTd = '<td>' + v.close_time + '</td>';//close_time
                     var order_idTd   =  '<td>' + v.order_id + '</td>';
 
                     var nameTd = '<td>' + v.name + '</td>';
@@ -160,7 +161,7 @@ define([
 
                     oTr +=
                         '<tr class="fadeIn animated" data-id="' + v.uid + '">'
-                        + checkTd + xuTd + close_timeTd + order_idTd + nameTd + phoneTd + statusValueTd +
+                        + checkTd + xuTd + open_timeTd + order_idTd + nameTd + phoneTd + statusValueTd +
                         starnamecodeTd  + order_numTd
                         + order_priceTd + order_total +
                         '</tr>';
