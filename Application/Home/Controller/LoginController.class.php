@@ -2,14 +2,25 @@
 namespace Home\Controller;
 use Think\Controller;
 class LoginController extends Controller {
-  public function login(){
-      $user = session("user");
+
+    private $sessionName ;
+
+    public function __construct(){
+        parent::__construct();
+        $this->sessionName = C('user');
+    }
+
+    public function login(){
+      $sessionName = $this->sessionName ;
+
+      $user = session($sessionName);
+
       if($user){
           $this ->redirect('adminBacker/index',Null,0);
       }else {
           $this->display('login/login');
       }
-  }
+    }
   public function dologin(){
 
       $where = array(
@@ -17,12 +28,12 @@ class LoginController extends Controller {
           'pass'=> $p = md5(I('post.pass')),
           'status' => 0
       );
-       // var_dump($p);
+
 
       $res = M('admin_user')->where($where)->find();
 
       if($res){
-          session('user',$res);//store seession
+          session($this->sessionName,$res);//store seession
           $this->ajaxReturn(array(
               'code'=>0,
               'message'=>'success',
@@ -41,7 +52,8 @@ class LoginController extends Controller {
     }
 
     public function doRestPassword(){
-        $user = session("user");
+
+        $user = session($this->sessionName);
         if($user){
              $oldPassword = $_POST['oldpassword'];
              $newPassword = $_POST['newpassword'];
@@ -52,7 +64,7 @@ class LoginController extends Controller {
              if($res){
                  $a = M('admin_user')->where($map)->save($data);
                  if($a){
-                   session('user',null);
+                   session($this->sessionName,null);
                      $return =array(
                          'code'=>0,
                          'message'=>'修改成功',
@@ -79,7 +91,7 @@ class LoginController extends Controller {
     }
 
     public function doLoginout(){
-        session('user',0);
+        session($this->sessionName,0);
         $this->display('login/login');
     }
 

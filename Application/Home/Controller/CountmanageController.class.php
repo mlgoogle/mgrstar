@@ -7,12 +7,11 @@ class CountmanageController extends Controller {
     *
     *
     */
-     public function __construct()
-    {
-      # code...
+     public function __construct(){
+     $sessionName = C('user');
 
       parent::__construct();
-      if(!session('user')){
+      if(!session($sessionName)){
         //$this->ajaxReturn(array('code'=>-1,'message'=>'fail','data'=>'not login'));
         $this ->redirect('login/login',Null,0);
       }

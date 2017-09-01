@@ -10,13 +10,13 @@ class AdminuserController extends Controller
 
     private $user;
 
-    public function __construct()
-    {
+    public function __construct(){
+        $sessionName = C('user');
 
         parent::__construct();
-        $this->user = session('user');
+        $this->user = session($sessionName);
 
-        if (!session('user')) {
+        if (!$this->user) {
             $this ->redirect('login/login',Null,0);
         }
     }

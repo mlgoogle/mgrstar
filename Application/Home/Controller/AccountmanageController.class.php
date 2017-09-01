@@ -10,11 +10,14 @@ class AccountmanageController extends Controller {
     public function __construct(){
         # code...
         parent::__construct();
-        $this->user = $user =  session('user');
+
+        $sessionName = C('user');
+
+        $this->user = $user =  session($sessionName);
         $this->assign('user',$user);
         $this->assign('active','accountmanage');
 
-        if(!session('user')){
+        if(!session($sessionName)){
             $this ->redirect('login/login',Null,0);
         }
 

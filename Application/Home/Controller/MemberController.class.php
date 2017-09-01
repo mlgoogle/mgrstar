@@ -10,11 +10,11 @@ class MemberController extends Controller
 
     private $user;
 
-    public function __construct()
-    {
+    public function __construct(){
+        $sessionName = C('user');
+        $this->user = session($sessionName);
 
-        $this->user = session('user');
-        if (!session('user')) {
+        if (!$this->user) {
             //$this->ajaxReturn(array('code'=>-1,'message'=>'fail','data'=>'not login'));
 
         }

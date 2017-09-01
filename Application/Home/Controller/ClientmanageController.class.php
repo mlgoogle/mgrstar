@@ -7,16 +7,18 @@ class ClientmanageController extends Controller {
     *
     *
     */
-     public function __construct()
-    {
+    public function __construct(){
       # code...
       parent::__construct();
-      if(!session('user')){
-        //$this->ajaxReturn(array('code'=>-1,'message'=>'fail','data'=>'not login'));
+      $sessionName = C('user');
+
+      if(!session($sessionName)){
+
         $this ->redirect('login/login',Null,0);
       }
 
     }
+
     public function clientList(){
         $this->display('clientManage/clientList');
     }

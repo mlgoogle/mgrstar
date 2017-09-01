@@ -24,8 +24,6 @@ class CustomerController extends CTController
     public function __construct(){
         parent::__construct();
 
-            //$this->user = session('user');
-
         $this->excel = 1;
 
         $this->assign('title', '消费者列表');

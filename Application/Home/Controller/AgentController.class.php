@@ -9,11 +9,12 @@ class AgentController extends Controller{
 
     private $user;
 
-    public function __construct()
-    {
+    public function __construct(){
 
-        $this->user = session('user');
-        if (!session('user')) {
+        $sessionName = C('user');
+
+        $this->user = session($sessionName);
+        if (!$this->user) {
 
             $this ->redirect('login/login',Null,0);
 

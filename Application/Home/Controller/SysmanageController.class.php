@@ -9,11 +9,13 @@ class SysmanageController extends Controller {
     */
      public function __construct()
     {
-      # code...
-      if(!session('user')){
-        //$this->ajaxReturn(array('code'=>-1,'message'=>'fail','data'=>'not login'));
-        $this ->redirect('login/login',Null,0);
-      }
+      # code... #
+        $sessionName = C('user');
+
+        if(!session($sessionName)){
+            //$this->ajaxReturn(array('code'=>-1,'message'=>'fail','data'=>'not login'));
+            $this ->redirect('login/login',Null,0);
+        }
 
       parent::__construct();
 
