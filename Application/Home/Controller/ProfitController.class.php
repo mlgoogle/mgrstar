@@ -390,8 +390,6 @@ class ProfitController extends CTController{
             return $this->ajaxReturn($returnAjax);
         }
 
-        $this->notifyUrl($bankAccount,$bankPersonName,$bankSum); // 添加提现记录
-
         if(empty($returnAjax['respDesc']) ){
             $return = array(
                 'code' => 0,
@@ -412,6 +410,9 @@ class ProfitController extends CTController{
 
     // 回调 地址  添加提现记录
     public function notifyUrl($bankAccount,$bankPersonName,$profitPrice=0){
+
+      if($profitPrice){
+
         $adminId = $this->user['id'];
 
         $data['adminId'] = $adminId;
@@ -421,6 +422,7 @@ class ProfitController extends CTController{
         $data['create_time'] = date('Y-m-d',time());
 
         M('profit_log')->add($data);
+      }
         //return $this->ajaxReturn($this->withdrawalsModel->notifyUrl());
     }
 
