@@ -959,7 +959,8 @@ class DataSearchController extends Controller
 
             $lists[$l['id']]['order_total'] = $l['order_num']*$l['order_price'];
 
-            $lists[$l['id']]['close_time'] = date('Y-m-d H:i:s',$l['close_time']);
+            $lists[$l['id']]['open_time'] = date('Y-m-d H:i:s',$l['open_time']);
+            //$lists[$l['id']]['close_time'] = date('Y-m-d H:i:s',$l['close_time']);
         }
 
 
@@ -990,7 +991,8 @@ class DataSearchController extends Controller
         if($startTime && $endTime) {
             $startTime = strtotime($startTime);
             $endTime = strtotime($endTime)+(24*3600);
-            $whereOreder['close_time'] = array('between', $startTime . ',' . $endTime);
+            $whereOreder['open_time'] = array('between', $startTime . ',' . $endTime);
+            //$whereOreder['close_time'] = array('between', $startTime . ',' . $endTime);
         }
 
         $whereOreder['order_type'] = 2;
@@ -998,7 +1000,10 @@ class DataSearchController extends Controller
         $pageNum = isset($_POST['pageNum'])?$_POST['pageNum']:5;
         $page = isset($_POST['page'])?$_POST['page']:1;
 
-        $obj = $selectObj = $star_orderlist->field('id,FROM_UNIXTIME(close_time,\'%Y-%m-%d\') as days,count(id) as count_num,starcode,order_num,order_price')->where($whereOreder)->group('starcode,days');
+        $obj = $selectObj = $star_orderlist->field('id,FROM_UNIXTIME(open_time,\'%Y-%m-%d\') as days,count(id) as count_num,starcode,order_num,order_price')->where($whereOreder)->group('starcode,days');
+
+
+        //$obj = $selectObj = $star_orderlist->field('id,FROM_UNIXTIME(close_time,\'%Y-%m-%d\') as days,count(id) as count_num,starcode,order_num,order_price')->where($whereOreder)->group('starcode,days');
 
 
        // $lister = $obj->order('days desc')->page($page,$pageNum)->select();
