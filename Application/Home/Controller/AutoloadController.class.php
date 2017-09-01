@@ -8,7 +8,6 @@ require 'vendor/autoload.php';
 
 class AutoloadController extends CTController{
 
-    private $Controller;
 
     public function __construct(){
         // \Home\

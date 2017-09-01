@@ -48,5 +48,7 @@ return array(
         'isCompay'      => '1', // 对公对私标识0为对私，1为对公
         'customerName'  => '民生银行羊城支行', //代付账户名称
     ),
+    // user session name save
+    'user' => 'user',
 
 );

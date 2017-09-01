@@ -16,11 +16,14 @@ class CTController extends Controller
     protected $user;
     public function _initialize(){
 
-        if(!session('user')){
+        $sessionName = C('user');
+
+        $user = $this->user = session($sessionName);
+
+
+        if(!$this->user){
             $this ->redirect('login/login',Null,0);
         }
-
-        $user = $this->user = session('user');
 
         $identity_id = $user['identity_id'];
 

@@ -29,7 +29,7 @@ class CrontabController extends CTController{
 
         $map = '';
 
-       // $map = ' where order_date = ' . date('Y-m-d',$openTime);
+        $map = ' where order_date = ' . date('Y-m-d',$openTime);
         
 
 //        $transStatisArr = M('TransStatis')->field('sum(order_price) as price_num, starcode')->where($map)

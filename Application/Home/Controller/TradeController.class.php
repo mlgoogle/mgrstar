@@ -11,10 +11,12 @@ class TradeController extends Controller
     *
     *
     */
-    public function __construct()
-    {
+    public function __construct(){
         # code...
-        if (!session('user')) {
+
+        $sessionName = C('user');
+
+        if (!session($sessionName)) {
             //$this->ajaxReturn(array('code'=>-1,'message'=>'fail','data'=>'not login'));
 
         }

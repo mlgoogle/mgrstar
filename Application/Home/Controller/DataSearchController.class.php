@@ -18,7 +18,10 @@ class DataSearchController extends Controller
 
     public function __construct(){
         parent::__construct();
-        $user = $this->user = session('user');
+
+        $sessionName = C('user');
+
+        $user = $this->user = session($sessionName);
         if(!$this->user){
             $this ->redirect('login/login',Null,0);
         }
@@ -870,7 +873,7 @@ class DataSearchController extends Controller
 
         $count = $star_orderlist->where($whereOreder)->count();// 查询满足要求的总记录数
 
-        $list = $star_orderlist->where($whereOreder)->page($page,$pageNum)->select();
+        $list = $star_orderlist->where($whereOreder)->page($page,$pageNum)->order('id desc')->select();
 
         foreach ($list as $l){
             $buyUid[] = $l['buy_uid'];
@@ -922,8 +925,9 @@ class DataSearchController extends Controller
         }
 
 
-        foreach ($list as $l){
-            $lists[$l['id']] = $l;
+        $lists = array();
+        foreach ($list as $k=>$l){
+            $lists[$k] = $l;
             $sellUid = $l['sell_uid'];
             $buyUid  = $l['buy_uid'];
 
@@ -942,25 +946,25 @@ class DataSearchController extends Controller
             $starname = $nameData[$l['starcode']]['name'];
 
             if($starname || $starcode){
-                $lists[$l['id']]['starnamecode'] = $starname . '/' . $starcode;
+                $lists[$k]['starnamecode'] = $starname . '/' . $starcode;
             }else{
-                $lists[$l['id']]['starnamecode'] = '';
+                $lists[$k]['starnamecode'] = '';
             }
 
 
 
-            $lists[$l['id']]['name'] = isset($userInfo[$listUid]['nickname'])?$userInfo[$listUid]['nickname']:'';
-            $lists[$l['id']]['phone'] = isset($userInfo[$listUid]['phoneNum'])?$userInfo[$listUid]['phoneNum']:'';
+            $lists[$k]['name'] = isset($userInfo[$listUid]['nickname'])?$userInfo[$listUid]['nickname']:'';
+            $lists[$k]['phone'] = isset($userInfo[$listUid]['phoneNum'])?$userInfo[$listUid]['phoneNum']:'';
 
 
            // $lists[$l['id']]['buy_name'] = isset($userInfo[$buyUid]['nickname'])?$userInfo[$buyUid]['nickname']:'';
            // $lists[$l['id']]['buy_phone'] = isset($userInfo[$buyUid]['phoneNum'])?$userInfo[$buyUid]['phoneNum']:'';
-            $lists[$l['id']]['statusValue'] = $statusValue;
+            $lists[$k]['statusValue'] = $statusValue;
 
-            $lists[$l['id']]['order_total'] = $l['order_num']*$l['order_price'];
+            $lists[$k]['order_total'] = $l['order_num']*$l['order_price'];
 
-            $lists[$l['id']]['open_time'] = date('Y-m-d H:i:s',$l['open_time']);
-            //$lists[$l['id']]['close_time'] = date('Y-m-d H:i:s',$l['close_time']);
+            $lists[$k]['open_time'] = date('Y-m-d H:i:s',$l['open_time']);
+            //$lists[$k]['close_time'] = date('Y-m-d H:i:s',$l['close_time']);
         }
 
 
@@ -1310,7 +1314,7 @@ class DataSearchController extends Controller
     private function fieldTSuccessArr(){
         return array(
             'id',
-            'close_time',
+            'open_time',
             'order_id',
             'name',
             'phone',
