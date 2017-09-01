@@ -44,10 +44,17 @@ define(["jquery"], function ($) {
 
         //提现
         withdrawals: function (data,cb) {
-        $.post(this.baseRequestUrl+"/Profit/withdrawals", data, function (result) {
-            cb(result);
-        })
-    },
+            $.post(this.baseRequestUrl+"/Profit/withdrawals", data, function (result) {
+                cb(result);
+            })
+        },
+
+        //提现记录列表
+        profitLogList: function (data,cb) {
+            $.post(this.baseRequestUrl+"/Profit/profitLogList", data, function (result) {
+                cb(result);
+            })
+        },
 
 
     };

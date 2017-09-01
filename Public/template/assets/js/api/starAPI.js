@@ -156,6 +156,13 @@ define(["jquery"], function ($) {
             })
         },
 
+        //经纪人提现记录列表
+        starLogList: function (data, cb) {
+            $.post(this.baseRequestUrl + "/StarAgent/starLogList", data, function (result) {
+                cb(result);
+            })
+        },
+
 
 
     };

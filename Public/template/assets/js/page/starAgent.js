@@ -201,6 +201,8 @@ define([
             });
         },
 
+        //明星账号列表
+
         fnGetList: function (data, initPage) {
             var _this = this;
             var table = $(".data-container table");

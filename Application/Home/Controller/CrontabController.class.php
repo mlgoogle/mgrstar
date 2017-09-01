@@ -46,7 +46,13 @@ class CrontabController extends CTController{
             $data['order_price']=array('exp','order_price+'.$order_price);
 
             if(!$p = $profitStarSummaryModel->where(array('starcode'=>$starcode))->save($data)){ //加$n
+
+                $adminIdArr = M('star_userinfo')->field('adminId')->where(array('starcode'=>$starcode))->find();
+
+                $adminId = isset($adminIdArr['adminId'])?intval($adminIdArr['adminId']):0;
+
                 $data['starcode'] = $starcode;
+                $data['adminId'] = $adminId;
                 $data['order_price'] = $order_price;
                 $profitStarSummaryModel->add($data);
             }
