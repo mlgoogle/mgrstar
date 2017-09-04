@@ -36,6 +36,8 @@ class AppointController extends CTController
     public function addAppoint(){
         //接收过滤提交数据
 
+        $hostUrl = $this->hostUrl; //图片域名
+
         $name = I('post.appointname', '', 'strip_tags');
         $name = trim($name);
         if (mb_strlen($name,'utf8') > 6) {
@@ -100,8 +102,8 @@ class AppointController extends CTController
         //数据入库
         $model->name = $name;
         $model->price = $micro;
-        $model->url1 = $url1;
-        $model->url2 = $url2;
+        $model->url1 = $hostUrl.$url1;
+        $model->url2 = $hostUrl.$url2;
         $model->local_pic = $local_pic;
         $model->add_time = date('Y-m-d H:i:s', time());
         $bool = ($model->add()) ? 0 : 1;
@@ -117,8 +119,9 @@ class AppointController extends CTController
     /**
      * 编辑信息
      */
-    public function editAppoint()
-    {
+    public function editAppoint(){
+        $hostUrl = $this->hostUrl; //图片域名
+
         $id = (int)$_POST['id'];
         if (!$id) {
             $return = array(
@@ -181,12 +184,13 @@ class AppointController extends CTController
 
 
             if($url1){
-                $model->url1 = $url1;
+                $model->url1 = $hostUrl.$url1;
             }
 
             if($url2) {
-                $model->url2 = $url2;
+                $model->url2 = $hostUrl.$url2;
             }
+
 
             $model->local_pic = $local_pic;
 
@@ -194,6 +198,7 @@ class AppointController extends CTController
 
             $bool = ($model->save()) ? 0 : 1;
         }
+
 
         //结果返回
         $return = array(
@@ -206,8 +211,7 @@ class AppointController extends CTController
     /**
      * 软删除
      */
-    public function delAppoint()
-    {
+    public function delAppoint(){
         //获取提交过来的ID值并进行分割 in 查询
         $ids = implode(',', $_POST['ids']);
         $model = M('meet_service_def');
@@ -285,6 +289,10 @@ class AppointController extends CTController
         foreach ($list as $key => $item) {
             $list[$key]['status_type'] = $item['status'];
             $list[$key]['status'] = self::getStatus($item['status']);
+            $data_url1 = pathinfo($item['url1']);
+            $data_url2 = pathinfo($item['url2']);
+            $list[$key]['data_url1'] = isset($data_url1['basename'])?trim($data_url1['basename']):'';
+            $list[$key]['data_url2'] = isset($data_url2['basename'])?trim($data_url2['basename']):'';
         }
 
         new \Think\Page($count, $pageNum);// 实例化分页类 传入总记录数和每页显示的记录数(25)

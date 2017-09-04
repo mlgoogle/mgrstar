@@ -49,6 +49,6 @@ return array(
         'customerName'  => '民生银行羊城支行', //代付账户名称
     ),
     // user session name save
-    'user' => 'user',
-
+    'user'      => 'user',
+    
 );

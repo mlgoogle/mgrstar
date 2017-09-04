@@ -58,13 +58,8 @@ class StarController extends CTController{
         $starcode = (int)$_POST['starcode'];
         $sort = (int)$_POST['sort'];
 
-//        if ($sort >= 5) {
-//            $return = array(
-//                'code' => -2,
-//                'message' => '排序不能大于5'
-//            );
-//            return $this->ajaxReturn($return);
-//        }
+        $hostUrl = $this->hostUrl; //图片域名
+
         //唯一性判断
         $model = M('star_starbrief');
         $map = array();
@@ -91,6 +86,16 @@ class StarController extends CTController{
             return $this->ajaxReturn($return);
         }
 
+        //图片 判断
+        if (empty($pic_url)) {
+            $return = array(
+                'code' => -2,
+                'message' => '请上传轮播图！'
+            );
+            return $this->ajaxReturn($return);
+        }
+
+
         $starbrief = $model->where("`name` = '{$starname}' AND `is_arousel` = 1")->find();
 
         $uid = isset($starbrief['uid'])?$starbrief['uid']:0;
@@ -99,7 +104,7 @@ class StarController extends CTController{
         //$model->uid = $uid;
         //$model->name = $starname;
         //$model->code = $starcode;
-        $data['pic1'] = $pic_url;
+        $data['pic1'] = $hostUrl.$pic_url;
         $data['local_pic'] = $local_pic;
        // $model->local_pic = $local_pic;
         $data['sort'] = $sort;
@@ -135,7 +140,7 @@ class StarController extends CTController{
                 'code' => -2,
                 'message' => "未找到明星 -{$starname}"
             );
-            return $this->ajaxReturn($return); exit();
+            return $this->ajaxReturn($return);
         }
 
         return $this->ajaxReturn($arr);
@@ -182,7 +187,7 @@ class StarController extends CTController{
 
         //唯一性判断
         $model = M('star_starbrief');
-
+        $hostUrl = $this->hostUrl; // 图片域名
 
         $bool = 1;
         $item = $model->where("`uid` = '{$id}'")->find();
@@ -190,11 +195,12 @@ class StarController extends CTController{
         $pic_url = I('post.pic_url', '', 'strip_tags');
         $pic_url = trim($pic_url);
         if (!empty($pic_url)) {
-            $model->pic1 = $pic_url;
+            $model->pic1 = $hostUrl.$pic_url;
         }
 
         $local_pic = I('post.local_pic', '', 'strip_tags');
         $local_pic = trim($local_pic);
+
 
         if (!empty($local_pic)) {
             $model->local_pic = $local_pic;

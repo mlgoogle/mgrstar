@@ -120,7 +120,7 @@ define([
                     var src =  v.pic_src;
                     //var src = v.pic1;
                     var pic1 = v.pic1;
-                    var pic_url = '<td><img src="'+ qn_domain + pic1 +'" class="icon-star-img"></td>';
+                    var pic_url = '<td><img src="' + pic1 +'" class="icon-star-img"></td>'; //+ qn_domain
 
                     if(v.status_type == 0){
                         var status_style = 'class="btn btn-up-status"';

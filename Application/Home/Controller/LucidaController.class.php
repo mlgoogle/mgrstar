@@ -159,7 +159,7 @@ class LucidaController extends CTController
         $model->code = $code;
 
         $pic_flag = 0;
-        $hostUrl = 'http://'.$_SERVER['HTTP_HOST'];
+        $hostUrl = $this->hostUrl; //图片域名
 
         $picArr = array();
         for ($i = 2; $i < 5; $i++) {
@@ -169,7 +169,7 @@ class LucidaController extends CTController
                 $key = 'pic' . $i;
                 $pic = I("post.$key", '', 'strip_tags');
                 $pic = trim($pic);
-                $picArr[$key] = $model->$key = $pic;
+                $picArr[$key] = $model->$key = $hostUrl.$pic;
             }
         }
 
@@ -194,9 +194,9 @@ class LucidaController extends CTController
         $model->colleage = $colleage;
         $model->resident = $resident;
         $model->worth = $worth;
-        $model->head_url = $headUrl;
-        $model->back_pic = $backPic;
-        $model->pic1 = $pic1;
+        $model->head_url = $hostUrl.$headUrl;
+        $model->back_pic = $hostUrl.$backPic;
+        $model->pic1 = $hostUrl.$pic1;
        // $model->appoint_id = $appoint_id;
         $model->weibo = $weibo;
 
@@ -223,7 +223,7 @@ class LucidaController extends CTController
             $startInfoList->star_name = $name;
             $startInfoList->star_phone = $phone = $code; // 暂时是明星的 code
            // $startInfoList->star_pic = isset($picArr['pic1'])?$picArr['pic1']:'';
-            $startInfoList->star_pic = $headUrl;
+            $startInfoList->star_pic = $hostUrl.$headUrl;
             $startInfoList->add();
 
 
@@ -555,7 +555,7 @@ class LucidaController extends CTController
             //  $model->code = $code;
 
             $pic_flag = 0;
-            $hostUrl = 'http://' . $_SERVER['HTTP_HOST'];
+            $hostUrl = $this->hostUrl; //图片域名
 
 
             $picArr = $_POST['pic'];  // 写真大图
@@ -565,7 +565,7 @@ class LucidaController extends CTController
                     $key = 'pic' . $i;
                     $pic = I("post.$key", '', 'strip_tags');
                     $pic = trim($pic);
-                    $model->$key =  $pic;
+                    $model->$key =  $hostUrl.$pic;
                     if (!empty($pic) && $item[$key] != $pic) {
                         @unlink(self::UPLOADSDIR . self::STARDIR . $item[$key]);
                     }
@@ -584,13 +584,13 @@ class LucidaController extends CTController
             // $model->appoint_id = $appoint_id;
             $model->weibo = $weibo;
             if ($headUrl) {
-                $model->head_url =  $headUrl;
+                $model->head_url =  $hostUrl.$headUrl;
             }
             if ($backPic) {
-                $model->back_pic =  $backPic;
+                $model->back_pic =  $hostUrl.$backPic;
             }
             if ($pic1) {
-                $model->pic1 = $pic1;
+                $model->pic1 = $hostUrl.$pic1;
             }
 
 
@@ -604,7 +604,7 @@ class LucidaController extends CTController
                     $wheres['star_code'] = $code;
 
 
-                    $data['star_pic'] =  $headUrl;
+                    $data['star_pic'] =  $hostUrl.$headUrl;
 
                     $startInfoList->where($wheres)->save($data);
                 }
@@ -745,8 +745,7 @@ class LucidaController extends CTController
         $this->ajaxReturn($data);
     }
 
-    public function info()
-    {
+    public function info(){
         $appoints = M('meet_service_def')->where('status =' . self::DELETE_ONLINE)->select();
 
         if (!isset($_GET['id'])) {

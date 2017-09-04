@@ -14,7 +14,11 @@ use Think\Controller;
 class CTController extends Controller
 {
     protected $user;
+    protected   $hostUrl;
+
     public function _initialize(){
+
+        $this->hostUrl = C('qn_domain'); //图片域名
 
         $sessionName = C('user');
 
@@ -24,6 +28,7 @@ class CTController extends Controller
         if(!$this->user){
             $this ->redirect('login/login',Null,0);
         }
+
 
         $identity_id = $user['identity_id'];
 
