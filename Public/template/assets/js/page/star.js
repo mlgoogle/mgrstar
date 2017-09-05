@@ -213,7 +213,7 @@ define([
                     }
 
                     var status = '<td>' + status_name + '</td>';
-                    var edit_status = '<td><a href="javascript:;" ' + status_style + ' onclick="status(this)" data-code="'+ v.code +'">' + edit_status_name + '</a></td>';
+                    var edit_status = '<td><a href="javascript:;" ' + status_style + ' onclick="status(this)" data-code="'+ v.code +'" data-id="' + v.uid + '" >' + edit_status_name + '</a></td>';
 
 
                     oTr += '<tr class="fadeIn animated" data-id="' + v.uid + '" data-code= "' + v.code + '" data-src="'+ src +'" data-local="'+ v.local_pic +'">' + checkTd +  starname

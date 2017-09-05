@@ -125,6 +125,7 @@
     function status(obj) {
         var _this = $(obj);
         var code = _this.attr("data-code");
+        var uid  = _this.attr("data-id");
         $.ajax({
             type: "POST",
             url: "__ROOTHOME__/Star/status",
@@ -137,7 +138,7 @@
                 }else {
                     layer.msg(msg.message);
 
-                    ajaxUrl();
+                    ajaxUrl(uid);
 
                     window.setTimeout(
                         'window.location.reload(true)',
