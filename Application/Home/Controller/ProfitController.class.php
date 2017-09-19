@@ -14,6 +14,8 @@ class ProfitController extends CTController{
 
     //经纪人佣金
     public function commision(){
+        $this->errorAddress();//权限
+
         $user = $this->user;
         $identityId = $user['identity_id'];
 

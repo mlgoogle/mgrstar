@@ -26,6 +26,8 @@ class StarController extends CTController{
 
     //模板显示
     public function carousel(){
+        $this->errorAddress();//权限
+
         $this->assign('title', '轮播列表');
         $model = M('star_bannerlist');
         $count = $model->where("`delete_flag` = ".self::DELETE_FALSE)->count('id');
@@ -36,6 +38,8 @@ class StarController extends CTController{
 
     //明星帐号
     public function user(){
+        $this->errorAddress();//权限
+
         $this->assign('title', '明星账号');
         $this->display('star/user');
     }

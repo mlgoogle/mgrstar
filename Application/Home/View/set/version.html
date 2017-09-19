@@ -1,71 +1,128 @@
 <include file="public:top_menu" />
 
-<div class="control-bar">
-    <!--<h3>明星时间管理</h3>-->
-    <a href="__ROOTHOME__/Timer/info" class="btn J_showAdd">新建</a>
-    <a href="javascript:;" class="btn J_onDel">删除</a>
-</div>
 
 <style>
     .btn-status{
-        width: 40px;
+        /* width: 40px;*/
         background-color:#80D640;
-        padding: 0;
+        /* padding: 0; */
     }
 
     .btn-up-status{
-        width: 40px;
+        /* width: 40px;*/
         background-color:#009f95;
-        padding: 0;
+        /* padding: 0;*/
+    }
+
+    .pic1_div img {
+        width : 200px;
+        height : 100px;
+        margin-right:10px;
+        /*height: 60px;*/
+        /*margin: 10px;*/
+        cursor:pointer;
     }
 </style>
+
+<div for="add_star" class="control-bar">
+    版本设置</a>
+</div>
+
+
 <div class="data-container">
     <table>
         <thead>
         <tr>
-            <th>#</th>
             <th>序号</th>
-            <th>明星名称/发行代码</th>
-            <th>发行总时间数量</th>
-            <th>发行期</th>
-            <th>发售时间量</th>
-            <th>发行时间</th>
-            <th>当前发行期剩余时间量</th>
-            <th>状态</th>
-            <th>修改状态</th>
-            <th>详情</th>
+            <th>类型</th>
+            <th>版本名</th>
+            <th>版本号</th>
+            <th>版本号大小（M）</th>
+            <th>版本描述</th>
+            <th>下载地址</th>
+            <th>更新时间</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tbody>
         </tbody>
     </table>
-    <div class="pagination"></div>
+    <div class="pagination list"></div>
+</div>
+
+
+<div  class="control-bar">
+    更新记录
+</div>
+
+<div class="data-container version-log-list">
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>更新帐号</th>
+            <th>版本号</th>
+            <th>下载地址</th>
+            <th>类型</th>
+            <th>更新时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="pagination log-list"></div>
+</div>
+
+
+
+<div data-remodal-id="changeUserModal" class="remodal changeUserModal">
+    <div class="remodal-head">
+        <div class="remodal-title">明星经纪人</div>
+        <div data-remodal-action="cancel" class="remodal-close"></div>
+    </div>
+    <div class="remodal-body">
+        <form class="modalForm" enctype="multipart/form-data">
+            <input type="text" name="id" style="display: none">
+            <div class="form-control">
+                <label>版本名</label>
+                <input type="text" name="appName"  style="border:none" readonly value="" >
+            </div>
+
+            <div class="form-control">
+                <label>版本号</label>
+                <input type="text" name="VersionName"  value="" >
+            </div>
+            <div class="form-control">
+                <label>版本号大小（M）</label>
+                <input type="text" name="Size"  value="" >
+            </div>
+
+            <div class="form-control" >
+                <label>下载地址</label>
+                <input type="text" name="Url"  value="" >
+            </div>
+
+            <div class="form-control" >
+                <label>版本描述</label>
+                <textarea name="UpdateDesc"
+                  style="width: 300px;height: 100px;">
+                </textarea>
+            </div>
+            <input type="hidden" name="ttype"  value="" >
+        </form>
+    </div>
+    <div class="remodal-footer">
+        <a href="javascript:;"  class="remodal-confirm">确认</a>
+    </div>
+</div>
+
+
+<div id="browse" class="browse">
 </div>
 
 <script src="__JS__/vendor/require.js" data-main="__JS__/common"></script>
+
 <script>
-    function status(obj) {
-        var _this = $(obj);
-        var id = _this.attr("data-id");
-        $.ajax({
-            type: "POST",
-            url: "__ROOTHOME__/Timer/status",
-            dataType: "json",
-            data: {id : id},
-            success: function(msg){
-
-                layer.msg(msg.message);
-
-                window.setTimeout(
-                    'window.location.reload(true)',
-                    2000
-                );
-                // alert(msg.message);
-                //  window.location.reload(true);
-            }
-        });
-    }
-
     require(['common'], function () {
         require(['page/version']);
     });

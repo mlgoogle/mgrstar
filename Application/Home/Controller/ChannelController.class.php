@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ctdone
- * Date: 2017/7/24
- * Time: 17:47
- */
 
 namespace Home\Controller;
 
@@ -17,6 +11,8 @@ class ChannelController extends CTController {
     }
 
     public function listing(){
+        $this->errorAddress();//权限
+
         $this->display('channel/listing');
     }
 

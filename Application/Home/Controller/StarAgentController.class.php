@@ -20,6 +20,7 @@ class StarAgentController extends CTController{
     }
 
     public function agent(){
+        $this->errorAddress();//权限
 
         $user = $this->user;
 
@@ -33,6 +34,8 @@ class StarAgentController extends CTController{
     }
 
     public function starAgentUser(){
+        $this->errorAddress();//权限
+
         $this->getBankcardAdminInfo();
         $this->assign('title', '明星账号');
         $this->display('starAgent/starAgentUser');
@@ -55,7 +58,7 @@ class StarAgentController extends CTController{
             $map['id'] = $user['id'];
         }
         $count = $adminModel->where($map)->count();// 查询满足要求的总记录数
-        $list = $adminModel->where($map)->select();
+        $list = $adminModel->where($map)->page($page, $pageNum)->select();
 
         $agentSubIdArr = $adminIdArr = array();
         foreach ($list as $l){

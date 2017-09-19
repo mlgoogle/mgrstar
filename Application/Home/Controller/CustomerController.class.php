@@ -30,8 +30,9 @@ class CustomerController extends CTController
     }
 
     //模板显示
-    public function customer()
-    {
+    public function customer(){
+        $this->errorAddress();//权限
+
         $this->display('Customer/listing');
     }
 

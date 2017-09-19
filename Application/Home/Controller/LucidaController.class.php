@@ -10,8 +10,7 @@ use Think\Controller;
  * Class LucidaController
  * @package Home\Controller
  */
-class LucidaController extends CTController
-{
+class LucidaController extends CTController{
     //软删除    0上线 1下线 2软删除
     const DELETE_ONLINE = 0;
     const DELETE_OFF = 1;
@@ -38,6 +37,7 @@ class LucidaController extends CTController
 
     //模板显示
     public function listing(){
+        $this->errorAddress();//权限
 
        $this->display('lucida/listing');
 

@@ -10,7 +10,7 @@ function ajaxUrl(uid) {
 }
 
 
-function ajaxPost(url,data) {  
+function ajaxPost(url,data) {
     $.ajax({
         type: "POST",
         url: url,

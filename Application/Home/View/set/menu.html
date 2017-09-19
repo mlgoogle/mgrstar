@@ -1,0 +1,145 @@
+<include file="public:top_menu" />
+<script src="__JS__/vendor/jquery.datetimepicker.js" data-main="__JS__/common"></script>
+
+<script src="__JS__/vendor/layer.js?version=1498546138669" data-main="__JS__/common"></script>
+
+<style>
+    .form-control label {
+        width: 120px;
+        display: inline-block;
+        text-align: right;
+        padding: 10px 10px;
+    }
+    .mybtn{
+        display: inline-block;
+        width: 40px;
+        border:1px solid #CCCCCC;
+        border-radius: 4px;
+        height: 30px;
+        line-height: 30px;
+        cursor: pointer;
+    }
+    .exp {
+        margin:15px 0px;
+        line-height: 25px;
+    }
+    .timer-list {
+        width:60%;
+        margin-top: 25px;
+        border-top: 1px solid #ccc;
+        padding: 10px;
+    }
+    .exp li{
+        list-style-type:none;
+        border-bottom: 1px solid #ccc;
+        margin: 10px 0px 15px 0px;
+    }
+    .close_exp {
+        color: red;
+        font-weight: normal;
+        display: inline;
+        cursor:pointer;
+        font-size: 12px;
+        float: right;
+        width: 30px;
+    }
+    .add-free{
+        border:1px solid #ccc;
+        margin-bottom: 5px;
+        font-weight: normal;
+        display: inline-block;
+        cursor:pointer;
+        font-size: 12px;
+        float: right;
+        border-radius: 2px;
+        width: 60px;
+        text-align: center;
+    }
+    .info-secs {
+        display: inline-block;
+        float: right;
+        margin-right: 50%;
+    }
+    .info-notice {display: inline-block; color: red;}
+
+    .btn_button {
+        margin-left: 310px;
+        margin-top: 30px;
+    }
+
+    .btn_next {
+        margin-left: 360px;
+        margin-top: 20px;
+    }
+
+    .btn_add {
+        margin-left: 360px;
+        margin-top: 10px;
+    }
+
+
+    .menu-right {
+        display: inline-block;
+        margin: 1px;
+        border-right: 2px solid; border-bottom: 2px solid;
+        width: 10px; height: 10px;
+        color: #800061;
+        transform: rotate(-45deg);
+    }
+
+    .menu-left {
+        display: inline-block;
+        margin: 1px;
+        border-right: 2px solid; border-bottom: 2px solid;
+        width: 13px; height: 13px;
+        color: #1da708;
+        transform: rotate(90deg);
+    }
+
+    .menu-down {
+        display: inline-block;
+        margin: 1px;
+        border-right: 2px solid; border-bottom: 2px solid;
+        width: 10px; height: 10px;
+        color: #080808;
+        transform: rotate(45deg);
+    }
+
+
+</style>
+
+<div class="control-bar">
+    <h3> <a href="__ROOTHOME__/Set/menu_info"  class="btn" >添加</a> </h3>
+</div>
+
+<div class="data-container version-log-list">
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>菜单</th>
+            <th>访问地址</th>
+            <th>简介</th>
+            <th>更新时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="pagination"></div>
+</div>
+
+
+</div>
+<script src="__JS__/vendor/require.js" data-main="__JS__/common"></script>
+<script type="text/javascript">
+
+    var rootHome = "__ROOTHOME__";
+
+    require(['common'], function () {
+        require(['page/menu']);
+    });
+</script>
+
+<include file="public:footer" />

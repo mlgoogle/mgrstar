@@ -54,8 +54,9 @@ class MemberController extends Controller
         $this->ajaxReturn($data);
     }
 
-    public function getlistall()
-    {
+    public function getlistall(){
+        $map = array();
+
         $member_info = M('member_info');
         $list = $member_info->where($map)->select();//获取分页数据
         foreach ($list as $key => $value) {
