@@ -21,6 +21,7 @@ define('DB_FIELD_CACHE',false);
 define('HTML_CACHE_ON',false);//
 
 // 定义应用目录
+define('ROOT_PATH',dirname(__FILE__) . '/');
 define('APP_PATH','./Application/');
 
 // 引入ThinkPHP入口文件

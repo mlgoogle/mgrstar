@@ -25,6 +25,7 @@ return array(
       '__IMG__' => __ROOT__.'/Public/template/assets/img',
       '__FRONTS__' => __ROOT__.'/Public/template/assets/front',
       '__ROOTHOME__'=>__ROOT__.'/index.php/Home',
+      '__PUSHSDk__'=>__ROOT__.'/PushSdk',
     //  '__DOMAIN__'=>"http://localhost/tp-hangkong-jiandan/index.php/Home/"
     ),
     'TMPL_CACHE_ON' => false,//禁止模板编译缓存
