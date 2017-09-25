@@ -23,6 +23,7 @@ define('HTML_CACHE_ON',false);//
 // 定义应用目录
 define('ROOT_PATH',dirname(__FILE__) . '/');
 define('APP_PATH','./Application/');
+define('APP_NAME','星享');
 
 // 引入ThinkPHP入口文件
 require './ThinkPHP/ThinkPHP.php';
