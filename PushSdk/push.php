@@ -29,7 +29,7 @@ pushMessageToApp();
 function pushMessageToApp(){
     $igt = new IGeTui(HOST,APPKEY,MASTERSECRET);
     //定义透传模板，设置透传内容，和收到消息是否立即启动启用
-    $template = IGtLinkTemplateDemo();
+    $template = IGtTransmissionTemplateDemo();
     //$template = IGtLinkTemplateDemo();
     // 定义"AppMessage"类型消息对象，设置消息内容模板、发送的目标App列表、是否支持离线发送、以及离线消息有效期(单位毫秒)
     $message = new IGtAppMessage();
@@ -118,69 +118,30 @@ function IGtLinkTemplateDemo(){
     $template ->set_isClearable(true);             //通知栏是否可清除
     $template ->set_url($url); //打开连接地址
     //$template->set_duration(BEGINTIME,ENDTIME); //设置ANDROID客户端在此时间区间内展示消息
+    $template->set_pushInfo($title, 0, $text, "sound", "", "", "", "");
+
+//    //       APN高级推送
+//    $apn = new IGtAPNPayload();
+//    $alertmsg=new DictionaryAlertMsg();
+//    $alertmsg->body="星云的内容";
+//    $alertmsg->actionLocKey="ActionLockey";
+//    $alertmsg->locKey="LocKey";
+//    $alertmsg->locArgs=array("locargs");
+//    $alertmsg->launchImage="launchimage";
+////        iOS8.2 支持
+//    $alertmsg->title="星云";
+//    $alertmsg->titleLocKey="TitleLocKey";
+//    $alertmsg->titleLocArgs=array("TitleLocArg");
+//
+//    $apn->alertMsg=$alertmsg;
+//    $apn->badge=1;
+//    $apn->sound="default";
+//    $apn->add_customMsg("payload","星云的内容");
+//    $apn->contentAvailable=-1;
+//    $apn->category="ACTIONABLE";
+//    $template->set_apnInfo($apn);
 
 
-    //       APN高级推送
-    $apn = new IGtAPNPayload();
-    $alertmsg=new DictionaryAlertMsg();
-    $alertmsg->body="星云的内容";
-    $alertmsg->actionLocKey="ActionLockey";
-    $alertmsg->locKey="LocKey";
-    $alertmsg->locArgs=array("locargs");
-    $alertmsg->launchImage="launchimage";
-//        iOS8.2 支持
-    $alertmsg->title="星云";
-    $alertmsg->titleLocKey="TitleLocKey";
-    $alertmsg->titleLocArgs=array("TitleLocArg");
-
-    $apn->alertMsg=$alertmsg;
-    $apn->badge=1;
-    $apn->sound="default";
-    $apn->add_customMsg("payload","星云的内容");
-    $apn->contentAvailable=-1;
-    $apn->category="ACTIONABLE";
-    $template->set_apnInfo($apn);
-
-
-    return $template;
-}
-
-
-function IGtNotificationTemplateDemoJson(){
-
-    $starId = isset($_POST['starId'])?intval($_POST['starId']):0;
-    if(empty($starId)){
-        $array = array(
-            'code' => -2,
-            'message' =>'请选择用户'
-        );
-        exit(json_encode($array));
-        return false;
-    }
-
-    $title = isset($_POST['title'])?trim($_POST['title']):'';
-    $text = isset($_POST['text'])?trim($_POST['text']):'';
-    $logo = isset($_POST['logo'])?trim($_POST['logo']):'';
-    $logoURL = isset($_POST['logoURL'])?trim($_POST['logoURL']):'';
-
-    $starIdArr = array('uid'=>$starId);
-    $content = json_encode($starIdArr);
-
-
-
-    $template =  new IGtNotificationTemplate();
-    $template->set_appId(APPID);                    //应用appid
-    $template->set_appkey(APPKEY);                  //应用appkey
-    $template->set_transmissionType(1);             //透传消息类型
-    $template->set_transmissionContent($content);   //透传内容
-    $template->set_title($title);                   //通知栏标题
-    $template->set_text($text);                     //通知栏内容
-    $template->set_logo($logo);                     //通知栏logo
-    $template->set_logoURL($logoURL);               //通知栏logo链接
-    $template->set_isRing(true);                    //是否响铃
-    $template->set_isVibrate(true);                 //是否震动
-    $template->set_isClearable(true);               //通知栏是否可清除
-    //$template->set_duration(BEGINTIME,ENDTIME);   //设置ANDROID客户端在此时间区间内展示消息
     return $template;
 }
 
@@ -188,17 +149,39 @@ function IGtNotificationTemplateDemoJson(){
 function IGtTransmissionTemplateDemo(){
 
     $starId = isset($_POST['starId'])?intval($_POST['starId']):0;
+    $title = isset($_POST['title'])?trim($_POST['title']):'';
+    $text = isset($_POST['text'])?trim($_POST['text']):'';
 
-    if(empty($starId)){
+    $url = isset($_POST['url'])?trim($_POST['url']):'';
+
+    if(empty($title)){
         $array = array(
             'code' => -2,
-            'message' =>'请选择用户'
+            'message' =>'请输入标题'
         );
         exit(json_encode($array));
         return false;
     }
 
-    $starIdArr = array('uid'=>$starId);
+    if(empty($text)){
+        $array = array(
+            'code' => -2,
+            'message' =>'请输入内容'
+        );
+        exit(json_encode($array));
+        return false;
+    }
+
+//    if(empty($starId)){
+//        $array = array(
+//            'code' => -2,
+//            'message' =>'请选择用户'
+//        );
+//        exit(json_encode($array));
+//        return false;
+//    }
+
+    $starIdArr = array('starId'=>$starId,'starUrl'=>$url);
     $content = json_encode($starIdArr);
 
 
@@ -216,27 +199,8 @@ function IGtTransmissionTemplateDemo(){
     //$template->set_pushInfo("actionLocKey","badge","message",
     //"sound","payload","locKey","locArgs","launchImage");
 
+    $template->set_pushInfo($title, 0, $text, "sound", "", "", "", "");
 
-    //       APN高级推送
-    $apn = new IGtAPNPayload();
-    $alertmsg=new DictionaryAlertMsg();
-    $alertmsg->body="星云的内容";
-    $alertmsg->actionLocKey="ActionLockey";
-    $alertmsg->locKey="LocKey";
-    $alertmsg->locArgs=array("locargs");
-    $alertmsg->launchImage="launchimage";
-//        iOS8.2 支持
-    $alertmsg->title="星云";
-    $alertmsg->titleLocKey="TitleLocKey";
-    $alertmsg->titleLocArgs=array("TitleLocArg");
-
-    $apn->alertMsg=$alertmsg;
-    $apn->badge=1;
-    $apn->sound="default";
-    $apn->add_customMsg("payload","星云的内容");
-    $apn->contentAvailable=-1;
-    $apn->category="ACTIONABLE";
-    $template->set_apnInfo($apn);
 
 
     return $template;
