@@ -14,9 +14,9 @@ class OperateController extends CTController{
     public function push(){
         $this->errorAddress();//权限
 
-        $userInfo = $this->userinfoList();
+        $starList = $this->starList();
 
-        $this->assign('userInfo', $userInfo);
+        $this->assign('starList', $starList);
         $this->assign('title', '消息推送');
         $this->display('operate/push');
     }
@@ -37,6 +37,13 @@ class OperateController extends CTController{
         $data = $starUserInfoModel->where($map)->select();
 
 
+        return $data;
+    }
+
+    public function starList(){
+        $starBriefModel = M('star_starbrief');
+        $map['status'] = 0;
+        $data = $starBriefModel->where($map)->select();
         return $data;
     }
 

@@ -97,8 +97,8 @@
                             $pid = isset($list['pid'])?$list['pid']:0;
 
 
-                            foreach($userInfo as $m){
-                                $name = !empty($m['nickname'])?trim($m['nickname']):'';
+                            foreach($starList as $m){
+                                $name = !empty($m['name'])?trim($m['name']):'';
 
                                // $contentJson = implode(',',$m);
                                 $selected = '';
@@ -152,7 +152,7 @@
             var url = "__PUSHSDk__/push.php";
 
             data = {
-                pid     : pid,
+                starId  : pid,
                 title   : title,
                 logo    : logo,
                 logoURL : logoURL,
