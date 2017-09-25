@@ -181,8 +181,19 @@ function IGtTransmissionTemplateDemo(){
 //        return false;
 //    }
 
-    $starIdArr = array('starId'=>$starId,'starUrl'=>$url);
-    $content = json_encode($starIdArr);
+    if(!empty($url)){
+        $starArr = array('starUrl'=>$url);
+    }else if(!empty($starId)){
+        $starArr = array('starId'=>$starId);
+    }else{
+        $array = array(
+            'code' => -2,
+            'message' =>'请选择明星或者填写跳转链接！'
+        );
+        exit(json_encode($array));
+        return false;
+    }
+    $content = json_encode($starArr);
 
 
     $template =  new IGtTransmissionTemplate();
