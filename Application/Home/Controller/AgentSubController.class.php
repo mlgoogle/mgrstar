@@ -137,9 +137,10 @@ class AgentSubController extends Controller
 
 
         $mark = 100000;
+        $dbName = C('DB_NAME');
 
         $AutoIdArr = $memberSub_info->
-        query('SELECT Auto_increment as autoId FROM information_schema.`TABLES` WHERE TABLE_NAME = \'agentsub_info\' AND TABLE_SCHEMA = \'star\' limit 1');
+        query('SELECT Auto_increment as autoId FROM information_schema.`TABLES` WHERE TABLE_NAME = \'agentsub_info\' AND TABLE_SCHEMA = \'' . $dbName . '\' limit 1');
         $Auto = implode('',array_column($AutoIdArr,'autoId'));
 
         $AutoId = isset($Auto)?$Auto:1;

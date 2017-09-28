@@ -36,9 +36,19 @@ class StarAgentController extends CTController{
     public function starAgentUser(){
         $this->errorAddress();//权限
 
-        $this->getBankcardAdminInfo();
-        $this->assign('title', '明星账号');
-        $this->display('starAgent/starAgentUser');
+
+        $user = $this->user;
+
+        $identity_id = $user['identity_id'];
+        if($identity_id == -1) {
+            $this->getBankcardAdminInfo();
+            $this->assign('title', '明星账号');
+            $this->display('starAgent/starAgentUser');
+        }else{
+            $this->assign('title', '错误信息');
+            $this->assign('message', '非明星经纪人不可访问');
+            $this->display('err/error');
+        }
     }
 
     public function starAgentList(){
@@ -131,9 +141,10 @@ class StarAgentController extends CTController{
         //$agentNickname = I('post.agentNickname', '', 'strip_tags');
 
         $mark = 100000;
+        $dbName = C('DB_NAME');
 
         $AutoIdArr = $agentsubModel->
-        query('SELECT Auto_increment as autoId FROM information_schema.`TABLES` WHERE TABLE_NAME = \'agentsub_info\' AND TABLE_SCHEMA = \'star\' limit 1');
+        query('SELECT Auto_increment as autoId FROM information_schema.`TABLES` WHERE TABLE_NAME = \'agentsub_info\' AND TABLE_SCHEMA = \'' . $dbName . '\' limit 1');
         $Auto = implode('',array_column($AutoIdArr,'autoId'));
 
         $AutoId = isset($Auto)?$Auto:1;

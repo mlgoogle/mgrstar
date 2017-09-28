@@ -130,9 +130,10 @@ class LucidaController extends CTController{
 
         //基数是 10000;
         $code = 10000;
+        $dbName = C('DB_NAME');
 
         $AutoIdArr = $model->
-        query('SELECT Auto_increment as autoId FROM information_schema.`TABLES` WHERE TABLE_NAME = \'star_starbrief\' AND TABLE_SCHEMA = \'star\' limit 1');
+        query('SELECT Auto_increment as autoId FROM information_schema.`TABLES` WHERE TABLE_NAME = \'star_starbrief\' AND TABLE_SCHEMA = \'' . $dbName . '\' limit 1');
         $Auto = implode('',array_column($AutoIdArr,'autoId'));
 
         $AutoId = isset($Auto)?$Auto:1;
