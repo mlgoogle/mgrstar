@@ -707,6 +707,7 @@ class LucidaController extends CTController{
             'message' => 'success',
         );
 
+        $cgiModel = new \Home\Model\cgiModel($id);
 
         return $this->ajaxReturn($return);
     }
