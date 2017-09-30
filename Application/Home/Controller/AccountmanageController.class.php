@@ -2,14 +2,17 @@
 namespace Home\Controller;
 use Think\Controller;
 //use Think\Controller\restController;
-class AccountmanageController extends Controller {
+class AccountmanageController extends CTController {
 
-    private $user;
+   // private $user;
     private $identitys = array(1,2,3,4); // 1 交易所 2 机构 3 经纪人 4 普通客户
 
     public function __construct(){
-        # code...
+        # code...T
         parent::__construct();
+
+       // $this->menu = new \Home\Model\menuModel();
+       // $this->assign('menu',$this->menu->menuRow());
 
         $sessionName = C('user');
 
@@ -32,6 +35,8 @@ class AccountmanageController extends Controller {
 
     public function orgManage(){
 
+        $this->errorAddress();//权限
+
         $identityId = $this->user['identity_id'];
 
         if($identityId<0) return false;
@@ -52,6 +57,7 @@ class AccountmanageController extends Controller {
     }
 
     public function userManage(){
+        $this->errorAddress();//权限
 
         $this->assign('actionUrl','userManage');
 
@@ -59,6 +65,8 @@ class AccountmanageController extends Controller {
     }
 
     public function brokerManage(){
+        $this->errorAddress();//权限
+
         $identityId = $this->user['identity_id'];
 
         if($identityId==4){
@@ -70,6 +78,8 @@ class AccountmanageController extends Controller {
     }
 
     public function brokerSubManage(){
+        $this->errorAddress();//权限
+
         $this->assign('actionUrl','brokerSubManage');
         $this->display('accountManage/brokerSubManage');
     }

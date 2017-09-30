@@ -21,8 +21,7 @@ class AdminuserController extends Controller
         }
     }
 
-    public function getList()
-    {
+    public function getList(){
 
         $user_info = M('admin_user');
         $pageNum = isset($_POST['pageNum']) ? $_POST['pageNum'] : 5;

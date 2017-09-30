@@ -20,16 +20,24 @@ class ClientmanageController extends Controller {
     }
 
     public function clientList(){
+        $this->errorAddress();//权限
+
         $this->display('clientManage/clientList');
     }
 
     public function chiCangSearch(){
+        $this->errorAddress();//权限
+
         $this->display('clientManage/chiCangSearch');
     }
     public function pingCangSearch(){
+        $this->errorAddress();//权限
+
         $this->display('clientManage/pingCangSearch');
     }
     public function chuJinSearch(){
+        $this->errorAddress();//权限
+
         $this->display('clientManage/chuJinSearch');
     }
     public function ruJinSearch(){

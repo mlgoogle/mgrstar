@@ -2,8 +2,9 @@
  * Created by ctdone on 2017/8/10.
  */
 
-function ajaxUrl() {
+function ajaxUrl(uid) {
     data = {
+        "uid":uid?uid:0
     };
     ajaxPost(starUrl,data);
 }
@@ -14,10 +15,10 @@ function ajaxPost(url,data) {
         type: "POST",
         url: url,
         dataType: "json",
-        contentType:"application/json",
+       // contentType:"application/json",
         data: data,
         success: function(msg){
-
+            console.log(msg);
         }
     });
 }

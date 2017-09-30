@@ -25,8 +25,9 @@ class AppointController extends CTController
     }
 
     //模板显示
-    public function appoint()
-    {
+    public function appoint(){
+        $this->errorAddress();//权限
+
         $this->display('appoint/appoint');
     }
 

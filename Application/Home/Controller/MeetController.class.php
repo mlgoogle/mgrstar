@@ -26,8 +26,9 @@ class MeetController extends CTController
     }
 
     //模板显示
-    public function meet()
-    {
+    public function meet(){
+        $this->errorAddress();//权限
+
         $this->display('meet/meet');
     }
 
@@ -118,8 +119,7 @@ class MeetController extends CTController
     /**
      * 软删除
      */
-    public function delMeet()
-    {
+    public function delMeet(){
         //获取提交过来的ID值并进行分割 in 查询
         $ids = implode(',', $_POST['ids']);
         $model = M('meet_service_def');

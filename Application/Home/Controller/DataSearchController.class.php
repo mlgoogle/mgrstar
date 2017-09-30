@@ -5,19 +5,23 @@ namespace Home\Controller;
 use Think\Controller;
 //use .\..\Home\Model ;
 
-class DataSearchController extends Controller
+class DataSearchController extends CTController
 {
 
-    private $user;
+   // private $user;
     private $homeModel;
     private $excel;
     private $fileName;
     protected $titles = array();
     protected $excelModel;
+   // protected $menu;
 
 
     public function __construct(){
         parent::__construct();
+
+      //  $this->menu = new \Home\Model\menuModel();
+     //   $this->assign('menu',$this->menu->menuRow());
 
         $sessionName = C('user');
 
@@ -40,18 +44,23 @@ class DataSearchController extends Controller
     }
 
     public function fundList(){
+        $this->errorAddress();//权限
+
         $this->assign('actionUrl','fundList');
 
         $this->display('DataSearch/fundList');
     }
 
     public function position(){ // 持仓
+        $this->errorAddress();//权限
+
         $this->assign('actionUrl','position');
 
         $this->display('DataSearch/position');
     }
 
     public function position_details(){ // 持仓详情
+        $this->errorAddress();//权限
 
         $this->assign('actionUrl','position');
 
@@ -68,6 +77,8 @@ class DataSearchController extends Controller
     }
 
     public function recharge(){ //充值
+        $this->errorAddress();//权限
+
         $this->assign('actionUrl','recharge');
 
         $this->display('DataSearch/recharge');
@@ -75,6 +86,8 @@ class DataSearchController extends Controller
 
     //交易明细
     public function transaction(){
+        $this->errorAddress();//权限
+
         $this->assign('actionUrl','transaction');
 
         $this->display('DataSearch/transaction');
@@ -82,6 +95,8 @@ class DataSearchController extends Controller
 
     //成交明细
     public function success(){
+        $this->errorAddress();//权限
+
         $this->assign('actionUrl','success');
 
         $this->display('DataSearch/success');
@@ -89,6 +104,8 @@ class DataSearchController extends Controller
 
     //成交明细汇总
     public function success_total(){
+        $this->errorAddress();//权限
+
         $this->assign('actionUrl','success_total');
 
         $this->display('DataSearch/success_total');

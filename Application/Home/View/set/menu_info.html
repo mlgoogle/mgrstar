@@ -1,0 +1,175 @@
+<include file="public:top_menu" />
+<script src="__JS__/vendor/jquery.datetimepicker.js" data-main="__JS__/common"></script>
+
+<script src="__JS__/vendor/layer.js?version=1498546138669" data-main="__JS__/common"></script>
+
+<style>
+    .form-control label {
+        width: 120px;
+        display: inline-block;
+        text-align: right;
+        padding: 10px 10px;
+    }
+    .mybtn{
+        display: inline-block;
+        width: 40px;
+        border:1px solid #CCCCCC;
+        border-radius: 4px;
+        height: 30px;
+        line-height: 30px;
+        cursor: pointer;
+    }
+    .exp {
+        margin:15px 0px;
+        line-height: 25px;
+    }
+    .timer-list {
+        width:60%;
+        margin-top: 25px;
+        border-top: 1px solid #ccc;
+        padding: 10px;
+    }
+    .exp li{
+        list-style-type:none;
+        border-bottom: 1px solid #ccc;
+        margin: 10px 0px 15px 0px;
+    }
+    .close_exp {
+        color: red;
+        font-weight: normal;
+        display: inline;
+        cursor:pointer;
+        font-size: 12px;
+        float: right;
+        width: 30px;
+    }
+    .add-free{
+        border:1px solid #ccc;
+        margin-bottom: 5px;
+        font-weight: normal;
+        display: inline-block;
+        cursor:pointer;
+        font-size: 12px;
+        float: right;
+        border-radius: 2px;
+        width: 60px;
+        text-align: center;
+    }
+    .info-secs {
+        display: inline-block;
+        float: right;
+        margin-right: 50%;
+    }
+    .info-notice {display: inline-block; color: red;}
+
+    .btn_button {
+        margin-left: 310px;
+        margin-top: 30px;
+    }
+
+    .btn_next {
+        margin-left: 360px;
+        margin-top: 20px;
+    }
+
+    .btn_add {
+        margin-left: 360px;
+        margin-top: 10px;
+    }
+</style>
+
+<div class="control-bar">
+    <h3><a href="__ROOTHOME__/Set/menu">返回</a>   菜单管理</h3>
+</div>
+
+<div class="data-container">
+    <div style="margin:auto;width: 50%;padding: 25px;">
+        <div class="remodal-body">
+            <form class="modalForm" enctype="multipart/form-data">
+
+                <input type="hidden" name="id" value="<?php echo $list['id'];?>">
+
+                <div class="form-control">
+                    <label>顶级菜单名</label>
+                    <select type="text" name="pid"  >
+                       <option value="0">--顶级菜单--</option>
+                        <?php
+                            $pid = isset($list['pid'])?$list['pid']:0;
+
+                            foreach($menuNameArr as $m){
+                                $selected = '';
+                                if($pid == $m['id']) $selected = 'selected';
+                                echo '<option value="' . $m['id'] . '" ' . $selected . '>' . $m['menu_name'] . '</option>';
+                            }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-control">
+                    <label>菜单名</label>
+                    <input type="text" name="menu_name" value="<?php echo $list['menu_name'];?>" >
+                </div>
+                <div class="form-control control-label">
+                    <label>访问地址</label>
+                     <input type="text" name="menu_file" value="<?php echo $list['menu_file'];?>" >
+                </div>
+                <div class="form-control" >
+                    <label>简介</label>
+                    <textarea name="menu_summary"
+                              style="width: 300px;height: 100px;margin-top: 10px">
+                        <?php echo $list['menu_summary'];?>
+                </textarea>
+                </div>
+
+
+
+                <a href="javascript:;" class="remodal-confirm btn btn_button">确认</a>
+
+        </form>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+
+    $(function () {
+
+        //添加、修改明星信息
+        $(".remodal-confirm").click(function () {
+            var id = $.trim($("input[name='id']").val());
+            var starname = $.trim($("input[name='starname']").val());
+
+            var from = $(".modalForm").serializeArray();
+
+            if (id.length > 0) {
+                var url = "__ROOTHOME__/Set/editMenu";
+                var data = from;
+            } else {
+                var url = "__ROOTHOME__/Set/addMenu";
+                var data = from;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                dataType: "json",
+                data: data,
+                success: function(msg){
+                    if(msg.code == 0) {
+                        layer.msg(msg.message, {time: 2000});
+                        window.setTimeout(
+                            'window.location = "__ROOTHOME__/Set/menu"',
+                            2000
+                        );
+                    }else if(msg.code == -2){
+                        layer.msg(msg.message);
+                    }else{
+                        layer.msg('失败！');
+                    }
+
+                }
+            });
+        });
+    });
+
+</script>
+
+<include file="public:footer" />

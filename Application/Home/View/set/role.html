@@ -1,0 +1,195 @@
+<include file="public:top_menu" />
+<script src="__JS__/vendor/jquery.datetimepicker.js" data-main="__JS__/common"></script>
+
+<script src="__JS__/vendor/layer.js?version=1498546138669" data-main="__JS__/common"></script>
+
+<style>
+    .form-control label {
+        width: 120px;
+        display: inline-block;
+        text-align: right;
+        padding: 10px 10px;
+    }
+    .mybtn{
+        display: inline-block;
+        width: 40px;
+        border:1px solid #CCCCCC;
+        border-radius: 4px;
+        height: 30px;
+        line-height: 30px;
+        cursor: pointer;
+    }
+    .exp {
+        margin:15px 0px;
+        line-height: 25px;
+    }
+    .timer-list {
+        width:60%;
+        margin-top: 25px;
+        border-top: 1px solid #ccc;
+        padding: 10px;
+    }
+    .exp li{
+        list-style-type:none;
+        border-bottom: 1px solid #ccc;
+        margin: 10px 0px 15px 0px;
+    }
+    .close_exp {
+        color: red;
+        font-weight: normal;
+        display: inline;
+        cursor:pointer;
+        font-size: 12px;
+        float: right;
+        width: 30px;
+    }
+    .add-free{
+        border:1px solid #ccc;
+        margin-bottom: 5px;
+        font-weight: normal;
+        display: inline-block;
+        cursor:pointer;
+        font-size: 12px;
+        float: right;
+        border-radius: 2px;
+        width: 60px;
+        text-align: center;
+    }
+    .info-secs {
+        display: inline-block;
+        float: right;
+        margin-right: 50%;
+    }
+    .info-notice {display: inline-block; color: red;}
+
+    .btn_button {
+        margin-left: 310px;
+        margin-top: 30px;
+    }
+
+    .btn_next {
+        margin-left: 360px;
+        margin-top: 20px;
+    }
+
+    .btn_add {
+        margin-left: 360px;
+        margin-top: 10px;
+    }
+
+    .appoint_div input {
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    .menu-right  a{
+        display: inline-block;
+        margin: 1px;
+        border-right: 2px solid; border-bottom: 2px solid;
+        width: 10px;
+        height: 10px;
+        color: #800061;
+        background:#FFFFFF;
+        transform: rotate(-45deg);
+    }
+
+    .menu-left {
+        display: inline-block;
+        margin: 1px;
+        border-right: 2px solid; border-bottom: 2px solid;
+        width: 13px; height: 13px;
+        color: #1da708;
+        transform: rotate(90deg);
+    }
+
+    .menu-down a{
+        display: inline-block;
+        margin: 1px;
+        border-right: 2px solid; border-bottom: 2px solid;
+        width: 10px; height: 10px;
+        color: #080808;
+        transform: rotate(45deg);
+    }
+
+
+
+</style>
+
+<div class="control-bar">
+    <h3> <a href="javascript:;"  class="J_showAdd btn" >添加</a> </h3>
+</div>
+
+<div class="data-container version-log-list">
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>账号</th>
+            <th>所需分组</th>
+            <th>描述</th>
+            <th>权限</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="pagination"></div>
+</div>
+
+
+<div data-remodal-id="addUserModal" class="remodal addUserModal">
+    <div class="remodal-head">
+        <div class="remodal-title">分组设置</div>
+        <div data-remodal-action="cancel" class="remodal-close"></div>
+    </div>
+    <div class="remodal-body">
+        <form class="modalForm" enctype="multipart/form-data">
+            <div class="form-control">
+                <label>账户</label>
+                <input  id = "admin_name"  type="hidden" value="" style=" border:none">
+                <select name="admin_id" style="width: 100px;margin-right: 200px">
+                    <option value="0">-请选择-</option>
+                    <?php foreach($userRow as $u) { ?>
+                        <option value="{$u['id']}">{$u['uname']}</option>
+                    <?php } ?>
+                </select>
+            </div>
+
+            <div class="form-control">
+            </div>
+            <div class="form-control">
+                <label>所需分组</label>
+                </br>
+
+                <span class="appoint_div">
+                    <?php  foreach($groupRow as $m){ ?>
+                        <em data-id="{$m['id']}" data-name="{$m['group_name']}" >
+                            <input  name="group_id" type="radio" value="{$m['id']}">
+                        </em>
+                        <b class="menu-right" > {$m['group_name']} </b>
+                    <?php  } ?>
+                </span>
+            </div>
+
+        </form>
+    </div>
+    <div class="remodal-footer">
+        <a href="javascript:;"  class="remodal-confirm">确认</a>
+    </div>
+</div>
+
+
+</div>
+<script src="__JS__/vendor/require.js" data-main="__JS__/common"></script>
+<script type="text/javascript">
+
+    var rootHome = "__ROOTHOME__";
+
+    require(['common'], function () {
+        require(['page/role']);
+    });
+
+</script>
+
+<include file="public:footer" />

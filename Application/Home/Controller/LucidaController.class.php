@@ -10,8 +10,7 @@ use Think\Controller;
  * Class LucidaController
  * @package Home\Controller
  */
-class LucidaController extends CTController
-{
+class LucidaController extends CTController{
     //软删除    0上线 1下线 2软删除
     const DELETE_ONLINE = 0;
     const DELETE_OFF = 1;
@@ -38,6 +37,7 @@ class LucidaController extends CTController
 
     //模板显示
     public function listing(){
+        $this->errorAddress();//权限
 
        $this->display('lucida/listing');
 
@@ -130,9 +130,10 @@ class LucidaController extends CTController
 
         //基数是 10000;
         $code = 10000;
+        $dbName = C('DB_NAME');
 
         $AutoIdArr = $model->
-        query('SELECT Auto_increment as autoId FROM information_schema.`TABLES` WHERE TABLE_NAME = \'star_starbrief\' AND TABLE_SCHEMA = \'star\' limit 1');
+        query('SELECT Auto_increment as autoId FROM information_schema.`TABLES` WHERE TABLE_NAME = \'star_starbrief\' AND TABLE_SCHEMA = \'' . $dbName . '\' limit 1');
         $Auto = implode('',array_column($AutoIdArr,'autoId'));
 
         $AutoId = isset($Auto)?$Auto:1;
@@ -706,6 +707,7 @@ class LucidaController extends CTController
             'message' => 'success',
         );
 
+        $cgiModel = new \Home\Model\cgiModel($id);
 
         return $this->ajaxReturn($return);
     }

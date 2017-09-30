@@ -54,8 +54,9 @@ class MemberController extends Controller
         $this->ajaxReturn($data);
     }
 
-    public function getlistall()
-    {
+    public function getlistall(){
+        $map = array();
+
         $member_info = M('member_info');
         $list = $member_info->where($map)->select();//获取分页数据
         foreach ($list as $key => $value) {
@@ -121,9 +122,10 @@ class MemberController extends Controller
 //        }
 
         $mark = 100000;
+        $dbName = C('DB_NAME');
 
         $AutoIdArr = $member_info->
-        query('SELECT Auto_increment as autoId FROM information_schema.`TABLES` WHERE TABLE_NAME = \'member_info\' AND TABLE_SCHEMA = \'star\' limit 1');
+        query('SELECT Auto_increment as autoId FROM information_schema.`TABLES` WHERE TABLE_NAME = \'member_info\' AND TABLE_SCHEMA = \'' . $dbName . '\' limit 1');
         $Auto = implode('',array_column($AutoIdArr,'autoId'));
 
         $AutoId = isset($Auto)?$Auto:1;

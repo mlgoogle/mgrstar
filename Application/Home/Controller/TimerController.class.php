@@ -26,12 +26,15 @@ class TimerController extends CTController
 
     //模板显示
     public function timer(){
+        $this->errorAddress();//权限
 
         $this->display('timer/listing');
     }
 
     //分配
     public function distribute(){
+        $this->errorAddress();//权限
+
         $this->display('timer/distribute');
     }
 

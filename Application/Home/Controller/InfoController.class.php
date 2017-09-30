@@ -28,8 +28,9 @@ class InfoController extends CTController
     }
 
     //模板显示
-    public function listing()
-    {
+    public function listing(){
+        $this->errorAddress();//权限
+
         $this->display('info/listing');
     }
 
